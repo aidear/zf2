@@ -1,0 +1,26 @@
+<?php
+$form = $this->form;
+?>
+<div class="box">
+    <div class="box-header">
+        <h2><i class="icon-box"></i>密码修改</h2>
+    </div>
+    <div class="box-content">
+    		<?php if($this->msg):?>
+    		<?php foreach($this->msg as $msg):?>
+    		 <div class="help-block"><i class="icon-warning-sign"></i><?php echo $msg;?></div>
+    		 <?php endforeach;?>
+    		<?php endif;?>
+    
+		<?php $this->partial('back-end/default/message.phtml');?>
+        <form class="box-form" action="<?php echo $this->url('backend' , array('controller' => 'user' , 'action' => 'pwd'))?>"
+              method="post">
+            <fieldset>
+                <?php echo $this->formPassword($form->get('oldPassword'))?>
+                <?php echo $this->formPassword($form->get('newPassword'))?>
+                <?php echo $this->formPassword($form->get('reNewPassword'))?>
+                <?php echo $this->formSubmit($form->get('submit') , '提交')?>
+            </fieldset>
+        </form>
+    </div>
+</div>

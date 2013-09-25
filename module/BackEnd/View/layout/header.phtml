@@ -1,0 +1,33 @@
+<div class="header">
+	<div class="logo lf"><a href="/" target="_self"><span class="invisible">ECMS V1.0内容管理系统</span></a></div>
+    <div class="rt">
+    	<div class="tab_style white cut_line text-r"><!-- <a href="javascript:;" onclick="lock_screen()"><img src="/images/BackEnd/icon/lockscreen.png"> 锁屏</a><span>|</span><a href="http://www.phpcms.cn" target="_blank">官方网站</a><span>|</span><a href="http://www.phpcms.cn/license/license.php" target="_blank">授权</a><span>|</span><a href="http://bbs.phpcms.cn" target="_blank">支持论坛</a><span>|</span><a href="http://v9.help.phpcms.cn" target="_blank">帮助？</a> -->
+        </div>
+        <div class="style_but"></div>
+    </div>
+    <div class="col-auto" style="overflow: visible">
+    	<div class="log white cut_line">您好！<?php echo $_SESSION['user']['Name'];?>  [<?php echo '角色组：',$_SESSION['user']['Role'];?>]<span>|</span><a href="<?php echo $this->url('backend' , array('controller' => 'login' , 'action' => 'logout'));?>">[退出]</a><span>|</span><a href="<?php echo $this->url('backend' , array('controller' => 'user' , 'action' => 'pwd'));?>">[修改密码]</a><span>|</span>
+    		<a href="<?php echo __SHOP_URL;?>" target="_blank" id="site_homepage">站点首页</a><!-- <span>|</span>
+    		<a href="?m=member" target="_blank">会员中心</a><span>|</span>
+    		<a href="?m=search" target="_blank" id="site_search">全站搜索</a> -->
+    	</div>
+        <ul class="nav white" id="top_menu">
+        <?php $prevDepth = 0;foreach($this->container as $k => $page):?>
+        <?php if (0 == $page->depth):?>
+        <li id="_M<?php echo $k;?>" class="top_menu<?php echo $k==0 ? ' on': '';?>"><a href="javascript:_M(<?php echo $k;?>,'#');"  hidefocus="true" style="outline:none;"><?php echo $page->label;?></a></li>
+        <?php endif;?>
+        <?php endforeach;?>
+        <!-- 
+        <li id="_M10" class="on top_menu"><a href="javascript:_M(10,'#');" hidefocus="true" style="outline:none;">我的面板</a></li>
+        <li id="_M1" class="top_menu"><a href="javascript:_M(1,'#');"  hidefocus="true" style="outline:none;">设置</a></li>
+        <li id="_M2" class="top_menu"><a href="#"  hidefocus="true" style="outline:none;">模块</a></li>
+        <li id="_M4" class="top_menu"><a href="#"  hidefocus="true" style="outline:none;">内容</a></li>
+        <li id="_M5" class="top_menu"><a href="#"  hidefocus="true" style="outline:none;">用户</a></li>
+        <li id="_M6" class="top_menu"><a href="#"  hidefocus="true" style="outline:none;">界面</a></li>
+        <li id="_M7" class="top_menu"><a href="#"  hidefocus="true" style="outline:none;">扩展</a></li>
+        <li id="_M8" class="top_menu"><a href="#"  hidefocus="true" style="outline:none;">phpsso</a></li>     
+        <li class="tab_web"><a href="javascript:;"><span>默认站点</span></a></li>
+         -->
+        </ul>
+    </div>
+</div><?php print_r($this->translate('Invalid type given. String, integer or float expected'));?>

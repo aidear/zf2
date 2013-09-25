@@ -1,0 +1,50 @@
+<div class="box">
+    <div class="box-header">
+        <h2><i class="icon-box"></i>资源列表</h2>
+    </div>
+    
+    <div class="box-content">
+    <p>
+     <a class="btn btn-success" href="<?php echo $this->url('backend' 
+         , array('controller' => 'resource' , 'action' => 'updateResource'));?>">
+        <i class="icon-plus"></i>更新资源</a></p>
+        <table class="table">
+            <thead>
+                <tr class="row">
+                    <th>资源名</th>
+                    <th>控制器名</th>
+                    <th>控制器别名</th>
+                    <th>动作名</th>
+                    <th>动作别名</th>
+                    <th>添加时间</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php if(count($this->paginaction) > 0):?>
+                <?php foreach($this->paginaction as $resource):?>
+                <tr>
+                    <td><?php echo $resource->Name?></td>
+                    <td><?php echo $resource->Controller?></td>
+                    <td><?php echo $resource->ControllerName?></td>
+                    <td><?php echo $resource->Action?></td>
+                    <td><?php echo $resource->ActionName?></td>
+                    <td><?php echo $resource->AddTime?></td>
+                    <td>
+                        <a class="btn btn-edit" href="<?php echo $this->url('backend' , array('controller' => 'resource' 
+                            , 'action' => 'save'))?>?id=<?php echo $resource->ResourceID?>"><i class="icon-edit"></i>
+                            设置别名</a>
+                            <?php /*
+                        <a class="btn btn-delete" href="<?php echo $this->url('backend' , array('controller' => 'resource' 
+                            , 'action' => 'delete'))?>?name=<?php echo $resource->Name?>"><i class="icon-delete"></i>
+                            删除</a>
+                            */?>
+                    </td>
+                </tr>
+                <?php endforeach;?>
+                <?php endif;?>
+            </tbody>
+        </table>
+        <?php echo $this->paginationControl($this->paginaction,'Sliding','layout/pagination' , array('link' => $this->url('backend' , array('controller' => 'resource' , 'action' => 'index'))));?>
+    </div>
+</div>

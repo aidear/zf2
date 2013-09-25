@@ -1,0 +1,35 @@
+
+<?php echo $this->doctype(); ?>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+
+        <?php echo $this->headMeta()->appendName('viewport', 'width=device-width, initial-scale=1.0') ?>
+
+        <!-- Le styles -->
+        <?php 
+            echo $this->headlink(
+                            array(
+                                'rel' => 'shortcut icon', 
+                                'type' => 'image/vnd.microsoft.icon', 
+                                'href' => $this->basePath() . '/img/favicon.ico'
+                            )
+                      );
+            echo $this->headlink(
+            		array(
+            				'rel' => 'stylesheet',
+            				'type' => 'text/css',
+            				'href' => $this->basePath() . '/styles/BackEnd/User_Login.css'
+            		)
+            )
+        ?>
+        <!-- Scripts -->
+        <?php echo $this->headScript() ?>
+        
+    </head>
+<BODY id=userlogin_body>
+        <?php echo $this->content; ?>
+    </body>
+</html>
+

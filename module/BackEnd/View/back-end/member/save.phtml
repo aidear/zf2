@@ -1,0 +1,96 @@
+<?php
+$this->headScript()->appendFile($this->basePath('js/jquery-ui-1.10.2.custom.min.js'))
+->appendFile($this->basePath('js/jquery.cleditor.min.js'))
+->appendFile($this->basePath('js/jquery.ui.datepicker-zh-CN.js'));
+$this->headLink()->appendStylesheet($this->basePath('styles/jquery-ui-1.10.2.custom.min.css'))
+->appendStylesheet($this->basePath('styles/jquery.cleditor.css'));
+$form = $this->form;
+$msg = $this->flashMessages();
+?>
+<div class="box">
+    <div class="box-header">
+        <h2><i class="icon-box"></i>会员资料</h2>
+    </div>
+    <div class="box-content">
+	   <?php if(!empty($msg['error'])):?>
+            <div class="alert alert-error fade in">
+            <button class="close" data-dismiss="alert" type="button">×</button>
+            <?php foreach($msg['error'] as $v):?>
+            <p><?php echo $v;?></p>
+            <?php endforeach;?>
+            </div>
+            <?php endif;?>
+            
+            <?php if(!empty($msg['success'])):?>
+            <div class="alert alert-success fade in">
+            <button class="close" data-dismiss="alert" type="button">×</button>
+            <?php foreach($msg['success'] as $v):?>
+            <p><?php echo $v;?></p>
+            <?php endforeach;?>
+            </div>
+            <?php endif;?>
+        <form class="box-form" action="<?php echo $this->url('backend' , array('controller' => 'member' , 'action' => 'save'))?>"
+              method="post" enctype="multipart/form-data">
+            <fieldset>
+            	<?php echo $this->formHidden($form->get('UserID'))?>
+                <?php echo $this->formText($form->get('UserName'))?>
+                <?php //echo $this->formText($form->get('Password'))?>
+                <?php echo $this->formText($form->get('Nick'))?>
+                <div class="input-gourp">
+				<img height="150px" src="<?php echo $form->get('ImgUrl')->getValue();?>" />
+				</div>
+                <?php echo $this->formFile($form->get('ImgUrl'))?>
+                <?php echo $this->formText($form->get('Email'))?>
+                <?php echo $this->formText($form->get('Mobile'))?>
+                <?php echo $this->formText($form->get('Tel'))?>
+                <?php echo $this->formText($form->get('Points'))?>
+                <?php echo $this->formSelect($form->get('Gender'))?>
+                <?php echo $this->formSelect($form->get('Province'))?>
+                <?php echo $this->formSelect($form->get('City'))?>
+                <?php echo $this->formSelect($form->get('District'))?>
+                <?php echo $this->formText($form->get('Address'))?>
+                <?php echo $this->formText($form->get('Birthday'))?>
+                <?php echo $this->formText($form->get('QQ'))?>
+                <?php echo $this->formText($form->get('MSN'))?>
+                <?php echo $this->formSelect($form->get('Status'))?>
+                <?php echo $this->formHidden($form->get('Source'));?>
+                <?php echo $this->formSubmit($form->get('submit') , '提交')?>
+            </fieldset>
+        </form>
+    </div>
+</div>
+<script>
+$(function() {
+	$("select[name='Province']").change(function() {
+		$v = $(this).val();
+		$.ajax({
+			type: "POST",
+			url : "/ajax/region?p="+$v,
+			dataType :"json",
+			success: function(s){
+				var html = '<option >===请选择城市===</option>';
+				for(var o in s) {
+					html += "<option value='"+s[o].region_id+"'>"+s[o].region_name+"</option>";
+				}
+				$("select[name='City']").html(html);
+			}
+		});
+	});
+	$("select[name='City']").change(function() {
+		$v = $(this).val();
+		$.ajax({
+			type: "POST",
+			url : "/ajax/region?p="+$v,
+			dataType :"json",
+			success: function(s){
+				var html = '<option >===请选择区域===</option>';
+				for(var o in s) {
+					html += "<option value='"+s[o].region_id+"'>"+s[o].region_name+"</option>";
+				}
+				$("select[name='District']").html(html);
+			}
+		});
+	});
+	$("input[name='Birthday']").datepicker();
+})
+</script>

@@ -1,0 +1,139 @@
+<?php echo $this->doctype(); ?>
+
+<html lang="zh_CN" class="off">
+    <head>
+        <meta charset="utf-8">
+        <?php echo $this->headTitle(); ?>
+<?php echo $this->headMeta()->appendName('viewport', 'width=device-width, initial-scale=1.0') ?>
+
+        <!-- Le styles -->
+        <?php 
+            echo $this->headLink(
+                            array(
+                                'rel' => 'shortcut icon', 
+                                'type' => 'image/vnd.microsoft.icon', 
+                                'href' => $this->basePath() . '/img/favicon.ico'
+                            )
+                      )
+                      ->prependStylesheet($this->basePath() . '/styles/BackEnd/reset.css')
+                      ->prependStylesheet($this->basePath() . '/styles/BackEnd/system.css');
+        ?>
+        
+        <?php
+        echo $this->headScript()->prependFile($this->basePath('js/BackEnd/comm.js'))
+            ->prependFile($this->basePath('js/jquery.min.js'));
+       ?>
+</head>
+<body scroll="no">
+<?php echo $this->mynavigation('backendNav')->menu()->setPartial('layout/header.phtml');?>
+<?php //print $this->partial('layout/header.phtml'); ?>
+<div id="content">
+<?php echo $this->mynavigation('backendNav')->menu()->setPartial('layout/leftSideBar.phtml');
+       //echo $this->partial('layout/leftSideBar.phtml'); ?>
+       	 <div class="crumbs"></div>
+        <!-- <div class="crumbs">
+            <div class="shortcut cu-span">
+            	<a href="#" target="right"><span>生成首页</span></a>
+                <a href="?m=admin&c=cache_all&a=init" target="right"><span>更新缓存</span></a>
+                <a href="#"><span>后台地图</span></a></div>
+        	当前位置：<span id="current_pos"></span></div> -->
+            <div class="col-1">
+            	<div id="rightMain">
+                	<?php echo $this->content;?>
+                    <!-- <iframe name="right" id="rightMain" src="index.html" frameborder="false" scrolling="auto" style="overflow-x:hidden;border:none; margin-bottom:30px" width="100%" height="auto" allowtransparency="true"></iframe> -->
+ <!--                   <div class="fav-nav">
+                        <div id="panellist"></div>
+                         <div id="paneladd"><a class="panel-add" href="javascript:add_panel();"><em>添加</em></a></div> 
+                    </div>-->
+                 </div>
+            </div>
+</div>
+<script type="text/javascript"> 
+//clientHeight-0; 空白值 iframe自适应高度
+function windowW(){
+	if($(window).width()<980){
+			$('.header').css('width',980+'px');
+			$('#content').css('width',980+'px');
+// 			$('body').attr('scroll','');
+// 			$('body').css('overflow','');
+	}
+}
+windowW();
+$(window).resize(function(){
+	if($(window).width()<980){
+		windowW();
+	}else{
+		$('.header').css('width','auto');
+		$('#content').css('width','auto');
+		//$('body').attr('scroll','no');
+		//$('body').css('overflow','hidden');
+		
+	}
+});
+window.onresize = function(){
+	var clientHeight = document.documentElement.clientHeight;
+	var scrollHeight = document.body.scrollHeight;
+	var heights = clientHeight-150;
+	//$("#rightMain").css("height", heights+"px");
+// 	document.getElementById('rightMain').height = heights;
+	var openClose = $("#rightMain").height()+39;
+	$('.left_menu').css("height", (scrollHeight < clientHeight ? clientHeight : scrollHeight)+"px");
+	//$('.col-1').css('height', document.documentElement.clientHeight+"px");
+	$("#openClose").height(openClose+30);	
+}
+window.onresize();
+
+
+//左侧开关
+$("#openClose").click(function(){
+	if($(this).data('clicknum')==1) {
+		$("html").removeClass("on");
+		$(".left_menu").removeClass("left_menu_on");
+		$(this).removeClass("close");
+		$(this).data('clicknum', 0);
+		$(".col-1").css("margin-left", "150px");
+	} else {
+		$(".left_menu").addClass("left_menu_on");
+		$(this).addClass("close");
+		$("html").addClass("on");
+		$(this).data('clicknum', 1);
+		$(".col-1").css("margin-left", "0");
+	}
+	return false;
+});
+function _M(menuid,targetUrl) {
+	$("#leftMain").load(menuid+".html");
+//	if(menuid!=8) {
+//		$("#leftMain").load("?m=admin&c=index&a=public_menu_left&menuid="+menuid);
+//	} else {
+//		$("#leftMain").load("?m=admin&c=phpsso&a=public_menu_left&menuid="+menuid);
+//	}
+	
+	//$("#rightMain").attr('src', targetUrl);
+	$('.top_menu').removeClass("on");
+	$('#_M'+menuid).addClass("on");
+//	$.get("?m=admin&c=index&a=public_current_pos&menuid="+menuid, function(data){
+//		$("#current_pos").html(data);
+//	});
+	//当点击顶部菜单后，隐藏中间的框架
+	$('#display_center_id').css('display','none');
+	//显示左侧菜单，当点击顶部时，展开左侧
+	$(".left_menu").removeClass("left_menu_on");
+	$("#openClose").removeClass("close");
+	$("html").removeClass("on");
+//	$("#openClose").data('clicknum', 0);
+//	$("#current_pos").data('clicknum', 1);
+}
+function _MP(menuid,targetUrl) {
+	$("#rightMain").attr('src', targetUrl);
+	$('.sub_menu').removeClass("on fb blue");
+	$('#_MP'+menuid).addClass("on fb blue");
+	$.get("current_pos_"+menuid+".html", function(data){
+		$("#current_pos").html(data+'<span id="current_pos_attr"></span>');
+	});
+	$("#current_pos").data('clicknum', 1);
+}
+
+</script>
+</body>
+</html>

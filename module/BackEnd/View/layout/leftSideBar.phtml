@@ -1,0 +1,42 @@
+<div class="col-left left_menu">
+    	<div id="leftMain">
+    	<?php $prevDepth = 0;foreach($this->container as $k => $page):?>
+    	<?php $depth = $page->depth;?>
+    	<?php if (1 == $depth):?>
+    	</ul>
+    	 <h3 class="f14"><span class="switchs cu on" title="<?php echo $page->label;?>"></span><?php echo $page->label;?></h3>
+            <ul>
+        <?php elseif (1 < $depth):?>
+        	<li id="_MP<?php echo $k;?>" class="sub_menu<?php echo $page->isActive ? " on fb blue" : '';?>">
+                	<a href="<?php echo $page->getHref();?>" hidefocus="true" style="outline:none;"><?php echo $page->label;?></a></li>
+        
+        <?php endif;?>
+                
+        <?php $prevDepth = $depth;?>
+        <?php endforeach;?>
+                <!-- <li id="_MP2" class="sub_menu">
+                	<a href="/resource" hidefocus="true" style="outline:none;">资源管理</a></li>
+                <li id="_MP3" class="sub_menu">
+                	<a href="/user" hidefocus="true" style="outline:none;">管理员列表</a></li>
+                <li id="_MP4" class="sub_menu">
+                	<a href="/member" hidefocus="true" style="outline:none;">会员列表</a></li> -->
+            </ul>
+			<script type="text/javascript">
+            $(".switchs").each(function(i){
+                var ul = $(this).parent().next();
+                $(this).click(
+                function(){
+                    if(ul.is(':visible')){
+                        ul.hide();
+                        $(this).removeClass('on');
+                            }else{
+                        ul.show();
+                        $(this).addClass('on');
+                    }
+                })
+            });
+            </script>
+    	
+        </div>
+        <a href="javascript:;" id="openClose" style="outline-style: none; outline-color: invert; outline-width: medium;" hideFocus="hidefocus" class="open" title="展开与关闭"><span class="hidden">展开</span></a>
+    </div>

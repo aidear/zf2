@@ -1,0 +1,12 @@
+<div class="breadcrumb">
+    <ul>
+        <li>
+            <a href="/">主页</a>
+        </li>
+        <?php foreach($this->pages as $page):?>
+        <li>
+            <span class="divider">/</span><a href="<?php echo $page->getHref()?>"><?php echo $page->getLabel()?></a>
+        </li>
+        <?php endforeach;?>
+    </ul>
+</div>

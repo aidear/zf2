@@ -1,0 +1,38 @@
+<div class="box">
+    <div class="box-header">
+        <h2><i class="icon-box"></i>角色列表</h2>
+    </div>
+    <div class="box-content">
+    <p><a class="btn btn-success" href="<?php echo $this
+    ->url('backend' , array('controller' => 'role' , 'action' => 'save'));
+    ?>"><i class="icon-plus"></i>添加角色</a></p>
+        <table class="table">
+        <thead>
+            <tr class="row">
+                <th>角色</th>
+                <th>角色别名</th>
+                <th>添加时间</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach($this->list as $role):?>
+                <tr class="row">
+                    <td><?php echo $role->Name;?></td>
+                    <td><?php echo $role->CnName;?></td>
+                    <td><?php echo $role->AddTime;?></td>
+                    <td>
+                        <a class="btn btn-edit" href="<?php echo $this->url('backend' , array('controller' => 'acl'
+                            , 'action' => 'allow'))?>?role=<?php echo $role->Name?>"><i class="icon-edit"></i>
+                            绑定资源</a>
+                        <a class="btn btn-delete" href="<?php echo $this->url('backend' , array('controller' => 'role'
+                            , 'action' => 'delete'));?>?name=<?php echo $role->Name;?>"?><i class="icon-delete"></i>
+                            删除</a>
+                    </td>
+                </tr>
+            <?php endforeach;?>
+        </tbody>
+        </table>
+        
+    </div>
+</div>
