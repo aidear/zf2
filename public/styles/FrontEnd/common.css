@@ -1,0 +1,7 @@
+@CHARSET "UTF-8";
+.tq div {float:left; height:65px;}
+.tq .weather {margin-left:20px; padding-top:10px;}
+.tq .lunar {margin-left:18px; width:125px; border-left:1px solid #d9d9d9;border-right:1px solid #d9d9d9;}
+.tq .lunar ul {margin-top:10px; color:#656364;}
+.btn_zc a {color:#FFA625;}
+.btn_dl a {color:#369AF1;}
