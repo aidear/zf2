@@ -1,0 +1,40 @@
+<?php if ($this->pageCount > 1): ?>
+<?php 
+    if(strrpos($this->link , '?') === false){
+        $prefix = '?page=';
+    }else{
+        $prefix = '&page=';
+    }
+?>
+<div class="pagination">
+    <ul>
+        <?php if (isset($this->previous)): ?>
+        <li class="prev disabled">
+            <a href="<?php echo $this->link . $prefix . 1;?>">首页</a>
+        </li>
+        <li class="prev disabled">
+            <a href="<?php echo $this->link . $prefix . $this->previous;?>">上一页</a>
+        </li>
+        <?php endif;?>
+        <?php foreach ($this->pagesInRange as $page): ?>
+        <?php if ($page != $this->current): ?>
+            <li><a href="<?php echo $this->link . $prefix . $page;?>"><?php echo $page; ?></a></li>
+            
+        <?php else:?>
+            <li class="active"><a href="#"><?php echo $page; ?></a></li>
+        <?php endif;?>
+        <?php endforeach;?>
+        <?php if (isset($this->next)): ?>
+        <li class="next"><a href="<?php echo $this->link . $prefix . $this->next;?>">下一页</a></li>
+        <li class="next"><a href="<?php echo $this->link . $prefix . $this->pageCount;?>">末页</a></li>
+        <?php endif;?>
+     </ul>
+     <div>
+     <ul>
+         <li>共(<span class="red"><?php echo $this->pageCount?></span>)页</li>
+         <li>(<span class="red"><?php echo $this->totalItemCount?></span>)项</li>
+     </ul>
+</div>
+</div>
+
+<?php endif;?>

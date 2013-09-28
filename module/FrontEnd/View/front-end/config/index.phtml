@@ -1,0 +1,39 @@
+<?php
+$config = $this->config;
+?>
+<div class="box">
+    <div class="box-header">
+        <h2><i class="icon-box"></i>基本配置</h2>
+    </div>
+    <div class="box-content">
+    <form method="post" action="" enctype= "multipart/form-data"=>
+    <fieldset>
+    <?php foreach($config as $k=>$v) :?>
+         <div class="input-group">
+         	<label for="<?php echo $v->cKey;?>" class="input-label"><?php echo $v->cName;?></label>
+         	<?php if ('text' == $v->cType):?>
+         	<div class="input-item"><input type="text" value="<?php echo $v->cValue;?>" name="<?php echo $v->cKey;?>" class="input-element"></div>
+         	<?php elseif ('select' == $v->cType):?>
+         	<div class="input-item">
+         	<select class="input-element select-element" name="<?php echo $v->cKey;?>">
+         	<?php $select = explode('|', $v->cRange);$selectName = explode('|', $v->cRangeName);?>
+         	<?php foreach($select as $key=>$val):?>
+         	<option value="<?php echo $val;?>" <?php echo $v->cValue==$val ? "selected=selected" : '';?>><?php echo $selectName[$key];?></option>
+         	<?php endforeach;?>
+			</select>
+         	</div>
+         	<?php elseif ('file' == $v->cType):?>
+         	<div class="input-item"><input type="file" value="<?php echo $v->cValue;?>" name="<?php echo $v->cKey;?>" class="input-element"></div>
+         	<?php if (!empty($v->cValue)):?>
+         	<div class="input-item" style="margin-top: 6px;">
+				<img  src="<?php echo $v->cValue;?>" />
+				</div>
+         	<?php endif;?>
+         	<?php endif;?>
+         </div>
+    <?php endforeach;?>
+    <div class="button-group"><input type="submit" value="提交保存" name="submit" class="button-element"></div>
+    </fieldset>
+    </form>
+    </div>
+</div>

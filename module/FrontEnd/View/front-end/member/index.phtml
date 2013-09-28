@@ -1,0 +1,63 @@
+<div class="box">
+    <div class="box-header">
+        <h2><i class="icon-box"></i>会员列表</h2>
+    </div>
+    <div class="box-content">
+        <p><a class="btn btn-success" href="<?php echo $this->url('backend' 
+            , array('controller' => 'member' , 'action' => 'save'))?>">
+        <i class="icon-plus"></i>新增会员</a></p>
+        <form class="form-inline" action="<?php echo $this->url('backend', array('controller' 
+            => 'member', 'action' => 'index')); ?>" method="get">
+                <div class="input-group">
+                    <label>搜索用户</label>
+                    <input class="input-element span3" name="username" type="text">
+                    
+                <button class="button-element" type="submit">搜索</button>
+                </div>
+        </form>
+        <table class="table">
+            <thead>
+                <tr class="row">
+                    <th>用户名</th>
+                    <th>邮箱</th>
+                    <th>手机</th>
+                    <th>昵称</th>
+                    <th>积分</th>
+                    <th>最后登录时间</th>
+                    <th>登录次数</th>
+                    <th>最后修改时间</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($this->paginaction as $user): ?>
+                    <tr class="row">
+                        <td><?php echo $user->UserName; ?></td>
+                        <td><?php echo $user->Email; ?></td>
+                        <td><?php echo $user->Mobile; ?></td>
+                        <td><?php echo $user->Nick; ?></td>
+                        <td><?php echo $user->Points; ?></td>
+                        <td><?php echo $user->LastLogin; ?></td>
+                        <td><?php echo $user->LoginCount; ?></td>
+                        <td><?php echo $user->LastUpdate; ?></td>
+                        <td>
+                            <a class="btn btn-edit" href="<?php echo $this->url('backend', array('controller' 
+                                => 'member', 'action' => 'save')) ?>?id=<?php echo $user->UserID; ?>">
+                                <i class="icon-edit"></i>编辑
+                            </a>&nbsp;&nbsp;
+                            <a class="btn btn-edit" href="<?php echo $this->url('backend', array('controller' 
+                                => 'member', 'action' => 'pwd')) ?>?id=<?php echo $user->UserID; ?>">
+                                <i class="icon-edit"></i>设置密码
+                            </a>&nbsp;&nbsp;
+                            <a class="btn btn-delete" href="<?php echo $this->url('backend', array('controller' 
+                                => 'user', 'action' => 'delete')) ?>?id=<?php echo $user->UserID; ?>" onClick="diyConfirm('删除' , $(this).attr('href'));return false;"><i class="icon-delete"></i>删除
+                            </a>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+        <?php echo $this->paginationControl($this->paginaction,'Sliding','layout/pagination' , array('link' 
+            => $this->url('backend' , array('controller' => 'user' , 'action' => 'index'))));?>
+    </div>
+</div>

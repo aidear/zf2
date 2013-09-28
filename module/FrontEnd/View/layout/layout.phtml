@@ -1,0 +1,130 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<?php echo $this->headTitle(); ?>
+<?php 
+            echo $this->headLink()->prependStylesheet($this->basePath() . '/styles/FrontEnd/style.css')
+            ->prependStylesheet($this->basePath() . '/styles/FrontEnd/common.css');
+        ?>
+        
+        <?php
+        echo $this->headScript()->prependFile($this->basePath('js/FrontEnd/comm.js'))
+            ->prependFile($this->basePath('js/jquery.min.js'));
+       ?>
+</head>
+
+<body>
+<?php echo $this->partial('layout/header.phtml');?>
+<?php 
+use Custom\Util\Lunar;
+
+?>
+<div class="wrap">
+
+<div class="top">
+<div class="logo"><a href="/"><img src="/images/FrontEnd/logo.jpg" width="147" height="98" /></a></div> 
+<div class="tq">
+	<div class="weather"><script type="text/javascript" src="http://ext.weather.com.cn/49388.js"></script><!-- <img src="/images/FrontEnd/tq.jpg" width="572" height="65" /> --></div>
+	<div class="lunar">
+	<ul>
+		<li><span><?php echo date("n月d日");$weekarray=array("日","一","二","三","四","五","六");  
+echo "周".$weekarray[date("w")]; ?></span></li>
+		<li style="margin-top:8px;"><?php $today = date("Y-m-d");
+		$lunar = new Lunar();
+		$nl = $lunar->S2L($today);
+		echo $nl;?></li>
+	</ul></div>
+</div>
+<div class="btn">
+<div class="btn_zc"><a href="/register">免费注册</a></div>
+<div class="btn_dl"> <a href="/login">请 登 录</a></div>
+</div>
+</div>
+
+<div class="search">
+    <div class="drop_down">
+    <div class="drop_down_logo"><img src="/images/FrontEnd/zongh.jpg" width="88" height="26" /></div><div class="drop"><a href="#"><img src="/images/FrontEnd/btn_jj.jpg" width="20" height="19" /></a></div>
+    </div>
+	<div id="Tab1">
+         <div class="Menubox1">
+           <ul>
+            <li class="hover" date-tab="site">网页</li>
+            <li date-tab="news">新闻</li>
+            <li date-tab="video">视频</li>
+            <li date-tab="image">图片</li>
+            <li date-tab="music">音乐</li>
+            <li date-tab="map">地图</li>
+            <li date-tab="zhidao">问答</li>
+            <li date-tab="shopping">购物</li>
+            <li date-tab="fly">机票</li>
+            <li date-tab="auto">汽车</li>
+          </ul>
+          </div>
+   <div class="Contentbox1"> 
+           <div id="con_menu_1" class="hover">
+               <div class="search_bg">
+                   <div class="search_input">
+                     <form id="form1" name="form1" method="post" action="/engine_search" target="_blank">
+                       <p>
+                         <label for="search_in"></label>
+                         <input name="word" type="text" id="search_in" value="输入关键字" />
+                         <input type="hidden" name="engine" value="baidu_web" />
+                         <input type="hidden" name="tab"  value="site" />
+                       </p>
+                     </form>
+                   </div>
+                   
+               </div>
+            <div class="search_btn"><a href="javascript:;" id="btn_baidu"><img src="/images/FrontEnd/btn_baidu.jpg" width="90" height="39" /></a><a href="javascript:;" id="btn_google"><img src="/images/FrontEnd/btn_google.jpg" width="90" height="39" /></a></div>
+            <div class="search_btn"></div>
+
+       </div>
+    
+   </div>
+  </div>
+
+</div>
+
+
+<div id="Tab2">
+  <div class="Menubox2">
+    <ul>
+      <li  class="hover">首 页</li>
+      <li >珍藏页</li>
+      <li >分类页</li>
+    </ul>
+  </div>
+  <div class="Contentbox2"> 
+    <div id="con_men_1" class="hover">
+        
+        <div class="list"><span class="yi"></span></span><li>凡客</li><li>天猫</li></div>
+        
+
+        <div class="list"><span class="shi"></span></span><li>凡客</li><li>天猫</li></div>
+        
+
+        <div class="list"><span class="zhu"></span></span><li>凡客</li><li>天猫</li></div>
+
+
+        <div class="list"><span class="xing"></span></span><li><span><img src="/images/FrontEnd/sina.gif" width="18" height="17" /></span>凡客</li><li>天猫</li></div>
+
+        <div class="list"><span class="jiao"></span></span><li>凡客</li><li>天猫</li></div>
+
+        <div class="list"><span class="yu"></span></span><li>凡客</li><li>天猫</li></div>
+
+        <div class="list"><span class="jian"></span></span><li>凡客</li><li><span><img src="/images/FrontEnd/sina.gif" width="18" height="17" /></span>天猫</li></div>
+
+        <div class="list"><span class="cai"></span></span><li>凡客</li><li>天猫</li></div>
+
+    </div>
+    
+  </div>
+</div>
+
+
+
+</div>
+<?php echo $this->partial('layout/footer.phtml');?>
+</body>
+</html>

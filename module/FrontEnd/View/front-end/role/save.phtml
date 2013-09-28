@@ -1,0 +1,23 @@
+<?php
+$form = $this->form;
+?>
+<div class="box">
+    <div class="box-header">
+        <h2><i class="icon-box"></i>新建角色</h2>
+    </div>
+    
+    <div class="box-content">
+    <?php if($this->msg):?>
+    <?php foreach($this->msg as $msg):?>
+    <div class="input-group error"><p class="help-block"><i class="icon-warning-sign"></i><?php echo $msg;?></p></div>
+    <?php endforeach;?>
+    <?php endif;?>
+        <form class="box-form" action="<?php echo $this->url('backend' , array('controller' => 'role' , 'action' => 'save'));?>"
+            method="post">
+        <?php echo $this->formText($form->get('Name'));echo $this->formElementErrors($form->get('Name'));?>
+        <?php echo $this->formText($form->get('CnName'));?>
+        <?php //echo $this->formText($form->get('ParentName'));?>
+        <?php echo $this->formSubmit($form->get('submit'));?>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,19 @@
+<?php
+$form = $this->form;
+?>
+<div class="box">
+    <div class="box-header">
+        <h2><i class="icon-box"></i>用户资料</h2>
+    </div>
+    <div class="box-content">
+        <form class="box-form" action="<?php echo $this->url('backend' , array('controller' => 'user' , 'action' => 'save'))?>"
+              method="post">
+            <fieldset>
+                <?php echo $this->formText($form->get('UserName'))?>
+                <?php echo $this->formSelect($form->get('Role'))?>
+                <?php echo $this->formHidden($form->get('ID'))?>
+                <?php echo $this->formSubmit($form->get('submit') , '提交')?>
+            </fieldset>
+        </form>
+    </div>
+</div>

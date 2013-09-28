@@ -1,0 +1,27 @@
+<?php
+$form = $this->form;
+$this->headLink()->appendStylesheet($this->basePath('styles/BackEnd/allow.css'))
+?>
+<div class="box">
+    <div class="box-header">
+        <h2><i class="icon-box"></i><?php echo $this->role?>权限管理</h2>
+    </div>
+    
+    <div class="box-content">
+        <form action="<?php echo $this->url('backend' , array('controller' => 'acl' , 'action' => 'allow'));?>" method="post">
+        <?php echo $this->formHidden($form->get('role'))?>
+        <?php if(count($form->get('resources')->getValueOptions()) <= 0):?>
+        <p class="input-group">已拥有所有权限</p>
+        <?php else:?>
+        <?php echo $this->formSelect($form->get('resources'))?>
+        <?php endif;?>
+        
+        <?php if(count($form->get('deresources')->getValueOptions()) <= 0):?>
+        <p class="input-group">没有任何权限</p>
+        <?php else:?>
+        <?php echo $this->formSelect($form->get('deresources'))?>
+        <?php endif;?>
+        <?php echo $this->formSubmit($form->get('submit') , '提交')?>
+        </form>
+    </div>
+</div>

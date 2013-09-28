@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<?php echo $this->headTitle(); ?>
+<?php 
+            echo $this->headLink()->prependStylesheet($this->basePath() . '/styles/FrontEnd/reg.css')
+            ->prependStylesheet($this->basePath() . '/styles/FrontEnd/common.css');
+        ?>
+        
+        <?php
+        echo $this->headScript()->prependFile($this->basePath('js/FrontEnd/comm.js'))
+            ->prependFile($this->basePath('js/jquery.min.js'));
+       ?>
+<style type="text/css">
+body {
+	background-color: #F6F6F6;
+}
+</style>
+</head>
+
+<body>
+<div class="header_bg">
+  <div class="header">
+    <h1><a href="/">欢迎来导航！</a></h1><h2><a href="/login">请登录</a></h2><h3><a href="#">免费注册</a></h3><h4><a href="/">首页</a>|<a href="#">联系我们</a>|<a href="/">网站导航</a></h4></div>
+</div>
+<div class="reg_warp">
+  <div class="top">
+    <div class="logo"><img src="/images/FrontEnd/reg_logo.jpg" width="117" height="76" /></div>    <div class="logo_txt">账号注册</div>
+</div>
+
+<div class="liuc"><img src="images/FrontEnd/liuc_1.jpg" width="905" height="39" /></div>
+
+
+  
+  <ul class="input_test">
+<li>
+<label for="inp_name">会员名：</label>
+  <p><input name="" type="text" class="input_out" id="in_name1" onfocus="this.className='input_on';this.onmouseout=''" onblur="this.className='input_off';this.onmouseout=function(){this.className='input_out'};" onmousemove="this.className='input_move'" onmouseout="this.className='input_out'" /></p>
+ <span><img src="/images/FrontEnd/yes.jpg" width="25" height="26" /></span>
+</li>
+<li>
+<label for="inp_name">登录密码：</label>
+  <p><input name="" type="text" class="input_out" id="in_name2" onfocus="this.className='input_on';this.onmouseout=''" onblur="this.className='input_off';this.onmouseout=function(){this.className='input_out'};" onmousemove="this.className='input_move'" onmouseout="this.className='input_out'" /></p>
+ <span><img src="/images/FrontEnd/yes.jpg" width="25" height="26" /></span><h1>两次密码不一致</h1>
+
+</li>
+<li>
+<label for="inp_name">确认密码：</label>
+  <p><input name="" type="text" class="input_out" id="in_name3" onfocus="this.className='input_on';this.onmouseout=''" onblur="this.className='input_off';this.onmouseout=function(){this.className='input_out'};" onmousemove="this.className='input_move'" onmouseout="this.className='input_out'" /></p>
+ <span><img src="/images/FrontEnd/no.jpg" /></span>
+
+</li>
+<li>
+<label for="inp_name">验证码：</label>
+<p><input name="" type="text" class="input_out1" id="in_email" onfocus="this.className='input_on1';this.onmouseout=''" onblur="this.className='input_off1';this.onmouseout=function(){this.className='input_out1'};" onmousemove="this.className='input_move1'" onmouseout="this.className='input_out1'" /></p>
+<span><img src="/images/FrontEnd/yam.jpg" width="77" height="28" /></span>
+
+</li>
+<li class="btn"><img src="/images/FrontEnd/btn_01.jpg" height="40" /></li>
+<li>
+  <h2><a href="#">《服务协议》</a></h2></li>
+ </ul>
+
+<div class="reg_r">
+  <div class="sj_pic"><img src="/images/FrontEnd/sj_pic.jpg" width="68" height="68" /></div>
+  <div class="sj_txt">手机快速注册</div>
+  <div class="sj_txt">编写短信<span class="cstxt"> “DH”</span> 发送到</div>
+  <div class="sj_txt"><span class="cstxt">123456</span></div>
+</div>
+
+</div>
+<?php echo $this->partial('layout/footer.phtml');?>
+</body>
+</html>

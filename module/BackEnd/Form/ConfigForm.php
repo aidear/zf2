@@ -83,7 +83,7 @@ class ConfigForm extends Form
             'name' => 'cType',
             'options' => array (
                 'label' => '类型',
-            	'value_options' => array('text' => 'text', 'select' => 'select', 'textarea' => 'textarea', 'file' => 'file'),
+            	'value_options' => array('text' => 'text', 'select' => 'select', 'textarea' => 'textarea', 'file' => 'file', 'edit' => 'edit'),
             ) 
         ) );
         $this->add ( array (
