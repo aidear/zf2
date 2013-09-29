@@ -57,7 +57,18 @@ return array(
         								'action' => 'index',
         						)
         				)
-        		),        		
+        		), 
+
+         'captcha' => array(
+        		'type' => 'Zend\Mvc\Router\Http\Literal',
+         		'options' => array(
+         			'route' => '/register-captcha',
+         			'defaults' => array(
+         				'controller' => 'register',
+         				'action' => 'captcha',
+         			)
+         		)					
+         )
         		/*
             'FrontEnd' => array(
                 'type' => 'Segment',

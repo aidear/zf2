@@ -584,7 +584,14 @@ class Image extends AbstractWord
            imageline($img2, mt_rand(0, $w), mt_rand(0, $h), mt_rand(0, $w), mt_rand(0, $h), $textColor);
         }
 
-        imagepng($img2, $imgFile);
+        if($this->_writeInFile){
+        	imagepng($img2, $imgFile);
+        }else{
+        	header("Content-type: image/" . str_replace('.','',$this->getSuffix()));
+        	header ( "Expires: Mon, 26 Jul 1997 05:00:00 GMT" ); // Date in the past
+        	imagepng($img);
+        }
+//         imagepng($img2, $imgFile);
         imagedestroy($img);
         imagedestroy($img2);
     }
@@ -623,5 +630,25 @@ class Image extends AbstractWord
     public function getHelperName()
     {
         return 'captcha/image';
+    }
+    
+    /**
+     * 设置是否将图片写入文件中
+     *
+     * @var bool
+     */
+    protected $_writeInFile = false;
+    /**
+     * 设置是否将图片写入文件中
+     */
+    public function setWriteInFile($writeInFile){
+    	$this->_writeInFile = $writeInFile;
+    	return $this;
+    }
+    /**
+     * @return bool
+     */
+    public function getWriteInFile(){
+    	return $this->_writeInFile;
     }
 }

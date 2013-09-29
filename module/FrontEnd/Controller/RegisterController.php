@@ -43,9 +43,30 @@ use Custom\Util\Utilities;
 
 class RegisterController extends AbstractActionController
 {
-    function indexAction(){
+    function indexAction()
+    {
     	$this->layout('layout/register');
         return array();
     }
-
+	function captchaAction()
+	{
+		$captcha = new \Zend\Captcha\Image(array(
+				'Expiration' => '300',
+				'wordlen' => '4',
+				'Height' => '28',
+				'Width' => '77',
+				'writeInFile'=>false,
+				'Font' => APPLICATION_PATH.'/data/AdobeSongStd-Light.otf',
+				'FontSize' => '24',
+				'DotNoiseLevel' => 10,
+				'ImgDir' => '/images/FrontEnd'
+		));
+		//设置验证码保存路径
+// 		$captcha->setImgDir('D:/www/project/code/public/images/FrontEnd');
+		//生成验证码
+		$imgName = $captcha->generate();
+// 		echo '/images/FrontEnd/'.$imgName.'.png';die;
+		//获取验证码内容且输出
+		//echo $captcha->getWord();
+	}
 }
