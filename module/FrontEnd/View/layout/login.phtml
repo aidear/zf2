@@ -1,0 +1,28 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<?php echo $this->headTitle(); ?>
+<?php 
+            echo $this->headLink()->prependStylesheet($this->basePath() . '/styles/FrontEnd/login.css')
+            ->prependStylesheet($this->basePath() . '/styles/FrontEnd/common.css');
+        ?>
+        
+        <?php
+        echo $this->headScript()->prependFile($this->basePath('js/jquery-validate.min.js'))
+        	->prependFile($this->basePath('js/FrontEnd/comm.js'))
+            ->prependFile($this->basePath('js/jquery.min.js'));
+       ?>
+<style type="text/css">
+body {
+	background-color: #F6F6F6;
+}
+</style>
+</head>
+
+<body>
+<?php echo $this->content;?>
+
+<?php echo $this->partial('layout/footer.phtml');?>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<?php $msg = $this->flashMessages();?>
+<div class="liuc"><img src="/images/FrontEnd/liuc_2.jpg" width="905" height="38" /></div>
+
+
+
+  
+  <ul class="input_test">
+  	<li>
+  	<?php if(!empty($msg['error'])):?>
+            <div class="alert alert-error fade in">
+            <button class="close" data-dismiss="alert" type="button">×</button>
+            <?php foreach($msg['error'] as $v):?>
+            <p><?php echo $v;?></p>
+            <?php endforeach;?>
+            </div>
+            <?php endif;?>
+            
+            <?php if(!empty($msg['success'])):?>
+            <div class="alert alert-success fade in">
+            <button class="close" data-dismiss="alert" type="button">×</button>
+            <?php foreach($msg['success'] as $v):?>
+            <p><?php echo $v;?></p>
+            <?php endforeach;?>
+            </div>
+            <?php endif;?>
+  	</li>
+    <li>
+  <label for="inp_name">邮箱地址：</label>
+      <p><input name="" type="text" class="input_out" id="in_name5" onfocus="this.className='input_on';this.onmouseout=''" onblur="this.className='input_off';this.onmouseout=function(){this.className='input_out'};" onmousemove="this.className='input_move'" onmouseout="this.className='input_out'" /></p>
+      <span><img src="/images/FrontEnd/pic_3.jpg" width="13" height="24" /></span><h1>请输入您的邮箱，方便密码找回</h1>
+      
+</li>
+<li><span><p><input name="is_agree" type="checkbox" value="1"  checked="checked"/>
+　同意导航协议并开通服务</p></span></li> 
+    <li class="btn"><img src="/images/FrontEnd/btn_tj.jpg" height="33" id="agree_btn" ts="0" style="cursor: pointer;"/></li>
+    <li id="curMsg"></li>
+  </ul>
+
+
+<div class="reg_r">
+  <div class="sj_pic"><img src="/images/FrontEnd/sj_pic.jpg" width="68" height="68" /></div>
+  <div class="sj_txt">手机快速注册</div>
+  <div class="sj_txt">编写短信<span class="cstxt"> “DH”</span> 发送到</div>
+  <div class="sj_txt"><span class="cstxt">123456</span></div>
+</div>
+
+<script>
+$(function(){
+	
+	$("#agree_btn").click(function(){
+		if ($(this).attr('ts') == 0) {
+			var email = $.trim($("#in_name5").val());
+			if (email == '') {
+				alert('请输入邮箱地址');
+			} else {
+				if (!$("input[name='is_agree']:checked").attr('checked')) {
+					alert('是否同意导航协议并开通服务？');
+					return false;
+				}
+				var reg = /^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*$/;
+				if (reg.test(email)) {
+					$(this).attr('ts', 1);
+					$("#curMsg").html("<font color:#ff0000;>正在处理中……</font>");
+					$.ajax({
+						type: 'POST',
+						url:'/register-email',
+						data: 'email='+email,
+						dataType:'json',
+						success:function(e) {
+							if (e.code == 0) {
+								location.href=e.url;
+							} else {
+								alert(e.msg);
+							}
+							$("#agree_btn").attr('ts', 0);
+							$("#curMsg").html('');
+						}
+					});
+				} else {
+					alert('验证不通过');
+				}
+			}
+		}
+	});
+})
+</script>

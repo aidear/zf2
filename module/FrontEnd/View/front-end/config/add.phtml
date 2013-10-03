@@ -1,0 +1,25 @@
+<?php
+$form = $this->form;
+$form->setAttribute('action', $this->url('backend' , array('controller' => 'config' , 'action' => 'add')))->prepare();
+?>
+<div class="box">
+    <div class="box-header">
+        <h2><i class="icon-box"></i>增加配置</h2>
+    </div>
+    <div class="box-content">
+        <?php echo  $this->form()->openTag($form);?>
+            <fieldset>
+                <?php echo $this->formText($form->get('cName'))?>
+                <?php echo $this->formSelect($form->get('PID'))?>
+                <?php echo $this->formSelect($form->get('cType'))?>
+                <?php echo $this->formText($form->get('cKey'))?>
+                <?php echo $this->formTextarea($form->get('cRange'))?>
+                <?php echo $this->formTextarea($form->get('cRangeName'))?>
+                <?php echo $this->formTextarea($form->get('summary'))?>
+                <?php echo $this->formText($form->get('sortOrder'))?>
+                <?php echo $this->formSelect($form->get('cShow'))?>
+                <?php echo $this->formSubmit($form->get('submit') , '提交')?>
+            </fieldset>
+        <?php echo  $this->form()->closeTag($form);?>
+    </div>
+</div>

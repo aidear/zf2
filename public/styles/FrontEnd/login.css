@@ -15,14 +15,14 @@ body{min-height:100%;_height:100%;position:relative;	background-color: #F6F6F6;}
 .login_warp{height:auto;width:930px;font-family:"微软雅黑";margin-top:0;margin-right:auto;margin-bottom:0;margin-left:auto;padding-top:130px;}
 .login_warp .login_logo{float:left;height:327px;width:476px;}
 .login_warp .login{background-color:#FFF;float:left;height:325px;width:400px;border:1px solid #CCC;font-family:"微软雅黑";}
-/*input*/.input_on{height:50px;background-image:url(login_on.jpg);width:286px;border:0;background-repeat:no-repeat;float:left;}
-.input_off{height:50px;background-image:url(login_bg.jpg);float:left;width:286px;border:0;background-repeat:no-repeat;}
-.input_move{height:50px;background-image:url(login_on.jpg);float:left;width:286px;border:0;background-repeat:no-repeat;}
-.input_out{height:50px;background-image:url(login_bg.jpg);border:0;float:left;width:286px;background-repeat:no-repeat;}
-.input_on1{height:50px;background-image:url(pass_on.jpg);width:286px;border:0;background-repeat:no-repeat;float:left;}
-.input_off1{height:50px;background-image:url(pass_bg.jpg);float:left;width:286px;border:0;background-repeat:no-repeat;}
-.input_move1{height:50px;background-image:url(pass_on.jpg);float:left;width:286px;border:0;background-repeat:no-repeat;}
-.input_out1{height:50px;background-image:url(pass_bg.jpg);border:0;float:left;width:286px;background-repeat:no-repeat;}
+/*input*/.input_on{height:50px;background-image:url(/images/FrontEnd/login_on.jpg);width:286px;border:0;background-repeat:no-repeat;float:left;}
+.input_off{height:50px;background-image:url(/images/FrontEnd/login_bg.jpg);float:left;width:286px;border:0;background-repeat:no-repeat;}
+.input_move{height:50px;background-image:url(/images/FrontEnd/login_on.jpg);float:left;width:286px;border:0;background-repeat:no-repeat;}
+.input_out{height:50px;background-image:url(/images/FrontEnd/login_bg.jpg);border:0;float:left;width:286px;background-repeat:no-repeat;}
+.input_on1{height:50px;background-image:url(/images/FrontEnd/pass_on.jpg);width:286px;border:0;background-repeat:no-repeat;float:left;}
+.input_off1{height:50px;background-image:url(/images/FrontEnd/pass_bg.jpg);float:left;width:286px;border:0;background-repeat:no-repeat;}
+.input_move1{height:50px;background-image:url(/images/FrontEnd/pass_on.jpg);float:left;width:286px;border:0;background-repeat:no-repeat;}
+.input_out1{height:50px;background-image:url(/images/FrontEnd/pass_bg.jpg);border:0;float:left;width:286px;background-repeat:no-repeat;}
 #inp_name,#inp_email{border:0;width:286px;line-height:50px;padding-left:50px;font-family:"微软雅黑";font-size:14px;font-weight:bold;color:#CCC;}
 /*form*/ul.input_test{width:336px;list-style-type:none;margin-top:20px;float:left;height:auto;display:inline;margin-left:30px;}
 ul.input_test li{width:336px;height:auto;float:left;margin-top:10px;display:inline;text-align:left;font-family:"微软雅黑";font-size:14px;}
@@ -34,5 +34,5 @@ ul.input_test li{width:336px;height:auto;float:left;margin-top:10px;display:inli
 
 .input_test li h2{float:right;height:auto;width:100px;text-align:right;color:#09C;}
 .input_test li h2 a{float:right;height:auto;width:100px;text-align:right;color:#09C;}
-.button1{cursor:hand;width:97px;height:30px;text-align:center;background:#ffffff url(btn_d.jpg) no-repeat center;border-style:none;color:#FFF;font:bold 14px "微软雅黑";float:left;}
+.button1{cursor:hand;width:97px;height:30px;text-align:center;background:#ffffff url(/images/FrontEnd/btn_d.jpg) no-repeat center;border-style:none;color:#FFF;font:bold 14px "微软雅黑";float:left;}
 .foot{background-color:#e8e8e8;float:left;width:100%;line-height:60px;height:60px;font-family:"微软雅黑";font-size:12px;margin-top:15px;position:absolute;bottom:0;}

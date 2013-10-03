@@ -68,7 +68,57 @@ return array(
          				'action' => 'captcha',
          			)
          		)					
-         )
+         ),
+        		'email' => array(
+        				'type' => 'Zend\Mvc\Router\Http\Literal',
+        				'options' => array(
+        						'route' => '/register-email',
+        						'defaults' => array(
+        								'controller' => 'register',
+        								'action' => 'email',
+        						)
+        				)
+        		),   
+        		'regSend' => array(
+        				'type' => 'Zend\Mvc\Router\Http\Literal',
+        				'options' => array(
+        						'route' => '/register-n',
+        						'defaults' => array(
+        								'controller' => 'register',
+        								'action' => 'next',
+        						)
+        				)
+        		),
+        		'regSuc' => array(
+        				'type' => 'Zend\Mvc\Router\Http\Literal',
+        				'options' => array(
+        						'route' => '/register-success',
+        						'defaults' => array(
+        								'controller' => 'register',
+        								'action' => 'success',
+        						)
+        				)
+        		),
+        		'login' => array(
+        				'type' => 'Zend\Mvc\Router\Http\Literal',
+        				'options' => array(
+        						'route' => '/login',
+        						'defaults' => array(
+        								'controller' => 'login',
+        								'action' => 'index',
+        						)
+        				)
+        		),
+        		'logout' => array(
+        				'type' => 'Zend\Mvc\Router\Http\Literal',
+        				'options' => array(
+        						'route' => '/logout',
+        						'defaults' => array(
+        								'controller' => 'login',
+        								'action' => 'logout',
+        						)
+        				)
+        		),
         		/*
             'FrontEnd' => array(
                 'type' => 'Segment',
@@ -96,6 +146,9 @@ return array(
     	'exception_template'  => 'error/index',
         'template_path_stack' => array(
             'admin' => __DIR__ . '/../View',
+        ),
+    	'strategies' => array(
+            'ViewJsonStrategy',
         ),
     ),
 	'translator' => array(

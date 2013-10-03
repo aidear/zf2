@@ -23,11 +23,14 @@ $(function() {
 		$("input[name='tab']").val($(this).attr('date-tab'));
 	});
 	$("#btn_baidu").click(function(){
-		$("input[name='engine']").val('baidu_engine');
+		$("input[name='engine']").val('baidu_web');
 		$("#form1").submit();
 	});
 	$("#btn_google").click(function(){
 		$("input[name='engine']").val('google');
 		$("#form1").submit();
+	});
+	$("button.close").click(function() {
+		$(this).parents('.alert').slideUp();
 	});
 });

@@ -18,7 +18,7 @@ class Module
 		$this->bootstrapSession($e);
 		
 		// Register a render event:Title
-		$eventManager->attach('render', array($this, 'setLayoutTitle'));
+		$eventManager->attach('render', array($this, 'setDefaultView'));
 		
 		
 		$translator = $e->getApplication()->getServiceManager()->get('translator');
@@ -50,7 +50,7 @@ class Module
 	 * @param  \Zend\Mvc\MvcEvent $e The MvcEvent instance
 	 * @return void
 	 */
-	public function setLayoutTitle($e)
+	public function setDefaultView($e)
 	{
 		$matches    = $e->getRouteMatch();
 		$action     = $matches->getParam('action');
@@ -73,9 +73,12 @@ class Module
 		//$headTitleHelper->append($module);
 		$headTitleHelper->append($siteName);
 		
+		$container = new Container('user');
+		
 		$viewModel = $e->getViewModel();
 		$viewModel->setVariables(array(
 				'siteConfg' => $this->siteConfg,
+				'container' => $container,
 		));
 	}
     public function getAutoloaderConfig()

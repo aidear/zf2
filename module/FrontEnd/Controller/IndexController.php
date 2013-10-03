@@ -1,7 +1,7 @@
 <?php
 namespace FrontEnd\Controller;
 
-use Zend\Mvc\Controller\AbstractActionController;
+use Custom\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
 class IndexController extends AbstractActionController
@@ -9,6 +9,8 @@ class IndexController extends AbstractActionController
 	protected $adminTable;
 	public function indexAction()
 	{
+		$container = $this->_getSession();
+		
 		$rs = array('rs' => 'Welcome!');
 // 		return $this->redirect()->toUrl('/login');
 		return new ViewModel($rs);

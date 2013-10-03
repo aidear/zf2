@@ -1,0 +1,59 @@
+<div class="box">
+    <div class="box-header">
+        <h2><i class="icon-box"></i>导航分类</h2>
+    </div>
+    <div class="box-content">
+        <p><a class="btn btn-success" href="<?php echo $this->url('backend' 
+            , array('controller' => 'nav' , 'action' => 'save'))?>">
+        <i class="icon-plus"></i>新增分类</a></p>
+        <form class="form-inline" action="<?php echo $this->url('backend', array('controller' 
+            => 'nav', 'action' => 'category')); ?>" method="get">
+                <div class="input-group">
+                    <label>搜索分类</label>
+                    <input class="input-element span3" name="name" type="text">
+                    
+                <button class="button-element" type="submit">搜索</button>
+                </div>
+        </form>
+        <table class="table">
+            <thead>
+                <tr class="row">
+                    <th>分类ID</th>
+                    <th>分类名称</th>
+                    <th>上级分类</th>
+                    <th>是否显示</th>
+                    <th>排序</th>
+                    <th>添加时间</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($this->paginaction as $nav): ?>
+                    <tr class="row">
+                        <td><?php echo $nav->id; ?></td>
+                        <td><?php echo $nav->name; ?></td>
+                        <td><?php echo $nav->parentID; ?></td>
+                        <td><?php echo $nav->isShow ? '显示' : '不显示'; ?></td>
+                        <td><?php echo $nav->order; ?></td>
+                        <td><?php echo $nav->addTime; ?></td>
+                        <td>
+                            <a class="btn btn-edit" href="<?php echo $this->url('backend', array('controller' 
+                                => 'member', 'action' => 'save')) ?>?id=<?php echo $nav->id; ?>">
+                                <i class="icon-edit"></i>编辑
+                            </a>&nbsp;&nbsp;
+                            <a class="btn btn-edit" href="<?php echo $this->url('backend', array('controller' 
+                                => 'member', 'action' => 'pwd')) ?>?id=<?php echo $nav->id; ?>">
+                                <i class="icon-edit"></i>设置密码
+                            </a>&nbsp;&nbsp;
+                            <a class="btn btn-delete" href="<?php echo $this->url('backend', array('controller' 
+                                => 'user', 'action' => 'delete')) ?>?id=<?php echo $nav->id; ?>" onClick="diyConfirm('删除' , $(this).attr('href'));return false;"><i class="icon-delete"></i>删除
+                            </a>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+        <?php echo $this->paginationControl($this->paginaction,'Sliding','layout/pagination' , array('link' 
+            => $this->url('backend' , array('controller' => 'nav' , 'action' => 'category'))));?>
+    </div>
+</div>

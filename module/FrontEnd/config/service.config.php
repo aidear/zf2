@@ -50,6 +50,18 @@ return array(
 	            Container::setDefaultManager($sessionManager);
 	            return $sessionManager;
 	        },
+	        'MemberTable' =>  function($sm) {
+	        	$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+	        	$resultSetPrototype = new ResultSet();
+	        	$resultSetPrototype->setArrayObjectPrototype(new Model\Users\Member());
+	        	return new Model\Users\MemberTable('member', $dbAdapter, null, $resultSetPrototype);
+	        },
+	        'RegionTable' =>  function($sm) {
+	        	$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+	        	$resultSetPrototype = new ResultSet();
+	        	$resultSetPrototype->setArrayObjectPrototype(new Model\Users\Region());
+	        	return new Model\Users\RegionTable('region', $dbAdapter, null, $resultSetPrototype);
+	        },
 		),
 );
 ?>

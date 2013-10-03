@@ -77,6 +77,12 @@ return array(
 					$resultSetPrototype->setArrayObjectPrototype(new Model\System\Config());
 					return new Model\System\ConfigTable('sys_config', $dbAdapter, null, $resultSetPrototype);
 				},
+				'NavCategoryTable' =>  function($sm) {
+					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+					$resultSetPrototype = new ResultSet();
+					$resultSetPrototype->setArrayObjectPrototype(new Model\Nav\NavCategory());
+					return new Model\Nav\NavCategoryTable('nav_category', $dbAdapter, null, $resultSetPrototype);
+				},
 				//Nav
 				'backendNav' => '\Custom\Navigation\Service\BackendNavigation',
 				

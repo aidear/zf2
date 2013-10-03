@@ -1,0 +1,68 @@
+<?php $msg = $this->flashMessages();?>
+<div class="liuc"><img src="/images/FrontEnd/liuc_2.jpg" width="905" height="38" /></div>
+
+<div class="Land_bg">
+    <p>您的电子邮箱： <span class="cheng"><?php echo $this->Email?></span> </p>
+    <p>登录您的注册邮箱激活账户，我们已给您的邮箱发送了一封激活信。</p>
+    <p>请收到后安照提示操作，需要在48小时内完成激活。<span class="lanse">激活过程演示</span></p>
+    <p><span class="lanse"><a href="javascript:;" ts="0">没收到？再次发送</a></span>。</p>
+    <div class="kk">
+    <h1>还没收到激活邮件？</h1>
+    <h2>确认邮件是否被你提供的邮
+箱系统自动拦截，或被误认
+为垃圾邮箱放到垃圾箱了。</h2>
+    <h3>如果再次发送激活信还
+是没有收到，请试试：<span class="hhz"><a href="/register">更换激活邮箱</a></span></h3>
+    <h4>如果一直无法收到激活信，
+您可以：<span class="hhz">改用手机注册</span></h4>
+    </div>
+</div>
+<?php //print_r('ok');die;?>
+  
+<script>
+var email = '<?php echo $this->Email?>';
+$(function(){
+	$(".lanse>a").click(function() {
+		if ($(this).attr('ts') == 0) {
+			$(this).attr('ts', 1);
+			var text = $(this).html();
+			$(this).html("发送中……");
+			$.ajax({
+				type: 'POST',
+				url:'/register-email',
+				data: 'email='+email,
+				dataType:'json',
+				success:function(e) {
+					alert(e.msg);
+					$(".lanse>a").attr('ts', 0).html(text);
+				}
+			});
+		}
+	});
+	$("#agree_btn").click(function(){
+		var email = $.trim($("#in_name5").val());
+		if (email == '') {
+			alert('请输入邮箱地址');
+		} else {
+			var reg = /^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*$/;
+			if (reg.test(email)) {
+				$.ajax({
+					type: 'POST',
+					url:'/register-email',
+					data: 'email='+email,
+					dataType:'json',
+					success:function(e) {
+						if (e.code == 0) {
+							location.href=e.url;
+						} else {
+							alert(e.msg);
+						}
+					}
+				});
+			} else {
+				alert('验证不通过');
+			}
+		}
+	});
+})
+</script>

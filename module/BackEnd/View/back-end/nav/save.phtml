@@ -1,0 +1,82 @@
+<?php
+$this->headScript()->appendFile($this->basePath('js/jquery-ui-1.10.2.custom.min.js'))
+->appendFile($this->basePath('js/jquery.cleditor.min.js'));
+$this->headLink()->appendStylesheet($this->basePath('styles/jquery-ui-1.10.2.custom.min.css'))
+->appendStylesheet($this->basePath('styles/jquery.cleditor.css'));
+$form = $this->form;
+$msg = $this->flashMessages();
+?>
+<div class="box">
+    <div class="box-header">
+        <h2><i class="icon-box"></i>导航分类</h2>
+    </div>
+    <div class="box-content">
+	   <?php if(!empty($msg['error'])):?>
+            <div class="alert alert-error fade in">
+            <button class="close" data-dismiss="alert" type="button">×</button>
+            <?php foreach($msg['error'] as $v):?>
+            <p><?php echo $v;?></p>
+            <?php endforeach;?>
+            </div>
+            <?php endif;?>
+            
+            <?php if(!empty($msg['success'])):?>
+            <div class="alert alert-success fade in">
+            <button class="close" data-dismiss="alert" type="button">×</button>
+            <?php foreach($msg['success'] as $v):?>
+            <p><?php echo $v;?></p>
+            <?php endforeach;?>
+            </div>
+            <?php endif;?>
+        <form class="box-form" action="<?php echo $this->url('backend' , array('controller' => 'nav' , 'action' => 'save'))?>"
+              method="post" enctype="multipart/form-data">
+            <fieldset>
+            	<?php echo $this->formHidden($form->get('id'))?>
+                <?php echo $this->formText($form->get('name'))?>
+                <?php echo $this->formText($form->get('desc'))?>
+                <?php echo $this->formText($form->get('keyword'))?>
+                <?php echo $this->formSelect($form->get('parentID'))?>
+                <?php echo $this->formFile($form->get('imgUrl'))?>
+                <?php echo $this->formSelect($form->get('isShow'))?>
+                <?php echo $this->formText($form->get('order'))?>
+                
+                <?php echo $this->formSubmit($form->get('submit') , '提交')?>
+            </fieldset>
+        </form>
+    </div>
+</div>
+<script>
+$(function() {
+	$("select[name='Province']").change(function() {
+		$v = $(this).val();
+		$.ajax({
+			type: "POST",
+			url : "/ajax/region?p="+$v,
+			dataType :"json",
+			success: function(s){
+				var html = '<option >===请选择城市===</option>';
+				for(var o in s) {
+					html += "<option value='"+s[o].region_id+"'>"+s[o].region_name+"</option>";
+				}
+				$("select[name='City']").html(html);
+			}
+		});
+	});
+	$("select[name='City']").change(function() {
+		$v = $(this).val();
+		$.ajax({
+			type: "POST",
+			url : "/ajax/region?p="+$v,
+			dataType :"json",
+			success: function(s){
+				var html = '<option >===请选择区域===</option>';
+				for(var o in s) {
+					html += "<option value='"+s[o].region_id+"'>"+s[o].region_name+"</option>";
+				}
+				$("select[name='District']").html(html);
+			}
+		});
+	});
+	$("input[name='Birthday']").datepicker();
+})
+</script>

@@ -41,6 +41,7 @@ use Custom\File\Uploader;
 use Zend\Validator\File\Size;
 use Zend\Config\Config as Conf;
 use Zend\Config\Writer\PhpArray;
+use Zend\View\Model\ViewModel;
 
 class ConfigController extends AbstractActionController
 {
@@ -84,9 +85,56 @@ class ConfigController extends AbstractActionController
     	}
     	
     	
-    	$configInfo = $configTable->select("cShow=1 AND PID<>0");//print_r($configInfo->toArray());
+    	$configInfo = $configTable->select("PID IN (SELECT ID FROM sys_config WHERE cKey='basic') AND cShow=1 AND PID<>0");//print_r($configInfo->toArray());
     	
-    	return array('config' => $configInfo);
+    	return array('config' => $configInfo, 'cateTitle' => '基本配置');
+    }
+    
+    function mailAction(){
+    	$configTable = $this->_getTable('ConfigTable');
+    	$request = $this->getRequest();
+    	if ($request->isPost()) {
+    		$set = $request->getPost()->toArray();
+    
+    		$file = $this->params()->fromFiles();
+    
+    		if ($file) {
+    			foreach ($file as $k=>$v) {
+    				if (!empty($v['name'])) {
+    					$path = $this->_insertImg($k, $v);
+    					$set[$k] = $path;
+    				}
+    			}
+    		}
+    		foreach ($set as $k=>$v) {
+    			if (!in_array($k, array('submit', 'button'))) {
+    				$configTable->setConfigValue($k, $v);
+    			}
+    		}
+    
+    		$sys = $configTable->getAll();
+    		$sysArr = $sys->toArray();
+    		$cache = array();
+    		foreach ($sysArr as $v) {
+    			if ($v['PID']) {
+    				$cache[$v['cKey']] = $v['cValue'];
+    			}
+    		}
+    		$conf = new Conf($cache);
+    
+    		$writer = new PhpArray();
+    
+    		//echo $writer->toString($conf);die;
+    		//@file_put_contents(APPLICATION_PATH.'/data/sys_config.php', $writer->toString($conf));
+    		$writer->toFile(APPLICATION_PATH.'/data/sys_config.php', $conf);
+    	}
+    	 
+    	 
+    	$configInfo = $configTable->select("PID IN (SELECT ID FROM sys_config WHERE cKey='mail_service') AND cShow=1 AND PID<>0");//print_r($configInfo->toArray());
+    	 
+    	$v = new ViewModel(array('config' => $configInfo, 'cateTitle' => '邮件服务器'));
+    	$v->setTemplate('back-end/config/index');
+    	return $v;
     }
     
     function addAction()

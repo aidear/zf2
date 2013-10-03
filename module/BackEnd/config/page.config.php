@@ -77,7 +77,14 @@ return array (
 							array(
 									'label' => '基本设置',
 									'controller' => 'config',
+									'action' => 'index',
 									'resource' => 'config_index',
+							),
+							array(
+									'label' => '邮件服务器',
+									'controller' => 'config',
+									'action' => 'mail',
+									'resource' => 'config_mail',
 							),
 							array(
 									'label' => '新增配置',
@@ -91,6 +98,19 @@ return array (
 									'controller' => 'member',
 									'params' => array('id' => '[0-9]+'),
 									'visible' => false,
+							)
+					)
+			),
+			array(
+					'label' => '导航管理',
+					'controller' => 'nav',
+					'order' => 3,
+					'pages' => array(
+							array(
+									'label' => '分类管理',
+									'controller' => 'nav',
+									'action' => 'category',
+									'resource' => 'nav_category',
 							)
 					)
 			)

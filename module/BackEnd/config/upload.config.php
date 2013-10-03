@@ -38,10 +38,10 @@ return array(
              ))
          ),
      ),
-     //conpun图片
-     'conpun' => array(
-         'uploadPath' => APPLICATION_PATH . '/public/img/coupon/',
-         'showPath' => '/img/coupon/',
+     //nav图片
+     'nav' => array(
+         'uploadPath' => APPLICATION_PATH . '/public/images/nav/',
+         'showPath' => '/images/nav/',
          'validators' => array(
              new Size(array(
                  'max' => '256000'

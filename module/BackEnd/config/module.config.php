@@ -12,6 +12,7 @@ return array(
         	'member' => 'BackEnd\Controller\MemberController',
         	'ajax' => 'BackEnd\Controller\AjaxController',
         	'config' => 'BackEnd\Controller\ConfigController',
+        	'nav' => 'BackEnd\Controller\NavController',
         ),
     ),
 	// The following section is new and should be added to your file

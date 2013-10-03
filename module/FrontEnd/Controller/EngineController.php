@@ -20,21 +20,11 @@ namespace FrontEnd\Controller;
 
 use Custom\Mvc\ActionEvent;
 
-use Zend\Paginator\Paginator;
-
-use BackEnd\Model\Users\RoleTable;
-
-use BackEnd\Model\Users\Role;
-
 use Custom\Mvc\Controller\AbstractActionController;
 use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\TableGateway\TableGateway;
-use BackEnd\Model\Users\UserTable;
-use BackEnd\Model\Users\User;
-use BackEnd\Form\UserForm;
 use Zend\Form\Annotation\AnnotationBuilder;
 use Custom\Util\Utilities;
-use Custom\Form\Form;
 
 class EngineController extends AbstractActionController
 {
@@ -85,6 +75,10 @@ class EngineController extends AbstractActionController
 							'url' => 'http://www.google.com.hk/search?tbm=vid',
 							'k' => 'q',
 					),
+					'zhidao' => array(
+							'url' => 'http://www.google.com.hk/search?tbm=klg',
+							'k' => 'q',
+					),
 					'image' => array(
 							'url' => 'http://www.google.com.hk/search?tbm=isch',
 							'k' => 'q',
@@ -112,7 +106,7 @@ class EngineController extends AbstractActionController
         		if (!$script) {
         			die('参数错误!');
         		}
-        		$url = $script['url'].'&'.$script['k'].'='.$word;
+        		$url = $script['url'].(strpos($script['url'], '?') ? '&' : '?').$script['k'].'='.$word;
         		break;
         	default:
         		break;

@@ -69,7 +69,10 @@ class ConfigTable extends TableGateway
         return $adapter;
     }
     
-    function getAll(){
+    function getAll($key = null){
+    	if ($key) {
+    		return $this->select("PID IN (SELECT ID FROM sys_config WHERE cKey='{$key}')");
+    	}
         return $this->select();
     }
     

@@ -18,7 +18,6 @@
 <?php echo $this->partial('layout/header.phtml');?>
 <?php 
 use Custom\Util\Lunar;
-
 ?>
 <div class="wrap">
 
@@ -37,8 +36,13 @@ echo "周".$weekarray[date("w")]; ?></span></li>
 	</ul></div>
 </div>
 <div class="btn">
+<?php if ($this->container->UserID):?>
+<div>欢迎您，<?php echo $this->container->UserName;?></div>
+<div><a href="/logout">退出</a></div>
+<?php else:?>
 <div class="btn_zc"><a href="/register">免费注册</a></div>
 <div class="btn_dl"> <a href="/login">请 登 录</a></div>
+<?php endif;?>
 </div>
 </div>
 

@@ -1,6 +1,25 @@
+<?php $msg = $this->flashMessages();?>
 <div class="liuc"><img src="images/FrontEnd/liuc_1.jpg" width="905" height="39" /></div>
-<form id="register" name="register" method="post" action="/">
+<form id="register" name="register" method="post" action="/register">
   <ul class="input_test">
+ <li>
+ <?php if(!empty($msg['error'])):?>
+            <div class="alert alert-error fade in">
+            <button class="close" data-dismiss="alert" type="button">×</button>
+            <?php foreach($msg['error'] as $v):?>
+            <p><?php echo $v;?></p>
+            <?php endforeach;?>
+            </div>
+            <?php endif;?>
+            
+            <?php if(!empty($msg['success'])):?>
+            <div class="alert alert-success fade in">
+            <button class="close" data-dismiss="alert" type="button">×</button>
+            <?php foreach($msg['success'] as $v):?>
+            <p><?php echo $v;?></p>
+            <?php endforeach;?>
+            </div>
+            <?php endif;?></li>
 <li>
 <label for="inp_name">会员名：</label>
   <p><input data-required="true" data-pattern="^[a-zA-Z0-9_]{3,16}$" data-describedby="for_username" data-description="UserName" name="UserName" type="text" class="input_out" id="in_name1" onfocus="this.className='input_on';this.onmouseout=''" onblur="this.className='input_off';this.onmouseout=function(){this.className='input_out'};" onmousemove="this.className='input_move'" onmouseout="this.className='input_out'" /></p>
@@ -21,7 +40,7 @@
 <li>
 <label for="inp_name">验证码：</label>
 <p><input data-required="true" data-describedby="for_reg_code" data-description="reg_code" name="reg_code" type="text" class="input_out1" id="in_email" onfocus="this.className='input_on1';this.onmouseout=''" onblur="this.className='input_off1';this.onmouseout=function(){this.className='input_out1'};" onmousemove="this.className='input_move1'" onmouseout="this.className='input_out1'" /></p>
-<span><img src="/register-captcha" width="77" height="28" /></span>
+<span><img src="/register-captcha" width="77" height="28"  class="register-captcha" style="cursor:pointer;" alt="看不清？点击图片更换验证码"/></span>
 <span id="for_reg_code"></span>
 
 </li>
@@ -69,6 +88,9 @@ $(function(){
 	
 	$("#register_btn").click(function(){
 		$("form[name='register']").submit();
+	});
+	$(".register-captcha").click(function(){
+		$(this).attr('src', '/register-captcha?t'+Math.random());
 	});
 })
 </script>
