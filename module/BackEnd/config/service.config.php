@@ -83,6 +83,12 @@ return array(
 					$resultSetPrototype->setArrayObjectPrototype(new Model\Nav\NavCategory());
 					return new Model\Nav\NavCategoryTable('nav_category', $dbAdapter, null, $resultSetPrototype);
 				},
+				'LinkTable' =>  function($sm) {
+					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+					$resultSetPrototype = new ResultSet();
+					$resultSetPrototype->setArrayObjectPrototype(new Model\Nav\Link());
+					return new Model\Nav\LinkTable('link', $dbAdapter, null, $resultSetPrototype);
+				},
 				//Nav
 				'backendNav' => '\Custom\Navigation\Service\BackendNavigation',
 				

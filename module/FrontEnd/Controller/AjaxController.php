@@ -15,21 +15,32 @@
  * @link http://localhost
  * @deprecated File deprecated in Release 3.0.0
  */
-namespace BackEnd\Controller;
+namespace FrontEnd\Controller;
 
 use Custom\Mvc\Controller\AbstractActionController;
 use Custom\Util\Utilities;
 use Zend\View\Model\JsonModel;
 use Zend\View\Model\ViewModel;
-use BackEnd\Model\Users\RegionTable;
+use FrontEnd\Model\Users\MemberTable;
 
 class AjaxController extends AbstractActionController
 {
-	public function regionAction()
+	public function checkAction()
 	{
-		$pid = $this->params()->fromQuery('p');
-		$regionTable = $this->_getTable('RegionTable');
-		$assign = $regionTable->getRegionByPid($pid);
-		print_r(json_encode($assign));die;
+		$rs = array();
+		$s = $this->params()->fromQuery('s');
+		switch ($s) {
+			case 'user':
+				$userName = $this->params()->fromPost('name');
+				$table = $this->_getTable('MemberTable');
+				$count = $table->checkExist(array('UserName' => $userName));
+				$rs['code'] = $count ? 1 : 0;
+				$rs['msg'] = $count;
+				break;
+			default:
+				break;
+		}
+		
+		print_r(json_encode($rs));die;
 	}
 }

@@ -71,7 +71,9 @@ class MemberTable extends TableGateway
     	unset($u['ImgUrl']);
         if(empty($u['UserID'])){
             unset($u['ID']);
-            $this->insert($u);
+            if ($this->insert($u)) {
+            	return $this->getLastInsertValue();
+            }
         }else{
             $id = $u['UserID'];
             if($this->getOneForId($id)){

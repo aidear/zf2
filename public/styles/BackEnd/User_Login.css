@@ -36,8 +36,9 @@ ul,li,dd,dl,form {margin:0;padding:0;}
 	BACKGROUND: url(../../images/BackEnd/user_bottom_r.gif) no-repeat 50% top
 }
 .user_bottom_c {
-	BACKGROUND: url(../../images/BackEnd/user_bottom_c.gif) no-repeat 50% top; COLOR: #fff; line-height 117px; PADDING-TOP: 20px; TEXT-AliGN: right
+	BACKGROUND: url(../../images/BackEnd/user_bottom_c.gif) no-repeat 50% top; COLOR: #fff; TEXT-AliGN: center;
 }
+.user_bottom_c p {margin:0;padding:0;}
 .user_bottom_c A {
 	COLOR: yellow; TEXT-DECORATION: underline
 }
@@ -119,8 +120,11 @@ user_main_c {
 .user_main_box .user_main_text {
 	WIDTH: 60px; COLOR: #000
 }
-.user_main_box .user_main_input IMG {
-	MARGIN-BOTTOM: -2px; MARGIN-LEFT: -25px
+.user_main_box .user_main_input img {
+	margin-bottom: -10px; margin-left: -25px
+}
+.user_main_box {
+	
 }
 .TxtUserNameCssClass {
 	BORDER-TOP-WIDTH: 0px; PADDING-LEFT: 25px; BORDER-LEFT-WIDTH: 0px; BACKGROUND: url(../../images/BackEnd/user_login_name.gif) no-repeat; BORDER-BOTTOM-WIDTH: 0px; WIDTH: 165px; line-height 20px; HEIGHT: 21px; BORDER-RIGHT-WIDTH: 0px
@@ -131,6 +135,7 @@ user_main_c {
 .TxtValidateCodeCssClass {
 	BORDER-TOP-WIDTH: 0px; PADDING-LEFT: 25px; BORDER-LEFT-WIDTH: 0px; background:url(../../images/BackEnd/user_login_validatecode.gif) no-repeat; IME-MODE: disabled; BORDER-BOTTOM-WIDTH: 0px; WIDTH: 91px; line-height 20px; HEIGHT: 21px; BORDER-RIGHT-WIDTH: 0px
 }
+.validateImg {cursor:pointer}
 .IbtnEnterCssClass {
 	WIDTH: 111px; HEIGHT: 122px
 }
@@ -172,7 +177,7 @@ button.close {
 }
 
 .alert {
-  padding: 3px 35px 3px 14px;
+  padding: 3px 0px 3px 14px;
   width:200px;
   margin-bottom: 18px;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);

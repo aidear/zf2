@@ -31,7 +31,7 @@ return array(
     //member图片
      'member' => array(
          'uploadPath' => APPLICATION_PATH . '/public/images/member/',
-         'showPath' => 'http://admin.zf.loc/images/member/',
+         'showPath' => '/images/member/',
          'validators' => array(
              new Size(array(
                  'max' => '256000'

@@ -34,7 +34,13 @@ $config = $this->config;
 				</div>
          	<?php endif;?>
          	<?php elseif ('edit' == $v->cType):?>
-         	<div class="input-item"><textarea class="cleditor" type="text" name="<?php echo $v->cKey;?>" class="input-element"><?php echo $v->cValue;?></textarea></div>
+         	<div class="input-item"><textarea class="cleditor" type="text" name="<?php echo $v->cKey;?>" class="input-element"><?php echo $v->cValue;?></textarea>
+         	<?php if (!empty($v->summary)):?>
+         	<span class="help-inline note"><i class="icon-info-sign"></i>
+         	<?php echo $v->summary;?>
+         	</span>
+         	<?php endif;?>
+         	</div>
          	<?php endif;?>
          </div>
     <?php endforeach;?>
@@ -47,8 +53,8 @@ $config = $this->config;
 $(function(){
     
     $(".cleditor").cleditor({
-        width:        500, // width not including margins, borders or padding
-        height:       250, // height not including margins, borders or padding
+        width:        600, // width not including margins, borders or padding
+        height:       300, // height not including margins, borders or padding
         controls:     // controls to add to the toolbar
                       "bold italic underline strikethrough subscript superscript | font size " +
                       "style | color highlight removeformat | bullets numbering | outdent " +

@@ -98,7 +98,7 @@ class MemberController extends AbstractActionController
 					$chkExist = 0;
 					$this->flashMessenger()->addErrorMessage("邮箱:{$params->Email}已被占用！请更换其他邮箱");
 				}
-				if ($table->checkExist(array('Mobile' => $params->Mobile), $params->UserID)) {
+				if ($params->Mobile && $table->checkExist(array('Mobile' => $params->Mobile), $params->UserID)) {
 					$chkExist = 0;
 					$this->flashMessenger()->addErrorMessage("手机:{$params->Mobile}已被占用！请更换其他手机号码");
 				}
@@ -110,13 +110,13 @@ class MemberController extends AbstractActionController
 					}
 				} 
 				
-				$table->save($member);
+				$id = $table->save($member);
 			
 				//插入图片
-				$member->ImgUrl = $this->_insertImg($member->UserID);
+				$member->ImgUrl = $this->_insertImg($member->UserID ? $member->UserID : $id);
 				//更新表
 				if($member->ImgUrl){
-					$this->_updateMemberImage($member->UserID , $member->ImgUrl );
+					$this->_updateMemberImage($member->UserID ? $member->UserID : $id, $member->ImgUrl );
 				}
 				
 				if($member->UserID){
@@ -198,7 +198,21 @@ class MemberController extends AbstractActionController
 		
 // 		return array('form'=>'');
 	}
+	function deleteAction()
+	{
+		$requery = $this->getRequest();
+		if($userId = $requery->getQuery('id')){
+			$table = $this->_getTable('MemberTable');
+			$table->delete($userId);
 	
+			$this->trigger(ActionEvent::ACTION_DELETE);
+	
+			$this->_message('删除成功');
+			return $this->redirect()->toUrl('/member');
+	
+		}
+		throw new \Exception('没有ID参数');
+	}
 	private function _getMemberByID($UserID)
 	{
 		$table = $this->_getTable('MemberTable');

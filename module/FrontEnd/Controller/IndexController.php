@@ -3,16 +3,28 @@ namespace FrontEnd\Controller;
 
 use Custom\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+use FrontEnd\Model\Nav;
 
 class IndexController extends AbstractActionController
 {
 	protected $adminTable;
 	public function indexAction()
 	{
-		$container = $this->_getSession();
+		$navCategoryTable = $this->_getTable('NavCategoryTable');
+		$nav = $navCategoryTable->getlist(array('isShow' => 1));
+		$linkTable = $this->_getTable('LinkTable');
 		
-		$rs = array('rs' => 'Welcome!');
-// 		return $this->redirect()->toUrl('/login');
+		$navLists = array();
+		foreach ($nav as $k=>$v) {
+			$links = $linkTable->getlist(array('isShow' => 1, 'category' => $v['id']));
+			$navLists[] = array (
+				'name' => $v['name'],
+				'img' => $v['imgUrl'],
+				'links' => $links,
+			);
+		}
+		
+		$rs = array('rs' => 'Welcome!', 'nav' => $navLists);
 		return new ViewModel($rs);
 	}
 	

@@ -56,7 +56,7 @@ class Module
 		$action     = $matches->getParam('action');
 		$controller = $matches->getParam('controller');
 		$module     = __NAMESPACE__;
-		$siteName   = 'ECMS V1.0';
+		$siteName   = $this->siteConfg['shop_title'];
 	
 		// Getting the view helper manager from the application service manager
 		$viewHelperManager = $e->getApplication()->getServiceManager()->get('viewHelperManager');
@@ -73,13 +73,15 @@ class Module
 		//$headTitleHelper->append($module);
 		$headTitleHelper->append($siteName);
 		
-		$container = new Container('user');
+		$container = new Container('member');
 		
 		$viewModel = $e->getViewModel();
-		$viewModel->setVariables(array(
-				'siteConfg' => $this->siteConfg,
-				'container' => $container,
-		));
+		if (!($viewModel->terminate())) {
+			$viewModel->setVariables(array(
+					'siteConfg' => $this->siteConfg,
+					'container' => $container,
+			));
+		}
 	}
     public function getAutoloaderConfig()
     {

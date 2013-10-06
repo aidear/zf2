@@ -28,15 +28,38 @@ class LoginController extends AbstractActionController
 // 		}
 		return $return;
 	}
+	function captchaAction()
+	{
+		$captcha = new \Zend\Captcha\Image(array(
+				'Expiration' => '300',
+				'wordlen' => '4',
+				'Height' => '28',
+				'Width' => '77',
+				'writeInFile'=>false,
+				'Font' => APPLICATION_PATH.'/data/AdobeSongStd-Light.otf',
+				'FontSize' => '24',
+				'DotNoiseLevel' => 10,
+				'ImgDir' => '/images/BackEnd'
+		));
+		$imgName = $captcha->generate();
+		$_SESSION['captcha_login_code'] = $imgName;
+		die;
+	}
 	function submitAction(){
 		$request = $this->request;
 		if($this->request->isPost()){
 			$username = $this->params()->fromPost('username');
 			$pwd = $this->params()->fromPost('password');
+			$validate = $this->params()->fromPost('validateCode');
 			$data = $request->getPost();
 			$form = new LoginForm();
 			$form->setData($data);
 			if($username && $pwd){
+				$captcha_sess = $this->_getSession('Zend_Form_Captcha_'.$_SESSION['captcha_login_code']);
+				if ($captcha_sess->word != $validate) {unset($_SESSION['captcha_login_code']);
+					$this->_message('验证码错误', 'error');
+					return $this->redirect()->toUrl('/login');
+				}
 				$sm = $this->getServiceLocator();
 				$userTable = $sm->get('UserTable');
 				$user = $userTable->getUserByName($username);

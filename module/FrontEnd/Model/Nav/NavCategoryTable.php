@@ -15,7 +15,7 @@
  * @link http://localhost
  * @deprecated File deprecated in Release 3.0.0
  */
-namespace BackEnd\Model\Nav;
+namespace FrontEnd\Model\Nav;
 
 
 use Custom\Paginator\Adapter\DbSelect;
@@ -27,7 +27,7 @@ use Zend\Db\Sql\Select;
 use Zend\Db\Sql\Update;
 use Zend\Db\Sql\Where;
 use Zend\Db\TableGateway\TableGateway;
-use BackEnd\Model\Nav\NavCategory;
+use FrontEnd\Model\Nav\NavCategory;
 
 class NavCategoryTable extends TableGateway
 {
@@ -60,36 +60,7 @@ class NavCategoryTable extends TableGateway
         $row = $rowset->current();
         return $row;
     }
-    function getPathByParent($pid)
-    {
-    	if (!$pid) return '';
-    	$rowset = $this->select(array('id' => $pid));
-    	$row = $rowset->current();
-    	return $pid.','.trim($row->catPath, ',');
-    }
-    function getCateTree($where = array())
-    {
-    	$arr = array();
-    	$rows = $this->getlist($where);
-    	foreach ($rows as $row) {
-    		$catPath = explode(',', trim($row['catPath'], ','));
-    		$catPath = array_filter($catPath);
-    		if (empty($catPath)) {
-    			$tem = isset($arr[$row['id']]['sub']) ? $arr[$row['id']]['sub'] : array();
-    			$arr[ $row['id'] ] = $row;
-    			$arr[ $row['id'] ]['sub'] = $tem;
-    		} else {
-    			$catStr = '$arr';
-    			foreach ($catPath as $c) {
-    				$catStr .= "[$c]['sub']";
-    			}
-    			$catStr .= "[{$row['id']}]=\$row;";
-    			eval($catStr);
-    		}
-    		
-    	}
-    	return $arr;
-    }
+    
     function getByName($name){
         $select = $this->getSql()->select();
         $where = function (Where $where) use($name){
@@ -101,7 +72,7 @@ class NavCategoryTable extends TableGateway
     }
     
     function delete($id){
-        return parent::delete(array("id" => $id));
+        return parent::delete(array("UserID" => $id));
     }
     
 	function save(NavCategory $navCategory){

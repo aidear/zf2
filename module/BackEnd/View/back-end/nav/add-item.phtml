@@ -8,7 +8,7 @@ $msg = $this->flashMessages();
 ?>
 <div class="box">
     <div class="box-header">
-        <h2><i class="icon-box"></i>导航分类<span style="float: right;"><a href="/nav/category">返回</a></span></h2>
+        <h2><i class="icon-box"></i>导航分类</h2>
     </div>
     <div class="box-content">
 	   <?php if(!empty($msg['error'])):?>
@@ -28,18 +28,14 @@ $msg = $this->flashMessages();
             <?php endforeach;?>
             </div>
             <?php endif;?>
-        <form class="box-form" action="<?php echo $this->url('backend' , array('controller' => 'nav' , 'action' => 'save'))?>"
+        <form class="box-form" action="<?php echo $this->url('backend' , array('controller' => 'nav' , 'action' => 'addItem'))?>"
               method="post" enctype="multipart/form-data">
             <fieldset>
             	<?php echo $this->formHidden($form->get('id'))?>
-                <?php echo $this->formText($form->get('name'))?>
-                <?php echo $this->formText($form->get('desc'))?>
-                <?php echo $this->formText($form->get('keyword'))?>
-                <?php echo $this->formSelect($form->get('parentID'))?>
-                <div class="input-gourp">
-				<img width="120px" src="<?php echo $form->get('imgUrl')->getValue();?>" />
-				</div>
-                <?php echo $this->formFile($form->get('imgUrl'))?>
+                <?php echo $this->formText($form->get('title'))?>
+                <?php echo $this->formText($form->get('url'))?>
+                <?php echo $this->formSelect($form->get('target'))?>
+                <?php echo $this->formSelect($form->get('category'))?>
                 <?php echo $this->formSelect($form->get('isShow'))?>
                 <?php echo $this->formText($form->get('order'))?>
                 
@@ -50,36 +46,11 @@ $msg = $this->flashMessages();
 </div>
 <script>
 $(function() {
-	$("select[name='Province']").change(function() {
-		$v = $(this).val();
-		$.ajax({
-			type: "POST",
-			url : "/ajax/region?p="+$v,
-			dataType :"json",
-			success: function(s){
-				var html = '<option >===请选择城市===</option>';
-				for(var o in s) {
-					html += "<option value='"+s[o].region_id+"'>"+s[o].region_name+"</option>";
-				}
-				$("select[name='City']").html(html);
-			}
-		});
+	$("input[name='url']").focusout(function() {
+		var url = $.trim($(this).val());
+		if (url != '' && url.indexOf('http://') == -1) {
+			$(this).val('http://'+url);
+		}
 	});
-	$("select[name='City']").change(function() {
-		$v = $(this).val();
-		$.ajax({
-			type: "POST",
-			url : "/ajax/region?p="+$v,
-			dataType :"json",
-			success: function(s){
-				var html = '<option >===请选择区域===</option>';
-				for(var o in s) {
-					html += "<option value='"+s[o].region_id+"'>"+s[o].region_name+"</option>";
-				}
-				$("select[name='District']").html(html);
-			}
-		});
-	});
-	$("input[name='Birthday']").datepicker();
 })
 </script>

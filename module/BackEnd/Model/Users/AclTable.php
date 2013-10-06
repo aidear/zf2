@@ -54,4 +54,8 @@ class AclTable extends TableGateway
         }
         $this->delete($where);
     }
+    function removeAllAcl($role)
+    {
+    	$this->delete(array('RoleName' => $role));
+    }
 }

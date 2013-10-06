@@ -32,7 +32,7 @@ use Zend\Mime\Part as MimePart;
 use Zend\Mail\Transport\Smtp as SmtpTransport;
 use Zend\Mail\Transport\SmtpOptions;
 use Zend\Mvc\View\Console\ViewManager;
-use BackEnd\Model\System\ConfigTable;
+use FrontEnd\Model\System\ConfigTable;
 
 
 class RegisterController extends AbstractActionController
@@ -42,7 +42,7 @@ class RegisterController extends AbstractActionController
     	$this->layout('layout/register');
     	
     	$req = $this->getRequest();
-    	$container = $this->_getSession();
+    	$container = $this->_getSession('member');
     	if ($container->UserID) {
     		$v = new ViewModel(array('UserID' => $container->UserID));
     		$v->setTemplate('front-end/register/step2');
@@ -63,8 +63,8 @@ class RegisterController extends AbstractActionController
     			$chk = 0;
     			$errMsg = '请输入确认密码';
     		}
-    		$memeberTable = $this->_getTable('MemberTable');
-    		if ($memeberTable->checkExist(array('UserName' => trim($params['UserName'])))) {
+    		$memberTable = $this->_getTable('MemberTable');
+    		if ($memberTable->checkExist(array('UserName' => trim($params['UserName'])))) {
     			$chk = 0;
     			$errMsg = '用户名已存在';
     		}
@@ -73,14 +73,15 @@ class RegisterController extends AbstractActionController
     			$captcha_sess = $this->_getSession('Zend_Form_Captcha_'.$_SESSION['captcha_code']);
     			if (isset($_SESSION['captcha_code']) && $captcha_sess->word == $params['reg_code']) {
     				$now = date('Y-m-d H:i:s');
-    				$UserID = $memeberTable->insert(array('UserName' => trim($params['UserName']), 
+    				$memberTable->insert(array('UserName' => trim($params['UserName']), 
     						'Password' => md5($params['password']), 
     						'AddTime' => $now, 'LastLogin' => $now,
     						'Source' => 1,
     						'LoginCount' => 1,
     						));
-    				$memberInfo = $memeberTable->getOneById($UserID);
-    				$container = $this->_getSession();
+    				$UserID = $memberTable->getLastInsertValue();
+    				$memberInfo = $memberTable->getOneById($UserID);
+    				$container = $this->_getSession('member');
     				$container->UserID = $UserID;
     				$container->UserName = $memberInfo->UserName;
     				$v = new ViewModel(array('UserID' => $UserID));
@@ -131,21 +132,23 @@ class RegisterController extends AbstractActionController
 		$params = $req->getPost();
 		$rs = array('code' => 0, 'msg' => '');
 		if (isset($params['email']) && preg_match('/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*$/', trim($params['email']))) {
-			$container = $this->_getSession();
+			$container = $this->_getSession('member');
 			$email = trim($params['email']);
 			$memberTable = $this->_getTable('MemberTable');
 			if ($memberTable->checkExist(array('Email' => $email), $container->UserID)) {
 				$rs = array('code' => 1, 'msg' => "邮箱地址{$email}已被占用，请更换其他可用邮箱！");
 			} else {
-				$memberTable->update(array('Email' => $email), array('UserID' => $container->UserID));
+				$memberTable->update(array('Email' => $email, 'isValidEmail' => 0, 'LastUpdate' => Utilities::getDateTime()), array('UserID' => $container->UserID));
 				
 				$code = $container->UserID.'||'.$email.'||'.time();
 				$code = base64_encode($code);
 				
 				$url = Utilities::get_domain()."/register-success?uid={$container->UserID}&code=".base64_encode($code);
 					
-				$htmlMarkup = '<p style="color:#ff0000;">感谢注册!</p>';
-				$htmlMarkup .= "<p>点击链接进行激活操作：<a href='{$url}'>激活确认链接</a></p>";
+				$htmlMarkup = ConfigTable::getSysConf('emailActTemplate');
+// 				$htmlMarkup = '<p style="color:#ff0000;">感谢注册!</p>';
+// 				$htmlMarkup .= "<p>点击链接进行激活操作：<a href='{$url}'>激活确认链接</a></p>";
+				$htmlMarkup = str_replace(array('{userName}', '{email}', '{url}'), array($container->UserName, $email, $url), $htmlMarkup);
 				
 				$html = new MimePart($htmlMarkup);
 				$html->type = "text/html";
@@ -155,7 +158,7 @@ class RegisterController extends AbstractActionController
 				$message = new Message();
 				$message->addTo($email)
 				->addFrom('pcq2006@gmail.com')
-				->setSubject('subject')
+				->setSubject('Email地址验证')
 				->setBody($body);
 				
 				$transport = new SmtpTransport();
@@ -183,7 +186,7 @@ class RegisterController extends AbstractActionController
 			
 		} else {
 			$rs = array('code' => -1, 'msg' => '邮箱格式不正确！');
-		}	
+		}
 		
 		$v = new JsonModel($rs);
 		$v->setTerminal(true);
@@ -195,8 +198,8 @@ class RegisterController extends AbstractActionController
 		
 		$memberTable = $this->_getTable('MemberTable');
 		
-		$container = $this->_getSession();
-		$memberInfo = $memberTable->getOneById(1);
+		$container = $this->_getSession('member');
+		$memberInfo = $memberTable->getOneById($container->UserID);
 		$v = new ViewModel($memberInfo->toArray());
 		$v->setTerminal(false);
 		return $v;

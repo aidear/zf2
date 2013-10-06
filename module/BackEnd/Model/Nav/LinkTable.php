@@ -1,6 +1,6 @@
 <?php
 /**
- * NavCategoryTable.php
+ * LinkTable.php
  *------------------------------------------------------
  *
  * 
@@ -11,7 +11,7 @@
  *
  * @author Willing Peng<pcq2006@gmail.com>
  * @copyright (C) 2013-2018 
- * @version CVS: Id: NavCategoryTable.php,v 1.0 2013-10-3 下午9:44:39 Willing Exp
+ * @version CVS: Id: LinkTable.php,v 1.0 2013-10-4 下午3:03:16 Willing Exp
  * @link http://localhost
  * @deprecated File deprecated in Release 3.0.0
  */
@@ -29,17 +29,23 @@ use Zend\Db\Sql\Where;
 use Zend\Db\TableGateway\TableGateway;
 use BackEnd\Model\Nav\NavCategory;
 
-class NavCategoryTable extends TableGateway
+class LinkTable extends TableGateway
 {
-    protected $table = "nav_category";
+    protected $table = "link";
     
-    function getAllToPage(){
+    function getAllToPage($where = array()){
         $select = $this->getSql()->select()->order('order Desc');
+        if ($where) {
+        	$select->where($where);
+        }
         $adapter = new DbSelect($select, $this->getAdapter());
         return $adapter;
     }
     
-    function getAll(){
+    function getAll($where = array()){
+    	if ($where) {
+    		return  $this->select($where)->order('order Desc');
+    	}
         return $this->select()->order('order Desc');
     }
     
@@ -60,40 +66,11 @@ class NavCategoryTable extends TableGateway
         $row = $rowset->current();
         return $row;
     }
-    function getPathByParent($pid)
-    {
-    	if (!$pid) return '';
-    	$rowset = $this->select(array('id' => $pid));
-    	$row = $rowset->current();
-    	return $pid.','.trim($row->catPath, ',');
-    }
-    function getCateTree($where = array())
-    {
-    	$arr = array();
-    	$rows = $this->getlist($where);
-    	foreach ($rows as $row) {
-    		$catPath = explode(',', trim($row['catPath'], ','));
-    		$catPath = array_filter($catPath);
-    		if (empty($catPath)) {
-    			$tem = isset($arr[$row['id']]['sub']) ? $arr[$row['id']]['sub'] : array();
-    			$arr[ $row['id'] ] = $row;
-    			$arr[ $row['id'] ]['sub'] = $tem;
-    		} else {
-    			$catStr = '$arr';
-    			foreach ($catPath as $c) {
-    				$catStr .= "[$c]['sub']";
-    			}
-    			$catStr .= "[{$row['id']}]=\$row;";
-    			eval($catStr);
-    		}
-    		
-    	}
-    	return $arr;
-    }
+    
     function getByName($name){
         $select = $this->getSql()->select();
         $where = function (Where $where) use($name){
-            $where->like('name' , "$name%");
+            $where->like('title' , "$name%");
         };
         $select->where($where);
         $adapter = new DbSelect($select, $this->getAdapter());
@@ -104,32 +81,32 @@ class NavCategoryTable extends TableGateway
         return parent::delete(array("id" => $id));
     }
     
-	function save(NavCategory $navCategory){
-        $navCategory = $navCategory->toArray();
-        unset($navCategory['inputFilter']);
-        unset($navCategory['imgUrl']);
-        if(empty($navCategory['id'])){
-            $rowset = $this->select(array('name' => $navCategory['name']));
+	function save(Link $link){
+        $link = $link->toArray();
+        unset($link['inputFilter']);
+        unset($link['imgUrl']);
+        if(empty($link['id'])){
+            $rowset = $this->select(array('title' => $link['title']));
             if($rowset->count() < 1){
-                if ($this->insert($navCategory)) {
+                if ($this->insert($link)) {
                 	return $this->getLastInsertValue();
                 }
             }
             return;
         }
-        if(empty($navCategory['id'])){
-            unset($navCategory['id']);
-            if ($this->insert($navCategory)) {
+        if(empty($link['id'])){
+            unset($link['id']);
+            if ($this->insert($link)) {
             	return $this->getLastInsertValue();
             }
         }else{
-            $id = $navCategory['id'];
+            $id = $link['id'];
             if($this->getOneById($id)){
-                unset($navCategory['id']);
-                unset($navCategory['addTime']);
-                $this->update($navCategory , array('id' => $id));
+                unset($link['id']);
+                unset($link['addTime']);
+                $this->update($link , array('id' => $id));
             }else{
-                throw new \Exception('Not find this navCategory:' . $id);
+                throw new \Exception('Not find this id:' . $id);
             }
         }
     }

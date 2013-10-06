@@ -14,7 +14,7 @@
         <ul class="nav white" id="top_menu">
         <?php $prevDepth = 0;foreach($this->container as $k => $page):?>
         <?php if (0 == $page->depth):?>
-        <li id="_M<?php echo $k;?>" class="top_menu<?php echo $k==0 ? ' on': '';?>"><a href="javascript:_M(<?php echo $k;?>,'#');"  hidefocus="true" style="outline:none;"><?php echo $page->label;?></a></li>
+        <li id="_M<?php echo $k;?>" class="top_menu<?php echo $k==0 ? ' on': '';?>"><a href="/"  hidefocus="true" style="outline:none;"><?php echo $page->label;?></a></li>
         <?php endif;?>
         <?php endforeach;?>
         <!-- 

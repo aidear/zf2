@@ -22,7 +22,7 @@
             <?php endif;?></li>
 <li>
 <label for="inp_name">会员名：</label>
-  <p><input data-required="true" data-pattern="^[a-zA-Z0-9_]{3,16}$" data-describedby="for_username" data-description="UserName" name="UserName" type="text" class="input_out" id="in_name1" onfocus="this.className='input_on';this.onmouseout=''" onblur="this.className='input_off';this.onmouseout=function(){this.className='input_out'};" onmousemove="this.className='input_move'" onmouseout="this.className='input_out'" /></p>
+  <p><input style="ime-mode: disabled" data-trim="true" data-required="true" data-pattern="^[a-zA-Z0-9_]{3,16}$" data-validate="un" data-describedby="for_username" data-description="UserName" name="UserName" type="text" class="input_out" id="in_name1" onfocus="this.className='input_on';this.onmouseout=''" onblur="this.className='input_off';this.onmouseout=function(){this.className='input_out'};" onmousemove="this.className='input_move'" onmouseout="this.className='input_out'" /></p>
  <span id="for_username">3到16个字符，允许包含"_"、数字、字母</span>
 </li>
 <li>
@@ -33,7 +33,7 @@
 </li>
 <li>
 <label for="inp_name">确认密码：</label>
-  <p><input  data-required="true" data-pattern="^.{6,16}$" maxlength="16" data-describedby="for_repassword" data-description="repassword" name="repassword" type="password" class="input_out" id="in_name3" onfocus="this.className='input_on';this.onmouseout=''" onblur="this.className='input_off';this.onmouseout=function(){this.className='input_out'};" onmousemove="this.className='input_move'" onmouseout="this.className='input_out'" /></p>
+  <p><input  data-required="true" data-validate="pwd" data-pattern="^.{6,16}$" maxlength="16" data-describedby="for_repassword" data-description="repassword" name="repassword" type="password" class="input_out" id="in_name3" onfocus="this.className='input_on';this.onmouseout=''" onblur="this.className='input_off';this.onmouseout=function(){this.className='input_out'};" onmousemove="this.className='input_move'" onmouseout="this.className='input_out'" /></p>
  <span id="for_repassword">6到16位字符</span>
 
 </li>
@@ -57,7 +57,7 @@
 </div>
 <script>
 $('#register').validate({
-	onKeyup : true,
+	onBlur : true,
 	sendForm : true,
 	eachValidField : function() {
 		if ($(this).attr('name') != 'reg_code') {
@@ -67,7 +67,8 @@ $('#register').validate({
 	description : {
 		UserName : {
 			required : '请输入用户名',
-			pattern : '<img src="/images/FrontEnd/no.jpg" />格式不正确'
+			pattern : '<img src="/images/FrontEnd/no.jpg" />格式不正确',
+			conditional : '<img src="/images/FrontEnd/no.jpg" />该会员名已被注册'
 		},
 		password : {
 			required : '请输入密码',
@@ -75,7 +76,8 @@ $('#register').validate({
 		},
 		repassword : {
 			required : '请输入确认密码',
-			pattern : '<img src="/images/FrontEnd/no.jpg" />格式不正确'
+			pattern : '<img src="/images/FrontEnd/no.jpg" />格式不正确',
+			conditional : '<img src="/images/FrontEnd/no.jpg" />两次密码输入不一致'
 		},
 		reg_code : {
 			required : '请输入验证码'
@@ -83,6 +85,22 @@ $('#register').validate({
 	},
 	valid:function() {
 	}
+});
+jQuery.validateExtend({
+    un : {
+        required : true,
+        pattern : /^[a-zA-Z0-9_]{3,16}$/,
+        conditional : function(value) {
+        	return isUniqueUserName(value);
+        }
+    },
+    pwd : {
+		required : true,
+		pattern : /^.{6,16}$/,
+		conditional : function(value) {
+			return value == $("input[name='password']").val();
+		}
+    }
 });
 $(function(){
 	

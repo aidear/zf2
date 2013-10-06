@@ -15,7 +15,7 @@
  * @link http://localhost
  * @deprecated File deprecated in Release 3.0.0
  */
-namespace BackEnd\Model\Nav;
+namespace FrontEnd\Model\Nav;
 
 use Zend\InputFilter\Factory as InputFactory;
 use Zend\InputFilter\InputFilter;
@@ -30,7 +30,6 @@ class NavCategory implements InputFilterAwareInterface
 	public $desc;
 	public $keyword;
 	public $parentID = 0;
-	public $catPath;
 	public $isShow = 1;
 	public $order = 1;
 	public $addTime;
@@ -45,7 +44,6 @@ class NavCategory implements InputFilterAwareInterface
 		$this->desc = isset($data['desc']) ? $data['desc'] : '';
 		$this->keyword = isset($data['keyword']) ? $data['keyword'] : '';
 		$this->parentID = isset($data['parentID']) ? $data['parentID'] : 0;
-		$this->catPath = isset($data['catPath']) ? $data['catPath'] : '';
 		$this->isShow = isset($data['isShow']) ? $data['isShow'] : 1;
 		$this->order = isset($data['order']) ? $data['order'] : 1;
 		$this->addTime = isset($data['addTime']) ? $data['addTime'] : date('Y-m-d H:i:s');

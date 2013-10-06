@@ -20,6 +20,8 @@ class Module
 		$serviceManager      = $e->getApplication()->getServiceManager();
 		$this->bootstrapSession($e);
 		
+		ini_set('date.timezone', 'Asia/Shanghai');
+		
 		// Register a render event:Title
 		$eventManager->attach('render', array($this, 'setLayoutTitle'));
 		

@@ -10,7 +10,7 @@ return array(
 //         	'resource' => 'BackEnd\Controller\ResourceController',
 //         	'user' => 'BackEnd\Controller\UserController',
 //         	'member' => 'BackEnd\Controller\MemberController',
-//         	'ajax' => 'BackEnd\Controller\AjaxController',
+        	'ajax' => 'FrontEnd\Controller\AjaxController',
 //         	'config' => 'BackEnd\Controller\ConfigController',
         ),
     ),
@@ -116,6 +116,16 @@ return array(
         						'defaults' => array(
         								'controller' => 'login',
         								'action' => 'logout',
+        						)
+        				)
+        		),
+        		'ajax' => array(
+        				'type' => 'Zend\Mvc\Router\Http\Literal',
+        				'options' => array(
+        						'route' => '/ajax',
+        						'defaults' => array(
+        								'controller' => 'ajax',
+        								'action' => 'check',
         						)
         				)
         		),

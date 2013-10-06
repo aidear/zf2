@@ -37,7 +37,7 @@ use Zend\Session\Container;
 
 class AbstractActionController extends Father
 {
-    const LIMIT = 20;
+    const LIMIT = 15;
     const CN_SITE_ID = 1;
     const us_SITE_ID = 2;
     const MSG_SUCCESS = 'success';    //message

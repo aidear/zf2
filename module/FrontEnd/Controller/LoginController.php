@@ -42,7 +42,7 @@ class LoginController extends AbstractActionController
 						$statement = $memberTable->getAdapter()->query($sql);
 						$statement->execute();
 // 						$memberTable->update(array('LoginCount' => 'LoginCount+1', 'LastLogin' => $now, 'LastUpdate' => $now), array('UserID' => $user->UserID));
-						$container = $this->_getSession();
+						$container = $this->_getSession('member');
 						$container->UserID = $user->UserID;
     					$container->UserName = $user->UserName;
 						$rs = array('code' => 0, 'msg' => '登录成功');
@@ -77,7 +77,7 @@ class LoginController extends AbstractActionController
 				$user = $userTable->getUserByName($username);
 				
 				if ($user && $user->Password == md5($pwd)) {
-					$container = $this->_getSession();
+					$container = $this->_getSession('member');
 					$container->UserID = $user->ID;
 					$container->Name = $user->UserName;
 // 					$container->LastChangeDate = $user->LastChangeDate;
@@ -114,8 +114,9 @@ class LoginController extends AbstractActionController
 	 * 登出
 	 */
 	public function logoutAction(){
-		$container = new Container('user');
+		$container = $this->_getSession('member');
 		$container->getManager()->destroy();
-		return $this->redirect()->toRoute('frontend' , array('controller' => 'index' , 'action' => 'index'));
+		return $this->redirect()->toUrl('/');
+// 		return $this->redirect()->toRoute('frontend' , array('controller' => 'index' , 'action' => 'index'));
 	}
 }

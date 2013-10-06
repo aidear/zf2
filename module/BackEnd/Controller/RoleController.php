@@ -83,6 +83,8 @@ class RoleController extends AbstractActionController
             $this->trigger(ActionEvent::ACTION_DELETE);
             $acl = $this->_getAcl();
             $acl->acl->removeRole($name);
+            $aclTable = $this->_getTable('AclTable');
+            $aclTable->removeAllAcl($name);
         }
         return $this->redirect()->toUrl('/role/index');
 //         return $this->redirect()->toRoute('backend' , array('controllter' => 'role' , 'action' => 'index'));

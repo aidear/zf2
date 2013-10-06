@@ -34,3 +34,20 @@ $(function() {
 		$(this).parents('.alert').slideUp();
 	});
 });
+function isUniqueUserName(user) {
+	var rs = false;
+	$.ajax({
+		type:'POST',
+		url:'/ajax?s=user',
+		data:'name='+user,
+		dataType:'json',
+		cache:false,
+		async:false,
+		success:function(s) {
+			if (s.code == 0) {
+				rs = true;
+			}
+		}
+	});
+	return rs;
+}

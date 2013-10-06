@@ -31,7 +31,7 @@ var diyConfirm = function(name , url){
 };
 
 $(function(){
-	$("button.close").click(function() {
+	$(".alert button.close").click(function() {
 		$(this).parents('.alert').slideUp();
 	});
 });

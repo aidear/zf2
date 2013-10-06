@@ -1,6 +1,6 @@
 <?php
 /**
- * NavCategory.php
+ * Link.php
  *------------------------------------------------------
  *
  * 
@@ -11,26 +11,24 @@
  *
  * @author Willing Peng<pcq2006@gmail.com>
  * @copyright (C) 2013-2018 
- * @version CVS: Id: NavCategory.php,v 1.0 2013-10-3 下午9:39:35 Willing Exp
+ * @version CVS: Id: Link.php,v 1.0 2013-10-4 下午3:01:01 Willing Exp
  * @link http://localhost
  * @deprecated File deprecated in Release 3.0.0
  */
-namespace BackEnd\Model\Nav;
+namespace FrontEnd\Model\Nav;
 
 use Zend\InputFilter\Factory as InputFactory;
 use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
 
-class NavCategory implements InputFilterAwareInterface
+class Link implements InputFilterAwareInterface
 {
 	public $id;
-	public $name;
-	public $imgUrl;
-	public $desc;
-	public $keyword;
-	public $parentID = 0;
-	public $catPath;
+	public $title;
+	public $url;
+	public $target;
+	public $category;
 	public $isShow = 1;
 	public $order = 1;
 	public $addTime;
@@ -40,12 +38,10 @@ class NavCategory implements InputFilterAwareInterface
 
 	function exchangeArray(Array $data){
 		$this->id = isset($data['id']) ? $data['id'] : '';
-		$this->name = isset($data['name']) ? $data['name'] : '';
-		$this->imgUrl = isset($data['imgUrl']) ? $data['imgUrl'] : '';
-		$this->desc = isset($data['desc']) ? $data['desc'] : '';
-		$this->keyword = isset($data['keyword']) ? $data['keyword'] : '';
-		$this->parentID = isset($data['parentID']) ? $data['parentID'] : 0;
-		$this->catPath = isset($data['catPath']) ? $data['catPath'] : '';
+		$this->title = isset($data['title']) ? $data['title'] : '';
+		$this->url = isset($data['url']) ? $data['url'] : '';
+		$this->target = isset($data['target']) ? $data['target'] : '';
+		$this->category = isset($data['category']) ? $data['category'] : 0;
 		$this->isShow = isset($data['isShow']) ? $data['isShow'] : 1;
 		$this->order = isset($data['order']) ? $data['order'] : 1;
 		$this->addTime = isset($data['addTime']) ? $data['addTime'] : date('Y-m-d H:i:s');
@@ -70,7 +66,7 @@ class NavCategory implements InputFilterAwareInterface
 			$factory     = new InputFactory();
 	
 			$inputFilter->add($factory->createInput(array(
-					'name'     => 'name',
+					'name'     => 'title',
 					'required' => true,
 					'filters'  => array(
 							array('name' => 'StripTags'),

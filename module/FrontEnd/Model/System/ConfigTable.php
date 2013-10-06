@@ -15,7 +15,7 @@
  * @link http://localhost
  * @deprecated File deprecated in Release 3.0.0
  */
-namespace BackEnd\Model\System;
+namespace FrontEnd\Model\System;
 
 
 use Custom\Paginator\Adapter\DbSelect;
