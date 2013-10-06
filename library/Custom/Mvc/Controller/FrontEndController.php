@@ -1,16 +1,20 @@
 <?php
-/*
-* package_name : FrontEndController.php
-* ------------------
-* typecomment
-*
-* PHP versions 5
-* 
-* @Author   : Richie Zhang(rizhang@mezimedia.com)
-* @Copyright: Copyright (c) 2004-2011 Mezimedia Com. (http://www.mezimedia.com)
-* @license  : http://www.mezimedia.com/license/
-* @Version  : CVS: $Id: FrontEndController.php,v 1.1 2013/04/15 10:56:30 rock Exp $
-*/
+/**
+ * FrontEndController.php
+ *------------------------------------------------------
+ *
+ * 
+ *
+ * PHP versions 5
+ *
+ *
+ *
+ * @author Willing Peng<pcq2006@gmail.com>
+ * @copyright (C) 2013-2018 
+ * @version CVS: Id: FrontEndController.php,v 1.0 2013-10-6 下午10:12:01 Willing Exp
+ * @link http://localhost
+ * @deprecated File deprecated in Release 3.0.0
+ */
 namespace Custom\Mvc\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController as Father;
@@ -21,7 +25,6 @@ class FrontEndController extends Father
 {
     const PAGE   = 15; //每页条数
     const RANGE  = 10; //分页显示数
-    const SITEID = 1;  //站点id
 
     /*
      * 初始化数据库表

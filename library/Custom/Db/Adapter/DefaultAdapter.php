@@ -1,15 +1,19 @@
 <?php
-/*
- * package_name : DefaultAdapter.php
- * ------------------
- * typecomment
+/**
+ * DefaultAdapter.php
+ *------------------------------------------------------
+ *
+ * 
  *
  * PHP versions 5
- * 
- * @Author   : thomas(thomas_fu@mezimedia.com)
- * @Copyright: Copyright (c) 2004-2011 Mezimedia Com. (http://www.mezimedia.com)
- * @license  : http://www.mezimedia.com/license/
- * @Version  : CVS: $Id: DefaultAdapter.php,v 1.1 2013/04/15 10:56:30 rock Exp $
+ *
+ *
+ *
+ * @author Willing Peng<pcq2006@gmail.com>
+ * @copyright (C) 2013-2018 
+ * @version CVS: Id: DefaultAdapter.php,v 1.0 2013-10-6 下午10:05:32 Willing Exp
+ * @link http://localhost
+ * @deprecated File deprecated in Release 3.0.0
  */
 namespace Custom\Db\Adapter;
 

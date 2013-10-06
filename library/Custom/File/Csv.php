@@ -1,27 +1,19 @@
 <?php
 /**
- * class.CsvAPI.php
- *-------------------------
+ * Csv.php
+ *------------------------------------------------------
  *
- * cvs file import function
+ * 
  *
  * PHP versions 5
  *
- * LICENSE: This source file is from Smarter Ver2.0, which is a comprehensive shopping engine 
- * that helps consumers to make smarter buying decisions online. We empower consumers to compare 
- * the attributes of over one million products in the computer and consumer electronics categories
- * and to read user product reviews in order to make informed purchase decisions. Consumers can then 
- * research the latest promotional and pricing information on products listed at a wide selection of 
- * online merchants, and read user reviews on those merchants.
- * The copyrights is reserved by http://www.mezimedia.com.  
- * Copyright (c) 2005, Mezimedia. All rights reserved.
  *
- * @author     Fan Xu <fan_xu@mezimedia.com>
- * @copyright  (C) 2004-2006 Mezimedia.com
- * @license    http://www.mezimedia.com  PHP License 5.0
- * @version    CVS: $Id: Csv.php,v 1.1 2013/04/15 10:56:30 rock Exp $
- * @link       http://www.smarter.com/
- * @deprecated File deprecated in Release 2.0.0
+ *
+ * @author Willing Peng<pcq2006@gmail.com>
+ * @copyright (C) 2013-2018 
+ * @version CVS: Id: Csv.php,v 1.0 2013-10-6 下午10:07:09 Willing Exp
+ * @link http://localhost
+ * @deprecated File deprecated in Release 3.0.0
  */
 namespace Custom\File;
 

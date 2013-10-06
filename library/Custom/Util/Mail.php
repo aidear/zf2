@@ -1,18 +1,20 @@
 <?php
-/*
-* package_name : Mail.php
-* 发送mail
-* ------------------
-* typecomment
-
-*
-* PHP versions 5
-* 
-* @Author   : thomas fu(tfu@mezimedia.com)
-* @Copyright: Copyright (c) 2004-2011 Mezimedia Com. (http://www.mezimedia.com <http://www.mezimedia.com/> )
-* @license  : http://www.mezimedia.com/license/
-* @Version  : CVS: $Id: Mail.php,v 1.1 2013/07/10 09:43:35 thomas_fu Exp $
-*/
+/**
+ * Mail.php
+ *------------------------------------------------------
+ *
+ * 
+ *
+ * PHP versions 5
+ *
+ *
+ *
+ * @author Willing Peng<pcq2006@gmail.com>
+ * @copyright (C) 2013-2018 
+ * @version CVS: Id: Mail.php,v 1.0 2013-10-6 下午10:15:17 Willing Exp
+ * @link http://localhost
+ * @deprecated File deprecated in Release 3.0.0
+ */
 namespace Custom\Util;
 
 use Zend\Mail as ZendMail;

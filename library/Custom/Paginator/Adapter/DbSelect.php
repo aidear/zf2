@@ -1,16 +1,20 @@
 <?php
-/*
-* package_name : DbSelect.php
-* ------------------
-* typecomment
-*
-* PHP versions 5
-* 
-* @Author   : Richie Zhang(rizhang@mezimedia.com)
-* @Copyright: Copyright (c) 2004-2011 Mezimedia Com. (http://www.mezimedia.com)
-* @license  : http://www.mezimedia.com/license/
-* @Version  : CVS: $Id: DbSelect.php,v 1.3 2013/07/15 09:21:38 yjiang Exp $
-*/
+/**
+ * DbSelect.php
+ *------------------------------------------------------
+ *
+ * 
+ *
+ * PHP versions 5
+ *
+ *
+ *
+ * @author Willing Peng<pcq2006@gmail.com>
+ * @copyright (C) 2013-2018 
+ * @version CVS: Id: DbSelect.php,v 1.0 2013-10-6 下午10:13:30 Willing Exp
+ * @link http://localhost
+ * @deprecated File deprecated in Release 3.0.0
+ */
 
 namespace Custom\Paginator\Adapter;
 
