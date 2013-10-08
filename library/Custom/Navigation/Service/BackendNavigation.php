@@ -31,7 +31,7 @@ class BackendNavigation extends AbstractNavigationFactory
             $application = $serviceLocator->get('Application');
             $routeMatch  = $application->getMvcEvent()->getRouteMatch();
             $router      = $application->getMvcEvent()->getRouter();
-            $pages       = $this->getPagesFromConfig(include(APPLICATION_MODULE_PATH . 'Config/page.config.php'));
+            $pages       = $this->getPagesFromConfig(include(APPLICATION_MODULE_PATH . 'config/page.config.php'));
 
             $this->pages = $this->injectComponents($pages, $routeMatch, $router);
         }

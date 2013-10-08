@@ -127,7 +127,6 @@ class AbstractActionController extends Father
         if ($viewModel->hasChildren()) {
             foreach ($viewModel->getChildren() as $child) {
                 $child->setVariables(array(
-                    'sites' => $this->sites,
                 ));
             }
         }

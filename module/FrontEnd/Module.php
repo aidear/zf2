@@ -103,10 +103,10 @@ class Module
     }
     public function getServiceConfig()
     {
-    	return include __DIR__ . '/Config/service.config.php';
+    	return include __DIR__ . '/config/service.config.php';
     }
     public function getViewHelperConfig(){
-    	return include __DIR__ . '/Config/viewhelper.config.php';
+    	return include __DIR__ . '/config/viewhelper.config.php';
     }
     
 //     public function getControllerConfig(){

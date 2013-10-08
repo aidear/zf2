@@ -157,7 +157,7 @@ class RegisterController extends AbstractActionController
 				
 				$message = new Message();
 				$message->addTo($email)
-				->addFrom('pcq2006@gmail.com')
+				->addFrom(ConfigTable::getSysConf('smtp_user'))
 				->setSubject('Email地址验证')
 				->setBody($body);
 				
@@ -167,16 +167,19 @@ class RegisterController extends AbstractActionController
 // 				if (file_exists('./data/sys_config.php')) {
 // 					$sys_config = include'./data/sys_config.php';
 // 				}
+				$connection_config = array(
+								'username' => ConfigTable::getSysConf('smtp_user'),
+								'password' => ConfigTable::getSysConf('smtp_pass'),
+						);
+				if (ConfigTable::getSysConf('smtp_ssl')) {
+					$connection_config['ssl'] = 1;
+				}
 				$options = new SmtpOptions(array(
 						'name' => 'localhost',
 						'host' => ConfigTable::getSysConf('smtp'),
 						'port' => ConfigTable::getSysConf('port'),
 						'connection_class' => 'login',
-						'connection_config' => array(
-								'username' => ConfigTable::getSysConf('smtp_user'),
-								'password' => ConfigTable::getSysConf('smtp_pass'),
-								'ssl' => ConfigTable::getSysConf('smtp_ssl') == 1 ? 'ssl' : '',
-						)
+						'connection_config' => $connection_config
 				));
 				$transport->setOptions($options);
 				$transport->send($message);

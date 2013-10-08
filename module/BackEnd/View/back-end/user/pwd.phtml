@@ -1,16 +1,29 @@
 <?php
 $form = $this->form;
+$msg = $this->flashMessages();
 ?>
 <div class="box">
     <div class="box-header">
         <h2><i class="icon-box"></i>密码修改</h2>
     </div>
     <div class="box-content">
-    		<?php if($this->msg):?>
-    		<?php foreach($this->msg as $msg):?>
-    		 <div class="help-block"><i class="icon-warning-sign"></i><?php echo $msg;?></div>
-    		 <?php endforeach;?>
-    		<?php endif;?>
+    		 <?php if(!empty($msg['error'])):?>
+            <div class="alert alert-error fade in">
+            <button class="close" data-dismiss="alert" type="button">×</button>
+            <?php foreach($msg['error'] as $v):?>
+            <p><?php echo $v;?></p>
+            <?php endforeach;?>
+            </div>
+            <?php endif;?>
+            
+            <?php if(!empty($msg['success'])):?>
+            <div class="alert alert-success fade in">
+            <button class="close" data-dismiss="alert" type="button">×</button>
+            <?php foreach($msg['success'] as $v):?>
+            <p><?php echo $v;?></p>
+            <?php endforeach;?>
+            </div>
+            <?php endif;?>
     
 		<?php $this->partial('back-end/default/message.phtml');?>
         <form class="box-form" action="<?php echo $this->url('backend' , array('controller' => 'user' , 'action' => 'pwd'))?>"
