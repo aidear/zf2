@@ -60,36 +60,23 @@ class NavCategoryTable extends TableGateway
         $row = $rowset->current();
         return $row;
     }
+    function getCateNameById($id)
+    {
+    	if (0 == $id) {
+    		return '顶级分类';
+    	}
+    	$cate = $this->getOneById($id);
+    	
+    	return isset($cate->name) ? $cate->name : '';
+    }
     function getPathByParent($pid)
     {
     	if (!$pid) return '';
     	$rowset = $this->select(array('id' => $pid));
     	$row = $rowset->current();
-    	return $pid.','.trim($row->catPath, ',');
+    	return rtrim($row->catPath, ',') . ',' . $pid . ',';
     }
-    function getCateTree($where = array())
-    {
-    	$arr = array();
-    	$rows = $this->getlist($where);
-    	foreach ($rows as $row) {
-    		$catPath = explode(',', trim($row['catPath'], ','));
-    		$catPath = array_filter($catPath);
-    		if (empty($catPath)) {
-    			$tem = isset($arr[$row['id']]['sub']) ? $arr[$row['id']]['sub'] : array();
-    			$arr[ $row['id'] ] = $row;
-    			$arr[ $row['id'] ]['sub'] = $tem;
-    		} else {
-    			$catStr = '$arr';
-    			foreach ($catPath as $c) {
-    				$catStr .= "[$c]['sub']";
-    			}
-    			$catStr .= "[{$row['id']}]=\$row;";
-    			eval($catStr);
-    		}
-    		
-    	}
-    	return $arr;
-    }
+    
     function getByName($name){
         $select = $this->getSql()->select();
         $where = function (Where $where) use($name){
@@ -103,7 +90,11 @@ class NavCategoryTable extends TableGateway
     function delete($id){
         return parent::delete(array("id" => $id));
     }
-    
+    function deleteCateTree($id)
+    {
+    	$where = "id={$id} OR INSTR(catPath, ',{$id},')";
+    	return parent::delete($where);
+    }
 	function save(NavCategory $navCategory){
         $navCategory = $navCategory->toArray();
         unset($navCategory['inputFilter']);
@@ -151,5 +142,18 @@ class NavCategoryTable extends TableGateway
     	}//echo str_replace('"', '', $select->getSqlString());die;
     	$resultSet = $this->selectWith($select);
     	return $resultSet->count();
+    }
+    public function checkNavCanDel($id)
+    {
+    	$select = $this->getSql()->select();
+//     	$where = function (Where $where) use($id){
+//     		$where->like('name' , "$name%");
+//     	};
+		
+		$sql = "SELECT COUNT(link.id) as total FROM link WHERE link.category IN (SELECT id FROM nav_category WHERE id={$id} OR INSTR(catPath, ',{$id},'))";
+		$statement = $this->adapter->query($sql);
+		$results = $statement->execute();
+		$row = $results->current();
+		return $row['total'];
     }
 }

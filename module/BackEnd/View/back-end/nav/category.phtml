@@ -50,25 +50,25 @@ $msg = $this->flashMessages();
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($this->paginaction as $nav): ?>
+                <?php foreach ($this->navList as $nav): ?>
                     <tr class="row">
-                        <td><?php echo $nav->id; ?></td>
-                        <td><?php echo $nav->name; ?></td>
-                        <td><?php echo $nav->parentID; ?></td>
-                        <td><?php echo $nav->isShow ? '显示' : '不显示'; ?></td>
-                        <td editable="true"><?php echo $nav->order; ?></td>
-                        <td><?php echo $nav->addTime; ?></td>
+                        <td><?php echo $nav['id']; ?></td>
+                        <td><?php echo $nav['name']; ?></td>
+                        <td><?php echo $nav['parentName']; ?></td>
+                        <td><?php echo $nav['isShow'] ? '显示' : '不显示'; ?></td>
+                        <td editable="true"><?php echo $nav['order']; ?></td>
+                        <td><?php echo $nav['addTime']; ?></td>
                         <td>
                             <a class="btn btn-edit" href="<?php echo $this->url('backend', array('controller' 
-                                => 'nav', 'action' => 'save')) ?>?id=<?php echo $nav->id; ?>">
+                                => 'nav', 'action' => 'save')) ?>?id=<?php echo $nav['id']; ?>">
                                 <i class="icon-edit"></i>编辑
                             </a>&nbsp;&nbsp;
                             <a class="btn btn-edit" href="<?php echo $this->url('backend', array('controller' 
-                                => 'nav', 'action' => 'items')) ?>?cid=<?php echo $nav->id; ?>">
+                                => 'nav', 'action' => 'items')) ?>?cid=<?php echo $nav['id']; ?>">
                                 <i class="icon-edit"></i>导航列表
                             </a>&nbsp;&nbsp;
                             <a class="btn btn-delete" href="<?php echo $this->url('backend', array('controller' 
-                                => 'nav', 'action' => 'delete')) ?>?id=<?php echo $nav->id; ?>" onClick="diyConfirm('删除' , $(this).attr('href'));return false;"><i class="icon-delete"></i>删除
+                                => 'nav', 'action' => 'delete')) ?>?id=<?php echo $nav['id']; ?>" onClick="diyConfirm('删除' , $(this).attr('href'));return false;"><i class="icon-delete"></i>删除
                             </a>
                         </td>
                     </tr>

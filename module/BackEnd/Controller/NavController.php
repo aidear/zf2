@@ -36,6 +36,7 @@ use BackEnd\Model\Nav\Link;
 
 class NavController extends AbstractActionController
 {
+	protected  $op = array();
 	function indexAction()
 	{
 		
@@ -56,7 +57,13 @@ class NavController extends AbstractActionController
         $paginaction->setCurrentPageNumber($page);
         $paginaction->setItemCountPerPage(self::LIMIT);
         
-        return array('paginaction' => $paginaction);
+        $navList = $paginaction->getCurrentItems()->toArray();
+        
+        foreach ($navList as $k=>$v) {
+        	$navList[$k]['parentName'] = $table->getCateNameById($v['parentID']);
+        }
+        
+        return array('paginaction' => $paginaction, 'navList' => $navList);
 	}
 	public function saveAction()
 	{
@@ -66,23 +73,15 @@ class NavController extends AbstractActionController
 		$navCategoryTable = $this->_getTable('NavCategoryTable');
 // 		print_r($navCategoryTable->getCateTree());die;
 		$navCate = $navCategoryTable->getlist(array('isShow' => 1));
+		
+		$fCategory = $this->_formatCategory($navCate);
 		$navOption = array();
-		$navOption[0] = '顶级分类';
-		foreach ($navCate as $k=>$v) {
-			if ($v['catPath']) {
-				$indent = count(explode(',', trim($v['catPath'], ',')));
-			} else {
-				$indent = 0;
-			}
-// 			$blank = '|--';
-// 			for($i = $indent; $i > 0; $i --) {
-// 				$blank .= '--';
-// 			}
-			
-			$navOption[$v['id']] = $v['name'];
+		$this->op[0] = '顶级分类';
+		$this->_returnOptionValue($fCategory);
+		if ($catid = $this->params()->fromQuery('id')) {
+			unset($this->op[$catid]);
 		}
-// 		array_unshift($navOption, '顶级分类');
-		$form->get('parentID')->setValueOptions($navOption);
+		$form->get('parentID')->setValueOptions($this->op);
 		if($req->isPost()){
 			$params = $req->getPost();
 			$navCategory = new NavCategory();
@@ -168,12 +167,11 @@ class NavController extends AbstractActionController
 		$form = new LinkForm();
 		$categoryTable = $this->_getTable('NavCategoryTable');
 		$cOjb = $categoryTable->getlist(array('isShow' => 1));
-		$cateLists = array();
-		foreach ($cOjb as $k=>$v) {
-			$cateLists[$v['id']] = $v['name'];
-		}
 		
-		$form->get('category')->setValueOptions($cateLists)->setValue($cid);
+		$fCategory = $this->_formatCategory($cOjb);
+		$this->_returnOptionValue($fCategory);
+		
+		$form->get('category')->setValueOptions($this->op)->setValue($cid);
 		$req = $this->getRequest();
 		if ($req->isPost()) {
 			$params = $req->getPost();
@@ -225,7 +223,11 @@ class NavController extends AbstractActionController
 			throw new \Exception('incomplete category id');
 		}
 		$navTable = $this->_getTable('NavCategoryTable');
-		$rs = $navTable->delete($id);
+		if ($navTable->checkNavCanDel($id)) {
+			$this->_message('抱歉，此分类不能删除，因为当前分类或者子分类下有导航数据', 'error');
+			return $this->redirect()->toUrl('/nav/category');
+		}
+		$rs = $navTable->deleteCateTree($id);
 		if ($rs) {
 			$this->_message('已删除', 'success');
 		} else {
@@ -265,5 +267,36 @@ class NavController extends AbstractActionController
 	private function _updateNavImage($id , $imageFile){
 		$table = $this->_getTable('NavCategoryTable');
 		return $table->updateImage($id , $imageFile);
+	}
+	private function _formatCategory($rows)
+	{
+		$tr = array();
+		foreach ($rows as $k=>$v) {
+			if (0 == $v['parentID'] && empty($v['catPath'])) {
+				$tr[$v['id']] = array('id' => $v['id'], 'name' => $v['name'], 'depth' => 0);
+			} else {
+				$path = explode(',', trim($v['catPath'], ','));
+				$count = count($path);
+				$tmp = '$tr';
+				for($i=0; $i < $count; $i ++) {
+					$tmp .= "[$path[$i]]['sub']";
+				}
+				$tmp .= "[".$v['id']."]";//echo $tmp,'<br />';
+				$val = array('id' => $v['id'], 'name' => $v['name'], 'depth' => $count);
+				eval("$tmp=\$val;");
+			}
+		}
+		
+		return $tr;
+	}
+	private function _returnOptionValue($fCategory)
+	{
+		foreach ($fCategory as $k=>$v) {
+			$prefix = str_repeat(' -- ', $v['depth']);
+			$this->op[$k] = '| '.$prefix.$v['name'];
+			if (isset($v['sub'])) {
+				$this->_returnOptionValue($v['sub']);
+			}
+		}
 	}
 }

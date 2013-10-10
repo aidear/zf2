@@ -1,13 +1,10 @@
 <?php
 namespace BackEnd;
-use BackEnd\Model\Admin;
-use BackEnd\Model\AdminTable;
 use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\TableGateway\TableGateway;
 
 use Zend\Session\SessionManager;
 use Zend\Session\Container;
-// use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
 use BackEnd\Model\Users\MyAcl;
 use Zend\EventManager\EventInterface as Event;
