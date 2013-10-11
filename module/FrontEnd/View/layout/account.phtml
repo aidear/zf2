@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<?php echo $this->headTitle(); ?>
+<?php 
+            echo $this->headLink()->prependStylesheet($this->basePath() . '/styles/FrontEnd/reg.css')
+            ->prependStylesheet($this->basePath() . '/styles/FrontEnd/common.css');
+        ?>
+        
+        <?php
+        echo $this->headScript()->prependFile($this->basePath('js/jquery-validate.min.js'))
+        	->prependFile($this->basePath('js/FrontEnd/comm.js'))
+            ->prependFile($this->basePath('js/jquery.min.js'));
+       ?>
+<style type="text/css">
+body {
+	background-color: #F6F6F6;
+}
+</style>
+</head>
+
+<body>
+<div class="header_bg">
+  <div class="header">
+    <h1><a href="/">欢迎来导航！</a></h1><h2><a href="/login">请登录</a></h2><h3><a href="/register">免费注册</a></h3><h4><a href="/">首页</a>|<a href="#">联系我们</a>|<a href="/">网站导航</a></h4></div>
+</div>
+<div class="pas_warp">
+  <div class="top">
+    <div class="logo"><img src="/images/FrontEnd/reg_logo.jpg" width="117" height="76" /></div>    <div class="logo_txt">安全中心</div>
+</div>
+</div>
+<div class="fg"></div>
+<?php echo $this->content;?>
+<?php echo $this->partial('layout/footer.phtml');?>
+</body>
+</html>

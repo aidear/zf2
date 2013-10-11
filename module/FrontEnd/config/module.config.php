@@ -9,7 +9,7 @@ return array(
         	'register' => 'FrontEnd\Controller\RegisterController',
 //         	'resource' => 'BackEnd\Controller\ResourceController',
 //         	'user' => 'BackEnd\Controller\UserController',
-//         	'member' => 'BackEnd\Controller\MemberController',
+        	'member' => 'FrontEnd\Controller\MemberController',
         	'ajax' => 'FrontEnd\Controller\AjaxController',
 //         	'config' => 'BackEnd\Controller\ConfigController',
         ),
@@ -69,6 +69,26 @@ return array(
          			)
          		)					
          ),
+        		'forgetCaptcha' => array(
+        				'type' => 'Zend\Mvc\Router\Http\Literal',
+        				'options' => array(
+        						'route' => '/forget-captcha',
+        						'defaults' => array(
+        								'controller' => 'member',
+        								'action' => 'captcha',
+        						)
+        				)
+        		),
+        		'forget-confirm' => array(
+        				'type' => 'Zend\Mvc\Router\Http\Literal',
+        				'options' => array(
+        						'route' => '/forget-confirm.do',
+        						'defaults' => array(
+        								'controller' => 'member',
+        								'action' => 'confirm',
+        						)
+        				)
+        		),
         		'email' => array(
         				'type' => 'Zend\Mvc\Router\Http\Literal',
         				'options' => array(
@@ -116,6 +136,16 @@ return array(
         						'defaults' => array(
         								'controller' => 'login',
         								'action' => 'logout',
+        						)
+        				)
+        		),
+        		'forget_pass' => array(
+        				'type' => 'Zend\Mvc\Router\Http\Literal',
+        				'options' => array(
+        						'route' => '/forget_password/',
+        						'defaults' => array(
+        								'controller' => 'member',
+        								'action' => 'findPassword',
         						)
         				)
         		),

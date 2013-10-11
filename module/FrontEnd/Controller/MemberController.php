@@ -15,23 +15,13 @@
  * @link http://localhost
  * @deprecated File deprecated in Release 3.0.0
  */
-namespace BackEnd\Controller;
+namespace FrontEnd\Controller;
 
 use Zend\Paginator\Paginator;
 use Zend\Form\Form;
 use Zend\Form\Element;
 use Custom\Mvc\Controller\AbstractActionController;
 use Custom\Util\Utilities;
-use BackEnd\Model\Users\Member;
-use BackEnd\Model\Users\MemberTable;
-use BackEnd\Form\MemberForm;
-use BackEnd\Model\Users\RegionTable;
-use Custom\Mvc\ActionEvent;
-use Custom\File\Uploader;
-
-use Zend\Validator\File\Size;
-
-use Zend\File\Transfer\Adapter\Http;
 
 class MemberController extends AbstractActionController
 {
@@ -52,153 +42,69 @@ class MemberController extends AbstractActionController
         $paginaction->setItemCountPerPage(self::LIMIT);
         return array('paginaction' => $paginaction);	
 	}
-	
-	public function saveAction()
+	public function findPasswordAction()
 	{
-		$requery = $this->getRequest();
-		$form = new MemberForm();
-		if($requery->isPost()){
-			$params = $requery->getPost();
-			$member = new Member();
-			
-			$member->UserID = $params->UserID;
-			$member->UserName = $params->UserName;
-// 			$member->Password = md5($params->Password);
-			$member->Nick = $params->Nick;
-// 			$member->ImgUrl = $params->ImgUrl;
-			$member->Email = $params->Email;
-			$member->Mobile = $params->Mobile;
-			$member->Points = $params->Points;
-			$member->TrueName = $params->TrueName;
-			$member->Gender = $params->Gender;
-			$member->Province = $params->Province;
-			$member->City = $params->City;
-			$member->District = $params->District;
-			$member->Address = $params->Address;
-			$member->Tel = $params->Tel;
-			$member->Birthday = $params->Birthday;
-			$member->QQ = $params->QQ;
-			$member->MSN = $params->MSN;
-			$member->Status = $params->Status;
-			$member->Source = $params->Source;
-			$member->LastUpdate = $member->AddTime = Utilities::getDateTime();
-			$form->setData($params);
-			
-			$form->setInputFilter($member->getInputFilter());
-				
-			if ($form->isValid()) {
-// 				$member->exchangeArray($form->getData());
-				$table = $this->_getTable('MemberTable');
-				$chkExist = 1;
-				if ($table->checkExist(array('UserName' => $params->UserName), $params->UserID)) {
-					$chkExist = 0;
-					$this->flashMessenger()->addErrorMessage("用户名:{$params->UserName}已被占用！请更换其他用户名");
+		$this->layout('layout/account');
+		$req = $this->getRequest();
+		if ($req->isPost()) {
+			$params = $req->getPost();
+			if (isset($params['UserName']) && !empty($params['UserName'])) {
+				$captcha_sess = $this->_getSession('Zend_Form_Captcha_'.$_SESSION['forget_captcha_code']);
+				if ($captcha_sess->word == $params['validCode']) {
+					$member = $this->_getTable('MemberTable');
+					$memberInfo = $member->getUserByUserName($params['UserName']);
+					return array('memberInfo' => $memberInfo);
 				}
-				if ($table->checkExist(array('Email' => $params->Email), $params->UserID)) {
-					$chkExist = 0;
-					$this->flashMessenger()->addErrorMessage("邮箱:{$params->Email}已被占用！请更换其他邮箱");
-				}
-				if ($table->checkExist(array('Mobile' => $params->Mobile), $params->UserID)) {
-					$chkExist = 0;
-					$this->flashMessenger()->addErrorMessage("手机:{$params->Mobile}已被占用！请更换其他手机号码");
-				}
-				if (!$chkExist) {
-					if ($params->UserID) {
-						return $this->redirect()->toUrl("/member/save?id={$params->UserID}");
-					} else {
-						return $this->redirect()->toRoute('backend' , array('controller' => 'member' , 'action' => 'save'));
-					}
-				} 
-				
-				$table->save($member);
-			
-				//插入图片
-				$member->ImgUrl = $this->_insertImg($member->UserID);
-				//更新表
-				if($member->ImgUrl){
-					$this->_updateMemberImage($member->UserID , $member->ImgUrl );
-				}
-				
-				if($member->UserID){
-					$this->trigger(ActionEvent::ACTION_UPDATE);
-					$this->_message('更新成功');
-				}else{
-					$this->_message('添加成功');
-					$this->trigger(ActionEvent::ACTION_INSERT);
-				}
-				return $this->redirect()->toRoute('backend' , array('controller' => 'member' , 'action' => 'index'));
 			}
-			
-			
-		} elseif ($UserID = $this->params()->fromQuery('id')) {
-			$member = new Member();
-			
-			$userInfo = $this->_getMemberByID($UserID);
-            $form->setData($userInfo);
-		} else {
-			
 		}
-		$region = $this->_getTable('RegionTable');
-		$prov = $region->getSelectRegion(2);
-		$provK = array_keys($prov);
-		$dC = isset($userInfo['Province']) ? $userInfo['Province'] : array_shift($provK);
-		$city = $region->getSelectRegion(3, $dC);
-		$cityK = array_keys($city);
-		$dDi = isset($userInfo['City']) ? $userInfo['City'] : array_shift($cityK);
-		$district = $region->getSelectRegion(4, $dDi);
-		$form->get('Province')->setValueOptions($prov);
-		$form->get('City')->setValueOptions($city);
-		$form->get('District')->setValueOptions($district);
-		$form->get('Source')->setValue(2);
-		
-// 		if($this->flashMessenger()->hasMessages()){
-// 			return array('form' => $form, 'msg' => $this->flashMessenger()->getMessages());
-// 		} else {
-			return array('member' => new Member() , 'form' => $form);
-// 		}
+// 		$member = $this->_getTable('MemberTable');
+// 		$memberInfo = $member->getUserByUserName('xml');
+// 		return array('memberInfo' => $memberInfo);
+		return array();
 	}
-	
-	function pwdAction()
+	public function confirmAction()
 	{
-		$form = new MemberForm();
-		$post = $this->getRequest();
-		if($post->isPost()){
-			$password = trim($post->getPost()->Password);
-			$rePassword = trim($post->getPost()->rePassword);
-			$UserID = $post->getPost()->UserID;
-			if (empty($password) || empty($rePassword)) {
-				$this->flashMessenger()->addErrorMessage('请输入密码后提交');
-				
-			} elseif ($password == $rePassword) {
-				$memberTable = $this->_getTable('MemberTable');
-				$memberTable->updateFieldsByID(array('Password' => md5($password)), $UserID);
-				$this->flashMessenger()->addSuccessMessage('会员密码已重置成功');
-// 				return $this->redirect()->toRoute('backend' , array('controller' => 'member' , 'action' => 'pwd'));
-			} else {
-				$this->flashMessenger()->addErrorMessage('抱歉，两次输入的密码不一致！请重新输入');
-			}
-			return $this->redirect()->toUrl("/member/pwd?id={$UserID}");
+		$this->layout('layout/account');
+		
+		$userId = $this->params()->fromQuery('uid');
+		$actKey = $this->params()->fromQuery('actKey');
+		$step = $this->params()->fromQuery('s');
+		$pass = substr($actKey,0, 32);
+		$code = substr($actKey, 32, strlen($actKey));
+		$chk = 1;
+		if (time() - base64_decode($code) > 72*60*60) {
+			header('Content-Type: text/html; charset=utf-8');
+			die('链接地址已失效！');
 		}
-		$UserID = $this->params()->fromQuery('id');
-		$userInfo = $this->_getMemberByID($UserID);
-		unset($userInfo['Password']);
-		$form->setData($userInfo);
-		$form->add ( array (
-            'name' => 'rePassword',
-            'options' => array (
-                'label' => '确认密码' 
-            ) 
-        ) );
-		
-// 		if($this->flashMessenger()->hasMessages()){
-// 			return array('form' => $form, 'msg' => $this->flashMessenger()->getMessages());
-// 		} else {
-			return array('form' => $form);
-// 		}
-		
-// 		return array('form'=>'');
+		$member = $this->_getTable('MemberTable');
+		$memberInfo = $member->getOneById($userId);
+		if ($pass != md5($memberInfo->Password)) {
+			header('Content-Type: text/html; charset=utf-8');
+			die('抱歉，链接地址已失效！');
+		}
+		$url = Utilities::get_domain()."/forget-confirm.do?uid={$userId}&actKey=".$actKey;
+		if ($step == 'next') {
+			return array('url', 'user' => $memberInfo);
+		}
+		return array('url' => $url);
 	}
-	
+	function captchaAction()
+	{
+		$captcha = new \Zend\Captcha\Image(array(
+				'Expiration' => '300',
+				'wordlen' => '4',
+				'Height' => '28',
+				'Width' => '77',
+				'writeInFile'=>false,
+				'Font' => APPLICATION_PATH.'/data/AdobeSongStd-Light.otf',
+				'FontSize' => '24',
+				'DotNoiseLevel' => 8,
+				'ImgDir' => '/images/FrontEnd'
+		));
+		$imgName = $captcha->generate();
+		$_SESSION['forget_captcha_code'] = $imgName;
+		die;
+	}
 	private function _getMemberByID($UserID)
 	{
 		$table = $this->_getTable('MemberTable');

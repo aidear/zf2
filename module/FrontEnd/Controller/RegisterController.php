@@ -172,7 +172,7 @@ class RegisterController extends AbstractActionController
 								'password' => ConfigTable::getSysConf('smtp_pass'),
 						);
 				if (ConfigTable::getSysConf('smtp_ssl')) {
-					$connection_config['ssl'] = 1;
+					$connection_config['ssl'] = 'ssl';
 				}
 				$options = new SmtpOptions(array(
 						'name' => 'localhost',
