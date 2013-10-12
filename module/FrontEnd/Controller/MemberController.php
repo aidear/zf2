@@ -22,6 +22,7 @@ use Zend\Form\Form;
 use Zend\Form\Element;
 use Custom\Mvc\Controller\AbstractActionController;
 use Custom\Util\Utilities;
+use Zend\View\Model\ViewModel;
 
 class MemberController extends AbstractActionController
 {
@@ -65,6 +66,7 @@ class MemberController extends AbstractActionController
 	public function confirmAction()
 	{
 		$this->layout('layout/account');
+		$req = $this->getRequest();
 		
 		$userId = $this->params()->fromQuery('uid');
 		$actKey = $this->params()->fromQuery('actKey');
@@ -83,6 +85,42 @@ class MemberController extends AbstractActionController
 			die('抱歉，链接地址已失效！');
 		}
 		$url = Utilities::get_domain()."/forget-confirm.do?uid={$userId}&actKey=".$actKey;
+		
+		if ($req->isPost()) {
+			$params = $req->getPost();
+			//validation reg
+			
+			$assign = array();
+			$chk = 1;
+			if (!(isset($params['password']) && isset($params['repassword']))) {
+				$chk = 0;
+				$assign = array('code' => -1, 'msg' => '参数错误');
+			} else {
+				if (!(preg_match('/^.{6,16}$/', $params['password']) && preg_match('/^.{6,16}$/', $params['repassword']))) {
+					$chk = 0;
+					$assign = array('code' => -2, 'msg' => '密码必须为6到16位字符');
+				}  elseif (preg_match('/^[0-9]+$/', $params['password']) || preg_match('/^[0-9]+$/', $params['repassword']) || preg_match('/^[a-zA-Z]+$/', $params['password']) || preg_match('/^[a-zA-Z]+$/', $params['repassword'])) {
+					$chk = 0;
+					$assign = array('code' => -3, 'msg' => '密码不能为纯数字或纯字母组成');
+				}
+			}
+			if ($chk) {
+				if ($params['password'] == $params['repassword']) {
+					$flg = $member->update(array('Password' => md5($params['password'])), array('UserID' => $memberInfo->UserID));
+					if ($flg) {
+						$assign = array('code' => 0, 'msg' => '恭喜，密码重置成功！');
+					} else {
+						$assign =  array('code' => 1, 'msg' => '抱歉，密码重设失败！');
+					}
+				} else {
+					$assign = array('code' => 2, 'msg' => '两次密码输入不一致！');
+				}
+			}
+			
+			$v = new ViewModel($assign);
+			$v->setTemplate('front-end/member/reset');
+			return $v;
+		}
 		if ($step == 'next') {
 			return array('url', 'user' => $memberInfo);
 		}
@@ -90,6 +128,7 @@ class MemberController extends AbstractActionController
 	}
 	function captchaAction()
 	{
+		unset($_SESSION['forget_captcha_code']);
 		$captcha = new \Zend\Captcha\Image(array(
 				'Expiration' => '300',
 				'wordlen' => '4',
@@ -97,8 +136,8 @@ class MemberController extends AbstractActionController
 				'Width' => '77',
 				'writeInFile'=>false,
 				'Font' => APPLICATION_PATH.'/data/AdobeSongStd-Light.otf',
-				'FontSize' => '24',
-				'DotNoiseLevel' => 8,
+				'FontSize' => '22',
+				'DotNoiseLevel' => 0,
 				'ImgDir' => '/images/FrontEnd'
 		));
 		$imgName = $captcha->generate();

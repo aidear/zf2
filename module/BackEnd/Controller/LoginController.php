@@ -30,6 +30,7 @@ class LoginController extends AbstractActionController
 	}
 	function captchaAction()
 	{
+		unset($_SESSION['captcha_login_code']);
 		$captcha = new \Zend\Captcha\Image(array(
 				'Expiration' => '300',
 				'wordlen' => '4',

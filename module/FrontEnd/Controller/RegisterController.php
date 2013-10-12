@@ -105,6 +105,7 @@ class RegisterController extends AbstractActionController
     }
 	function captchaAction()
 	{
+		unset($_SESSION['captcha_code']);
 		$captcha = new \Zend\Captcha\Image(array(
 				'Expiration' => '300',
 				'wordlen' => '4',

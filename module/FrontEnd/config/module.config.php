@@ -206,7 +206,7 @@ return array(
 		'config' => array(
 				'class' => 'Zend\Session\Config\SessionConfig',
 				'options' => array(
-						'name' => 'backend',
+						'name' => 'frontend',
 				),
 		),
 		'storage' => 'Zend\Session\Storage\SessionStorage',

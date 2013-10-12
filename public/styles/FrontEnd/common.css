@@ -10,6 +10,8 @@
 .list span {background-repeat:no-repeat;background-position:center;float:left;width:120px;display:inline;margin-left:10px;}
 .list ul {border-left:1px solid #8f8f8f; min-height:60px;}
 .list ul li { width:90px; line-height:30px;}
+.foot{background-color:#e8e8e8;float:left;width:100%;line-height:60px;height:60px;font-family:"微软雅黑";font-size:12px;margin-top:15px;}
+.foot_1{background-color:#e8e8e8;float:left;width:100%;line-height:60px;height:60px;font-family:"微软雅黑";font-size:12px;margin-top:15px;}
 
 /****alert**/
 .fade {

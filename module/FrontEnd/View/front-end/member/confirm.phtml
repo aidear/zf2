@@ -23,7 +23,7 @@ $msg = $this->flashMessages();
 <li class="suoj">必须是6-20个英文字母.数字或符号，不能是纯数字或字母</li>
 <li>
 <label for="inp_name">确认新的登录密码：</label>
-  <p><input name="repassword"  data-trim="true" data-pattern="^.{6,16}$" maxlength="16" data-validate="pwd" data-conditional="confirm" data-describedby="for_repassword" data-description="repassword" data-required="true" type="password" class="input_out" id="in_name2" onfocus="this.className='input_on';this.onmouseout=''" onblur="this.className='input_off';this.onmouseout=function(){this.className='input_out'};" onmousemove="this.className='input_move'" onmouseout="this.className='input_out'" /></p>
+  <p><input name="repassword"  data-trim="true" data-pattern="^.{6,16}$" maxlength="16"  data-conditional="confirm same" data-describedby="for_repassword" data-description="repassword" data-required="true" type="password" class="input_out" id="in_name2" onfocus="this.className='input_on';this.onmouseout=''" onblur="this.className='input_off';this.onmouseout=function(){this.className='input_out'};" onmousemove="this.className='input_move'" onmouseout="this.className='input_out'" /></p>
 <span id="for_repassword"></span>
 </li>
 <li class="btn"><a href="javascript:;"><img src="/images/FrontEnd/btn_qd.jpg" height="42" id="submit_btn" style="cursor:pointer;"/></a></li>
@@ -41,11 +41,11 @@ $('#reset_form').validate({
 		}
 	},
 	eachInvalidField : function() {
-		if ($(this).attr('name') = 'repassword') {
-			if (!(/^[a-zA-Z]+$/.test($(this).val()) || /^[0-9]+$/.test($(this).val()))) {
-				$("for_repassword").html('<span><img src="/images/FrontEnd/no.jpg" width="24" height="24" /></span><h1>两次密码输入不一致</h1>');
-			}
-		}
+// 		if ($(this).attr('name') = 'repassword') {
+// 			if (!(/^[a-zA-Z]+$/.test($(this).val()) || /^[0-9]+$/.test($(this).val()))) {
+// 				$("for_repassword").html('<span><img src="/images/FrontEnd/no.jpg" width="24" height="24" /></span><h1>两次密码输入不一致</h1>');
+// 			}
+// 		}
 	},
 	description : {
 		password : {
@@ -56,12 +56,27 @@ $('#reset_form').validate({
 		repassword : {
 			required : '<span><img src="/images/FrontEnd/no.jpg" width="24" height="24" /></span><h1>不能为空</h1>',
 			pattern : '<span><img src="/images/FrontEnd/no.jpg" width="24" height="24" /></span><h1>请输入6到16位密码</h1>',
-			conditional : '<span><img src="/images/FrontEnd/no.jpg" width="24" height="24" /></span><h1>两次输入的密码不一致</h1>'
+			conditional : {
+				confirm : '<span><img src="/images/FrontEnd/no.jpg" width="24" height="24" /></span><h1>不能是纯数字或字母</h1>',
+				same : '<span><img src="/images/FrontEnd/no.jpg" width="24" height="24" /></span><h1>两次输入的密码不一致</h1>'
+			}
 		}
 	},
 	conditional : {
 		confirm : function() {
-			return $(this).val() == $('#password').val();
+			var reg1 = /^[a-zA-Z]+$/;
+        	var reg2 = /^[0-9]+$/;
+        	var value = $(this).val();
+        	if (reg1.test(value)) {
+				return false;
+            }
+            if (reg2.test(value)) {
+				return false;
+            }
+            return true;
+		},
+		same : function() {
+			return $(this).val() == $('input[name="password"]').val();
 		}
 	},
 	valid:function() {

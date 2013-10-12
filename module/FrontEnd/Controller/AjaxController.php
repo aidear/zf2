@@ -50,7 +50,7 @@ class AjaxController extends AbstractActionController
 				$memberInfo = $table->getOneById($userId);
 				$actKey = md5($memberInfo->Password).base64_encode(time());
 				$url = Utilities::get_domain()."/forget-confirm.do?uid={$memberInfo->UserID}&actKey=".$actKey;
-				$htmlMarkup = "打开地址：$url";
+				$htmlMarkup = "{$memberInfo->UserName},<p>您要求了重设您在本站的帐户密码。</p><p>您可以点击下面的链接登录，或者将此链接复制到浏览器地址栏：</p><p>$url</p><p></p>";
 				$html = new MimePart($htmlMarkup);
 				$html->type = "text/html";
 				$body = new MimeMessage();

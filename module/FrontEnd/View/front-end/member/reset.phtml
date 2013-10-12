@@ -1,0 +1,22 @@
+<?php
+$msg = $this->flashMessages();
+?>
+<div class="cg">
+<div class="pas_warp">
+ <div class="cg_1">
+ <?php if ($this->code == 0):?>
+ <span class="cgimg"><img src="/images/FrontEnd/yes_1.jpg" width="46" height="48" /></span>设置成功，请牢记您的密码 
+ <?php else:?>
+ <img src="/images/FrontEnd/no.jpg" style="margin-bottom: -6px;" /> &nbsp;<?php echo $this->msg;?> 
+ <?php endif;?>
+ </div>
+ </div>
+</div>
+<div class="fanh"><div class="pas_warp">
+  <div class="fanh_t">
+  <?php if ($this->code == 0):?>
+  <a href="/">返回我的导航</a>
+  <?php else:?>
+  <a href="javascript:history.go(-1);">返回</a>
+  <?php endif;?>
+  </div></div></div>

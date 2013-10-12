@@ -58,7 +58,7 @@ $(function(){
 	$("#login_btn").click(function(){
 		var userName = $.trim($("#inp_name").val());
 		var password = $.trim($("#inp_email").val());
-		if ($("input[name='remberMe']:checked").attr('checked')) {
+		if ($("input[name='remberMe']").is(':checked')) {
 			var rememberMe = 1;
 		} else {
 			var rememberMe = 0;
@@ -70,7 +70,7 @@ $(function(){
 			$.ajax({
 				type: 'POST',
 				url:'/login',
-				data: 'username='+userName+'&password='+password+'&rm='+rememberMe,
+				data: 'username='+userName+'&password='+password+'&rememberMe='+rememberMe,
 				dataType:'json',
 				success:function(e) {
 					if (e.code == 0) {
