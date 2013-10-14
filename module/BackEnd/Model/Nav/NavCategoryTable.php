@@ -32,18 +32,19 @@ use BackEnd\Model\Nav\NavCategory;
 class NavCategoryTable extends TableGateway
 {
     protected $table = "nav_category";
+    protected $select;
     
     function getAllToPage(){
-        $select = $this->getSql()->select()->order('order Desc');
+        $select = $this->getSql()->select()->order('order '.__LIST_ORDER);
         $adapter = new DbSelect($select, $this->getAdapter());
         return $adapter;
     }
     
     function getAll(){
-        return $this->select()->order('order Desc');
+        return $this->select()->order('order '.__LIST_ORDER);
     }
     
-    function getlist($where = array(), $order = 'order Desc')
+    function getlist($where = array(), $order = "order {__LIST_ORDER}")
     {
     	$select = $this->getSql()->select();
     	
@@ -155,5 +156,40 @@ class NavCategoryTable extends TableGateway
 		$results = $statement->execute();
 		$row = $results->current();
 		return $row['total'];
+    }
+    
+    function formatWhere(array $data){
+    	$where = $this->_getSelect()->where;
+    	if(!empty($data['name'])){
+//     		if('id' == $data['searchType']){
+//     			$where->equalTo('MerchantFeedConfig.MerchantID', (int)$data['search']);
+//     		}elseif('name' == $data['searchType']){
+    			$where->like('name', '%' . $data['name'] . '%');
+//     		}
+    	}
+//     	if(!empty($data['SiteID'])){
+//     		$where->equalTo('Affiliate.SiteID', $data['SiteID']);
+//     	}
+//     	if(isset($data['AffiliateID']) && $data['AffiliateID'] >= 0){
+//     		$where->equalTo('MerchantFeedConfig.AffiliateID', $data['AffiliateID']);
+//     	}
+    
+    	$this->select->where($where);
+    	return $this;
+    }
+    public function getListToPaginator($order = array())
+    {
+    	$select = $this->_getSelect();
+    	if (!empty($order)) {
+    		$select->order($order);
+    	}//echo str_replace('"', '', $select->getSqlString());die;
+    	 
+    	return new DbSelect($select, $this->getAdapter());
+    }
+    protected function _getSelect(){
+    	if(!isset($this->select)){
+    		$this->select = $this->getSql()->select();
+    	}
+    	return $this->select;
     }
 }

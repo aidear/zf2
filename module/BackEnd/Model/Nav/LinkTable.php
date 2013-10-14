@@ -32,6 +32,7 @@ use BackEnd\Model\Nav\NavCategory;
 class LinkTable extends TableGateway
 {
     protected $table = "link";
+    protected $select;
     
     function getAllToPage($where = array()){
         $select = $this->getSql()->select()->order('order Desc');
@@ -128,5 +129,40 @@ class LinkTable extends TableGateway
     	}//echo str_replace('"', '', $select->getSqlString());die;
     	$resultSet = $this->selectWith($select);
     	return $resultSet->count();
+    }
+    
+    function formatWhere(array $data){
+    	$where = $this->_getSelect()->where;
+    	if(!empty($data['title'])){
+    		//     		if('id' == $data['searchType']){
+    		//     			$where->equalTo('MerchantFeedConfig.MerchantID', (int)$data['search']);
+    		//     		}elseif('name' == $data['searchType']){
+    		$where->like('title', '%' . $data['title'] . '%');
+    		//     		}
+    	}
+    	if(!empty($data['cid'])){
+    		$where->equalTo('link.category', $data['cid']);
+    	}
+    	//     	if(isset($data['AffiliateID']) && $data['AffiliateID'] >= 0){
+    	//     		$where->equalTo('MerchantFeedConfig.AffiliateID', $data['AffiliateID']);
+    	//     	}
+    
+    	$this->select->where($where);
+    	return $this;
+    }
+    public function getListToPaginator($order = array())
+    {
+    	$select = $this->_getSelect();
+    	if (!empty($order)) {
+    		$select->order($order);
+    	}//echo str_replace('"', '', $select->getSqlString());die;
+    
+    	return new DbSelect($select, $this->getAdapter());
+    }
+    protected function _getSelect(){
+    	if(!isset($this->select)){
+    		$this->select = $this->getSql()->select();
+    	}
+    	return $this->select;
     }
 }

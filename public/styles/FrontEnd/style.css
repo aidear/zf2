@@ -19,7 +19,7 @@ body{background-color:#F6F6F6;background-image:url(../../images/FrontEnd/bg_l.pn
 .header_bg .header h3{color:#64ACEE;float:right;width:80px;padding-left:25px;line-height:52px;height:52px;background-image:url(../../images/FrontEnd/pic_1.png);background-repeat:no-repeat;background-position:10px -77px;}
 .header_bg .header h4{color:#64ACEE;float:right;line-height:52px;height:52px;width:80px;padding-left:25px;background-image:url(../../images/FrontEnd/pic_1.png);background-repeat:no-repeat;background-position:10px -113px;}
 .top{float:left;height:98px;width:880px;}
-.wrap{height:auto;width:880px;margin:0 auto;font-family:"微软雅黑";}
+.wrap{height:auto;width:880px;margin:52px auto;font-family:"微软雅黑";}
 .wrap .top .logo{float:left;height:98px;width:147px;}
 .wrap .top .tq{float:left;height:65px;width:572px;background-color:#F6F6F6;display:inline;margin-top:17px;}
 .wrap .top .btn{float:left;width:100px;padding-top:20px;padding-left:30px;}

@@ -12,7 +12,12 @@
 .list ul li { width:90px; line-height:30px;}
 .foot{background-color:#e8e8e8;float:left;width:100%;line-height:60px;height:60px;font-family:"微软雅黑";font-size:12px;margin-top:15px;}
 .foot_1{background-color:#e8e8e8;float:left;width:100%;line-height:60px;height:60px;font-family:"微软雅黑";font-size:12px;margin-top:15px;}
-
+.stayHere {
+    display: block;
+    position: fixed;
+    top: 0;
+	z-index:90;
+}
 /****alert**/
 .fade {
     opacity: 0;

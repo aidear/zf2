@@ -8,7 +8,7 @@ $msg = $this->flashMessages();
 ?>
 <div class="box">
     <div class="box-header">
-        <h2><i class="icon-box"></i>导航分类</h2>
+        <h2><i class="icon-box"></i>导航分类<span style="float: right;"><a href="/nav/items?cid=<?php echo $this->cid?>">返回</a></span></h2>
     </div>
     <div class="box-content">
 	   <?php if(!empty($msg['error'])):?>

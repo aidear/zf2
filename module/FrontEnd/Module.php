@@ -33,6 +33,7 @@ class Module
 		}
 		$this->siteConfg = $sys_config;
 		define("__SHOP_URL", isset($sys_config['shop_url']) ? $sys_config['shop_url'] : '');
+		define('__LIST_ORDER', 'ASC');
 	}
 	
 	public function bootstrapSession($e)

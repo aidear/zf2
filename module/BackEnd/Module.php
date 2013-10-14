@@ -20,7 +20,7 @@ class Module
 		ini_set('date.timezone', 'Asia/Shanghai');
 		
 		// Register a render event:Title
-		$eventManager->attach('render', array($this, 'setLayoutTitle'));
+		$eventManager->attach('render', array($this, 'setDefaultView'));
 		
 		$eventManager->attach(MvcEvent::EVENT_ROUTE, function($e) use ($eventManager){
             $sm = $e->getApplication()->getServiceManager();
@@ -75,6 +75,7 @@ class Module
 			$sys_config = include'./data/sys_config.php';
 		}
 		define("__SHOP_URL", isset($sys_config['shop_url']) ? $sys_config['shop_url'] : '');
+		define('__LIST_ORDER', 'ASC');
 	}
 	
 	public function bootstrapSession($e)
@@ -94,7 +95,7 @@ class Module
 	 * @param  \Zend\Mvc\MvcEvent $e The MvcEvent instance
 	 * @return void
 	 */
-	public function setLayoutTitle($e)
+	public function setDefaultView($e)
 	{
 		$matches    = $e->getRouteMatch();
 		$action     = $matches->getParam('action');
@@ -116,6 +117,12 @@ class Module
 		$headTitleHelper->append($controller);
 		//$headTitleHelper->append($module);
 		$headTitleHelper->append($siteName);
+		$queryParams = $e->getRequest()->getQuery()->toArray();
+		
+		$viewModel = $e->getViewModel();
+		if (!($viewModel->terminate())) {
+			$viewModel->setVariables($queryParams);
+		}
 	}
     public function getAutoloaderConfig()
     {

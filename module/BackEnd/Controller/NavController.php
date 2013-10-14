@@ -37,25 +37,34 @@ use BackEnd\Model\Nav\Link;
 class NavController extends AbstractActionController
 {
 	protected  $op = array();
+	protected  $category = array();
 	function indexAction()
 	{
 		
 	}
 	function categoryAction()
 	{
-		$page = $this->params()->fromQuery('page' , 1);
+		$routeParams = array('controller' => 'nav' , 'action' => 'category');
+		$prefixUrl = $this->url()->fromRoute(null, $routeParams);
+		$params = array();
         $table = $this->_getTable('NavCategoryTable');
         $name = $this->params()->fromQuery('name' , '');
         
         if($name){
-            $re = $table->getByName($name);
-        }else{
-            $re = $table->getAllToPage();
+        	$params['name'] = $name;
         }
+        $params['orderField'] = $this->params()->fromQuery('orderField', 'order');
+        $params['orderType'] = $this->params()->fromQuery('orderType', __LIST_ORDER);
         
-        $paginaction = new Paginator($re);
-        $paginaction->setCurrentPageNumber($page);
-        $paginaction->setItemCountPerPage(self::LIMIT);
+        $removePageParams = $params;
+        
+        $params['page'] = $this->params()->fromQuery('page' , 1);
+        
+        $orderPageParams = $params;
+        
+        
+//         $paginaction = new Paginator($re);
+        $paginaction = $this->_getNavPaginator($params);
         
         $navList = $paginaction->getCurrentItems()->toArray();
         
@@ -63,7 +72,54 @@ class NavController extends AbstractActionController
         	$navList[$k]['parentName'] = $table->getCateNameById($v['parentID']);
         }
         
-        return array('paginaction' => $paginaction, 'navList' => $navList);
+        $startNumber = 1+($params['page']-1)*$paginaction->getItemCountPerPage();
+        $order = $this->_getOrder($prefixUrl, array('name', 'isShow', 'order', 'addTime'), $removePageParams);
+        
+        $assign = array(
+        		'paginaction' => $paginaction, 
+        		'navList' => $navList, 
+        		'startNumber' => $startNumber,
+        		'orderQuery' => http_build_query($orderPageParams),
+        		'query' => http_build_query($removePageParams),
+        		'order' => $order,
+        );
+        
+        return new ViewModel($assign);
+	}
+	private function _getOrder($prefixUrl, $orderList, $removePageParams) 
+	{
+		$order = array();
+		foreach ($orderList as $k=>$v) {
+			$order[$v] = array();
+			$tParams = array();
+			$removePageParams;
+			$href = $prefixUrl;
+			$class = 'order_down';
+			$tParams['orderField'] = $v;
+			$tParams['orderType'] = 'DESC';
+			if (isset($removePageParams['orderField']) && $removePageParams['orderField'] == $v) {
+				if (isset($removePageParams['orderType']) && strtolower($removePageParams['orderType']) == 'desc') {
+					$tParams['orderType'] = 'ASC';
+					$class = 'order_up';
+				}
+			}
+			$href = $prefixUrl.'?'.http_build_query(array_merge($removePageParams, $tParams));
+			$order[$v] = array('href' => $href, 'class' => $class);
+		}
+		
+		return $order;
+	}
+	private function _getNavPaginator($params)
+	{
+		$page = isset($params['page']) ? $params['page'] : 1;
+		$order = array();
+		if ($params['orderField']) {
+			$order = array($params['orderField'] => $params['orderType']);
+		}
+		$table = $this->_getTable('NavCategoryTable');
+		$paginator = new Paginator($table->formatWhere($params)->getListToPaginator($order));
+		$paginator->setCurrentPageNumber($page)->setItemCountPerPage(self::LIMIT);
+		return $paginator;
 	}
 	public function saveAction()
 	{
@@ -129,6 +185,9 @@ class NavController extends AbstractActionController
 	}
 	public function itemsAction()
 	{
+		$routeParams = array('controller' => 'nav' , 'action' => 'items');
+		$prefixUrl = $this->url()->fromRoute(null, $routeParams);
+		$params = array();
 		$cid = $this->params()->fromQuery('cid' , '');
 		$page = $this->params()->fromQuery('page' , 1);
 		$table = $this->_getTable('LinkTable');
@@ -144,26 +203,84 @@ class NavController extends AbstractActionController
 			$where .= " AND category={$cid}";
 		}
 		if($title){
+			$params['title'] = $title;
 			$where .= " AND title LIKE '%{$title}%'";
 		}
-		$re = $table->getAllToPage($where);
 		
-		$paginaction = new Paginator($re);
-		$paginaction->setCurrentPageNumber($page);
-		$paginaction->setItemCountPerPage(self::LIMIT);
+		//params
+		if ($cid) {
+			$params['cid'] = $cid;
+		}
+		if ($title) {
+			$params['title'] = $title;
+		}
+		$navCategoryTable = $this->_getTable('NavCategoryTable');
+		$navCate = $navCategoryTable->getlist(array('isShow' => 1));
+		
+		$params['orderField'] = $this->params()->fromQuery('orderField', 'order');
+		$params['orderType'] = $this->params()->fromQuery('orderType', __LIST_ORDER);
+		
+		$removePageParams = $params;
+		
+		$params['page'] = $this->params()->fromQuery('page' , 1);
+		
+		$orderPageParams = $params;
+		
+		$fCategory = $this->_formatCategory($navCate);
+		$navOption = array();
+		$this->op[0] = '所有分类';
+		$this->category[0] = '所有分类';
+		$this->_returnOptionValue($fCategory);
+		
+		
+		$paginaction = $this->_getLinkPaginator($params);
 		$items = $paginaction->getCurrentItems()->toArray();
 		foreach ($items as $k=>$v) {
-			$items[$k]['categoryName'] = $cateInfo->name;
+			$items[$k]['categoryName'] = isset($this->category[$v['category']]) ? $this->category[$v['category']] : '';
 		}
-		return array('paginaction' => $paginaction, 'lists' => $items, 'cateInfo' => $cateInfo);
+		$startNumber = 1+($page-1)*$paginaction->getItemCountPerPage();
+		
+		$order = $this->_getOrder($prefixUrl, array('title', 'isShow', 'order', 'addTime'), $removePageParams);
+		
+		$assign = array(
+				'category' => $this->op,
+				'paginaction' => $paginaction,
+				'lists' => $items,
+				'cateInfo' => $cateInfo,
+				'startNumber' => $startNumber,
+				'cid' => $cid,
+				'orderQuery' => http_build_query($orderPageParams),
+				'query' => http_build_query($removePageParams),
+				'order' => $order,
+		);
+		return $assign;
+	}
+	private function _getLinkPaginator($params)
+	{
+		$page = isset($params['page']) ? $params['page'] : 1;
+		$order = array();
+		if ($params['orderField']) {
+			$order = array($params['orderField'] => $params['orderType']);
+		}
+		$table = $this->_getTable('LinkTable');
+		$paginator = new Paginator($table->formatWhere($params)->getListToPaginator($order));
+		$paginator->setCurrentPageNumber($page)->setItemCountPerPage(self::LIMIT);
+		return $paginator;
 	}
 	public function addItemAction()
 	{
 		$cid = $this->params()->fromQuery('cid' , '');
 		$cid = $cid ? $cid : $this->params()->fromPost('category', '');
-		if (!$cid) {
-			throw new \Exception('incomplete cid');
+		
+		$id = $this->params()->fromQuery('id');
+		if ($id) {
+			$linkTable = $this->_getTable('LinkTable');
+			$liankItem = $linkTable->getOneById($id);
+			$cid = $liankItem->category;
 		}
+// 		if (!$cid) {
+// 			throw new \Exception('incomplete cid');
+// 		}
 		$form = new LinkForm();
 		$categoryTable = $this->_getTable('NavCategoryTable');
 		$cOjb = $categoryTable->getlist(array('isShow' => 1));
@@ -205,16 +322,14 @@ class NavController extends AbstractActionController
 				return $this->redirect()->toUrl('/nav/items?cid='.$link->category);
 			}
 		} elseif ($id = $this->params()->fromQuery('id')) {
-			$linkTable = $this->_getTable('LinkTable');
-			
-			$liankItem = $linkTable->getOneById($id);
             $form->setData($liankItem->toArray());
 		} else {
 			$form->get('isShow')->setValue(1);
 			$form->get('order')->setValue(1);
+			$form->get('category')->setValue($cid);
 		}
 		
-		return array('form' => $form);
+		return array('form' => $form, 'cid' => $cid);
 	}
 	public function deleteAction()
 	{
@@ -273,7 +388,10 @@ class NavController extends AbstractActionController
 		$tr = array();
 		foreach ($rows as $k=>$v) {
 			if (0 == $v['parentID'] && empty($v['catPath'])) {
-				$tr[$v['id']] = array('id' => $v['id'], 'name' => $v['name'], 'depth' => 0);
+				$tr[$v['id']]['id'] = $v['id'];
+				$tr[$v['id']]['name'] = $v['name'];
+				$tr[$v['id']]['depth'] = 0;
+// 				array('id' => $v['id'], 'name' => $v['name'], 'depth' => 0);
 			} else {
 				$path = explode(',', trim($v['catPath'], ','));
 				$count = count($path);
@@ -286,6 +404,9 @@ class NavController extends AbstractActionController
 				eval("$tmp=\$val;");
 			}
 		}
+// 		echo '<pre>';
+// 		print_r($tr);
+// 		echo '</pre>';die;
 		
 		return $tr;
 	}
@@ -294,6 +415,7 @@ class NavController extends AbstractActionController
 		foreach ($fCategory as $k=>$v) {
 			$prefix = str_repeat(' -- ', $v['depth']);
 			$this->op[$k] = '| '.$prefix.$v['name'];
+			$this->category[$k] = $v['name'];
 			if (isset($v['sub'])) {
 				$this->_returnOptionValue($v['sub']);
 			}

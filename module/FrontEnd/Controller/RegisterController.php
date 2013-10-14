@@ -70,8 +70,9 @@ class RegisterController extends AbstractActionController
     		}
     		
     		if ($chk) {
-    			$captcha_sess = $this->_getSession('Zend_Form_Captcha_'.$_SESSION['captcha_code']);
-    			if (isset($_SESSION['captcha_code']) && $captcha_sess->word == $params['reg_code']) {
+//     			$captcha_sess = $this->_getSession('Zend_Form_Captcha_'.$_SESSION['captcha_code']);
+//     			if (isset($_SESSION['captcha_code']) && strtolower($captcha_sess->word) == strtolower($params['reg_code'])) {
+    			if (isset($_SESSION['captcha_code']) && strtolower($_SESSION['captcha_code']) == strtolower($params['reg_code'])) {
     				$now = date('Y-m-d H:i:s');
     				$memberTable->insert(array('UserName' => trim($params['UserName']), 
     						'Password' => md5($params['password']), 
@@ -106,7 +107,7 @@ class RegisterController extends AbstractActionController
 	function captchaAction()
 	{
 		unset($_SESSION['captcha_code']);
-		$captcha = new \Zend\Captcha\Image(array(
+		$captcha = new \Custom\Captcha\Image(array(
 				'Expiration' => '300',
 				'wordlen' => '4',
 				'Height' => '28',
@@ -114,14 +115,14 @@ class RegisterController extends AbstractActionController
 				'writeInFile'=>false,
 				'Font' => APPLICATION_PATH.'/data/AdobeSongStd-Light.otf',
 				'FontSize' => '24',
-				'DotNoiseLevel' => 10,
+				'DotNoiseLevel' => 6,
 				'ImgDir' => '/images/FrontEnd'
 		));
 		//设置验证码保存路径
 // 		$captcha->setImgDir('D:/www/project/code/public/images/FrontEnd');
 		//生成验证码
 		$imgName = $captcha->generate();
-		$_SESSION['captcha_code'] = $imgName;
+		$_SESSION['captcha_code'] = $captcha->getWord();
 		die;
 // 		echo '/images/FrontEnd/'.$imgName.'.png';die;
 		//获取验证码内容且输出

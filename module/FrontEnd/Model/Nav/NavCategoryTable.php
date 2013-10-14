@@ -34,16 +34,16 @@ class NavCategoryTable extends TableGateway
     protected $table = "nav_category";
     
     function getAllToPage(){
-        $select = $this->getSql()->select()->order('order Desc');
+        $select = $this->getSql()->select()->order('order '.__LIST_ORDER);
         $adapter = new DbSelect($select, $this->getAdapter());
         return $adapter;
     }
     
     function getAll(){
-        return $this->select()->order('order Desc');
+        return $this->select()->order('order '.__LIST_ORDER);
     }
     
-    function getlist($where = array(), $order = 'order Desc')
+    function getlist($where = array(), $order = "order {__LIST_ORDER}")
     {
     	$select = $this->getSql()->select();
     	

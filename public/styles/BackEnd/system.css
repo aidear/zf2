@@ -1374,3 +1374,29 @@ button.close {
 .modal-footer .btn-block + .btn-block {
   margin-left: 0;
 }
+
+.t_top .t_inline {
+	float:left;
+} 
+.t_top .t_right {
+	float:right;
+}
+.t_top select {
+	height:26px;
+}
+.order_up {
+	width:16px;
+	height:16px;
+	display:inline-table;
+	background-image:url(/images/BackEnd/order_icon.png);
+	background-position:left 2px;
+	background-repeat:no-repeat;
+}
+.order_down {
+	width:16px;
+	height:16px;
+	display:inline-table;
+	background-image:url(/images/BackEnd/order_icon.png);
+	background-position:0 -16px;
+	background-repeat:no-repeat;
+}

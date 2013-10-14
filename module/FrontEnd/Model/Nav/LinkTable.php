@@ -34,7 +34,7 @@ class LinkTable extends TableGateway
     protected $table = "link";
     
     function getAllToPage($where = array()){
-        $select = $this->getSql()->select()->order('order Desc');
+        $select = $this->getSql()->select()->order("order {__LIST_ORDER}");
         if ($where) {
         	$select->where($where);
         }
@@ -44,12 +44,12 @@ class LinkTable extends TableGateway
     
     function getAll($where = array()){
     	if ($where) {
-    		return  $this->select($where)->order('order Desc');
+    		return  $this->select($where)->order("order {__LIST_ORDER}");
     	}
-        return $this->select()->order('order Desc');
+        return $this->select()->order("order {__LIST_ORDER}");
     }
     
-    function getlist($where = array(), $order = 'order Desc')
+    function getlist($where = array(), $order = "order {__LIST_ORDER}")
     {
     	$select = $this->getSql()->select();
     	

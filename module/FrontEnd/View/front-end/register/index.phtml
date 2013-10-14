@@ -61,7 +61,7 @@ $('#register').validate({
 	sendForm : true,
 	eachValidField : function() {
 		if ($(this).attr('name') != 'reg_code') {
-		$(this).parents('p').next('span').html('<img src="/images/FrontEnd/yes.jpg" width="25" height="26" />');
+			$(this).parents('p').next('span').html('<img src="/images/FrontEnd/yes.jpg" width="25" height="26" />');
 		}
 	},
 	description : {
@@ -103,7 +103,27 @@ jQuery.validateExtend({
     }
 });
 $(function(){
-	
+	$("input[name='reg_code']").focusout(function(){
+		var flg = false;
+		var value = $(this).val();
+		if (value != '') {
+			$.ajax({
+				type:'POST',
+				url:'/ajax?s=validCode',
+				data:'id=captcha_code&code='+value,
+				dataType:'json',
+				cache:false,
+				success:function(s) {
+					if (s.code == 0) {
+						$("#for_reg_code").html('<img src="/images/FrontEnd/yes.jpg" width="25" height="26" />');
+					} else {
+						$("#for_reg_code").html('<img src="/images/FrontEnd/no.jpg" />验证码错误');
+						$(".register-captcha").click();
+					}
+				}
+			});
+		}
+	});
 	$("#register_btn").click(function(){
 		$("form[name='register']").submit();
 	});

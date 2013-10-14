@@ -83,6 +83,16 @@ class AjaxController extends AbstractActionController
 				$rs['code'] = 0;
 				$rs['msg'] = '邮件已发送至'.$memberInfo->Email.',请登录邮箱进行验证';
 				$rs['url'] = '/register-n';
+			case 'validCode':
+				$sessID = $this->params()->fromPost('id');
+				$code = $this->params()->fromPost('code');
+// 				$captcha_sess = $this->_getSession('Zend_Form_Captcha_'.$_SESSION[$sessID]);
+// 				file_put_contents('D:/a.txt', print_r($_SESSION[$sessID], true));
+				if (strtolower($_SESSION[$sessID]) == strtolower($code)) {
+					$rs = array('code' => 0, 'msg' => 'success');
+				} else {
+					$rs = array('code' => 1, 'msg' => strtolower($_SESSION[$sessID]));
+				}
 			default:
 				break;
 		}

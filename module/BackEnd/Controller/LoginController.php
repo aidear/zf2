@@ -31,7 +31,7 @@ class LoginController extends AbstractActionController
 	function captchaAction()
 	{
 		unset($_SESSION['captcha_login_code']);
-		$captcha = new \Zend\Captcha\Image(array(
+		$captcha = new \Custom\Captcha\Image(array(
 				'Expiration' => '300',
 				'wordlen' => '4',
 				'Height' => '28',
@@ -43,7 +43,7 @@ class LoginController extends AbstractActionController
 				'ImgDir' => '/images/BackEnd'
 		));
 		$imgName = $captcha->generate();
-		$_SESSION['captcha_login_code'] = $imgName;
+		$_SESSION['captcha_login_code'] = $captcha->getWord();
 		die;
 	}
 	function submitAction(){
@@ -56,8 +56,8 @@ class LoginController extends AbstractActionController
 			$form = new LoginForm();
 			$form->setData($data);
 			if($username && $pwd){
-				$captcha_sess = $this->_getSession('Zend_Form_Captcha_'.$_SESSION['captcha_login_code']);
-				if ($captcha_sess->word != $validate) {unset($_SESSION['captcha_login_code']);
+// 				$captcha_sess = $this->_getSession('Zend_Form_Captcha_'.$_SESSION['captcha_login_code']);
+				if (strtolower($_SESSION['captcha_login_code']) != strtolower($validate)) {unset($_SESSION['captcha_login_code']);
 					$this->_message('验证码错误', 'error');
 					return $this->redirect()->toUrl('/login');
 				}

@@ -50,8 +50,8 @@ class MemberController extends AbstractActionController
 		if ($req->isPost()) {
 			$params = $req->getPost();
 			if (isset($params['UserName']) && !empty($params['UserName'])) {
-				$captcha_sess = $this->_getSession('Zend_Form_Captcha_'.$_SESSION['forget_captcha_code']);
-				if ($captcha_sess->word == $params['validCode']) {
+// 				$captcha_sess = $this->_getSession('Zend_Form_Captcha_'.$_SESSION['forget_captcha_code']);
+				if (strtolower($_SESSION['forget_captcha_code']) == strtolower($params['validCode'])) {
 					$member = $this->_getTable('MemberTable');
 					$memberInfo = $member->getUserByUserName($params['UserName']);
 					return array('memberInfo' => $memberInfo);
@@ -129,7 +129,7 @@ class MemberController extends AbstractActionController
 	function captchaAction()
 	{
 		unset($_SESSION['forget_captcha_code']);
-		$captcha = new \Zend\Captcha\Image(array(
+		$captcha = new \Custom\Captcha\Image(array(
 				'Expiration' => '300',
 				'wordlen' => '4',
 				'Height' => '28',
@@ -141,7 +141,7 @@ class MemberController extends AbstractActionController
 				'ImgDir' => '/images/FrontEnd'
 		));
 		$imgName = $captcha->generate();
-		$_SESSION['forget_captcha_code'] = $imgName;
+		$_SESSION['forget_captcha_code'] = $captcha->getWord();
 		die;
 	}
 	private function _getMemberByID($UserID)

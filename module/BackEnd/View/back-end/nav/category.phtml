@@ -28,7 +28,9 @@ $msg = $this->flashMessages();
         <p><a class="btn btn-success" href="<?php echo $this->url('backend' 
             , array('controller' => 'nav' , 'action' => 'save'))?>">
         <i class="icon-plus"></i>新增分类</a></p>
-        <form class="form-inline" action="<?php echo $this->url('backend', array('controller' 
+        <div class="t_top">
+        	<div class="t_inline">
+        	<form class="form-inline" action="<?php echo $this->url('backend', array('controller' 
             => 'nav', 'action' => 'category')); ?>" method="get">
                 <div class="input-group">
                     <label>搜索分类</label>
@@ -37,45 +39,76 @@ $msg = $this->flashMessages();
                 <button class="button-element" type="submit">搜索</button>
                 </div>
         </form>
+        	</div>
+        	<div class="t_right">
+        					<a class="btn btn-edit" href="javascript:;" _href="<?php echo $this->url('backend', array('controller' 
+                                => 'nav', 'action' => 'save')) ?>?id=">
+                                <i class="icon-edit"></i>编辑
+                            </a>&nbsp;&nbsp;
+                            <a class="btn btn-edit" href="javascript:;" _href="<?php echo $this->url('backend', array('controller' 
+                                => 'nav', 'action' => 'items')) ?>?cid=">
+                                <i class="icon-edit"></i>导航列表
+                            </a>&nbsp;&nbsp;
+                            <a class="btn btn-delete" href="javascript:;" _href="<?php echo $this->url('backend', array('controller' 
+                                => 'nav', 'action' => 'delete')) ?>?id=" onClick="diyConfirm('删除' , $(this).attr('href'), this);return false;"><i class="icon-delete"></i>删除
+                            </a>
+        	</div>
+        </div>
+        
         <table class="table">
             <thead>
                 <tr class="row">
-                    <th>分类ID</th>
-                    <th>分类名称</th>
+                	<th>选择</th>
+                    <th>编号</th>
+                    <th>
+                    <?php if (isset($this->order['name'])):?>
+                    <?php $name = $this->order['name'];?>
+                    <a href="<?php echo $name['href'];?>">分类名称<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	分类名称
+                    <?php endif;?>
+                    </th>
                     <th>上级分类</th>
-                    <th>是否显示</th>
-                    <th>排序</th>
-                    <th>添加时间</th>
-                    <th>操作</th>
+                    <th>
+                    <?php if (isset($this->order['isShow'])):?>
+                    <?php $name = $this->order['isShow'];?>
+                    <a href="<?php echo $name['href'];?>">是否显示<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	是否显示
+                    <?php endif;?>
+                    <th>
+                    <?php if (isset($this->order['order'])):?>
+                    <?php $name = $this->order['order'];?>
+                    <a href="<?php echo $name['href'];?>">排序<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	排序
+                    <?php endif;?>
+                    	</th>
+                    <th>
+                    <?php if (isset($this->order['addTime'])):?>
+                    <?php $name = $this->order['addTime'];?>
+                    <a href="<?php echo $name['href'];?>">添加时间<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	添加时间
+                    <?php endif;?>
+                    	</th>
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($this->navList as $nav): ?>
+                <?php $startNumber = $this->startNumber;foreach ($this->navList as $nav): ?>
                     <tr class="row">
-                        <td><?php echo $nav['id']; ?></td>
+                    	<td><input type="radio" name="select" value="<?php echo $nav['id']; ?>" /></td>
+                        <td><?php echo $startNumber++; ?></td>
                         <td><?php echo $nav['name']; ?></td>
                         <td><?php echo $nav['parentName']; ?></td>
                         <td><?php echo $nav['isShow'] ? '显示' : '不显示'; ?></td>
                         <td editable="true"><?php echo $nav['order']; ?></td>
                         <td><?php echo $nav['addTime']; ?></td>
-                        <td>
-                            <a class="btn btn-edit" href="<?php echo $this->url('backend', array('controller' 
-                                => 'nav', 'action' => 'save')) ?>?id=<?php echo $nav['id']; ?>">
-                                <i class="icon-edit"></i>编辑
-                            </a>&nbsp;&nbsp;
-                            <a class="btn btn-edit" href="<?php echo $this->url('backend', array('controller' 
-                                => 'nav', 'action' => 'items')) ?>?cid=<?php echo $nav['id']; ?>">
-                                <i class="icon-edit"></i>导航列表
-                            </a>&nbsp;&nbsp;
-                            <a class="btn btn-delete" href="<?php echo $this->url('backend', array('controller' 
-                                => 'nav', 'action' => 'delete')) ?>?id=<?php echo $nav['id']; ?>" onClick="diyConfirm('删除' , $(this).attr('href'));return false;"><i class="icon-delete"></i>删除
-                            </a>
-                        </td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>
         <?php echo $this->paginationControl($this->paginaction,'Sliding','layout/pagination' , array('link' 
-            => $this->url('backend' , array('controller' => 'nav' , 'action' => 'category'))));?>
+            => $this->url('backend' , array('controller' => 'nav' , 'action' => 'category')).'?'.$this->query));?>
     </div>
 </div>
