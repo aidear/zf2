@@ -16,6 +16,7 @@ use BackEnd\Model\Users\Member;
 class MemberTable extends TableGateway
 {
     protected $table = "member";
+    protected $select;
     
     function getMemberByName($name)
     {
@@ -102,5 +103,29 @@ class MemberTable extends TableGateway
     	}//echo str_replace('"', '', $select->getSqlString());die;
     	$resultSet = $this->selectWith($select);
     	return $resultSet->count();
+    }
+    function formatWhere(array $data){
+    	$where = $this->_getSelect()->where;
+    	if(!empty($data['UserName'])){
+    		$where->like('UserName', '%' . $data['UserName'] . '%');
+    	}
+    
+    	$this->select->where($where);
+    	return $this;
+    }
+    public function getListToPaginator($order = array())
+    {
+    	$select = $this->_getSelect();
+    	if (!empty($order)) {
+    		$select->order($order);
+    	}//echo str_replace('"', '', $select->getSqlString());die;
+    
+    	return new DbSelect($select, $this->getAdapter());
+    }
+    protected function _getSelect(){
+    	if(!isset($this->select)){
+    		$this->select = $this->getSql()->select();
+    	}
+    	return $this->select;
     }
 }

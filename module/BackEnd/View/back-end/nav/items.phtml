@@ -56,12 +56,12 @@ $msg = $this->flashMessages();?>
                             </a>
         	</div>
         </div>
-        <table class="table">
+        <table class="table" id="table1">
             <thead>
                 <tr class="row">
                 	<th>选择</th>
                     <th>编号</th>
-                    <th>
+                    <th key="title" editable="true">
                     <?php if (isset($this->order['title'])):?>
                     <?php $name = $this->order['title'];?>
                     <a href="<?php echo $name['href'];?>">链接标题<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
@@ -69,9 +69,9 @@ $msg = $this->flashMessages();?>
                     	链接标题
                     <?php endif;?>
                     	</th>
-                    <th>链接地址</th>
+                    <th  key="url" editable="true">链接地址</th>
                     <th>分类</th>
-                    <th>
+                    <th key="isShow" editable="true">
                     <?php if (isset($this->order['isShow'])):?>
                     <?php $name = $this->order['isShow'];?>
                     <a href="<?php echo $name['href'];?>">是否显示<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
@@ -79,7 +79,7 @@ $msg = $this->flashMessages();?>
                     	是否显示
                     <?php endif;?>
                     </th>
-                    <th>
+                    <th  key="order" editable="true">
                     <?php if (isset($this->order['order'])):?>
                     <?php $name = $this->order['order'];?>
                     <a href="<?php echo $name['href'];?>">排序<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
@@ -99,14 +99,14 @@ $msg = $this->flashMessages();?>
             </thead>
             <tbody>
                 <?php $startNumber = $this->startNumber;foreach ($this->lists as $nav): ?>
-                    <tr class="row">
+                    <tr class="row" key="id" primary_value="<?php echo $nav['id']; ?>">
                     	<td><input type="radio" name="select" value="<?php echo $nav['id']; ?>" /></td>
                         <td><?php echo $startNumber++;?></td>
-                        <td><?php echo $nav['title']; ?></td>
-                        <td><a href="<?php echo $nav['url']; ?>" target="_blank" title="<?php echo $nav['title'];?>"><?php echo $nav['url']; ?></a></td>
+                        <td key="title" editable="true"><?php echo $nav['title']; ?></td>
+                        <td key="url" editable="true"><a href="<?php echo $nav['url']; ?>" target="_blank" title="<?php echo $nav['title'];?>"><?php echo $nav['url']; ?></a></td>
                         <td><?php echo $nav['categoryName']; ?></td>
-                        <td><?php echo $nav['isShow'] ? '显示' : '不显示'; ?></td>
-                        <td><?php echo $nav['order']; ?></td>
+                        <td key="isShow" editable="true"><?php echo $nav['isShow'] ? '显示' : '不显示'; ?></td>
+                        <td key="order" editable="true"><?php echo $nav['order']; ?></td>
                         <td><?php echo $nav['addTime']; ?></td>
                     </tr>
                 <?php endforeach; ?>
@@ -116,3 +116,35 @@ $msg = $this->flashMessages();?>
             => $this->url('backend' , array('controller' => 'nav' , 'action' => 'items')).'?'.$this->query));?>
     </div>
 </div>
+<script type="text/javascript">
+<!--
+var productEditableParam={
+		'postUrl':'/index/updateColumn',
+		'primary_key':'id',
+		'table':'LinkTable',
+		'isShow':{
+			type:'radio',
+	        group:{
+	            1:'显示',
+	            0:'不显示'
+	        }
+		},
+		'order':{
+			type:'text',
+			reg: /^\d+$/,
+			tip:'只能为数字!'
+		},
+		'title':{
+			type:'text'
+		},
+		'url':{
+			type:'text'
+		}
+	};
+var options={
+		tableID:'table1',
+		editableParam:productEditableParam
+}
+new Editable(options,$("#table1"));
+//-->
+</script>

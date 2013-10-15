@@ -56,6 +56,9 @@ return array(
         'template_path_stack' => array(
             'admin' => __DIR__ . '/../View',
         ),
+    	'strategies' => array(
+            'ViewJsonStrategy',
+        ),
     ),
 	'translator' => array(
 			'locale' => 'zh_CN',

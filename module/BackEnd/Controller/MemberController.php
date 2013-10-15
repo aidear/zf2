@@ -28,6 +28,7 @@ use BackEnd\Form\MemberForm;
 use BackEnd\Model\Users\RegionTable;
 use Custom\Mvc\ActionEvent;
 use Custom\File\Uploader;
+use Zend\View\Model\ViewModel;
 
 use Zend\Validator\File\Size;
 
@@ -37,22 +38,51 @@ class MemberController extends AbstractActionController
 {
 	public function indexAction()
 	{
-		$page = $this->params()->fromQuery('page' , 1);
+		$routeParams = array('controller' => 'member' , 'action' => 'index');
+		$prefixUrl = $this->url()->fromRoute(null, $routeParams);
+		$params = array();
+		
         $table = $this->_getTable('MemberTable');
         $username = $this->params()->fromQuery('username' , '');
         
         if($username){
-            $re = $table->getUserForName($username);
-        }else{
-            $re = $table->getAllToPage();
+        	$params['username']  = $username;
         }
+        $params['orderField'] = $this->params()->fromQuery('orderField', '');
+        $params['orderType'] = $this->params()->fromQuery('orderType', '');
         
-        $paginaction = new Paginator($re);
-        $paginaction->setCurrentPageNumber($page);
-        $paginaction->setItemCountPerPage(self::LIMIT);
-        return array('paginaction' => $paginaction);	
+        $removePageParams = $params;
+        
+        $params['page'] = $this->params()->fromQuery('page' , 1);
+        
+        $orderPageParams = $params;
+        
+        $paginaction = $this->_getNavPaginator($params);
+        
+        $startNumber = 1+($params['page']-1)*$paginaction->getItemCountPerPage();
+        $order = $this->_getOrder($prefixUrl, array('UserName', 'Points', 'LastLogin', 'LoginCount', 'LastUpdate'), $removePageParams);
+        
+        $assign = array(
+        		'paginaction' => $paginaction, 
+        		'startNumber' => $startNumber,
+        		'orderQuery' => http_build_query($orderPageParams),
+        		'query' => http_build_query($removePageParams),
+        		'order' => $order,
+        );
+        return new ViewModel($assign);
 	}
-	
+	private function _getNavPaginator($params)
+	{
+		$page = isset($params['page']) ? $params['page'] : 1;
+		$order = array();
+		if ($params['orderField']) {
+			$order = array($params['orderField'] => $params['orderType']);
+		}
+		$table = $this->_getTable('MemberTable');
+		$paginator = new Paginator($table->formatWhere($params)->getListToPaginator($order));
+		$paginator->setCurrentPageNumber($page)->setItemCountPerPage(self::LIMIT);
+		return $paginator;
+	}
 	public function saveAction()
 	{
 		$requery = $this->getRequest();

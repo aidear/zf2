@@ -214,5 +214,27 @@ class AbstractActionController extends Father
         $e->setAction($action);
         $this->getActionEvents()->trigger(ActionEvent::EVENT_ACTION , $e);
     }
-
+    protected  function _getOrder($prefixUrl, $orderList, $removePageParams)
+    {
+    	$order = array();
+    	foreach ($orderList as $k=>$v) {
+    		$order[$v] = array();
+    		$tParams = array();
+    		$removePageParams;
+    		$href = $prefixUrl;
+    		$class = 'order_down';
+    		$tParams['orderField'] = $v;
+    		$tParams['orderType'] = 'DESC';
+    		if (isset($removePageParams['orderField']) && $removePageParams['orderField'] == $v) {
+    			if (isset($removePageParams['orderType']) && strtolower($removePageParams['orderType']) == 'desc') {
+    				$tParams['orderType'] = 'ASC';
+    				$class = 'order_up';
+    			}
+    		}
+    		$href = $prefixUrl.'?'.http_build_query(array_merge($removePageParams, $tParams));
+    		$order[$v] = array('href' => $href, 'class' => $class);
+    	}
+    
+    	return $order;
+    }
 }

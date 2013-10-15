@@ -55,12 +55,12 @@ $msg = $this->flashMessages();
         	</div>
         </div>
         
-        <table class="table">
+        <table class="table" id="table1">
             <thead>
                 <tr class="row">
                 	<th>选择</th>
                     <th>编号</th>
-                    <th>
+                    <th key="name" editable="true">
                     <?php if (isset($this->order['name'])):?>
                     <?php $name = $this->order['name'];?>
                     <a href="<?php echo $name['href'];?>">分类名称<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
@@ -69,14 +69,14 @@ $msg = $this->flashMessages();
                     <?php endif;?>
                     </th>
                     <th>上级分类</th>
-                    <th>
+                    <th key="isShow" editable="true">
                     <?php if (isset($this->order['isShow'])):?>
                     <?php $name = $this->order['isShow'];?>
                     <a href="<?php echo $name['href'];?>">是否显示<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
                     <?php else:?>
                     	是否显示
                     <?php endif;?>
-                    <th>
+                    <th key="order" editable="true">
                     <?php if (isset($this->order['order'])):?>
                     <?php $name = $this->order['order'];?>
                     <a href="<?php echo $name['href'];?>">排序<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
@@ -96,13 +96,13 @@ $msg = $this->flashMessages();
             </thead>
             <tbody>
                 <?php $startNumber = $this->startNumber;foreach ($this->navList as $nav): ?>
-                    <tr class="row">
+                    <tr class="row" primary_value="<?php echo $nav['id']; ?>">
                     	<td><input type="radio" name="select" value="<?php echo $nav['id']; ?>" /></td>
                         <td><?php echo $startNumber++; ?></td>
-                        <td><?php echo $nav['name']; ?></td>
+                        <td key="name" editable="true"><?php echo $nav['name']; ?></td>
                         <td><?php echo $nav['parentName']; ?></td>
-                        <td><?php echo $nav['isShow'] ? '显示' : '不显示'; ?></td>
-                        <td editable="true"><?php echo $nav['order']; ?></td>
+                        <td key="isShow" editable="true"><?php echo $nav['isShow'] ? '显示' : '不显示'; ?></td>
+                        <td key="order" editable="true"><?php echo $nav['order']; ?></td>
                         <td><?php echo $nav['addTime']; ?></td>
                     </tr>
                 <?php endforeach; ?>
@@ -112,3 +112,32 @@ $msg = $this->flashMessages();
             => $this->url('backend' , array('controller' => 'nav' , 'action' => 'category')).'?'.$this->query));?>
     </div>
 </div>
+<script type="text/javascript">
+<!--
+var productEditableParam={
+		'postUrl':'/index/updateColumn',
+		'primary_key':'id',
+		'table':'NavCategoryTable',
+		'isShow':{
+			type:'radio',
+	        group:{
+	            1:'显示',
+	            0:'不显示'
+	        }
+		},
+		'order':{
+			type:'text',
+			reg: /^\d+$/,
+			tip:'只能为数字!'
+		},
+		'name':{
+			type:'text'
+		}
+	};
+var options={
+		tableID:'table1',
+		editableParam:productEditableParam
+}
+new Editable(options,$("#table1"));
+//-->
+</script>

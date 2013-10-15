@@ -26,7 +26,9 @@ $msg = $this->flashMessages();
         <p><a class="btn btn-success" href="<?php echo $this->url('backend' 
             , array('controller' => 'member' , 'action' => 'save'))?>">
         <i class="icon-plus"></i>新增会员</a></p>
-        <form class="form-inline" action="<?php echo $this->url('backend', array('controller' 
+        <div class="t_top">
+        	<div class="t_inline">
+        	<form class="form-inline" action="<?php echo $this->url('backend', array('controller' 
             => 'member', 'action' => 'index')); ?>" method="get">
                 <div class="input-group">
                     <label>搜索用户</label>
@@ -34,50 +36,139 @@ $msg = $this->flashMessages();
                     
                 <button class="button-element" type="submit">搜索</button>
                 </div>
-        </form>
-        <table class="table">
+        	</form>
+        	</div>
+        	<div class="t_right">
+        					<a class="btn btn-edit" href="javascript:;" _href="<?php echo $this->url('backend', array('controller' 
+                                => 'member', 'action' => 'save')) ?>?id=">
+                                <i class="icon-edit"></i>编辑
+                            </a>&nbsp;&nbsp;
+                            <a class="btn btn-edit" href="javascript:;" _href="<?php echo $this->url('backend', array('controller' 
+                                => 'member', 'action' => 'pwd')) ?>?id=">
+                                <i class="icon-edit"></i>设置密码
+                            </a>&nbsp;&nbsp;
+                            <a class="btn btn-delete" href="javascript:;" _href="<?php echo $this->url('backend', array('controller' 
+                                => 'member', 'action' => 'delete')) ?>?id=" onClick="diyConfirm('删除' , $(this).attr('href'), this);return false;"><i class="icon-delete"></i>删除
+                            </a>
+        	</div>
+        </div>
+        <table class="table" id="table1">
             <thead>
                 <tr class="row">
-                    <th>用户名</th>
-                    <th>邮箱</th>
-                    <th>手机</th>
-                    <th>昵称</th>
-                    <th>积分</th>
-                    <th>最后登录时间</th>
-                    <th>登录次数</th>
-                    <th>最后修改时间</th>
-                    <th>操作</th>
+	                <th>选择</th>
+	                <th>编号</th>
+                    <th key="UserName" editable="true">
+                    <?php if (isset($this->order['UserName'])):?>
+                    <?php $name = $this->order['UserName'];?>
+                    <a href="<?php echo $name['href'];?>">用户名<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	用户名
+                    <?php endif;?>
+                    </th>
+                    <th key="Email" editable="true">邮箱</th>
+                    <th key="Mobile" editable="true">手机</th>
+                    <th key="Nick" editable="true">昵称</th>
+                    <th key="Points" editable="true">
+                    <?php if (isset($this->order['Points'])):?>
+                    <?php $name = $this->order['Points'];?>
+                    <a href="<?php echo $name['href'];?>">积分<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	积分
+                    <?php endif;?>
+                    	</th>
+                    <th>
+      <?php if (isset($this->order['LastLogin'])):?>
+                    <?php $name = $this->order['LastLogin'];?>
+                    <a href="<?php echo $name['href'];?>"> 最后登录时间<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	 最后登录时间
+                    <?php endif;?>              
+                   </th>
+                    <th>
+      <?php if (isset($this->order['LoginCount'])):?>
+                    <?php $name = $this->order['LoginCount'];?>
+                    <a href="<?php echo $name['href'];?>"> 登录次数<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	登录次数
+                    <?php endif;?>              
+                    </th>
+                    <th>
+      <?php if (isset($this->order['LastUpdate'])):?>
+                    <?php $name = $this->order['LastUpdate'];?>
+                    <a href="<?php echo $name['href'];?>"> 最后修改时间<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	最后修改时间
+                    <?php endif;?>              
+                    </th>
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($this->paginaction as $user): ?>
-                    <tr class="row">
-                        <td><?php echo $user->UserName; ?></td>
-                        <td><?php echo $user->Email; ?></td>
-                        <td><?php echo $user->Mobile; ?></td>
-                        <td><?php echo $user->Nick; ?></td>
-                        <td><?php echo $user->Points; ?></td>
+                <?php $startNumber = $this->startNumber;foreach ($this->paginaction as $user): ?>
+                    <tr class="row" primary_value="<?php echo $user->UserID; ?>">
+                    	<td><input type="radio" name="select" value="<?php echo $user->UserID; ?>" /></td>
+                    	<td><?php echo $startNumber++;?></td>
+                        <td key="UserName" editable="true"><?php echo $user->UserName; ?></td>
+                        <td key="Email" editable="true"><?php echo $user->Email; ?></td>
+                        <td key="Mobile" editable="true"><?php echo $user->Mobile; ?></td>
+                        <td key="Nick" editable="true"><?php echo $user->Nick; ?></td>
+                        <td key="Points" editable="true"><?php echo $user->Points; ?></td>
                         <td><?php echo $user->LastLogin; ?></td>
                         <td><?php echo $user->LoginCount; ?></td>
                         <td><?php echo $user->LastUpdate; ?></td>
-                        <td>
-                            <a class="btn btn-edit" href="<?php echo $this->url('backend', array('controller' 
-                                => 'member', 'action' => 'save')) ?>?id=<?php echo $user->UserID; ?>">
-                                <i class="icon-edit"></i>编辑
-                            </a>&nbsp;&nbsp;
-                            <a class="btn btn-edit" href="<?php echo $this->url('backend', array('controller' 
-                                => 'member', 'action' => 'pwd')) ?>?id=<?php echo $user->UserID; ?>">
-                                <i class="icon-edit"></i>设置密码
-                            </a>&nbsp;&nbsp;
-                            <a class="btn btn-delete" href="<?php echo $this->url('backend', array('controller' 
-                                => 'member', 'action' => 'delete')) ?>?id=<?php echo $user->UserID; ?>" onClick="diyConfirm('删除' , $(this).attr('href'));return false;"><i class="icon-delete"></i>删除
-                            </a>
-                        </td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>
         <?php echo $this->paginationControl($this->paginaction,'Sliding','layout/pagination' , array('link' 
-            => $this->url('backend' , array('controller' => 'member' , 'action' => 'index'))));?>
+            => $this->url('backend' , array('controller' => 'member' , 'action' => 'index')).'?'.$this->query));?>
     </div>
 </div>
+<script type="text/javascript">
+<!--
+var productEditableParam={
+		'postUrl':'/index/updateColumn',
+		'primary_key':'UserID',
+		'table':'MemberTable',
+// 		'isShow':{
+// 			type:'radio',
+// 	        group:{
+// 	            1:'显示',
+// 	            0:'不显示'
+// 	        }
+// 		},
+// 		'order':{
+// 			type:'text',
+// 			reg: /^\d+$/,
+// 			tip:'只能为数字!'
+// 		},
+		'UserName':{
+			type:'text',
+			reg:/^[a-zA-Z0-9_]{3,16}$/,
+			tip:'格式不正确：3-16个字母、数字或下划线组成'
+		},
+		'Email':{
+			type:'text',
+			reg:/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*$/,
+			tip:'邮箱格式不正确'
+		},
+		'Mobile':{
+			type:'text',
+			reg:/^((\+86)|(86))?(13|4|5|8)\d{9}$/,
+			tip:'手机号码格式不正确'
+		},
+		'Nick':{
+			type:'text'
+		},
+		'Points':{
+			type:'text',
+			reg:/^[0-9]+(\.[0-9]{1,2})?$/,
+			tip:'格式不正确'
+		}
+	};
+var options={
+		tableID:'table1',
+		editableParam:productEditableParam
+}
+new Editable(options,$("#table1"));
+//-->
+</script>

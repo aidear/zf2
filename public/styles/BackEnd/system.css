@@ -1400,3 +1400,94 @@ button.close {
 	background-position:0 -16px;
 	background-repeat:no-repeat;
 }
+#RobPub1Mask{
+    position: absolute;
+    height: auto;
+    background-color:#BEBEBE;
+    width:80%;
+    display:none;
+    bottom: 60px;
+    z-index: 1001;
+}
+
+#RobPub1Editor{
+    padding:5px;
+    border:2px #B0BEC7 solid;
+    opacity:0.95;
+    width:auto;
+    background-color: #fff;
+    position: absolute;
+    display:none;
+}
+#RobPub1Editor #RobPub1EdtContent{
+    background-color: white;
+    padding:3px;
+    margin:0 0 3px 0; font-size:12px; border:#104360 1px solid;
+}
+.RobPub1Table1 th{ color:#ff0000;text-align: left;}
+.RobPub1Table1 td{
+    padding:0 5px 0 3px;
+}
+.RobPub1Table1 th{
+    color:#333333; 
+	width:90px;
+	font-weight:normal;
+    text-align: left;
+}
+.RobPub1Tipper{
+    font-weight:bold;
+    position: absolute;
+    padding:10px;
+    color:black;
+    background-color: #FFF4E9;
+    border:2px #B0BEC7 solid;
+    opacity:0.86;
+    width:180px;
+    z-index: 10000;
+    margin-left:-200px;
+    left:50%
+}
+.RobPub1Tipper span{ position: absolute; top:15px; width:140px; padding-left:5px;  }
+div#RobPub1SysMsg{
+        -moz-border-radius: 5px;
+        display:none;opacity:0.9;
+        z-index: 20002;
+        border: 4px solid rgb(234, 152, 0) ! important; opacity: 0.9;
+        padding:5px;position:absolute;z-index:9999;
+        background-color:rgb(255, 185, 48);
+        width:400px;
+        margin-left:-300px;
+        left:50%
+}
+#RobPub1EditTipper{
+     background-color: white;
+     padding:4px;
+     display:none;
+     font-size: 12px;
+     font-weight: bold;
+     color:red;
+}
+#RobPub1SysMsg p.closer{
+        float:right;
+        margin:10px 5px 3px 0;
+        font-size: 16px;
+        font-weight: bold;
+        color:white;
+        cursor:pointer;
+}
+.RobPub1CheckboxChecked{
+    background-color: #0099cc;
+}
+#RobPub1SysMsg p.msg{
+
+    color:white ! important;
+    font-size: 18px;
+    padding:10px 10px 0 10px;
+    font-weight:bold;
+}
+.RobPub1RedBorder{
+    border:1px solid red;
+}
+.RobPub1BlueBorder{
+    /*border:1px solid #f6892f;*/
+}
