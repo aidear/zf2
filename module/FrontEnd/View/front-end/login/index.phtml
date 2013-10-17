@@ -1,0 +1,95 @@
+<?php
+$this->headScript()->prependFile($this->basePath('js/FrontEnd/login.js'));
+$msg = $this->flashMessages();
+?>
+<div class="login_warp">
+ <div class="login_logo"><img src="/images/FrontEnd/login_logo.jpg" width="476" height="327" /></div>
+ <div class="login">
+   <div class="Land_bg">
+  
+  <ul class="input_test">
+<li>
+  <p><input name="" type="text" class="input_out" id="inp_name" onfocus="this.className='input_on';this.onmouseout=''" onblur="this.className='input_off';this.onmouseout=function(){this.className='input_out'};" onmousemove="this.className='input_move'" onmouseout="this.className='input_out'" value="<?php echo isset($_COOKIE['userName']) ? $_COOKIE['userName'] : '用户名'?>" /></p>
+
+</li>
+<li>
+<p><input name="" type="text" class="input_out1" id="inp_email" onfocus="this.className='input_on1';this.onmouseout=''" onblur="this.className='input_off1';this.onmouseout=function(){this.className='input_out1'};" onmousemove="this.className='input_move1'" onmouseout="this.className='input_out1'" value="密码" /></p>
+
+</li>
+<li><span>
+<p  style="float: left; width:100px;"><input name="remberMe" type="checkbox" value="1" />
+　记住我?</p><p style="float: left; width:130px;" id="curMsg"></p></span></li> 
+<li><img src="/images/FrontEnd/login_btn.jpg" height="52" style="cursor: pointer;" id="login_btn"/></li>
+<li><h1><a href="/forget_password/">忘记密码</a></h1><h2><a href="/register">免费注册</a></h2></li>
+ </ul>
+</div>
+ 
+ </div>
+</div>
+<script type="text/javascript">
+$(function(){
+	$("#inp_name").focusin(function(){
+		var v = $(this).val();
+		if (v == '用户名') {
+			$(this).val('');
+		}
+	});
+	$("#inp_name").focusout(function(){
+		var v = $(this).val();
+		if (v == '') {
+			$(this).val('用户名');
+		}
+	});
+	$("#inp_email").focusin(function(){
+		$(this).attr('type', 'password');
+		var v = $(this).val();
+		if (v == '密码') {
+			$(this).val('');
+		}
+	});
+	$("#inp_email").focusout(function(){
+		var v = $(this).val();
+		if (v == '') {
+			$(this).attr('type', 'text');
+			$(this).val('密码');
+		}
+	});
+	$("#inp_name").focus();
+	$("#login_btn").click(function(){
+		var userName = $.trim($("#inp_name").val());
+		var password = $.trim($("#inp_email").val());
+		if ($("input[name='remberMe']").is(':checked')) {
+			var rememberMe = 1;
+		} else {
+			var rememberMe = 0;
+		}
+		
+		
+		if (userName != '' && password != '' && userName != '用户名' && password != '密码') {
+			$("#curMsg").html('<font color:#ff0000;>正在登录中……</font>');
+			$.ajax({
+				type: 'POST',
+				url:'/login',
+				data: 'username='+userName+'&password='+password+'&rememberMe='+rememberMe,
+				dataType:'json',
+				success:function(e) {
+					if (e.code == 0) {
+						location.href='/';
+					} else {
+						alert(e.msg);
+					}
+					$("#curMsg").html('');
+				}
+			});
+		} else {
+			$("#curMsg").html('请输入用户名和密码');
+		}
+	});
+	$("#inp_name, #inp_email").keypress(function(e){
+		if(e.which==13){
+			$('#login_btn').click();
+			return false;
+		}
+	})
+})
+</script>
