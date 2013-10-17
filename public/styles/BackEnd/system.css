@@ -1377,7 +1377,11 @@ button.close {
 
 .t_top .t_inline {
 	float:left;
-} 
+}
+.t_top .t_import {
+	float:left;
+	margin-left:6px;
+}
 .t_top .t_right {
 	float:right;
 }

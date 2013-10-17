@@ -16,6 +16,7 @@ chdir(dirname(__DIR__));
 
 // Setup autoloading
 require 'config/init_autoloader.php';
+require_once '/vendor/PHPExcel.php';
 
 $globalConfig = require 'config/application.config.php';
 $globalConfig['modules'] = array('BackEnd');

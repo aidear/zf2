@@ -36,7 +36,6 @@ var diyConfirm = function(name , url, obj){
              + url +' class="btn btn-primary">'
              + name +'</a></div></div></div></div>').modal({keyboard: false});
 };
-
 $(function(){
 	$(".alert button.close").click(function() {
 		$(this).parents('.alert').slideUp();
@@ -56,6 +55,10 @@ $(function(){
 		var url = $(this).attr('_href')+id;
 		$(this).attr('href', url);
 	});
+//	$("#table1 td[editable='true']").mouseover(
+//			function(e) {var leftpos = $(this).offset().left;var toppos = $(this).offset().top;$('body').append('<span id="td_edit" style="z-index:20;"><input type="button" name="edit_button" value="编辑" /></span>');$("#td_edit").css({background:'#fff', position:'fixed', top: toppos ,left: leftpos  });
+//			}
+//	).mouseout(function(e) {var el = e.toElement || e.relatedTarget;if ($(el).attr('id') != 'td_edit'){$('#td_edit').remove();}});
 });
 (function($){
     var getJSON  = this.getJSON = function( url, data, callback ){

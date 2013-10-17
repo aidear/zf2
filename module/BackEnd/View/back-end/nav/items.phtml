@@ -1,5 +1,6 @@
 <?php
-$this->headScript()->appendFile($this->basePath('js/jquery-ui-1.10.2.custom.min.js'));
+$this->headScript()->appendFile($this->basePath('js/jquery-ui-1.10.2.custom.min.js'))
+					->appendFile($this->basePath('js/jquery.ajaxfileupload.js'));
 $this->headLink()->appendStylesheet($this->basePath('styles/jquery-ui-1.10.2.custom.min.css'));
 $msg = $this->flashMessages();?>
 <div class="box">
@@ -45,6 +46,14 @@ $msg = $this->flashMessages();?>
                 <button class="button-element" type="submit">搜索</button>
                 </div>
         </form>
+        	</div>
+        	<div class="t_import input-group">
+        		<button class="button-element" type="button" name="export_button" value="导出结果" q="<?php echo $this->url('backend' , array('controller' => 'nav' , 'action' => 'items')).'?'.$this->query;?>" >导出结果</button>
+        	</div>
+        	<div class="t_import" style="padding-left:6px;">
+        		导入：<input type="file" name="srcFile" value="" id="srcFile" style="width:140px;"/>
+        		<button class="button-element" type="button" name="import_button" value="确定导入">确定导入</button>
+        		<a href="/templates/navigation_templates.xlsx" >模板下载</a>
         	</div>
         	<div class="t_right">
         	<a class="btn btn-edit" href="javascript:;" _href="<?php echo $this->url('backend', array('controller' 
@@ -146,5 +155,38 @@ var options={
 		editableParam:productEditableParam
 }
 new Editable(options,$("#table1"));
+$(function() {
+	$("button[name='export_button']").click(function() {
+		var q = $(this).attr('q');
+		location.href=q+'&act=down';
+	});
+	$("button[name='import_button']").click(function() {
+		var img_value = $("#srcFile").val();
+		if (img_value == '') {
+			alert('请选择文件');
+		} else {
+			var url = "/nav/upload";
+			$.ajaxFileUpload
+			(
+				{
+					url:url,
+					secureuri:false,
+					fileElementId:'srcFile',
+					dataType: 'json',
+					success: function (data, status)
+					{
+						if (data.code == 0) {
+							alert('已成功上传'+data.msg+'条记录');
+						}
+					},
+					error: function (data, status, e)
+					{
+						alert('上传时发生错误');
+					}
+				}
+			)
+		}
+	});
+})
 //-->
 </script>
