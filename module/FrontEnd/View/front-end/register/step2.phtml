@@ -32,7 +32,8 @@
 </li>
 <li><span><p><input name="is_agree" type="checkbox" value="1"  checked="checked"/>
 　同意导航协议并开通服务</p></span></li> 
-    <li class="btn"><img src="/images/FrontEnd/btn_tj.jpg" height="33" id="agree_btn" ts="0" style="cursor: pointer;"/></li>
+    <!-- <li class="btn"><img src="/images/FrontEnd/btn_tj.jpg" height="33" id="agree_btn" ts="0" style="cursor: pointer;"/></li> -->
+    <li class="btn"><input type="submit" name="reg_ywsbtn"  ts="0" id="reg_tjbtn" value="提交" /></li>
     <li id="curMsg"></li>
   </ul>
 
@@ -47,7 +48,7 @@
 <script>
 $(function(){
 	
-	$("#agree_btn").click(function(){
+	$("#reg_tjbtn").click(function(){
 		if ($(this).attr('ts') == 0) {
 			var email = $.trim($("#in_name5").val());
 			if (email == '') {
@@ -72,7 +73,7 @@ $(function(){
 							} else {
 								alert(e.msg);
 							}
-							$("#agree_btn").attr('ts', 0);
+							$("#reg_tjbtn").attr('ts', 0);
 							$("#curMsg").html('');
 						}
 					});

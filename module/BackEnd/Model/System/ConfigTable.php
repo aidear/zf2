@@ -47,7 +47,23 @@ class ConfigTable extends TableGateway
     	
     	return $return;
     }
-    
+    public static function getSysConf($key)
+    {
+    	$sys_config = array();
+    	if (file_exists('./data/sys_config.php')) {
+    		$sys_config = include'./data/sys_config.php';
+    	}
+    	if (isset($sys_config[$key])) {
+    		return $sys_config[$key];
+    	}
+    	$select = $this->getSql()->select();
+    	$select->where(array('cKey' => $key));
+    	$select->columns(array('cValue'));
+    	$resultSet = $this->selectWith($select);
+    	$rs = $resultSet->toArray();
+    	 
+    	return isset($rs['cValue']) ? $rs['cValue'] : '';
+    }
     public function setConfigValue($cKey, $value)
     {
     	return $this->update(array('cValue' => $value), array('cKey' =>$cKey));

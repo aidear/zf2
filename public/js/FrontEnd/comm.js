@@ -22,11 +22,11 @@ $(function() {
 		$(this).addClass('hover').siblings().removeClass('hover');
 		$("input[name='tab']").val($(this).attr('date-tab'));
 	});
-	$("#btn_baidu").click(function(){
+	$("#badu_btn").click(function(){
 		$("input[name='engine']").val('baidu_web');
 		$("#form1").submit();
 	});
-	$("#btn_google").click(function(){
+	$("#google_btn").click(function(){
 		$("input[name='engine']").val('google');
 		$("#form1").submit();
 	});

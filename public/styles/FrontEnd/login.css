@@ -36,3 +36,4 @@ ul.input_test li{width:336px;height:auto;float:left;margin-top:10px;display:inli
 .input_test li h2 a{float:right;height:auto;width:100px;text-align:right;color:#09C;}
 .button1{cursor:hand;width:97px;height:30px;text-align:center;background:#ffffff url(/images/FrontEnd/btn_d.jpg) no-repeat center;border-style:none;color:#FFF;font:bold 14px "微软雅黑";float:left;}
 .foot{background-color:#e8e8e8;float:left;width:100%;line-height:60px;height:60px;font-family:"微软雅黑";font-size:12px;margin-top:15px;position:absolute;bottom:0;}
+#login_btn{background-image: url(/images/FrontEnd/login_btn.jpg);height: 52px;width: 336px;border-top-width: 0px;border-right-width: 0px;border-bottom-width: 0px;border-left-width: 0px;border-top-style: none;border-right-style: none;border-bottom-style: none;border-left-style: none;color: #FFF;font-family: "微软雅黑";font-size: 22px;font-weight: bold;}

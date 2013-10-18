@@ -47,6 +47,10 @@ $msg = $this->flashMessages();
                                 => 'member', 'action' => 'pwd')) ?>?id=">
                                 <i class="icon-edit"></i>设置密码
                             </a>&nbsp;&nbsp;
+                            <a class="btn btn-edit" href="javascript:;" _href="<?php echo $this->url('backend', array('controller' 
+                                => 'member', 'action' => 'sendMail')) ?>?id=">
+                                <i class="icon-edit"></i>发送邮件
+                            </a>&nbsp;&nbsp;
                             <a class="btn btn-delete" href="javascript:;" _href="<?php echo $this->url('backend', array('controller' 
                                 => 'member', 'action' => 'delete')) ?>?id=" onClick="diyConfirm('删除' , $(this).attr('href'), this);return false;"><i class="icon-delete"></i>删除
                             </a>

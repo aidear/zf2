@@ -26,7 +26,10 @@ $msg = $this->flashMessages();
   <p><input name="repassword"  data-trim="true" data-pattern="^.{6,16}$" maxlength="16"  data-conditional="confirm same" data-describedby="for_repassword" data-description="repassword" data-required="true" type="password" class="input_out" id="in_name2" onfocus="this.className='input_on';this.onmouseout=''" onblur="this.className='input_off';this.onmouseout=function(){this.className='input_out'};" onmousemove="this.className='input_move'" onmouseout="this.className='input_out'" /></p>
 <span id="for_repassword"></span>
 </li>
-<li class="btn"><a href="javascript:;"><img src="/images/FrontEnd/btn_qd.jpg" height="42" id="submit_btn" style="cursor:pointer;"/></a></li>
+<!-- <li class="btn"><a href="javascript:;"><img src="/images/FrontEnd/btn_qd.jpg" height="42" id="submit_btn" style="cursor:pointer;"/></a></li> -->
+<li class="btn">
+  <input type="button" name="reg_ywsbtn" id="reg_ywsbtn" value="确定" />
+</li>
 </ul>
 </form>
 </div>
@@ -107,7 +110,7 @@ jQuery.validateExtend({
 //     }
 });
 $(function(){
-	$("#submit_btn").click(function(){
+	$("#reg_ywsbtn").click(function(){
 		$("#reset_form").submit();
 	});
 })

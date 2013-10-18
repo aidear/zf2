@@ -44,7 +44,10 @@
 <span id="for_reg_code"></span>
 
 </li>
-<li class="btn"><img style="cursor:pointer;" src="/images/FrontEnd/btn_01.jpg" height="40" id="register_btn" /></li>
+<!-- <li class="btn"><img style="cursor:pointer;" src="/images/FrontEnd/btn_01.jpg" height="40" id="register_btn" /></li> -->
+<li class="btn">
+  <input type="submit" name="reg_ywszcbtn" id="reg_ywszcbtn" value="同意协议并注册" />
+</li>
 <li>
   <h2><a href="#">《服务协议》</a></h2></li>
  </ul>
@@ -124,7 +127,7 @@ $(function(){
 			});
 		}
 	});
-	$("#register_btn").click(function(){
+	$("#reg_ywszcbtn").click(function(){
 		$("form[name='register']").submit();
 	});
 	$(".register-captcha").click(function(){

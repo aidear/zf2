@@ -228,6 +228,27 @@ class MemberController extends AbstractActionController
 		
 // 		return array('form'=>'');
 	}
+	function sendMailAction()
+	{
+		$table = $this->_getTable('MemberTable');
+		$userid = $this->params()->fromQuery('id');
+		if (!$userid) {
+			throw new \Exception('id is required!');
+		}
+		$req = $this->getRequest();
+		if ($req->isPost()) {
+			$subject = $req->getPost('subject');
+			$email = $req->getPost('email');
+			$content = $req->getPost('content');
+			$mail = new \BackEnd\Model\System\Mail();
+			$mail->sendHtml($email, $subject, $content);
+			$this->_message('信息已投递至'.$email.'地址');
+			return $this->redirect()->toRoute('backend' , array('controller' => 'member' , 'action' => 'index')); 
+		}
+		$user = $this->_getMemberByID($userid);
+		
+		return array('user' => $user);
+	}
 	function deleteAction()
 	{
 		$requery = $this->getRequest();

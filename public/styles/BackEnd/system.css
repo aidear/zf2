@@ -1374,7 +1374,8 @@ button.close {
 .modal-footer .btn-block + .btn-block {
   margin-left: 0;
 }
-
+.t_top {
+}
 .t_top .t_inline {
 	float:left;
 }

@@ -8,38 +8,36 @@
      <a class="btn btn-success" href="<?php echo $this->url('backend' 
          , array('controller' => 'resource' , 'action' => 'updateResource'));?>">
         <i class="icon-plus"></i>更新资源</a></p>
+        <div class="t_top">
+    	<div class="t_right" style="margin-bottom:6px;">
+        	 <a class="btn btn-edit" href="javascript:;" _href="<?php echo $this->url('backend' , array('controller' => 'resource' 
+                            , 'action' => 'save'))?>?id="><i class="icon-edit"></i>
+                            设置别名</a>
+        	</div>
+    </div>
         <table class="table">
             <thead>
                 <tr class="row">
+                	<th>选择</th>
                     <th>资源名</th>
                     <th>控制器名</th>
                     <th>控制器别名</th>
                     <th>动作名</th>
                     <th>动作别名</th>
                     <th>添加时间</th>
-                    <th>操作</th>
                 </tr>
             </thead>
             <tbody>
                 <?php if(count($this->paginaction) > 0):?>
                 <?php foreach($this->paginaction as $resource):?>
                 <tr>
+                	<td><input type="radio" name="select" value="<?php echo $resource->ResourceID?>" /></td>
                     <td><?php echo $resource->Name?></td>
                     <td><?php echo $resource->Controller?></td>
                     <td><?php echo $resource->ControllerName?></td>
                     <td><?php echo $resource->Action?></td>
                     <td><?php echo $resource->ActionName?></td>
                     <td><?php echo $resource->AddTime?></td>
-                    <td>
-                        <a class="btn btn-edit" href="<?php echo $this->url('backend' , array('controller' => 'resource' 
-                            , 'action' => 'save'))?>?id=<?php echo $resource->ResourceID?>"><i class="icon-edit"></i>
-                            设置别名</a>
-                            <?php /*
-                        <a class="btn btn-delete" href="<?php echo $this->url('backend' , array('controller' => 'resource' 
-                            , 'action' => 'delete'))?>?name=<?php echo $resource->Name?>"><i class="icon-delete"></i>
-                            删除</a>
-                            */?>
-                    </td>
                 </tr>
                 <?php endforeach;?>
                 <?php endif;?>
