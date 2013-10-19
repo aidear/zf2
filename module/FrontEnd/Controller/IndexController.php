@@ -20,6 +20,7 @@ class IndexController extends AbstractActionController
 			$navLists[] = array (
 				'name' => $v['name'],
 				'img' => $v['imgUrl'],
+				'line' => $v['line'],
 				'links' => $links,
 			);
 		}

@@ -40,6 +40,7 @@ $msg = $this->flashMessages();
 				<img width="120px" src="<?php echo $form->get('imgUrl')->getValue();?>" />
 				</div>
                 <?php echo $this->formFile($form->get('imgUrl'))?>
+                <?php echo $this->formText($form->get('line'))?>
                 <?php echo $this->formSelect($form->get('isShow'))?>
                 <?php echo $this->formText($form->get('order'))?>
                 

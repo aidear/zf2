@@ -31,6 +31,7 @@ class NavCategory implements InputFilterAwareInterface
 	public $keyword;
 	public $parentID = 0;
 	public $catPath;
+	public $line = 2;
 	public $isShow = 1;
 	public $order = 1;
 	public $addTime;
@@ -46,6 +47,7 @@ class NavCategory implements InputFilterAwareInterface
 		$this->keyword = isset($data['keyword']) ? $data['keyword'] : '';
 		$this->parentID = isset($data['parentID']) ? $data['parentID'] : 0;
 		$this->catPath = isset($data['catPath']) ? $data['catPath'] : '';
+		$this->line = isset($data['line']) ? $data['line'] : 2;
 		$this->isShow = isset($data['isShow']) ? $data['isShow'] : 1;
 		$this->order = isset($data['order']) ? $data['order'] : 1;
 		$this->addTime = isset($data['addTime']) ? $data['addTime'] : date('Y-m-d H:i:s');

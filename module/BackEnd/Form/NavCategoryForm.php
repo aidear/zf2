@@ -69,6 +69,17 @@ class NavCategoryForm extends Form
         				'label' => '分类图片'
         		)
         ) );
+        $this->add ( array (
+        		'name' => 'line',
+        		'attributes' => array(
+        				'notemsg' => '前台展示设置，行数',
+        				'value' => 2,
+        				'pattern' => '^[0-9]+$',
+        		),
+        		'options' => array (
+        				'label' => '前台展示行数'
+        		)
+        ) );
        $this->add ( array (
         		'name' => 'isShow',
         		'type' => '\Zend\Form\Element\Select',
