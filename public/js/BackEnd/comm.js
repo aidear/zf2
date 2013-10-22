@@ -74,6 +74,9 @@ $(function(){
 		var url = $(this).attr('_href')+id;
 		$(this).attr('href', url);
 	});
+	$("input[type='reset']").click(function(){
+		history.go(-1);
+	});
 //	$("#table1 .row > td").each(function(){
 //		$(this).bind('click', function() {
 //			$(this).find("input[type='checkbox']").trigger('click');

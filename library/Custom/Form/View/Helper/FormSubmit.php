@@ -73,7 +73,7 @@ class FormSubmit extends \Zend\Form\View\Helper\FormInput
     			'<input class="button-element" %s%s',
     			$this->createAttributesString($attributes),
     			$this->getInlineClosingBracket()
-    	).'</div>';
+    	).'&nbsp;&nbsp;&nbsp;&nbsp;<input type="reset" value="取消" name="reset" class="button-element"></div>';
     }
 
     /**

@@ -12,6 +12,7 @@ use Zend\Db\Sql\Update;
 use Zend\Db\Sql\Where;
 use Zend\Db\TableGateway\TableGateway;
 use BackEnd\Model\Users\Member;
+use Zend\Db\Sql\Predicate\Like;
 
 class MemberTable extends TableGateway
 {
@@ -116,8 +117,10 @@ class MemberTable extends TableGateway
     }
     function formatWhere(array $data){
     	$where = $this->_getSelect()->where;
-    	if(!empty($data['UserName'])){
-    		$where->like('UserName', '%' . $data['UserName'] . '%');
+    	if(!empty($data['k'])){
+    		$where->like('UserName', '%' . $data['k'] . '%')->orPredicate(new Like('Email', '%' . $data['k'] . '%'))
+    		->orPredicate(new Like('Nick', '%' . $data['k'] . '%'))
+    		->orPredicate(new Like('Mobile', '%' . $data['k'] . '%'));
     	}
     
     	$this->select->where($where);

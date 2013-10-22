@@ -43,10 +43,10 @@ class MemberController extends AbstractActionController
 		$params = array();
 		
         $table = $this->_getTable('MemberTable');
-        $username = $this->params()->fromQuery('username' , '');
+        $k = $this->params()->fromQuery('k' , '');
         
-        if($username){
-        	$params['username']  = $username;
+        if($k){
+        	$params['k']  = $k;
         }
         $params['orderField'] = $this->params()->fromQuery('orderField', '');
         $params['orderType'] = $this->params()->fromQuery('orderType', '');
@@ -260,7 +260,8 @@ class MemberController extends AbstractActionController
 			}
 		} else {
 			$assign['mult'] = 0;
-			$assign = $user;
+			$assign['Email'] = $user['Email'];
+			$assign['UserName'] = $user['UserName'];
 		}
 		
 		return array('user' => $assign, 'id' => $id);
