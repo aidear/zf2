@@ -25,7 +25,23 @@ $msg = $this->flashMessages();
             <?php endif;?>
         <p><a class="btn btn-success" href="<?php echo $this->url('backend' 
             , array('controller' => 'member' , 'action' => 'save'))?>">
-        <i class="icon-plus"></i>新增会员</a></p>
+        <i class="icon-plus"></i>新增会员</a>
+        					<a class="btn btn-edit" href="javascript:;" _href="<?php echo $this->url('backend', array('controller' 
+                                => 'member', 'action' => 'save')) ?>?id=">
+                                <i class="icon-edit"></i>编辑
+                            </a>
+                            <a class="btn btn-edit" href="javascript:;" _href="<?php echo $this->url('backend', array('controller' 
+                                => 'member', 'action' => 'pwd')) ?>?id=">
+                                <i class="icon-edit"></i>设置密码
+                            </a>
+                            <a class="btn btn-edit" editMult="true" href="javascript:;" _href="<?php echo $this->url('backend', array('controller' 
+                                => 'member', 'action' => 'sendMail')) ?>?id=">
+                                <i class="icon-edit"></i>发送邮件
+                            </a>
+                            <a class="btn btn-delete" href="javascript:;" _href="<?php echo $this->url('backend', array('controller' 
+                                => 'member', 'action' => 'delete')) ?>?id=" onClick="diyConfirm('删除' , $(this).attr('href'), this);return false;"><i class="icon-delete"></i>删除
+                            </a>
+        </p>
         <div class="t_top">
         	<div class="t_inline">
         	<form class="form-inline" action="<?php echo $this->url('backend', array('controller' 
@@ -37,23 +53,6 @@ $msg = $this->flashMessages();
                 <button class="button-element" type="submit">搜索</button>
                 </div>
         	</form>
-        	</div>
-        	<div class="t_right">
-        					<a class="btn btn-edit" href="javascript:;" _href="<?php echo $this->url('backend', array('controller' 
-                                => 'member', 'action' => 'save')) ?>?id=">
-                                <i class="icon-edit"></i>编辑
-                            </a>&nbsp;&nbsp;
-                            <a class="btn btn-edit" href="javascript:;" _href="<?php echo $this->url('backend', array('controller' 
-                                => 'member', 'action' => 'pwd')) ?>?id=">
-                                <i class="icon-edit"></i>设置密码
-                            </a>&nbsp;&nbsp;
-                            <a class="btn btn-edit" href="javascript:;" _href="<?php echo $this->url('backend', array('controller' 
-                                => 'member', 'action' => 'sendMail')) ?>?id=">
-                                <i class="icon-edit"></i>发送邮件
-                            </a>&nbsp;&nbsp;
-                            <a class="btn btn-delete" href="javascript:;" _href="<?php echo $this->url('backend', array('controller' 
-                                => 'member', 'action' => 'delete')) ?>?id=" onClick="diyConfirm('删除' , $(this).attr('href'), this);return false;"><i class="icon-delete"></i>删除
-                            </a>
         	</div>
         </div>
         <table class="table" id="table1">
@@ -109,7 +108,7 @@ $msg = $this->flashMessages();
             <tbody>
                 <?php $startNumber = $this->startNumber;foreach ($this->paginaction as $user): ?>
                     <tr class="row" primary_value="<?php echo $user->UserID; ?>">
-                    	<td><input type="radio" name="select" value="<?php echo $user->UserID; ?>" /></td>
+                    	<td><input type="checkbox" name="select" value="<?php echo $user->UserID; ?>" /></td>
                     	<td><?php echo $startNumber++;?></td>
                         <td key="UserName" editable="true"><?php echo $user->UserName; ?></td>
                         <td key="Email" editable="true"><?php echo $user->Email; ?></td>

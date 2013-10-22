@@ -27,7 +27,19 @@ $msg = $this->flashMessages();
             <?php endif;?>
         <p><a class="btn btn-success" href="<?php echo $this->url('backend' 
             , array('controller' => 'nav' , 'action' => 'save'))?>">
-        <i class="icon-plus"></i>新增分类</a></p>
+        <i class="icon-plus"></i>新增分类</a>
+        <a class="btn btn-edit" href="javascript:;" _href="<?php echo $this->url('backend', array('controller' 
+                                => 'nav', 'action' => 'save')) ?>?id=">
+                                <i class="icon-edit"></i>编辑
+                            </a>
+                            <a class="btn btn-edit" href="javascript:;" _href="<?php echo $this->url('backend', array('controller' 
+                                => 'nav', 'action' => 'items')) ?>?cid=">
+                                <i class="icon-edit"></i>导航列表
+                            </a>
+                            <a class="btn btn-delete" href="javascript:;" _href="<?php echo $this->url('backend', array('controller' 
+                                => 'nav', 'action' => 'delete')) ?>?id=" onClick="diyConfirm('删除' , $(this).attr('href'), this);return false;"><i class="icon-delete"></i>删除
+                            </a>
+        </p>
         <div class="t_top">
         	<div class="t_inline">
         	<form class="form-inline" action="<?php echo $this->url('backend', array('controller' 
@@ -41,17 +53,7 @@ $msg = $this->flashMessages();
         </form>
         	</div>
         	<div class="t_right">
-        					<a class="btn btn-edit" href="javascript:;" _href="<?php echo $this->url('backend', array('controller' 
-                                => 'nav', 'action' => 'save')) ?>?id=">
-                                <i class="icon-edit"></i>编辑
-                            </a>&nbsp;&nbsp;
-                            <a class="btn btn-edit" href="javascript:;" _href="<?php echo $this->url('backend', array('controller' 
-                                => 'nav', 'action' => 'items')) ?>?cid=">
-                                <i class="icon-edit"></i>导航列表
-                            </a>&nbsp;&nbsp;
-                            <a class="btn btn-delete" href="javascript:;" _href="<?php echo $this->url('backend', array('controller' 
-                                => 'nav', 'action' => 'delete')) ?>?id=" onClick="diyConfirm('删除' , $(this).attr('href'), this);return false;"><i class="icon-delete"></i>删除
-                            </a>
+        					
         	</div>
         </div>
         
@@ -97,7 +99,7 @@ $msg = $this->flashMessages();
             <tbody>
                 <?php $startNumber = $this->startNumber;foreach ($this->navList as $nav): ?>
                     <tr class="row" primary_value="<?php echo $nav['id']; ?>">
-                    	<td><input type="radio" name="select" value="<?php echo $nav['id']; ?>" /></td>
+                    	<td><input type="checkbox" name="select" value="<?php echo $nav['id']; ?>" /></td>
                         <td><?php echo $startNumber++; ?></td>
                         <td key="name" editable="true"><?php echo $nav['name']; ?></td>
                         <td><?php echo $nav['parentName']; ?></td>

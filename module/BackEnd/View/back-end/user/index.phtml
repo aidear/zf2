@@ -5,7 +5,14 @@
     <div class="box-content">
         <p><a class="btn btn-success" href="<?php echo $this->url('backend' 
             , array('controller' => 'user' , 'action' => 'save'))?>">
-        <i class="icon-plus"></i>新增用户</a></p>
+        <i class="icon-plus"></i>新增用户</a>
+         <a class="btn btn-edit" href="javascript:;" _href="<?php echo $this->url('backend', array('controller' 
+                                => 'user', 'action' => 'save')) ?>?id=">
+                                <i class="icon-edit"></i>编辑
+                            </a>
+                            <a class="btn btn-delete" href="javascript:;" _href="<?php echo $this->url('backend', array('controller' 
+                                => 'user', 'action' => 'delete')) ?>?id=" onClick="diyConfirm('删除' , $(this).attr('href'), this);return false;"><i class="icon-delete"></i>删除
+                            </a></p>
         <div class="t_top">
         <div class="t_inline">
         <form class="form-inline" action="<?php echo $this->url('backend', array('controller' 
@@ -19,13 +26,7 @@
         </form>
         </div>
     	<div class="t_right">
-        	 <a class="btn btn-edit" href="javascript:;" _href="<?php echo $this->url('backend', array('controller' 
-                                => 'user', 'action' => 'save')) ?>?id=">
-                                <i class="icon-edit"></i>编辑
-                            </a>&nbsp;&nbsp;
-                            <a class="btn btn-delete" href="javascript:;" _href="<?php echo $this->url('backend', array('controller' 
-                                => 'user', 'action' => 'delete')) ?>?id=" onClick="diyConfirm('删除' , $(this).attr('href'), this);return false;"><i class="icon-delete"></i>删除
-                            </a>
+        	
         	</div>
     </div>
         <table class="table">
@@ -40,7 +41,7 @@
             <tbody>
                 <?php foreach ($this->paginaction as $user): ?>
                     <tr class="row">
-                    	<td><input type="radio" name="select" value="<?php echo $user->ID; ?>"/></td>
+                    	<td><input type="checkbox" name="select" value="<?php echo $user->ID; ?>"/></td>
                         <td><?php echo $user->UserName; ?></td>
                         <td><?php echo $user->Role; ?></td>
                         <td><?php echo $user->LastUpdate; ?></td>

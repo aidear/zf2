@@ -231,7 +231,7 @@ class MemberController extends AbstractActionController
 	function sendMailAction()
 	{
 		$table = $this->_getTable('MemberTable');
-		$userid = $this->params()->fromQuery('id');
+		$userid = $id = $this->params()->fromQuery('id');
 		if (!$userid) {
 			throw new \Exception('id is required!');
 		}
@@ -241,13 +241,29 @@ class MemberController extends AbstractActionController
 			$email = $req->getPost('email');
 			$content = $req->getPost('content');
 			$mail = new \BackEnd\Model\System\Mail();
+			$email = explode(',', $email);
+			$email = array_filter($email);
 			$mail->sendHtml($email, $subject, $content);
-			$this->_message('信息已投递至'.$email.'地址');
+			$this->_message('信息已投递至'.implode(',', $email).'地址');
 			return $this->redirect()->toRoute('backend' , array('controller' => 'member' , 'action' => 'index')); 
 		}
+		if (strpos($userid, ',') !== false) {
+			$userid = explode(',', $userid);
+		}
 		$user = $this->_getMemberByID($userid);
+		$assign = array();
+		if (count($user) != count($user,  COUNT_RECURSIVE)) {
+			$assign['mult'] = 1;
+			foreach ($user as $u) {
+				$assign['email'][] = $u['Email'];
+				$assign['name'][] = $u['UserName'];
+			}
+		} else {
+			$assign['mult'] = 0;
+			$assign = $user;
+		}
 		
-		return array('user' => $user);
+		return array('user' => $assign, 'id' => $id);
 	}
 	function deleteAction()
 	{

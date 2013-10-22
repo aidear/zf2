@@ -344,6 +344,7 @@ i[class^="icon-"] {
 }
 .box-content p {
 	margin-bottom:6px;
+	text-align:right;
 }
 .box-form {
     margin: 0 0 18px;
@@ -627,7 +628,7 @@ div.checker input {
 .btn-group.open .btn-inverse.dropdown-toggle {
   background-color: #222222;
 }
-
+/*
 .button-element {
     background-color: #43a1da;
     background-image: -moz-linear-gradient(top, #4ba6db, #369bd7);
@@ -646,6 +647,24 @@ div.checker input {
      padding: 4px 10px;
     filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
     cursor: default;
+}*/
+.button-element {
+	padding: 4px 10px;
+	border-radius: 4px 4px 4px 4px;
+    border-width: 1px;
+	cursor: default;
+	color:#fff;
+	background-color: #7BB33D;
+    background-image: -moz-linear-gradient(center top , #80BB3F, #73A839);
+    background-repeat: repeat-x;
+    border-bottom-color: rgba(0, 0, 0, 0.25);
+    border-left-color-ltr-source: physical;
+    border-left-color-rtl-source: physical;
+    border-left-color-value: rgba(0, 0, 0, 0.1);
+    border-right-color-ltr-source: physical;
+    border-right-color-rtl-source: physical;
+    border-right-color-value: rgba(0, 0, 0, 0.1);
+    border-top-color: rgba(0, 0, 0, 0.1);
 }
 
 .button-reset{
@@ -783,11 +802,25 @@ div.checker input {
     background-color: #7BB33D;
     border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
 }
+/*
 .btn-edit {
     background-color: #9E6AB8;
     background-image: -moz-linear-gradient(center top , #A271BB, #9760B3);
     background-repeat: repeat-x;
     border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+}*/
+.btn-edit {
+	background-color: #7BB33D;
+    background-image: -moz-linear-gradient(center top , #80BB3F, #73A839);
+    background-repeat: repeat-x;
+    border-bottom-color: rgba(0, 0, 0, 0.25);
+    border-left-color-ltr-source: physical;
+    border-left-color-rtl-source: physical;
+    border-left-color-value: rgba(0, 0, 0, 0.1);
+    border-right-color-ltr-source: physical;
+    border-right-color-rtl-source: physical;
+    border-right-color-value: rgba(0, 0, 0, 0.1);
+    border-top-color: rgba(0, 0, 0, 0.1);
 }
 .btn-delete {
     background-color: #D41E24;
@@ -1416,8 +1449,8 @@ button.close {
 }
 
 #RobPub1Editor{
-    padding:5px;
-    border:2px #B0BEC7 solid;
+    padding:0px;
+    border:0px #B0BEC7 solid;
     opacity:0.95;
     width:auto;
     background-color: #fff;
@@ -1426,9 +1459,11 @@ button.close {
 }
 #RobPub1Editor #RobPub1EdtContent{
     background-color: white;
-    padding:3px;
-    margin:0 0 3px 0; font-size:12px; border:#104360 1px solid;
+    padding:0px;
+    margin:0 0 0px 0; font-size:12px; border:#104360 0px solid;
+	float:left;
 }
+#RobPub1EdtContent input {margin:0;padding:0;border:1px solid #ff0000; text-align:center;}
 .RobPub1Table1 th{ color:#ff0000;text-align: left;}
 .RobPub1Table1 td{
     padding:0 5px 0 3px;
@@ -1471,6 +1506,10 @@ div#RobPub1SysMsg{
      font-size: 12px;
      font-weight: bold;
      color:red;
+	 clear:both;
+}
+#RobPub1ColEditor {
+	margin-right:2px;
 }
 #RobPub1SysMsg p.closer{
         float:right;

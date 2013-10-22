@@ -47,10 +47,20 @@ class Mail
     	$body = new MimeMessage();
     	$body->setParts(array($html));
     	
-    	$this->mail->addTo($to)
-    	->addFrom(ConfigTable::getSysConf('smtp_user'))
+    	if (is_array($to)) {
+    		foreach ($to as $t) {
+    			$this->mail->addTo($t);
+    		}
+    	} else {
+    		$this->mail->addTo($to);
+    	}
+    	$this->mail->addFrom(ConfigTable::getSysConf('smtp_user'))
     	->setSubject($subject)
     	->setBody($body);
     	$this->transport->send($this->mail);
+    }
+    public function addEmail($to)
+    {
+    	$this->mail->addTo($to);
     }
 }

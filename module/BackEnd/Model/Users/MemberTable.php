@@ -46,9 +46,19 @@ class MemberTable extends TableGateway
     }
     
     function getOneForId($id){
-        $rowset = $this->select(array('UserID' => $id));
-        $row = $rowset->current();
-        return $row;
+    	if (is_array($id)) {
+    		$select = $this->getSql()->select();
+    		$where = function(Where $where) use ($id) {
+    			$where->in('UserID', $id);
+    		};
+    		$select->where($where);
+//     		echo str_replace('"', '', $select->getSqlString());die;
+    		return $this->selectWith($select);
+    	} else {
+	        $rowset = $this->select(array('UserID' => $id));
+	        $row = $rowset->current();
+	        return $row;
+    	}
     }
     
     function getUserForName($name){

@@ -24,15 +24,19 @@ var StringLength = function(jQDom , maxLength){
 };
 
 var diyConfirm = function(name , url, obj){
-	if ($("input[type='radio'][name='select']:checked").size() == 0) {
+	var id = '';
+	if ($("input[type='checkbox'][name='select']:checked").size() == 0) {
 		alert('请先选择一个条目');
 		return false;
+	} else if ($("input[type='checkbox'][name='select']:checked").size() >= 1) {
+		$("input[type='checkbox'][name='select']:checked").each(function() {
+			id += (id == '') ? $(this).val() : ','+$(this).val();
+		});
 	}
-	var id = $("input[type='radio'][name='select']:checked").val();
 	var url = $(obj).attr('_href')+id;
 	$(obj).attr('href', url);
     $('<div class="modal fade"><div class="modal-dialog"><div class="modal-content"><div class="modal-body">是否' + 
-             name + '?</div><div class="modal-footer"><button type="button" class="btn btn-default" data-dismiss="modal">关闭</button><a href=' 
+             name + 'id为'+id+'的条目?</div><div class="modal-footer"><button type="button" class="btn btn-default" data-dismiss="modal">关闭</button><a href=' 
              + url +' class="btn btn-primary">'
              + name +'</a></div></div></div></div>').modal({keyboard: false});
 };
@@ -46,19 +50,35 @@ $(function(){
 	$("table.table tbody tr").mouseout(function() {
 		$(this).css('background-color', '#fff');
 	});
-	$(".t_right .btn-edit").click(function() {
-		if ($("input[type='radio'][name='select']:checked").size() == 0) {
-			alert('请先选择一个条目');
-			return false;
+	$(".box-content .btn-edit").click(function() {
+		if ($(this).attr('editMult')) {
+			if ($("input[type='checkbox'][name='select']:checked").size() == 0) {
+				alert('请先选择一个条目');
+				return false;
+			}
+			var id = '';
+			$("input[type='checkbox'][name='select']:checked").each(function() {
+				id += (id == '') ? $(this).val() : ','+$(this).val();
+			});
+		} else {
+			if ($("input[type='checkbox'][name='select']:checked").size() == 0) {
+				alert('请先选择一个条目');
+				return false;
+			} else if ($("input[type='checkbox'][name='select']:checked").size() > 1) {
+				alert('一次只能选择一个条目进行编辑');
+				return false;
+			}
+			var id = $("input[type='checkbox'][name='select']:checked").val();
 		}
-		var id = $("input[type='radio'][name='select']:checked").val();
+		
 		var url = $(this).attr('_href')+id;
 		$(this).attr('href', url);
 	});
-//	$("#table1 td[editable='true']").mouseover(
-//			function(e) {var leftpos = $(this).offset().left;var toppos = $(this).offset().top;$('body').append('<span id="td_edit" style="z-index:20;"><input type="button" name="edit_button" value="编辑" /></span>');$("#td_edit").css({background:'#fff', position:'fixed', top: toppos ,left: leftpos  });
-//			}
-//	).mouseout(function(e) {var el = e.toElement || e.relatedTarget;if ($(el).attr('id') != 'td_edit'){$('#td_edit').remove();}});
+//	$("#table1 .row > td").each(function(){
+//		$(this).bind('click', function() {
+//			$(this).find("input[type='checkbox']").trigger('click');
+//		});
+//	});
 });
 (function($){
     var getJSON  = this.getJSON = function( url, data, callback ){
@@ -182,11 +202,11 @@ $(function(){
                       }else{
                             $(this).click(function(){
                                   //Remove red border of  last marked element
-                                  $('.RobPub1BlueBorder').removeClass('RobPub1BlueBorder');
+//                                  $('.RobPub1BlueBorder').removeClass('RobPub1BlueBorder');
 
                                   //Mark with red border;
-                                  $(this).addClass('RobPub1BlueBorder');
-                            }).dblclick(function(){
+//                                  $(this).addClass('RobPub1BlueBorder');
+                            }).click(function(){
                                   //Clear Tipper
                                   $('#RobPub1EditTipper').html('').hide();
 //                                  //Set this primary value
@@ -202,8 +222,12 @@ $(function(){
                                         $('#RobPub1HidTBL').val(myOptions['table']);
                                   else $('#RobPub1HidTBL').val(options['table']);
                                   //Reset tempeditor's css style and clear inner html
+//                                  edt.children('#RobPub1EdtContent').html('').end()
+//                                  .css('top',$(this).offset().top+30).css('left',$(this).offset().left+3);
+                                  var w = parseInt($(this).width() + 16);
+                                  var h = parseInt($(this).height() + 16);
                                   edt.children('#RobPub1EdtContent').html('').end()
-                                  .css('top',$(this).offset().top+30).css('left',$(this).offset().left+3);
+                                  .css('top',$(this).offset().top).css('left',$(this).offset().left);
 
 //                                  var children = $(this).children('.rec');
                                   //Get children innerhtml
@@ -232,7 +256,9 @@ $(function(){
                                         		  oriHTML = oriObj.find('a').html(); 
                                         	  }
                                               var obj = $('<input type="text" value="'+oriHTML+'" name="'+key+'" />');
+                                              obj.width(w+'px').height(h+'px');
                                               edt.children('#RobPub1EdtContent').html(obj);
+                                              edt.children('input[type="text"]').focus();
                                               break;
                                         //type of select
                                         case 'select':
@@ -259,18 +285,24 @@ $(function(){
             });
 		},
         createEditor:function(){
-            var edt = $('<div id="RobPub1Editor" style="z-Index:99999"><div id="RobPub1EdtContent"></div><div id="RobPub1EditTipper"></div></div>');
+            var edt = $('<div id="RobPub1Editor" style="z-Index:99999"></div>');
+            var RobPub1EdtContent = $('<div id="RobPub1EdtContent"></div>');
+            var RobPub1EditTipper = $('<div id="RobPub1EditTipper"></div>');
             var btnEdt = $('<input type="button" id="RobPub1ColEditor" value="更新"/>');
             var btnCalcel = $('<input type="button" value="取消"/>');
             btnCalcel.click(function(){
                   edt.hide();
                   $('.RobPub1BlueBorder').removeClass('RobPub1BlueBorder');
             });
-            var warp1 = $('<div></div>');
+            var btnO = $('<span stle="float:left;"></span>');
+            edt.append(RobPub1EdtContent).append(btnO.append(btnEdt).append(btnCalcel)).append(RobPub1EditTipper);
+            
+//            var warp1 = $('<div></div>');
+            var warp1 = $('<span></span>');
             warp1.append('<input type="hidden" id="RobPub1HidPV" value="" />');
             warp1.append('<input type="hidden" id="RobPub1HidPK" value="" />');
             warp1.append('<input type="hidden" id="RobPub1HidTBL" value="" />');
-            warp1.append(btnEdt).append(btnCalcel).appendTo(edt);
+            warp1.appendTo(edt);
             if($('#RobPub1Editor').size() !=0) return $('#RobPub1Editor');
             edt.appendTo(  $('body') );
             return edt;

@@ -5,15 +5,16 @@
     <div class="box-content">
     <p><a class="btn btn-success" href="<?php echo $this
     ->url('backend' , array('controller' => 'role' , 'action' => 'save'));
-    ?>"><i class="icon-plus"></i>添加角色</a></p>
-    <div class="t_top">
-    	<div class="t_right" style="margin-bottom:6px;">
-        	 <a class="btn btn-edit" href="javascript:;" _href="<?php echo $this->url('backend' , array('controller' => 'acl'
+    ?>"><i class="icon-plus"></i>添加角色</a>
+    <a class="btn btn-edit" href="javascript:;" _href="<?php echo $this->url('backend' , array('controller' => 'acl'
                             , 'action' => 'allow'))?>?role="><i class="icon-edit"></i>
                             绑定资源</a>
                         <a class="btn btn-delete" href="javascript:;" _href="<?php echo $this->url('backend' , array('controller' => 'role'
                             , 'action' => 'delete'));?>?name=" onClick="diyConfirm('删除' , $(this).attr('href'), this);return false;"><i class="icon-delete"></i>
-                            删除</a>
+                            删除</a></p>
+    <div class="t_top">
+    	<div class="t_right" style="margin-bottom:6px;">
+        	 
         	</div>
     </div>
         <table class="table">
@@ -28,7 +29,7 @@
         <tbody>
             <?php foreach($this->list as $role):?>
                 <tr class="row">
-                	<td><input type="radio" name="select" value="<?php echo $role->Name;?>"/></td>
+                	<td><input type="checkbox" name="select" value="<?php echo $role->Name;?>"/></td>
                     <td><?php echo $role->Name;?></td>
                     <td><?php echo $role->CnName;?></td>
                     <td><?php echo $role->AddTime;?></td>

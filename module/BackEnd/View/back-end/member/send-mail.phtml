@@ -9,7 +9,21 @@ $msg = $this->flashMessages();
 ?>
 <div class="box">
     <div class="box-header">
-        <h2><i class="icon-box"></i>给会员<span style="color:#ff0000; font-weight: blod;"><?php echo $user['UserName'],'('.$user['Email'].')';?></span>发送邮件<span style="float: right;"><a href="/member">返回</a></span></h2>
+        <h2><i class="icon-box"></i>给会员<span style="color:#ff0000; font-weight: blod;">
+        <?php
+			if ($user['mult'] == 1) {
+				$sendTitleStr = '';
+				$email = array_filter($user['email']);
+				if (count($email) > 3) {
+					$sendTitleStr = '('.implode(',', array_slice($email, 0, 3)).'……)';
+				} else {
+					$sendTitleStr = '('.implode(',', $email).')';
+				}
+				echo $sendTitleStr;
+			} else {
+        		echo $user['UserName'],'('.$user['Email'].')';
+        	}
+        ?></span>发送邮件<span style="float: right;"><a href="/member">返回</a></span></h2>
     </div>
     <div class="box-content">
         	<?php if(!empty($msg['error'])):?>
@@ -29,7 +43,7 @@ $msg = $this->flashMessages();
             <?php endforeach;?>
             </div>
             <?php endif;?>
-        <form class="box-form" action="<?php echo $this->url('backend' , array('controller' => 'member' , 'action' => 'sendMail')).'?id='.$user['UserID'];?>"
+        <form class="box-form" action="<?php echo $this->url('backend' , array('controller' => 'member' , 'action' => 'sendMail')).'?id='.$this->id;?>"
               method="post" enctype="multipart/form-data">
             <fieldset>
             <div class="input-group">
@@ -38,7 +52,7 @@ $msg = $this->flashMessages();
             </div>
             <div class="input-group">
             	<label for="name" class="input-label">收件人地址</label>
-            	<div class="input-item"><input style="color:#996633" type="text" readonly value="<?php echo $user['Email'];?>" name="email" class="input-element"></div>
+            	<div class="input-item"><input style="color:#996633; width:300px;" type="text" readonly value="<?php echo $user['mult'] == 1 ? implode(',', $email) : $user['Email'];?>" name="email" class="input-element"></div>
             </div>
             <div class="input-group">
          	<label class="input-label" for="footer">邮件内容</label>

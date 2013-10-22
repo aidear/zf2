@@ -28,7 +28,15 @@ $msg = $this->flashMessages();?>
             <?php endif;?>
         <p><a class="btn btn-success" href="<?php echo $this->url('backend' 
             , array('controller' => 'nav' , 'action' => 'addItem'));?>">
-        <i class="icon-plus"></i>新增地址</a></p>
+        <i class="icon-plus"></i>新增地址</a>
+        <a class="btn btn-edit" href="javascript:;" _href="<?php echo $this->url('backend', array('controller' 
+                                => 'nav', 'action' => 'addItem')) ?>?cid=<?php echo $this->cid;?>&id=">
+                                <i class="icon-edit"></i>编辑
+                            </a>
+                            <a class="btn btn-delete" href="javascript:;" _href="<?php echo $this->url('backend', array('controller' 
+                                => 'nav', 'action' => 'deleteItem')) ?>?cid=<?php echo $this->cid;?>&id=" onClick="diyConfirm('删除' , $(this).attr('href'), this);return false;"><i class="icon-delete"></i>删除
+                            </a>
+        </p>
          <div class="t_top">
         	<div class="t_inline">
         <form class="form-inline" action="<?php echo $this->url('backend', array('controller' 
@@ -56,13 +64,7 @@ $msg = $this->flashMessages();?>
         		<a href="/templates/navigation_templates.xlsx" >模板下载</a>
         	</div>
         	<div class="t_right">
-        	<a class="btn btn-edit" href="javascript:;" _href="<?php echo $this->url('backend', array('controller' 
-                                => 'nav', 'action' => 'addItem')) ?>?cid=<?php echo $this->cid;?>&id=">
-                                <i class="icon-edit"></i>编辑
-                            </a>&nbsp;&nbsp;
-                            <a class="btn btn-delete" href="javascript:;" _href="<?php echo $this->url('backend', array('controller' 
-                                => 'nav', 'action' => 'deleteItem')) ?>?cid=<?php echo $this->cid;?>&id=" onClick="diyConfirm('删除' , $(this).attr('href'), this);return false;"><i class="icon-delete"></i>删除
-                            </a>
+        	
         	</div>
         </div>
         <table class="table" id="table1">
@@ -109,7 +111,7 @@ $msg = $this->flashMessages();?>
             <tbody>
                 <?php $startNumber = $this->startNumber;foreach ($this->lists as $nav): ?>
                     <tr class="row" key="id" primary_value="<?php echo $nav['id']; ?>">
-                    	<td><input type="radio" name="select" value="<?php echo $nav['id']; ?>" /></td>
+                    	<td><input type="checkbox" name="select" value="<?php echo $nav['id']; ?>" /></td>
                         <td><?php echo $startNumber++;?></td>
                         <td key="title" editable="true"><?php echo $nav['title']; ?></td>
                         <td key="url" editable="true"><a href="<?php echo $nav['url']; ?>" target="_blank" title="<?php echo $nav['title'];?>"><?php echo $nav['url']; ?></a></td>
