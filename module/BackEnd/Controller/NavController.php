@@ -49,9 +49,13 @@ class NavController extends AbstractActionController
 		$params = array();
         $table = $this->_getTable('NavCategoryTable');
         $name = $this->params()->fromQuery('name' , '');
+        $pageSize = $this->params()->fromQuery('pageSize');
         
         if($name){
         	$params['name'] = $name;
+        }
+        if ($pageSize) {
+        	$params['pageSize'] = $pageSize;
         }
         $params['orderField'] = $this->params()->fromQuery('orderField', 'order');
         $params['orderType'] = $this->params()->fromQuery('orderType', __LIST_ORDER);
@@ -95,7 +99,7 @@ class NavController extends AbstractActionController
 		}
 		$table = $this->_getTable('NavCategoryTable');
 		$paginator = new Paginator($table->formatWhere($params)->getListToPaginator($order));
-		$paginator->setCurrentPageNumber($page)->setItemCountPerPage(self::LIMIT);
+		$paginator->setCurrentPageNumber($page)->setItemCountPerPage(isset($params['pageSize']) ? $params['pageSize'] : self::LIMIT);
 		return $paginator;
 	}
 	public function saveAction()
@@ -167,6 +171,7 @@ class NavController extends AbstractActionController
 		$params = array();
 		$cid = $this->params()->fromQuery('cid' , '');
 		$page = $this->params()->fromQuery('page' , 1);
+		$pageSize = $this->params()->fromQuery('pageSize');
 		$table = $this->_getTable('LinkTable');
 		$navTable = $this->_getTable('NavCategoryTable');
 		$title = $this->params()->fromQuery('title' , '');
@@ -181,7 +186,7 @@ class NavController extends AbstractActionController
 		}
 		if($title){
 			$params['title'] = $title;
-			$where .= " AND title LIKE '%{$title}%'";
+			$where .= " AND (title LIKE '%{$title}%' OR url LIKE '%{$title}%')";
 		}
 		
 		//params
@@ -190,6 +195,9 @@ class NavController extends AbstractActionController
 		}
 		if ($title) {
 			$params['title'] = $title;
+		}
+		if ($pageSize) {
+			$params['pageSize'] = $pageSize;
 		}
 		$navCategoryTable = $this->_getTable('NavCategoryTable');
 		$navCate = $navCategoryTable->getlist(array('isShow' => 1));
@@ -362,7 +370,7 @@ class NavController extends AbstractActionController
 		}
 		$table = $this->_getTable('LinkTable');
 		$paginator = new Paginator($table->formatWhere($params)->getListToPaginator($order));
-		$paginator->setCurrentPageNumber($page)->setItemCountPerPage($all ? 10000 : self::LIMIT);
+		$paginator->setCurrentPageNumber($page)->setItemCountPerPage($all ? 10000 : (isset($params['pageSize']) ? $params['pageSize'] : self::LIMIT));
 		return $paginator;
 	}
 	public function addItemAction()

@@ -5,8 +5,21 @@
     }else{
         $prefix = '&page=';
     }
+    $u = parse_url($this->link);
+    $query = isset($u['query']) ? $u['query'] : '';
+    $action = str_replace($query, '', $this->link);
+    parse_str($query, $params);
+    if (array_key_exists('pageSize', $params)) {
+    	unset($params['pageSize']);
+    }
+    $action = $action.http_build_query($params);
 ?>
 <div class="pagination">
+	<ul class="set"><li><form id="pageSet" method="get" action="<?php echo $action;?>">
+	每页显示条数：<input type="text" name="pageSize" value="<?php echo $this->itemCountPerPage;?>" style="width:60px;height:30px;" />
+	<input type="button" name="button_page_size" value="确定" />
+	</form>
+	</li></ul>
     <ul>
         <?php if (isset($this->previous)): ?>
         <li class="prev disabled">
@@ -38,3 +51,18 @@
 </div>
 
 <?php endif;?>
+<script>
+$(function() {
+	$("input[type='button'][name='button_page_size']").click(function(){
+		var pageSize = $("input[name='pageSize']").val();
+		var reg = /^\d+$/;
+		if (reg.test(pageSize)) {
+			var url = $("#pageSet").attr('action');
+			url += (url.indexOf('?') > -1 ? "&pageSize="+pageSize : "?pageSize="+pageSize);
+			location.href=url;
+		} else {
+			alert('请输入数字！');
+		}
+	});
+})
+</script>

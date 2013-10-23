@@ -40,6 +40,7 @@ class UserController extends AbstractActionController
 {
     function indexAction(){
         $page = $this->params()->fromQuery('page' , 1);
+        $pageSize = $this->params()->fromQuery('pageSize');
         $table = $this->_getUserTable();
         $username = $this->params()->fromQuery('username' , '');
         
@@ -51,8 +52,12 @@ class UserController extends AbstractActionController
         
         $paginaction = new Paginator($re);
         $paginaction->setCurrentPageNumber($page);
-        $paginaction->setItemCountPerPage(self::LIMIT);
-        return array('paginaction' => $paginaction);
+        $paginaction->setItemCountPerPage($pageSize ? $pageSize : self::LIMIT);
+        $url = "/user";
+        if ($pageSize) {
+        	$url .= "?pageSize=".$pageSize;
+        }
+        return array('paginaction' => $paginaction, 'url' => $url);
     }
     
     function saveAction(){

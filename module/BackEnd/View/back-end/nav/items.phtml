@@ -189,6 +189,9 @@ $(function() {
 			)
 		}
 	});
+	$("select[name='cid']").change(function(){
+		$("button.button-element[type='submit']").click();
+	});
 })
 //-->
 </script>

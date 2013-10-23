@@ -50,6 +50,9 @@ class MemberController extends AbstractActionController
         }
         $params['orderField'] = $this->params()->fromQuery('orderField', '');
         $params['orderType'] = $this->params()->fromQuery('orderType', '');
+        if ($this->params()->fromQuery('pageSize')) {
+        	$params['pageSize'] = $this->params()->fromQuery('pageSize');
+        }
         
         $removePageParams = $params;
         
@@ -80,7 +83,7 @@ class MemberController extends AbstractActionController
 		}
 		$table = $this->_getTable('MemberTable');
 		$paginator = new Paginator($table->formatWhere($params)->getListToPaginator($order));
-		$paginator->setCurrentPageNumber($page)->setItemCountPerPage(self::LIMIT);
+		$paginator->setCurrentPageNumber($page)->setItemCountPerPage(isset($params['pageSize']) ? $params['pageSize'] : self::LIMIT);
 		return $paginator;
 	}
 	public function saveAction()

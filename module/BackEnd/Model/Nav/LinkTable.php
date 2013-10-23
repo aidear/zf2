@@ -28,6 +28,7 @@ use Zend\Db\Sql\Update;
 use Zend\Db\Sql\Where;
 use Zend\Db\TableGateway\TableGateway;
 use BackEnd\Model\Nav\NavCategory;
+use Zend\Db\Sql\Predicate\Like;
 
 class LinkTable extends TableGateway
 {
@@ -137,7 +138,7 @@ class LinkTable extends TableGateway
     		//     		if('id' == $data['searchType']){
     		//     			$where->equalTo('MerchantFeedConfig.MerchantID', (int)$data['search']);
     		//     		}elseif('name' == $data['searchType']){
-    		$where->like('title', '%' . $data['title'] . '%');
+    		$where->like('title', '%' . $data['title'] . '%')->orPredicate(new Like('Url', '%' . $data['title'] . '%'));
     		//     		}
     	}
     	if(!empty($data['cid'])){

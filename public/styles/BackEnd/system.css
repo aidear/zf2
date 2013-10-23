@@ -992,7 +992,13 @@ textarea.span1,
     padding:0px;
     text-align: center;
 }
-
+.pagination ul.set {
+	vertical-align:top;
+}
+.pagination ul.set form {
+	margin:0;
+	padding:0;
+}
 .pagination li {
     display: inline;
     line-height: 18px;
