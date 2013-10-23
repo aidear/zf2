@@ -64,7 +64,7 @@ $(window).resize(function(){
 	if($(window).width()<980){
 		windowW();
 	}else{
-		$('.header').css('width','auto');
+		$('.header').css('width','100%');
 		$('#content').css('width','auto');
 		//$('body').attr('scroll','no');
 		//$('body').css('overflow','hidden');
@@ -134,7 +134,23 @@ function _MP(menuid,targetUrl) {
 	});
 	$("#current_pos").data('clicknum', 1);
 }
-
+$(window).load(function(){
+	var floatLT = $('.box-content>p').offset().top-80;
+	var floatLEFT = $('.box-content>p').offset().left;
+	$(window).scroll(function() {
+		//浮动tab选择框
+		if($(document).scrollTop() > floatLT){
+			$('.box-content>p').addClass('button_stay');
+		}else{
+			if($('.box-content>p').hasClass('button_stay')){
+				$('.box-content>p').removeClass('button_stay');
+			}else{
+				return false;
+			}
+		}
+	});
+})
+	
 </script>
 </body>
 </html>

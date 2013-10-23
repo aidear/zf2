@@ -33,7 +33,13 @@ body fieldset.blue legend{padding:3px 8px;font-weight:700;color:#347add; backgro
 
 /*头部*/
 .crumbs,.tab-web-panel li a:hover,.tab-web-panel li.on a{background: url(../../images/BackEnd/admin_img/icon_use.png) no-repeat}
-.header {background:#3c86c5 url(../../images/BackEnd/admin_img/hdbg.gif) no-repeat right top; height:80px}
+.header {background:#3c86c5 url(../../images/BackEnd/admin_img/hdbg.gif) no-repeat right top; height:80px; width:100%;}
+.stayHere {
+    display: block;
+    position: fixed;
+    top: 0;
+    z-index: 90;
+}
 .header .logo{float:left;width:136px;height:80px;margin-right:10px;_margin-right:7px;background: url(../../images/BackEnd/admin_img/logo.gif) no-repeat;}
 .header .logo a{display:block;height:80px;text-decoration: none;}
 .header .rt{width:290px;}
@@ -72,6 +78,7 @@ body fieldset.blue legend{padding:3px 8px;font-weight:700;color:#347add; backgro
 	#Skin .s3 {background-position:0 -33px}
 	#Skin .s4 {}
 /*主体样式*/
+#content {margin-top:80px;}
 .left_menu{margin-right:12px;_margin-right:10px;padding:12px;_padding:12px 0 12px 12px;width:110px; position:relative; display:block; background-color:#F7FBFC; height:100%;}
 .left_menu_on{ width:0; padding:0;}
 .left_menu_on div{ visibility:hidden;_display:none}
@@ -341,6 +348,13 @@ i[class^="icon-"] {
 
 .box-content {
     padding: 10px;
+}
+.button_stay {
+	display: block;
+    position: fixed;
+    top: 80px;
+	right:23px;
+    z-index: 90;
 }
 .box-content p {
 	margin-bottom:6px;
