@@ -16,7 +16,7 @@ class Mail
 	public function __construct()
 	{
 		$this->mail = new Message();
-		$this->mail->setFrom('MM_SI_SMCN_Noreply@valueclickbrands.com');
+		$this->mail->setFrom(ConfigTable::getSysConf('smtp_user'));
 		$this->transport = new SmtpTransport();
 		
 		$connection_config = array(
