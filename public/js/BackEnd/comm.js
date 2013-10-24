@@ -205,10 +205,10 @@ $(function(){
                       }else{
                             $(this).click(function(){
                                   //Remove red border of  last marked element
-//                                  $('.RobPub1BlueBorder').removeClass('RobPub1BlueBorder');
+                                  $('.RobPub1BlueBorder').removeClass('RobPub1BlueBorder');
 
                                   //Mark with red border;
-//                                  $(this).addClass('RobPub1BlueBorder');
+                                  $(this).addClass('RobPub1BlueBorder');
                             }).click(function(){
                                   //Clear Tipper
                                   $('#RobPub1EditTipper').html('').hide();
