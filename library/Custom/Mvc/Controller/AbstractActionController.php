@@ -90,7 +90,7 @@ class AbstractActionController extends Father
             throw new \Exception('configName is Empty');
         }
         
-        $filename = APPLICATION_PATH . '/module/BackEnd/Config/' . $configName . '.config.php';
+        $filename = APPLICATION_PATH . '/module/BackEnd/config/' . $configName . '.config.php';
         if(!file_exists($filename)){
             throw new \Exception('not found ' . $filename);
         }
