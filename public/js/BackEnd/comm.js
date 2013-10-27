@@ -25,18 +25,22 @@ var StringLength = function(jQDom , maxLength){
 
 var diyConfirm = function(name , url, obj){
 	var id = '';
+	var data = '';
+	var key = '';
 	if ($("input[type='checkbox'][name='select']:checked").size() == 0) {
 		alert('请先选择一个条目');
 		return false;
 	} else if ($("input[type='checkbox'][name='select']:checked").size() >= 1) {
+		key = $("input[type='checkbox'][name='select']:checked").attr('data-key');
 		$("input[type='checkbox'][name='select']:checked").each(function() {
-			id += (id == '') ? $(this).val() : ','+$(this).val();
+			id += (id == '') ? $(this).val() : ', '+$(this).val();
+			data += (data == '') ? $(this).attr('data-value') : ', '+$(this).attr('data-value');
 		});
 	}
 	var url = $(obj).attr('_href')+id;
 	$(obj).attr('href', url);
     $('<div class="modal fade"><div class="modal-dialog"><div class="modal-content"><div class="modal-body">是否' + 
-             name + 'id为'+id+'的条目?</div><div class="modal-footer"><button type="button" class="btn btn-default" data-dismiss="modal">关闭</button><a href=' 
+             name +' '+ key+' 为'+data+'的条目?</div><div class="modal-footer"><button type="button" class="btn btn-default" data-dismiss="modal">关闭</button><a href=' 
              + url +' class="btn btn-primary">'
              + name +'</a></div></div></div></div>').modal({keyboard: false});
 };
@@ -77,6 +81,18 @@ $(function(){
 	$("input[type='reset']").click(function(){
 		history.go(-1);
 	});
+	$("input[type='checkbox'][name='select_all']").click(
+		function() {
+			if ($(this).is(':checked')) {
+				$("input[type='checkbox'][name='select']").prop('checked', this.checked);
+			} else {
+				$("input[type='checkbox'][name='select']").removeAttr('checked');
+			}
+		}
+	);
+//	$("#table1 tr.row").each(function(){
+//		$("td", $(this)).eq(0).click(function(){$(this).find("input[type='checkbox']").prop('checked', true)});
+//	});
 //	$("#table1 .row > td").each(function(){
 //		$(this).bind('click', function() {
 //			$(this).find("input[type='checkbox']").trigger('click');

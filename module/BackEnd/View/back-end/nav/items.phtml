@@ -70,7 +70,7 @@ $msg = $this->flashMessages();?>
         <table class="table" id="table1">
             <thead>
                 <tr class="row">
-                	<th>选择</th>
+                	<th>全选<input type="checkbox" name="select_all" value="all"/></th>
                     <th>编号</th>
                     <th key="title" editable="true">
                     <?php if (isset($this->order['title'])):?>
@@ -111,7 +111,7 @@ $msg = $this->flashMessages();?>
             <tbody>
                 <?php $startNumber = $this->startNumber;foreach ($this->lists as $nav): ?>
                     <tr class="row" key="id" primary_value="<?php echo $nav['id']; ?>">
-                    	<td><input type="checkbox" name="select" value="<?php echo $nav['id']; ?>" /></td>
+                    	<td><input type="checkbox" name="select" value="<?php echo $nav['id']; ?>" data-key="链接标题" data-value="<?php echo $nav['title']; ?>" /></td>
                         <td><?php echo $startNumber++;?></td>
                         <td key="title" editable="true"><?php echo $nav['title']; ?></td>
                         <td key="url" editable="true"><a href="<?php echo $nav['url']; ?>" target="_blank" title="<?php echo $nav['title'];?>"><?php echo $nav['url']; ?></a></td>

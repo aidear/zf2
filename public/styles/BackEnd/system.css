@@ -759,6 +759,9 @@ div.checker input {
     vertical-align: center;
     word-break:break-all;
 }
+.table th input[type='checkbox'] {
+    margin-left:4px;
+}
 .table td {
     border-top: 1px solid #DDDDDD;
 }
@@ -1325,8 +1328,8 @@ button.close {
 
 .modal-backdrop,
 .modal-backdrop.fade.in {
-  opacity: 0.6;
-  filter: alpha(opacity=60);
+  opacity: 0.3;
+  filter: alpha(opacity=30);
 }
 
 .modal {
@@ -1383,6 +1386,7 @@ button.close {
   max-height: 400px;
   padding: 15px;
   overflow-y: auto;
+  font-size:14px;
 }
 
 .modal-form {

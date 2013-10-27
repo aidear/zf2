@@ -20,7 +20,7 @@
         <table class="table">
         <thead>
             <tr class="row">
-            	<td>选择</td>
+            	<th>全选<input type="checkbox" name="select_all" value="all"/></th>
                 <th>角色</th>
                 <th>角色别名</th>
                 <th>添加时间</th>
@@ -29,7 +29,7 @@
         <tbody>
             <?php foreach($this->list as $role):?>
                 <tr class="row">
-                	<td><input type="checkbox" name="select" value="<?php echo $role->Name;?>"/></td>
+                	<td><input type="checkbox" name="select" value="<?php echo $role->Name;?>" data-key="角色" data-value="<?php echo $role->Name; ?>"/></td>
                     <td><?php echo $role->Name;?></td>
                     <td><?php echo $role->CnName;?></td>
                     <td><?php echo $role->AddTime;?></td>

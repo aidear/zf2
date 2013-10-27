@@ -32,7 +32,7 @@
         <table class="table">
             <thead>
                 <tr class="row">
-                	<th>选择</th>
+                	<th>全选<input type="checkbox" name="select_all" value="all"/></th>
                     <th>用户名</th>
                     <th>角色</th>
                     <th>最后修改时间</th>
@@ -41,7 +41,7 @@
             <tbody>
                 <?php foreach ($this->paginaction as $user): ?>
                     <tr class="row">
-                    	<td><input type="checkbox" name="select" value="<?php echo $user->ID; ?>"/></td>
+                    	<td><input type="checkbox" name="select" value="<?php echo $user->ID; ?>" data-key="用户名" data-value="<?php echo $user->UserName; ?>"/></td>
                         <td><?php echo $user->UserName; ?></td>
                         <td><?php echo $user->Role; ?></td>
                         <td><?php echo $user->LastUpdate; ?></td>

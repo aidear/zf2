@@ -20,7 +20,7 @@
         <table class="table">
             <thead>
                 <tr class="row">
-                	<th>选择</th>
+                	<th>全选<input type="checkbox" name="select_all" value="all"/></th>
                     <th>资源名</th>
                     <th>控制器名</th>
                     <th>控制器别名</th>
@@ -33,7 +33,7 @@
                 <?php if(count($this->paginaction) > 0):?>
                 <?php foreach($this->paginaction as $resource):?>
                 <tr>
-                	<td><input type="checkbox" name="select" value="<?php echo $resource->ResourceID?>" /></td>
+                	<td><input type="checkbox" name="select" value="<?php echo $resource->ResourceID?>" data-key="资源名" data-value="<?php echo $resource->Name; ?>" /></td>
                     <td><?php echo $resource->Name?></td>
                     <td><?php echo $resource->Controller?></td>
                     <td><?php echo $resource->ControllerName?></td>
