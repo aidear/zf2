@@ -54,7 +54,7 @@ $(function() {
 	});
 	var oHtml = '';
 	var swith_area = $("<div class='swith_area'></div>");
-	var aName = $("<div class='area_name'>"+z_loc+"</div>");
+	var aName = $("<div class='area_name'>"+z_loc != '' ? z_loc : defCity+"</div>");
 	var swith = $("<div class='switch_b'><a href='javascript:;'>[切换]</a></div>");
 	var sel = $("<div><p>请选择城市：</p><select name='sel_prov'><option value='0'>请选择</option>"+provList+"</select>"
 			+"<select name='sel_city'><option value='0'>请选择</option></select>"
@@ -63,7 +63,11 @@ $(function() {
 			+"</div>");
 	$(".swith_area").delegate('.switch_b','click', function() {
 		oHtml = $(".swith_area").html();
-		$(".swith_area").html(sel);
+		if ($.browser.msie) {
+			$(".swith_area").html(sel.html());
+		} else {
+			$(".swith_area").html(sel);
+		}
 	});
 // 	swith_area.append(aName).append(swith);
 // 	$(".weather").prepend(swith_area);
@@ -79,7 +83,7 @@ $(function() {
 					for(var o in s) {
 						html += "<option value='"+s[o].region_id+"'>"+s[o].region_name+"</option>";
 					}
-					sel.find("select[name='sel_city']").html(html);
+					$(".swith_area").find("select[name='sel_city']").html(html);
 				}
 			});
 		}
@@ -96,31 +100,30 @@ $(function() {
 					for(var o in s) {
 						html += "<option value='"+s[o].region_id+"'>"+s[o].region_name+"</option>";
 					}
-					sel.find("select[name='sel_area']").html(html);
+					$(".swith_area").find("select[name='sel_area']").html(html);
 				}
 			});
 		}
 	});
 	$(".swith_area").delegate("input[name='return']",'click', function(){
-// 		aName.html(sel.find("select[name='sel_area'] option:selected").text());
-		$(".swith_area").html(swith).prepend(aName);
+// 		$(".swith_area").html(swith).prepend(aName);
+		$(".swith_area").html(oHtml);
 	});
 	$(".swith_area").delegate("input[name='submit']",'click', function(){
-		var t = sel.find("select[name='sel_area'] option:selected").text();
-		var city = sel.find("select[name='sel_city'] option:selected").text();
-		var prov = sel.find("select[name='sel_prov'] option:selected").text();
+		var t = $(".swith_area").find("select[name='sel_area'] option:selected").text();
+		var city = $(".swith_area").find("select[name='sel_city'] option:selected").text();
+		var prov = $(".swith_area").find("select[name='sel_prov'] option:selected").text();
 		t = t.replace('请选择', '');
 		city = city.replace('请选择', '');
 		prov = prov.replace('请选择', '');
 		if (t || city || prov) {
-			var tmpArea = (t!='') ? t : ((city!='') ? city : prov);
-			aName.html(tmpArea);
+			setAreaCookie('z_loc_c', city);
+			setAreaCookie('z_loc_a', t);
+			setAreaCookie('z_loc_p', prov);
+			location.reload();
+		} else {
+			$(".swith_area").html(oHtml);
 		}
-		setcookie('z_loc_c', city, 7000*24*3600);
-		setcookie('z_loc_a', t, 7000*24*3600);
-		setcookie('z_loc_p', prov, 7000*24*3600);
-		$(".swith_area").html(swith).prepend(aName);
-		location.reload();
 	});
 })
 </script>

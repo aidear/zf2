@@ -10,7 +10,7 @@ function setHome(url){
 function getcookie(name) {
 	var cookie_start = document.cookie.indexOf(name);
 	var cookie_end = document.cookie.indexOf(";", cookie_start);
-	return cookie_start == -1 ? '' : unescape(document.cookie.substring(cookie_start + name.length + 1, (cookie_end > cookie_start ? cookie_end : document.cookie.length)));
+	return cookie_start == -1 ? '' : unescape(document.cookie.substring(cookie_start + name.length + 1, (cookie_end > cookie_start ? cookie_end : document.cookie.length)).replace(';', ''));
 }
 function setcookie(cookieName, cookieValue, seconds, path, domain, secure) {
 	var expires = new Date();
@@ -20,6 +20,9 @@ function setcookie(cookieName, cookieValue, seconds, path, domain, secure) {
 	+ (path ? '; path=' + path : '/')
 	+ (domain ? '; domain=' + domain : '')
 	+ (secure ? '; secure' : '');
+}
+function setAreaCookie(name, val) {
+	setcookie(name, val, 7000*24*3600);
 }
 var z_loc = '';
 z_loc = getcookie('z_loc_a');
