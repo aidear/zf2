@@ -491,7 +491,8 @@ class Utilities
 	}
 	public static function getCityByIP() {
 		$url = 'http://ip.taobao.com/service/getIpInfo.php?ip=';
-		$ip = Utilities::get_onlineip();
+// 		$ip = Utilities::get_onlineip();
+		$ip = Utilities::onlineIP();
 		$url .= $ip;
 // 		$url .= '222.139.198.22';
 		$curl = CURL::getInstance();
