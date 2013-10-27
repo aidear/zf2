@@ -389,12 +389,28 @@ class NavController extends AbstractActionController
 // 		}
 		$form = new LinkForm();
 		$categoryTable = $this->_getTable('NavCategoryTable');
+		$region = $this->_getTable('RegionTable');
+		$province[0] = '全国';
+		$province += $region->getSelectRegion(2);
 		$cOjb = $categoryTable->getlist(array('isShow' => 1));
 		
 		$fCategory = $this->_formatCategory($cOjb);
 		$this->_returnOptionValue($fCategory);
 		
 		$form->get('category')->setValueOptions($this->op)->setValue($cid);
+		$defProvVal = 0;
+		if ($this->params()->fromPost('province')) {
+			$defProvVal = $this->params()->fromPost('province');
+		} elseif (isset($liankItem->province) && $liankItem->province) {
+			$defProvVal = $liankItem->province;
+		}
+		$form->get('province')->setValueOptions($province)->setValue($defProvVal);
+		$curCityOpt = array('0' => '全市');
+		if ($defProvVal) {
+			$curCityOpt += $region->getSelectRegion(3, $defProvVal);
+		}
+		$defCityVal = isset($liankItem->city) && $liankItem->city ? $liankItem->city : null;
+		$form->get('city')->setValueOptions($curCityOpt)->setValue($defCityVal);
 		$req = $this->getRequest();
 		if ($req->isPost()) {
 			$params = $req->getPost();

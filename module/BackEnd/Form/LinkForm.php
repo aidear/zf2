@@ -69,6 +69,20 @@ class LinkForm extends Form
         				'label' => '分类'
         		)
         ) );
+        $this->add(array(
+        	'name' => 'province',
+        	'type' => '\Zend\Form\Element\Select',
+        	'options' => array(
+        		'label' => '所在省份',
+        	)
+        ));
+        $this->add(array(
+        		'name' => 'city',
+        		'type' => '\Zend\Form\Element\Select',
+        		'options' => array(
+        				'label' => '所在城市',
+        		)
+        ));
        $this->add ( array (
         		'name' => 'isShow',
         		'type' => '\Zend\Form\Element\Select',

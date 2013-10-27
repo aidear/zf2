@@ -4,19 +4,36 @@ namespace FrontEnd\Controller;
 use Custom\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use FrontEnd\Model\Nav;
+use FrontEnd\Model\Users\RegionTable;
+use Custom\Util\Utilities;
 
 class IndexController extends AbstractActionController
 {
 	protected $adminTable;
 	public function indexAction()
 	{
+		$region = $this->_getTable('RegionTable');
+		$prov = $region->getRegionByType(2);
 		$navCategoryTable = $this->_getTable('NavCategoryTable');
 		$nav = $navCategoryTable->getlist(array('isShow' => 1));
 		$linkTable = $this->_getTable('LinkTable');
-		
+		$defCity = '';
+		if (!(isset($_COOKIE['z_loc_c']) && $_COOKIE['z_loc_c'])) {
+			$cityArr = Utilities::getCityByIP();
+			$city = $cityArr['region_id'];
+			$defCity = $cityArr['city'];
+		} else {
+			$name = Utilities::unescape($_COOKIE['z_loc_c']);
+			$city = $region->getRidByName($name);
+		}
 		$navLists = array();
 		foreach ($nav as $k=>$v) {
-			$links = $linkTable->getlist(array('isShow' => 1, 'category' => $v['id']));
+			$where = "isShow=1 AND category='{$v['id']}'";
+			if (isset($city) && $city) {
+				$where .= " AND (city IS NULL OR city='0' OR city='{$city}' OR province='0' OR province='{$city}')";
+			}
+			$links = $linkTable->getlist($where);
+// 			$links = $linkTable->getlist(array('isShow' => 1, 'category' => $v['id']));
 			$navLists[] = array (
 				'name' => $v['name'],
 				'img' => $v['imgUrl'],
@@ -24,8 +41,7 @@ class IndexController extends AbstractActionController
 				'links' => $links,
 			);
 		}
-		
-		$rs = array('rs' => 'Welcome!', 'nav' => $navLists);
+		$rs = array('rs' => 'Welcome!', 'nav' => $navLists, 'provList' => $prov, 'defCity' => $defCity);
 		return new ViewModel($rs);
 	}
 	

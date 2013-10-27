@@ -482,14 +482,52 @@ class Utilities
             return $_ENV["HTTP_USER_AGENT"];
         }
     }
-
+	public static function get_onlineip() {
+		$url = 'http://iframe.ip138.com/ic.asp';
+		$curl = CURL::getInstance();
+		$a = $curl->get_contents($url);
+		preg_match('/\[(.*)\]/', $a, $ip);
+		return isset($ip[1]) ? $ip[1] : '';
+	}
+	public static function getCityByIP() {
+		$url = 'http://ip.taobao.com/service/getIpInfo.php?ip=';
+		$ip = Utilities::get_onlineip();
+		$url .= $ip;
+// 		$url .= '222.139.198.22';
+		$curl = CURL::getInstance();
+		$rs = $curl->get_contents($url);
+		$rs = json_decode($rs, true);
+		if ($rs && isset($rs['code']) && $rs['code'] == 0) {
+			return $rs['data'];
+		} else {
+			return null;
+		}
+	}
+	public static function unescape($str){
+		$ret = '';
+		$len = strlen($str);
+		for ($i = 0; $i < $len; $i++){
+			if ($str[$i] == '%' && $str[$i+1] == 'u'){
+				$val = hexdec(substr($str, $i+2, 4));
+				if ($val < 0x7f) $ret .= chr($val);
+				else if($val < 0x800) $ret .= chr(0xc0|($val>>6)).chr(0x80|($val&0x3f));
+				else $ret .= chr(0xe0|($val>>12)).chr(0x80|(($val>>6)&0x3f)).chr(0x80|($val&0x3f));
+				$i += 5;
+			}
+			else if ($str[$i] == '%'){
+				$ret .= urldecode(substr($str, $i, 3));
+				$i += 2;
+			}
+			else $ret .= $str[$i];
+		}
+		return $ret;
+	}
     /**
      * 取得时间
      */
     function getMicrotime(){ 
         return microtime(TRUE);
     }
-
     /**
      * @st 开始时间
      * @tm 真人标识 2 未知 1 仿真人 0 真人

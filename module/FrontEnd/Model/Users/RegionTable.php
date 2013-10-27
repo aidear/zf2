@@ -15,7 +15,7 @@
  * @link http://localhost
  * @deprecated File deprecated in Release 3.0.0
  */
-namespace BackEnd\Model\Users;
+namespace FrontEnd\Model\Users;
 
 
 use Custom\Paginator\Adapter\DbSelect;
@@ -27,7 +27,7 @@ use Zend\Db\Sql\Select;
 use Zend\Db\Sql\Update;
 use Zend\Db\Sql\Where;
 use Zend\Db\TableGateway\TableGateway;
-use BackEnd\Model\Users\Region;
+use FrontEnd\Model\Users\Region;
 
 class RegionTable extends TableGateway
 {
@@ -43,6 +43,15 @@ class RegionTable extends TableGateway
 		$resultSet = $this->selectWith($select);//echo str_replace('"', '', $select->getSqlString());die;
 		
 		return $resultSet->toArray();
+	}
+	public function getRidByName($name)
+	{
+		$select = $this->getSql()->select();
+		$select->columns(array('region_id'));
+		$select->where(array('region_name' => $name));
+		$resultSet = $this->selectWith($select);//echo str_replace('"', '', $select->getSqlString());die;
+		$rs = $resultSet->current();
+		return isset($rs->region_id) ? $rs->region_id : '';
 	}
 	public function getSelectRegion($type = 1, $pid = 1) 
 	{

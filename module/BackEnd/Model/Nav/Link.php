@@ -29,6 +29,8 @@ class Link implements InputFilterAwareInterface
 	public $url;
 	public $target;
 	public $category;
+	public $province;
+	public $city;
 	public $isShow = 1;
 	public $order = 1;
 	public $addTime;
@@ -42,6 +44,8 @@ class Link implements InputFilterAwareInterface
 		$this->url = isset($data['url']) ? $data['url'] : '';
 		$this->target = isset($data['target']) ? $data['target'] : '';
 		$this->category = isset($data['category']) ? $data['category'] : 0;
+		$this->province = isset($data['province']) ? $data['province'] : NULL;
+		$this->city = isset($data['city']) ? $data['city'] : NULL;
 		$this->isShow = isset($data['isShow']) ? $data['isShow'] : 1;
 		$this->order = isset($data['order']) ? $data['order'] : 1;
 		$this->addTime = isset($data['addTime']) ? $data['addTime'] : date('Y-m-d H:i:s');

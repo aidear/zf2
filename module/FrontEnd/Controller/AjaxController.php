@@ -83,6 +83,7 @@ class AjaxController extends AbstractActionController
 				$rs['code'] = 0;
 				$rs['msg'] = '邮件已发送至'.$memberInfo->Email.',请登录邮箱进行验证';
 				$rs['url'] = '/register-n';
+				break;
 			case 'validCode':
 				$sessID = $this->params()->fromPost('id');
 				$code = $this->params()->fromPost('code');
@@ -93,10 +94,17 @@ class AjaxController extends AbstractActionController
 				} else {
 					$rs = array('code' => 1, 'msg' => strtolower($_SESSION[$sessID]));
 				}
+				break;
+			case 'region':
+				$pid = $this->params()->fromQuery('p');
+				$regionTable = $this->_getTable('RegionTable');
+				$assign = $regionTable->getRegionByPid($pid);
+				$rs = $assign;
+				break;
 			default:
 				break;
 		}
-		
-		print_r(json_encode($rs));die;
+		$v = new JsonModel($rs);
+		return $v;
 	}
 }

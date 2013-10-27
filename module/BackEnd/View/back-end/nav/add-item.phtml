@@ -36,6 +36,8 @@ $msg = $this->flashMessages();
                 <?php echo $this->formText($form->get('url'))?>
                 <?php echo $this->formSelect($form->get('target'))?>
                 <?php echo $this->formSelect($form->get('category'))?>
+                <?php echo $this->formSelect($form->get('province'))?>
+                <?php echo $this->formSelect($form->get('city'))?>
                 <?php echo $this->formSelect($form->get('isShow'))?>
                 <?php echo $this->formText($form->get('order'))?>
                 
@@ -50,6 +52,25 @@ $(function() {
 		var url = $.trim($(this).val());
 		if (url != '' && url.indexOf('http://') == -1) {
 			$(this).val('http://'+url);
+		}
+	});
+	$("select[name='province']").change(function() {
+		$v = $(this).val();
+		if ($v == 0) {
+			$("select[name='city']").html('');
+		} else {
+			$.ajax({
+				type: "POST",
+				url : "/ajax/region?p="+$v,
+				dataType :"json",
+				success: function(s){
+					var html = '<option value="0" >===请选择城市===</option>';
+					for(var o in s) {
+						html += "<option value='"+s[o].region_id+"'>"+s[o].region_name+"</option>";
+					}
+					$("select[name='city']").html(html);
+				}
+			});
 		}
 	});
 })

@@ -6,9 +6,11 @@
 	float:left;
 	background-color:#f6f6f6;
 	border:0px solid #000;
+	height:60px;
 	font-family:Verdana, Geneva, sans-serif;
 	position:absolute;
 	padding-left:10px;
+	text-align:left;
 }
 .swith_area .area_name {
 	font-size:14px;
@@ -18,15 +20,17 @@
 }
 .swith_area p {
 	text-align:left;
+	padding-bottom:4px;
 }
 .swith_area select {
-	margin-right:8px;
+	margin-left:0;
+	margin-right:6px;
 	height:22px;
 	border:1px solid #f5db86;
 	width:85px;
 }
 .swith_area input[type='button'] {
-	margin-right:2px;
+	margin-right:4px;
 	background-color:#f6f6f6;
 	border:1px solid #f5db86;
 }

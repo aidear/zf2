@@ -36,7 +36,13 @@
   </div>
 </div>
 <script type="text/javascript">
+var provList;
+var defCity = '<?php echo ($this->defCity) ? $this->defCity : '全国';?>';
+<?php foreach($this->provList as $k=>$v):?>
+provList += "<option value='<?php echo $v['region_id'];?>'><?php echo $v['region_name'];?></option>";
+<?php endforeach;?>
 $(function() {
+	$('.swith_area .area_name').html(z_loc != '' ? z_loc : defCity);
 	$(".list > span").each(function(){
 		if ($(this).attr('more') == 'true') {
 			$(this).bind('mouseover', function() {
@@ -45,6 +51,76 @@ $(function() {
 				$(this).find('ul.show_all').hide();
 			});
 		}
+	});
+	var oHtml = '';
+	var swith_area = $("<div class='swith_area'></div>");
+	var aName = $("<div class='area_name'>"+z_loc+"</div>");
+	var swith = $("<div class='switch_b'><a href='javascript:;'>[切换]</a></div>");
+	var sel = $("<div><p>请选择城市：</p><select name='sel_prov'><option value='0'>请选择</option>"+provList+"</select>"
+			+"<select name='sel_city'><option value='0'>请选择</option></select>"
+			+"<select name='sel_area'><option value='0'>请选择</option></select>"
+			+"<input type='button' name='return' value='返回' /><input type='button' name='submit' value='确定' />"
+			+"</div>");
+	$(".swith_area").delegate('.switch_b','click', function() {
+		oHtml = $(".swith_area").html();
+		$(".swith_area").html(sel);
+	});
+// 	swith_area.append(aName).append(swith);
+// 	$(".weather").prepend(swith_area);
+	$(".swith_area").delegate("select[name='sel_prov']",'change', function(){
+		var p = $(this).val();
+		if (p != 0) {
+			$.ajax({
+				type: "POST",
+				url : "/ajax?s=region&p="+p,
+				dataType :"json",
+				success: function(s){
+					var html = '<option value="0" >请选择</option>';
+					for(var o in s) {
+						html += "<option value='"+s[o].region_id+"'>"+s[o].region_name+"</option>";
+					}
+					sel.find("select[name='sel_city']").html(html);
+				}
+			});
+		}
+	});
+	$(".swith_area").delegate("select[name='sel_city']",'change', function(){
+		var p = $(this).val();
+		if (p != 0) {
+			$.ajax({
+				type: "POST",
+				url : "/ajax?s=region&p="+p,
+				dataType :"json",
+				success: function(s){
+					var html = '<option value="0" >请选择</option>';
+					for(var o in s) {
+						html += "<option value='"+s[o].region_id+"'>"+s[o].region_name+"</option>";
+					}
+					sel.find("select[name='sel_area']").html(html);
+				}
+			});
+		}
+	});
+	$(".swith_area").delegate("input[name='return']",'click', function(){
+// 		aName.html(sel.find("select[name='sel_area'] option:selected").text());
+		$(".swith_area").html(swith).prepend(aName);
+	});
+	$(".swith_area").delegate("input[name='submit']",'click', function(){
+		var t = sel.find("select[name='sel_area'] option:selected").text();
+		var city = sel.find("select[name='sel_city'] option:selected").text();
+		var prov = sel.find("select[name='sel_prov'] option:selected").text();
+		t = t.replace('请选择', '');
+		city = city.replace('请选择', '');
+		prov = prov.replace('请选择', '');
+		if (t || city || prov) {
+			var tmpArea = (t!='') ? t : ((city!='') ? city : prov);
+			aName.html(tmpArea);
+		}
+		setcookie('z_loc_c', city, 7000*24*3600);
+		setcookie('z_loc_a', t, 7000*24*3600);
+		setcookie('z_loc_p', prov, 7000*24*3600);
+		$(".swith_area").html(swith).prepend(aName);
+		location.reload();
 	});
 })
 </script>
