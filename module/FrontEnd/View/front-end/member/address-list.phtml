@@ -1,0 +1,58 @@
+<?php if (!empty($this->addressList)):?>
+<table width="728" border="0" align="center" cellpadding="0" cellspacing="0" class="table_gehang">
+      <tr id="table_bb" >
+        <td height="35" align="center" valign="middle" bgcolor="#F5F5F5" id="table_bb"><strong>收货人</strong></td>
+        <td width="131" height="30" align="center" valign="middle" bgcolor="#F5F5F5" id="table_bb"><strong>所在地区</strong></td>
+        <td width="128" height="30" align="center" valign="middle" bgcolor="#F5F5F5" id="table_bb"><strong>街道地址</strong></td>
+        <td width="73" align="center" valign="middle" bgcolor="#F5F5F5" id="table_bb"><strong>邮编</strong></td>
+        <td width="80" align="center" valign="middle" bgcolor="#F5F5F5" id="table_bb">&nbsp;</td>
+        <td width="116" align="center" valign="middle" bgcolor="#F5F5F5" id="table_bb"><strong>电话/手机</strong></td>
+        <td width="97" height="30" align="center" valign="middle" bgcolor="#F5F5F5" id="table_bb"><strong>操作</strong></td>
+      </tr>
+<?php foreach ($this->addressList as $k=>$v):?>
+<tr>
+  <td width="103" height="30" align="center" valign="middle"><?php echo $v['consignee'];?></td>
+  <td height="30" align="center" valign="middle"><?php echo $v['area'];?></td>
+  <td height="30" align="center" valign="middle"><?php echo $v['address'];?></td>
+  <td align="center" valign="middle"><?php echo $v['zipcode'];?></td>
+  <td align="center" valign="middle"><?php echo $v['default'] == 1 ? '默认地址' : '<a href="javascript:;" class="chengse setDef" data-value="'.$v['id'].'">设为默认</a>';?></td>
+  <td align="center" valign="middle"><?php echo $v['mobile'];?><br /><?php echo $v['tel'];?></td>
+  <td height="30" align="center" valign="middle"><a href="javascript:;" class="lanse modifyAddr" data-value="<?php echo $v['id'];?>">修改</a> | <a href="javascript:;" data-value="<?php echo $v['id'];?>" class="lanse delAddr">删除</a></td>
+  </tr>
+<?php endforeach;?>
+</table>
+<?php else:?>
+暂无数据
+<?php endif;?>
+<script>
+$(function(){
+	$(".modifyAddr").click(function(){
+		var id = $(this).attr('data-value');
+		Ajax.call('/member/showAddress', 'id='+id, function(s){
+			$("#show_addr").html(s);
+		}, 'GET', '');
+	});
+	$(".delAddr").click(function(){
+		var id = $(this).attr('data-value');
+		if (confirm('确定要删除吗？ ')) {
+			Ajax.call('/member/delAddress', 'id='+id, function(s){
+				if (s.code==0) {
+					location.href="/member/address";
+				} else {
+					alert(s.msg);
+				}
+			}, 'GET', 'JSON');
+		}
+	});
+	$(".setDef").click(function(){
+		var id = $(this).attr('data-value');
+		Ajax.call('/member/setDefault', 'id='+id, function(s){
+			if (s.code==0) {
+				location.href="/member/address";
+			} else {
+				alert(s.msg);
+			}
+		}, 'GET', 'JSON');
+	});
+})
+</script>

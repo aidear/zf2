@@ -55,9 +55,6 @@ class Module
 	 */
 	public function setDefaultView($e)
 	{
-		$matches    = $e->getRouteMatch();
-		$action     = $matches->getParam('action');
-		$controller = $matches->getParam('controller');
 		$module     = __NAMESPACE__;
 		$siteName   = $this->siteConfg['shop_title'];
 	
@@ -71,8 +68,13 @@ class Module
 		$headTitleHelper->setSeparator(' - ');
 	
 		// Setting the action, controller, module and site name as title segments
-		$headTitleHelper->append($action);
-		$headTitleHelper->append($controller);
+		$matches    = $e->getRouteMatch();
+		if ($matches) {
+			$action     = $matches->getParam('action');
+			$controller = $matches->getParam('controller');
+			$headTitleHelper->append($action);
+			$headTitleHelper->append($controller);
+		}
 		//$headTitleHelper->append($module);
 		$headTitleHelper->append($siteName);
 		

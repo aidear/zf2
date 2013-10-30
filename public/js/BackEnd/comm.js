@@ -274,7 +274,7 @@ $(function(){
                                         	  if (oriObj.find('a').size()>0) {
                                         		  oriHTML = oriObj.find('a').html(); 
                                         	  }
-                                              var obj = $('<input type="text" value="'+oriHTML+'" name="'+key+'" />');
+                                              var obj = $('<input autocomplete="off" type="text" value="'+oriHTML+'" name="'+key+'" />');
                                               obj.width(w+'px').height(h+'px');
                                               edt.children('#RobPub1EdtContent').html(obj);
                                               edt.children('input[type="text"]').focus();

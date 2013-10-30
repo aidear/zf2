@@ -1,0 +1,82 @@
+<?php 
+$this->headScript()->appendFile($this->basePath('js/jquery-validate.min.js'));
+$user = $this->user;
+$msg = $this->flashMessages();
+?>
+<div class="right">
+    <div class="r_t">
+    <h1>收货地址</h1>
+    <h2><span class="red">* </span>表示该项必填</h2></div>
+    <div class="r_c">
+       <div class="shouhuodizhi">
+       <?php if(!empty($msg['error'])):?>
+            <div class="alert alert-error fade in">
+            <button class="close" data-dismiss="alert" type="button">×</button>
+            <?php foreach($msg['error'] as $v):?>
+            <p><?php echo $v;?></p>
+            <?php endforeach;?>
+            </div>
+            <?php endif;?>
+            
+            <?php if(!empty($msg['success'])):?>
+            <div class="alert alert-success fade in">
+            <button class="close" data-dismiss="alert" type="button">×</button>
+            <?php foreach($msg['success'] as $v):?>
+            <p><?php echo $v;?></p>
+            <?php endforeach;?>
+            </div>
+            <?php endif;?>
+      	<span id="show_addr">
+      	
+      	</span>
+      <div class="sh_t">已保存的有效地址</div>
+      <span id="hasAddr">
+      
+      </span>
+<div class="sh_f">最多保存20个有效地址</div>
+      </div>
+    </div>
+ </div>
+ <script>
+$(function(){
+	$("select[name='Province']").change(function() {
+		$v = $(this).val();
+		if ($v == 0) return false;
+		$.ajax({
+			type: "POST",
+			url : "/ajax?s=region&p="+$v,
+			dataType :"json",
+			success: function(s){
+				var html = '<option >请选择城市</option>';
+				for(var o in s) {
+					html += "<option value='"+s[o].region_id+"'>"+s[o].region_name+"</option>";
+				}
+				$("select[name='City']").html(html);
+			}
+		});
+	});
+	$("select[name='City']").change(function() {
+		$v = $(this).val();
+		$.ajax({
+			type: "POST",
+			url : "/ajax?s=region&p="+$v,
+			dataType :"json",
+			success: function(s){
+				var html = '<option >请选择区域</option>';
+				for(var o in s) {
+					html += "<option value='"+s[o].region_id+"'>"+s[o].region_name+"</option>";
+				}
+				$("select[name='District']").html(html);
+			}
+		});
+	});
+	var url = "/member/showAddress";
+	Ajax.call(url, '', function(s){
+		$("#show_addr").html(s);
+	}, 'POST', '');
+	var hasUrl = '/member/addressList';
+	Ajax.call(hasUrl, '', function(s){
+		$("#hasAddr").html(s);
+	}, 'POST', '');
+})
+ </script>

@@ -56,6 +56,12 @@ return array(
 	        	$resultSetPrototype->setArrayObjectPrototype(new Model\Users\Member());
 	        	return new Model\Users\MemberTable('member', $dbAdapter, null, $resultSetPrototype);
 	        },
+	        'AddressTable' =>  function($sm) {
+	        	$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+	        	$resultSetPrototype = new ResultSet();
+	        	$resultSetPrototype->setArrayObjectPrototype(new Model\Users\Address());
+	        	return new Model\Users\AddressTable('address', $dbAdapter, null, $resultSetPrototype);
+	        },
 	        'RegionTable' =>  function($sm) {
 	        	$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
 	        	$resultSetPrototype = new ResultSet();

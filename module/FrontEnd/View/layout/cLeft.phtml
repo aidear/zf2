@@ -1,0 +1,51 @@
+<!--左侧-->
+ <div class="left">
+  <h2 class="menu-title"></h2>
+ <div class="service-menu">
+   <input class="menu-code-index" type="hidden" value="c849"  />
+  <strong class="menu-p menu-p-current"><i class="menu-i"></i>会员信息</strong>
+ <div class="menu-c menu-c-current">
+    <ul>
+      <li><a data-service-index="c849" href="/member">基本信息</a></li>
+      <li><a data-service-index="c716" href="/member/address">收货地址</a></li>
+      <li id="wx"><a data-service-index="c764" href="/member/checkInfo">预留信息</a></li>
+    </ul>
+  </div>
+  <strong class="menu-p menu-p-current"><i class="menu-i"></i>安全设置</a></strong>
+  <div class="menu-c menu-c-current">
+    <ul>
+      <li><a data-service-index="c634" href="#">密码修改</a></li>
+      <li><a data-service-index="c502" href="#">邮箱认证</a></li>
+      <li><a data-service-index="c502" href="#">手机认证</a></li>
+      <li><a data-service-index="c501" href="#">身份认证</a></li>
+      <li><a data-service-index="c500" href="#">密保设置</a></li>
+      <li><a data-service-index="c499" href="#">操作保护</a></li>
+      <li id="wx"><a data-service-index="c430" href="#">安全体检</a></li>
+    </ul>
+  </div>
+  <strong class="menu-p menu-p-current"><i class="menu-i"></i>订单管理</a></strong>
+  <div class="menu-c menu-c-current">
+    <ul>
+      <li><a data-service-index="c488" href="#">未提交订单</a></li>
+      <li><a data-service-index="c498" href="#">已提交订单</a></li>
+      <li id="wx"><a data-service-index="c500" href="#">订单查询</a></li>
+    </ul>
+  </div>
+  <strong class="menu-p menu-p-current"><i class="menu-i"></i>积分管理</a></strong>
+  <div class="menu-c menu-c-current">
+    <ul>
+      <li><a data-service-index="c488" href="#">积分明细</a></li>
+      <li id="wx"><a data-service-index="c500" href="#">积分兑换</a></li>
+    </ul>
+  </div>
+  
+</div>
+ 
+ </div>
+ <script>
+$(function(){
+	$(".service-menu .menu-p").click(function(){
+		$(this).toggleClass('menu-p-current').next('.menu-c').toggleClass('menu-c-current');
+	});
+})
+ </script>

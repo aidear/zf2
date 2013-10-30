@@ -1,0 +1,159 @@
+<?php 
+$addr = $this->address;
+?>
+<form id="addressForm" action="/member/updateAddress" method="post" >
+<input type="hidden" name="id" value="<?php echo isset($addr->id) ? $addr->id : '';?>" />
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td width="85" height="38">&nbsp;</td>
+          <td width="97" height="38" align="right">收货人姓名：</td>
+          <td width="546" height="38"><label for="textfield3"></label>
+            <input autocomplete="off" data-required="true" data-trim="true" data-describedby="for_consignee" data-description="consignee" value="<?php echo isset($addr->consignee) ? $addr->consignee : '';?>" type="text" name="consignee" id="textfield3" /><span id="for_consignee"></span></td>
+        </tr>
+        <tr>
+          <td height="38">&nbsp;</td>
+          <td height="38" align="right">所在地区：</td>
+          <td height="38"><select name="province" id="select4">
+          <?php $curProv = isset($addr->province) ? $addr->province : 0;foreach ($this->prov as $k=>$v):?>
+            <option value="<?php echo $k;?>" <?php echo $curProv==$k ? 'selected' : '';?>><?php echo $v;?></option>
+          <?php endforeach;?>
+          </select>
+            <select name="city" id="select5">
+            <?php $curCity = isset($addr->city) ? $addr->city : 0;foreach ($this->city as $k=>$v):?>
+              <option value="<?php echo $k;?>" <?php echo $curCity==$k ? 'selected' : '';?>><?php echo $v;?></option>
+            <?php endforeach;?>
+            </select>
+            <select name="district" id="select6">
+              <?php $curDist = isset($addr->district) ? $addr->district : 0;foreach ($this->district as $k=>$v):?>
+              <option value="<?php echo $k;?>" <?php echo $curDist==$k ? 'selected' : '';?>><?php echo $v;?></option>
+            <?php endforeach;?>
+            </select>
+            <span class="red">            * </span></td>
+        </tr>
+        <tr>
+          <td height="38">&nbsp;</td>
+          <td height="38" align="right">街道地址：</td>
+          <td height="38"><textarea name="address" id="textarea" cols="40" rows="5"><?php echo isset($addr->address) ? $addr->address : '';?></textarea>
+            <span class="red">*</span> <span class="huise">不需要重复填写省市区</span></td>
+        </tr>
+        <tr>
+          <td height="38">&nbsp;</td>
+          <td height="38" align="right">邮政编码：</td>
+          <td height="38"><input autocomplete="off" data-pattern="^\d+{6}$" data-describedby="for_zipcode" data-description="zipcode" value="<?php echo isset($addr->zipcode) ? $addr->zipcode : '';?>" name="zipcode" type="text" id="textfield" maxlength='6' size="15" />            
+            <span class="red"> * <span class="huise" id="for_zipcode">大陆以外地区可不填写</span></span></td>
+        </tr>
+        <tr>
+          <td height="38">&nbsp;</td>
+          <td height="38" align="right">手机号码：</td>
+          <td width="546" height="38"><label for="textfield2"></label>
+            <input autocomplete="off" data-pattern="^(1(3|5|8))\d{9}$" value="<?php echo isset($addr->mobile) ? $addr->mobile : '';?>" name="mobile" type="text" id="textfield7" maxlength="11" size="20" />
+            <span class="red">* </span><span class="huise">电话号码和手机号码必填一项目</span></td>
+        </tr>
+        <tr>
+          <td height="38">&nbsp;</td>
+          <td height="38" align="right">固定电话：</td>
+          <?php $tel = array();
+          		if (isset($addr->tel)) {
+          			$tel = explode('-', $addr->tel);
+          		}
+          ?>
+          <td height="38"><input name="tel1" type="text" id="textfield8" size="8" value="<?php echo isset($tel[0]) ? $tel[0] : ''?>" />
+-
+  <input name="tel2" type="text" id="textfield9" size="8" value="<?php echo isset($tel[1]) ? $tel[1] : '';?>" />
+-
+<input name="tel3" type="text" id="textfield10" size="8" value="<?php echo isset($tel[2]) ? $tel[2] : '';?>" />
+- <span class="huise">区号-电话-分机</span></td>
+        </tr>
+        <tr>
+          <td height="38">&nbsp;</td>
+          <td height="38" align="right">设为默认：</td>
+          <td height="38"><input type="checkbox" name="firstaddress" id="checkbox" value="1" <?php echo $this->defaultAddress && isset($addr->id) && $this->defaultAddress == $addr->id ? "checked" : "";?> /></td>
+        </tr>
+        <tr>
+          <td height="45" colspan="3" align="center"><input name="btn1" type="submit" id="btn1" value="保存" />
+            <span class="huise">使用代收货（自提）</span></td>
+        </tr>
+      </table>
+</form>
+<script>
+$('#addressForm').validate({
+	onBlur : true,
+	sendForm : true,
+	eachValidField : function() {
+	},
+	eachInvalidField : function() {
+	},
+	description : {
+		TrueName : {
+			pattern : '格式不正确'
+		},
+		Address : {
+			required : '请输入详细地址'
+		},
+		Mobile : {
+			required : '请输入手机号',
+			pattern : '根式不正确'
+		}
+//			repassword : {
+//				required : '<span><img src="/images/FrontEnd/no.jpg" width="24" height="24" /></span><h1>不能为空</h1>',
+//				pattern : '<span><img src="/images/FrontEnd/no.jpg" width="24" height="24" /></span><h1>请输入6到16位密码</h1>',
+//				conditional : {
+//					confirm : '<span><img src="/images/FrontEnd/no.jpg" width="24" height="24" /></span><h1>不能是纯数字或字母</h1>',
+//					same : '<span><img src="/images/FrontEnd/no.jpg" width="24" height="24" /></span><h1>两次输入的密码不一致</h1>'
+//				}
+//			}
+	},
+	conditional : {
+		confirm : function() {
+			var reg1 = /^[a-zA-Z]+$/;
+        	var reg2 = /^[0-9]+$/;
+        	var value = $(this).val();
+        	if (reg1.test(value)) {
+				return false;
+            }
+            if (reg2.test(value)) {
+				return false;
+            }
+            return true;
+		},
+		same : function() {
+			return $(this).val() == $('input[name="password"]').val();
+		}
+	},
+	valid:function() {
+	}
+});
+$(function(){
+	$("select[name='province']").change(function() {
+		$v = $(this).val();
+		if ($v == 0) return false;
+		$.ajax({
+			type: "POST",
+			url : "/ajax?s=region&p="+$v,
+			dataType :"json",
+			success: function(s){
+				var html = '<option >请选择城市</option>';
+				for(var o in s) {
+					html += "<option value='"+s[o].region_id+"'>"+s[o].region_name+"</option>";
+				}
+				$("select[name='city']").html(html);
+			}
+		});
+	});
+	$("select[name='city']").change(function() {
+		$v = $(this).val();
+		$.ajax({
+			type: "POST",
+			url : "/ajax?s=region&p="+$v,
+			dataType :"json",
+			success: function(s){
+				var html = '<option >请选择区域</option>';
+				for(var o in s) {
+					html += "<option value='"+s[o].region_id+"'>"+s[o].region_name+"</option>";
+				}
+				$("select[name='district']").html(html);
+			}
+		});
+	});
+})
+</script>

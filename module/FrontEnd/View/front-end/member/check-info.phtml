@@ -1,0 +1,67 @@
+<?php 
+$user = $this->user;
+$msg = $this->flashMessages();
+?>
+<div class="right">
+    <div class="r_t">
+    <h1>预留信息</h1>
+    <h2>温馨提示：预料信息用于验证网页真伪</h2></div>
+    <div class="r_c">
+       <div class="shouhuodizhi">
+       <?php if(!empty($msg['error'])):?>
+            <div class="alert alert-error fade in">
+            <button class="close" data-dismiss="alert" type="button">×</button>
+            <?php foreach($msg['error'] as $v):?>
+            <p><?php echo $v;?></p>
+            <?php endforeach;?>
+            </div>
+            <?php endif;?>
+            
+            <?php if(!empty($msg['success'])):?>
+            <div class="alert alert-success fade in">
+            <button class="close" data-dismiss="alert" type="button">×</button>
+            <?php foreach($msg['success'] as $v):?>
+            <p><?php echo $v;?></p>
+            <?php endforeach;?>
+            </div>
+            <?php endif;?>
+      <table width="728" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td width="85" height="38">&nbsp;</td>
+          <td width="97" height="38" align="right">设置预留信息：</td>
+          <td width="546" height="38"><label for="textfield3"></label>
+            <input type="text" name="leftMsg" id="textfield3" maxlength="10" />
+            <span class="huise">            预料信息最多设置10个字符</span></td>
+        </tr>
+        <tr>
+          <td height="38">&nbsp;</td>
+          <td height="38" align="right">&nbsp;</td>
+          <td height="38"><input name="btn3" type="submit" id="btn3" value="设置" /></td>
+        </tr>
+        <?php if (isset($user['leftMsg']) && $user['leftMsg']):?>
+        <tr>
+          <td height="38">&nbsp;</td>
+          <td height="38" align="right">已经预留信息：</td>
+          <td height="38"><?php echo $user['leftMsg'];?></td>
+        </tr>
+        <?php endif;?>
+      </table>
+      </div>
+    </div>
+ </div>
+ <script>
+$(function(){
+	$("#btn3").click(function(){
+		var leftMsg = $.trim($("input[name='leftMsg']").val());
+		if (leftMsg != '') {
+			Ajax.call('/member/checkInfo', 'type=save&msg='+leftMsg, function(s){
+				if (s.code==0) {
+					location.href="/member/checkInfo";
+				} else {
+					alert(s.msg);
+				}
+			}, 'POST', 'JSON');
+		}
+	});
+})
+ </script>

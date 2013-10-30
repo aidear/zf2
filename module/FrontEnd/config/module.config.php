@@ -149,6 +149,21 @@ return array(
         						)
         				)
         		),
+        		'member' => array(
+        				'type' => 'Segment',
+        				'options' => array(
+        						'route' => '/member[/:action]',
+        						'constraints' => array(
+        								'controller' => 'Member',
+        								'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+        						),
+        						'defaults' => array(
+        								'__NAMESPACE__' => 'FrontEnd\Controller',
+        								'controller' => 'Member',
+        								'action' => 'index',
+        						),
+        				),
+        		),
         		'ajax' => array(
         				'type' => 'Zend\Mvc\Router\Http\Literal',
         				'options' => array(

@@ -18,7 +18,13 @@ class MemberTable extends TableGateway
     protected $table = "member";
     
     function updateFieldsByID($fields, $id)
-    {
+    {	$filter =  get_object_vars(new Member());
+    	$f = array_keys($filter);
+    	foreach ($fields as $k=>$v) {
+    		if (!in_array($k, $f)) {
+    			unset($fields[$k]);
+    		}
+    	}
     	return $this->update($fields, array('UserID' => $id));
     }
     public function updateImage($UserID , $imageFile){
@@ -35,6 +41,20 @@ class MemberTable extends TableGateway
     	}//echo str_replace('"', '', $select->getSqlString());die;
     	$resultSet = $this->selectWith($select);
     	return $resultSet->count();
+    }
+    function getOneForId($id){
+    	if (is_array($id)) {
+    		$select = $this->getSql()->select();
+    		$where = function(Where $where) use ($id) {
+    			$where->in('UserID', $id);
+    		};
+    		$select->where($where);
+    		return $this->selectWith($select);
+    	} else {
+    		$rowset = $this->select(array('UserID' => $id));
+    		$row = $rowset->current();
+    		return $row;
+    	}
     }
     function getOneById($id){
     	$rowset = $this->select(array('UserID' => $id));

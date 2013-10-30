@@ -76,3 +76,31 @@ function isUniqueUserName(user) {
 	});
 	return rs;
 }
+/* *
+ * 调用此方法发送HTTP请求。
+ *
+ * @public
+ * @param   {string}    url             请求的URL地址
+ * @param   {mix}       params          发送参数
+ * @param   {Function}  callback        回调函数
+ * @param   {string}    transferMode     请求的方式，有"GET"和"POST"两种
+ * @param   {string}    responseType    响应类型，有"JSON"、"XML"和"TEXT"三种
+ * @param   {boolean}   asyn            是否异步请求的方式
+ * @param   {boolean}   quiet           是否安静模式请求
+ */
+var Ajax = jQuery;
+Ajax.call = function (url, params, callback, transferMode, responseType, asyn, quiet){
+	if (url.indexOf('?') != -1) {
+		url += '&t='+Math.random();
+	} else {
+		url += '?t='+Math.random();
+	}
+	this.ajax({
+		url: url,
+		async: asyn,
+		data: params,
+		type: transferMode,
+		dataType: responseType,
+		success: callback
+	});	
+}

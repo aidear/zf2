@@ -80,4 +80,26 @@ class RegionTable extends TableGateway
 		
 		return $result;
 	}
+	public function getReginNameByID($id)
+	{
+		$rs = $this->select(array('region_id' => $id));
+		$data = $rs->toArray();
+		return isset($data['region_name']) ? $data['region_name'] : null;
+	}
+	public function getAreaNameByIDs($prov, $city, $dist)
+	{
+		$select = $this->getSql()->select();
+		$select->where("region_id IN ('{$prov}', '{$city}', '{$dist}')");
+		$select->order('region_type ASC');
+		$arr = $this->selectWith($select)->toArray();//echo str_replace('"', '', $select->getSqlString());die;
+		$data = array('address' => '', 'rs' => array());
+		if ($arr) {
+			foreach ($arr as $k=>$v) {
+				$data['address'] .= " {$v['region_name']}";
+				$data['rs'][$k] = $v['region_name'];
+			}
+			$data['addresss'] = trim($data['address']);
+		}
+		return $data;
+	}
 }
