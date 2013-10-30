@@ -14,7 +14,7 @@ $config = $this->config;
          <div class="input-group">
          	<label for="<?php echo $v->cKey;?>" class="input-label"><?php echo $v->cName;?></label>
          	<?php if ('text' == $v->cType):?>
-         	<div class="input-item"><input type="text" value="<?php echo $v->cValue;?>" name="<?php echo $v->cKey;?>" class="input-element"></div>
+         	<div class="input-item"><input autocomplete="off" type="text" value="<?php echo $v->cValue;?>" name="<?php echo $v->cKey;?>" class="input-element"></div>
          	<?php elseif ('password' == $v->cType):?>
          	<div class="input-item"><input type="password" value="<?php echo $v->cValue;?>" name="<?php echo $v->cKey;?>" class="input-element"></div>
          	<?php elseif ('select' == $v->cType):?>

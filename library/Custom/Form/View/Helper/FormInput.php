@@ -40,7 +40,7 @@ class FormInput extends \Zend\Form\View\Helper\FormInput
         $errmsg = $element->getMessages();
 
         $re = sprintf(
-            '<label class="input-label" for="%s">%s</label><div class="input-item"><input class="input-element" %s%s',
+            '<label class="input-label" for="%s">%s</label><div class="input-item"><input autocomplete="off" class="input-element" %s%s',
             $attributes['name'],
             $attributes['label'],
             $this->createAttributesString($attributes),

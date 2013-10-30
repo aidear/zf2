@@ -8,5 +8,4 @@ $(function(){
             return false;
         }
     });
-	$("input[type='text']").attr('autocomplete', 'off');
 });
