@@ -6,7 +6,7 @@ use Zend\Mime\Message as MimeMessage;
 use Zend\Mime\Part as MimePart;
 use Zend\Mail\Transport\Smtp as SmtpTransport;
 use Zend\Mail\Transport\SmtpOptions;
-use BackEnd\Model\System\ConfigTable;
+use FrontEnd\Model\System\ConfigTable;
 class Mail
 {
 	protected $mail;
@@ -16,7 +16,7 @@ class Mail
 	public function __construct()
 	{
 		$this->mail = new Message();
-		$this->mail->setFrom('MM_SI_SMCN_Noreply@valueclickbrands.com');
+		$this->mail->setFrom(ConfigTable::getSysConf('smtp_user'));
 		$this->transport = new SmtpTransport();
 		
 		$connection_config = array(
@@ -47,10 +47,20 @@ class Mail
     	$body = new MimeMessage();
     	$body->setParts(array($html));
     	
-    	$this->mail->addTo($to)
-    	->addFrom(ConfigTable::getSysConf('smtp_user'))
+    	if (is_array($to)) {
+    		foreach ($to as $t) {
+    			$this->mail->addTo($t);
+    		}
+    	} else {
+    		$this->mail->addTo($to);
+    	}
+    	$this->mail->addFrom(ConfigTable::getSysConf('smtp_user'))
     	->setSubject($subject)
     	->setBody($body);
     	$this->transport->send($this->mail);
+    }
+    public function addEmail($to)
+    {
+    	$this->mail->addTo($to);
     }
 }

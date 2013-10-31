@@ -25,6 +25,7 @@ use Custom\Util\Utilities;
 use Zend\View\Model\ViewModel;
 use FrontEnd\Model\Users\Member;
 use Zend\View\Model\JsonModel;
+use FrontEnd\Model\System\ConfigTable;
 
 class MemberController extends AbstractActionController
 {
@@ -221,6 +222,152 @@ class MemberController extends AbstractActionController
 		);
 		return new ViewModel($assign);
 	}
+	public function passwordAction()
+	{
+		$this->_isCenter();
+		$req = $this->getRequest();
+		if ($req->isPost()) {
+			$params = $req->getPost();
+			if (!$params->password) {
+				$this->_message('旧密码不能为空!', 'error');
+				return $this->redirect()->toUrl('/member/password');
+			}
+			if ($params->valiate_code != $_SESSION['modify_pass_captcha_code']) {
+				$this->_message('验证码错误，或验证码已过期！', 'error');
+				return $this->redirect()->toUrl('/member/password');
+			}
+			if ($params->newpassword != $params->renewpassword) {
+				$this->_message('新密码两次输入不一致！', 'error');
+				return $this->redirect()->toUrl('/member/password');
+			}
+			$member = $this->_getTable('MemberTable');
+			$userid = $this->_getCurrentUserID();
+			if (!$this->_chkPassword($params->password, $userid)) {
+				$this->_message('旧密码不正确！', 'error');
+				return $this->redirect()->toUrl('/member/password');
+			}
+			$flg = $member->updateFieldsByID(array('Password' => md5($params->newpassword)), $userid);
+			if ($flg) {
+				$this->_message('恭喜您,密码修改成功！', 'success');
+			} else {
+				$this->_message('抱歉，密码修改失败！', 'error');
+			}
+			return $this->redirect()->toUrl('/member/password');
+		}
+	}
+	private function _chkPassword($password, $uid)
+	{
+		$member = $this->_getTable('MemberTable');
+		$user = $member->getOneForId($uid);
+		return $user->Password == md5($password) ? true : false;
+	}
+	public function emailAction()
+	{
+		$this->_isCenter();
+		$member = $this->_getTable('MemberTable');
+		$userid = $this->_getCurrentUserID();
+		$user = $member->getOneForId($userid);
+		
+		$req = $this->getRequest();
+		if ($req->isPost()) {
+			$params = $req->getPost();
+			if (!preg_match('/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*$/', $params->toEmail)) {
+				$this->_message('邮箱格式不正确', 'error');
+				return $this->redirect()->toUrl('/member/email');
+			}
+			if ($params->valicate_code != $_SESSION['chk-email-captcha']) {
+				$this->_message('抱歉，验证码不正确，或者验证码已经过期', 'error');
+				return $this->redirect()->toUrl('/member/email');
+			}
+			if ($member->checkExist(array('Email' =>$params->toEmail), $userid)) {
+				$this->_message('抱歉,邮箱地址'.$params->toEmail.'已被注册过，请更换其他可用邮箱', 'error');
+				return $this->redirect()->toUrl('/member/email');
+			}
+			$code = $userid.'||'.$user->Email.'||'.$params->toEmail.'||'.time();
+			$k = md5($user->Email);
+			$code = base64_encode($code); 
+			$url = Utilities::get_domain()."/member/chkUpdateEmail?uid={$userid}&code=".base64_encode($code)."&key=".$k;
+			$content = ConfigTable::getSysConf('emailActTemplate');
+			$content = str_replace(array('{userName}', '{email}', '{url}'), array($user->UserName, $params->toEmail, $url), $content);
+			$mail = new \FrontEnd\Model\System\Mail();
+			$mail->sendHtml($params->toEmail, '邮箱地址验证激活', $content);
+			$this->_message('验证邮件已发送至'.$params->toEmail.'请注意查收', 'success');
+			return $this->redirect()->toUrl('/member/email');
+		}
+		
+		return array('user' => $user);
+		
+	}
+	public function chkUpdateEmailAction()
+	{
+		$uid = $this->params()->fromQuery('uid' , '');
+		$code = $this->params()->fromQuery('code' , '');
+		$key = $this->params()->fromQuery('key' , '');
+		$memberTable = $this->_getTable('MemberTable');
+		$memberInfo = $memberTable->getOneById($uid);
+		$str = base64_decode(base64_decode($code));
+		$r = explode("||", $str);//14||yofas@foxmail.com||329036618@qq.com||1383224435
+		if (isset($r[3]) && time()-$r[3] > 48*60*60) {
+			header('Content-Type: text/html; charset=utf-8');
+			die('抱歉，验证链接已过期！');
+		}
+		if (isset($r[0]) && isset($r[1]) && $r[0] == $memberInfo->UserID && $r[1] == $memberInfo->Email && md5($memberInfo->Email) == $key) {
+			$memberTable->update(array('Email' => $r[2],'isValidEmail' => 1), array('UserID' => $uid));
+			$this->layout('layout/account');
+			$memberInfo->Email = $r[2];
+			return new ViewModel(array('user' => $memberInfo));
+		} else {
+			header('Content-Type: text/html; charset=utf-8');
+			die('验证失败，或者地址已失效');
+		}
+		
+	}
+	public function mobileAction()
+	{
+		$this->_isCenter();
+	}
+	public function identityAction()
+	{
+		$this->_isCenter();
+		$member = $this->_getTable('MemberTable');
+		$identity = $this->_getTable('IdentityTable');
+		$userid = $this->_getCurrentUserID();
+		$user = $member->getOneForId($userid);
+		$req = $this->getRequest();
+		$assign = array('identityInfo'=> '');
+		$identityInfo = $identity->getOneByUID($userid);
+		$assign['identityInfo'] = $identityInfo;
+		if ($req->isPost()) {
+			$params = $req->getPost();
+			$name = $params->textfield2;
+			$code = $params->textfield4;
+			$type = $params->type;
+			
+			$data = array(
+				'name' => $name,
+				'code' => $code,
+				'type' => $type,
+			);
+			if (!$identity->checkExist(array('user_id'=>$userid))) {
+				$data['user_id'] = $userid;
+				$data['addTime'] = date('Y-m-d H:i:s');
+				$identity->insert($data);
+			} else {
+				$data['status'] = 0;
+				$identity->update($data, array('user_id' => $userid));
+			}
+			$identityInfo = $identity->getOneByUID($userid);
+			$assign['identityInfo'] = $identityInfo;
+			$assign['applied'] = 1;
+		}
+		
+		$assign['user'] = $user;
+		return new ViewModel($assign);
+	}
+	public function secretAction()
+	{
+		$this->_isCenter();
+	}
 	public function findPasswordAction()
 	{
 		$this->layout('layout/account');
@@ -320,6 +467,26 @@ class MemberController extends AbstractActionController
 		));
 		$imgName = $captcha->generate();
 		$_SESSION['forget_captcha_code'] = $captcha->getWord();
+		die;
+	}
+	function chkCaptchaAction()
+	{
+		$k = $this->params()->fromQuery('k');
+		
+		unset($_SESSION[$k]);
+		$captcha = new \Custom\Captcha\Image(array(
+				'Expiration' => '300',
+				'wordlen' => '4',
+				'Height' => '21',
+				'Width' => '55',
+				'writeInFile'=>false,
+				'Font' => APPLICATION_PATH.'/data/AdobeSongStd-Light.otf',
+				'FontSize' => '22',
+				'DotNoiseLevel' => 0,
+				'ImgDir' => '/images/FrontEnd'
+		));
+		$imgName = $captcha->generate();
+		$_SESSION[$k] = $captcha->getWord();
 		die;
 	}
 	private function _getMemberByID($UserID)
