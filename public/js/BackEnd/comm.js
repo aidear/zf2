@@ -45,8 +45,18 @@ var diyConfirm = function(name , url, obj){
              + name +'</a></div></div></div></div>').modal({keyboard: false});
 };
 $(function(){
+	$("html").click(function(e){
+		e = window.event || e;
+		if (!$(e.srcElement || e.target).is('#RobPub1Editor *,#table1 *')) {
+			$("#RobPub1Editor").hide();
+			$('.RobPub1BlueBorder').removeClass('RobPub1BlueBorder');
+		}
+	});
 	$(".alert button.close").click(function() {
 		$(this).parents('.alert').slideUp();
+	});
+	$(".alert").click(function() {
+		$(this).slideUp();
 	});
 	$("table.table tbody tr").mouseover(function() {
 		$(this).css('background-color', '#E2E9EA');
@@ -90,9 +100,30 @@ $(function(){
 			}
 		}
 	);
-//	$("#table1 tr.row").each(function(){
-//		$("td", $(this)).eq(0).click(function(){$(this).find("input[type='checkbox']").prop('checked', true)});
-//	});
+	$("#table1 tr.row").each(function(){
+		$("td,th", $(this)).eq(0).click(function(e){
+			e = window.event || e;
+			var obj = e.srcElement || e.target;
+			if ($(obj).is('td') || $(obj).is('th')) {
+				$(this).find("input[type='checkbox']").trigger('click');
+			}
+		});
+	});
+	$("#table1 tr.row").each(function(){
+		$("td,th", $(this)).eq(1).click(function(e){
+			e = window.event || e;
+			var obj = e.srcElement || e.target;
+			if ($(obj).is('td') || $(obj).is('th')) {
+				$(this).prev().find("input[type='checkbox']").trigger('click');
+			}
+		});
+	});
+	$(".input-group input").focusin(function(){
+		if ($(this).parents('.input-group').hasClass('error')) {
+			$(this).parents('.input-group').removeClass('error');//alert($(this).next().html());
+			$(this).nextAll('.help-inline').remove();
+		}
+	});
 //	$("#table1 .row > td").each(function(){
 //		$(this).bind('click', function() {
 //			$(this).find("input[type='checkbox']").trigger('click');

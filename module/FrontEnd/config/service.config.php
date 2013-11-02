@@ -62,6 +62,12 @@ return array(
 	        	$resultSetPrototype->setArrayObjectPrototype(new Model\Users\Identity());
 	        	return new Model\Users\IdentityTable('identity_record', $dbAdapter, null, $resultSetPrototype);
 	        },
+	        'SecretTable' =>  function($sm) {
+	        	$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+	        	$resultSetPrototype = new ResultSet();
+	        	$resultSetPrototype->setArrayObjectPrototype(new Model\Users\Secret());
+	        	return new Model\Users\SecretTable('secret', $dbAdapter, null, $resultSetPrototype);
+	        },
 	        'AddressTable' =>  function($sm) {
 	        	$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
 	        	$resultSetPrototype = new ResultSet();

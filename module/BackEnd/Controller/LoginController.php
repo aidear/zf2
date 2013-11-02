@@ -38,8 +38,8 @@ class LoginController extends AbstractActionController
 				'Width' => '77',
 				'writeInFile'=>false,
 				'Font' => APPLICATION_PATH.'/data/AdobeSongStd-Light.otf',
-				'FontSize' => '24',
-				'DotNoiseLevel' => 10,
+				'FontSize' => '20',
+				'DotNoiseLevel' => 0,
 				'ImgDir' => '/images/BackEnd'
 		));
 		$imgName = $captcha->generate();

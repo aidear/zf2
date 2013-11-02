@@ -10,12 +10,12 @@
         <td width="97" height="30" align="center" valign="middle" bgcolor="#F5F5F5" id="table_bb"><strong>操作</strong></td>
       </tr>
 <?php foreach ($this->addressList as $k=>$v):?>
-<tr>
+<tr class='addr_list'>
   <td width="103" height="30" align="center" valign="middle"><?php echo $v['consignee'];?></td>
   <td height="30" align="center" valign="middle"><?php echo $v['area'];?></td>
   <td height="30" align="center" valign="middle"><?php echo $v['address'];?></td>
   <td align="center" valign="middle"><?php echo $v['zipcode'];?></td>
-  <td align="center" valign="middle"><?php echo $v['default'] == 1 ? '默认地址' : '<a href="javascript:;" class="chengse setDef" data-value="'.$v['id'].'">设为默认</a>';?></td>
+  <td align="center" valign="middle"><?php echo $v['default'] == 1 ? '默认地址' : '<a href="javascript:;" class="chengse none setDef" data-value="'.$v['id'].'">设为默认</a>';?></td>
   <td align="center" valign="middle"><?php echo $v['mobile'];?><br /><?php echo $v['tel'];?></td>
   <td height="30" align="center" valign="middle"><a href="javascript:;" class="lanse modifyAddr" data-value="<?php echo $v['id'];?>">修改</a> | <a href="javascript:;" data-value="<?php echo $v['id'];?>" class="lanse delAddr">删除</a></td>
   </tr>
@@ -54,5 +54,9 @@ $(function(){
 			}
 		}, 'GET', 'JSON');
 	});
+	$('tr.addr_list').hover(
+		function(){$(this).css('background-color', '#c6d9f0');$(".setDef", $(this)).removeClass('none');},
+		function(){$(this).css('background-color', '#fff');$(".setDef", $(this)).addClass('none');}
+	);
 })
 </script>

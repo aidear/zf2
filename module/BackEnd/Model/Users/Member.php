@@ -50,6 +50,11 @@ class Member implements InputFilterAwareInterface
 	public $LastUpdate;
 	
 	protected $inputFilter;
+	protected $dbAdapter;
+	
+	public function __construct($dbAdapter = array()) {
+		$this->dbAdapter = $dbAdapter;
+	}
 
 
 	function exchangeArray(Array $data){
@@ -113,30 +118,23 @@ class Member implements InputFilterAwareInterface
 											'max'      => 100,
 									),
 							),
-					),
-			)));
-	/*
-			$inputFilter->add($factory->createInput(array(
-					'name'     => 'artist',
-					'required' => true,
-					'filters'  => array(
-							array('name' => 'StripTags'),
-							array('name' => 'StringTrim'),
-					),
-					'validators' => array(
 							array(
-									'name'    => 'StringLength',
-									'options' => array(
-											'encoding' => 'UTF-8',
-											'min'      => 1,
-											'max'      => 100,
-									),
+								'name' => 'Zend\Validator\Db\NoRecordExists',
+								'options' => array(
+										'table' => 'member',
+										'field'=> 'UserName',
+										'adapter' => $this->dbAdapter,
+										'exclude' => array(
+												'field' => 'UserID',
+												'value' => $this->UserID
+										)
+									)
 							),
 					),
 			)));
 	
 			$inputFilter->add($factory->createInput(array(
-					'name'     => 'title',
+					'name'     => 'Email',
 					'required' => true,
 					'filters'  => array(
 							array('name' => 'StripTags'),
@@ -144,16 +142,42 @@ class Member implements InputFilterAwareInterface
 					),
 					'validators' => array(
 							array(
-									'name'    => 'StringLength',
-									'options' => array(
-											'encoding' => 'UTF-8',
-											'min'      => 1,
-											'max'      => 100,
-									),
-							),
+								'name' => 'Zend\Validator\Db\NoRecordExists',
+								'options' => array(
+										'table' => 'member',
+										'field'=> 'Email',
+										'adapter' => $this->dbAdapter,
+										'exclude' => array(
+												'field' => 'UserID',
+												'value' => $this->UserID
+										)
+									)
+							)
 					),
 			)));
-	*/
+				
+			$inputFilter->add($factory->createInput(array(
+					'name'     => 'Mobile',
+					'required' => true,
+					'filters'  => array(
+							array('name' => 'StripTags'),
+							array('name' => 'StringTrim'),
+					),
+					'validators' => array(
+							array(
+								'name' => 'Zend\Validator\Db\NoRecordExists',
+								'options' => array(
+										'table' => 'member',
+										'field'=> 'Mobile',
+										'adapter' => $this->dbAdapter,
+										'exclude' => array(
+												'field' => 'UserID',
+												'value' => $this->UserID
+										)
+									)
+							)
+					),
+			)));
 			$this->inputFilter = $inputFilter;
 		}
 	

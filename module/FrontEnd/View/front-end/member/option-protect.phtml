@@ -1,0 +1,55 @@
+<?php 
+$this->headScript()->appendFile($this->basePath('js/jquery-validate.min.js'));
+$user = $this->user;
+$msg = $this->flashMessages();
+?>
+<div class="right">
+    <div class="r_t">
+    <h1>操作保护</h1>
+    <h2>&nbsp;</h2></div>
+    <div class="r_c">
+       <div class="caoz">
+          <div class="cz_lm"><li class="out">登录保护</li>
+          <li>买家保护</li>
+          <li>卖家保护</li></div>
+         <div class="mail_ts">
+       <h1>登录保护</h1>
+       <p>当前状态：<span class="chengse"><?php echo $user->loginProtect == 1 ? '已开通' : '未开通';?></span></p>
+       <p>功能简述：开启后，将在导航登陆时，进行二次验证，确认是本人登录，防止帐号被盗。</p>
+       <p>
+       <?php if ($user->loginProtect == 1):?>
+       <input name="btn2" type="button" id="btn21" data-value="0" value="取消保护" />
+       <?php else:?>
+       <input name="btn2" type="button" id="btn21" data-value="1" value="立即开通" />
+       <?php endif;?>
+       </p>
+         </div>
+         
+         <div class="xix_ts">
+       <h1>详细介绍</h1>
+       <p>登录保护</p>
+       <p>即使盗号者盗取了您的密码，也无法登录帐号，为保证您顺利登录验证，建议选择合适的安全产品（数字证书，安全手机版，pc版，并及时维护您的手机，手机是最基础的安全产品）</p>
+       <p>&nbsp;</p>
+       <p>作用</p>
+       <p>作用1：防止被盗后资金受损。</p>
+       <p>作用2：防止帐号资料被人盗取。</p>
+       <p>作用3：防止好友遭被盗诈骗。</p>
+       <p>&nbsp;</p>
+         </div>
+       </div>
+    </div>
+ </div>
+ <script>
+$(function(){
+	$("input[data-value]").click(function(){
+		var dv = $(this).attr('data-value');
+		Ajax.call('/member/optionProtect', 'type=set&dv='+dv, function(s){
+			if (s.code == 0) {
+				location.reload();
+			} else {
+				alert(s.msg);
+			}
+		}, 'POST', '');
+	});
+})
+ </script>

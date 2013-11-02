@@ -29,6 +29,7 @@ use BackEnd\Model\Users\RegionTable;
 use Custom\Mvc\ActionEvent;
 use Custom\File\Uploader;
 use Zend\View\Model\ViewModel;
+use Custom\Validator\UserNameUnipue;
 
 use Zend\Validator\File\Size;
 
@@ -63,7 +64,7 @@ class MemberController extends AbstractActionController
         $paginaction = $this->_getNavPaginator($params);
         
         $startNumber = 1+($params['page']-1)*$paginaction->getItemCountPerPage();
-        $order = $this->_getOrder($prefixUrl, array('UserName', 'Points', 'LastLogin', 'LoginCount', 'LastUpdate'), $removePageParams);
+        $order = $this->_getOrder($prefixUrl, array('UserName', 'Points', 'Email', 'Mobile', 'Nick', 'LastLogin', 'LoginCount', 'LastUpdate'), $removePageParams);
         
         $assign = array(
         		'paginaction' => $paginaction, 
@@ -89,10 +90,10 @@ class MemberController extends AbstractActionController
 	public function saveAction()
 	{
 		$requery = $this->getRequest();
-		$form = new MemberForm();
+		$form = new MemberForm($this->_getTable('Zend\Db\Adapter\Adapter'));
 		if($requery->isPost()){
 			$params = $requery->getPost();
-			$member = new Member();
+			$member = new Member($this->_getTable('Zend\Db\Adapter\Adapter'));
 			
 			$member->UserID = $params->UserID;
 			$member->UserName = $params->UserName;
@@ -123,25 +124,25 @@ class MemberController extends AbstractActionController
 // 				$member->exchangeArray($form->getData());
 				$table = $this->_getTable('MemberTable');
 				$chkExist = 1;
-				if ($table->checkExist(array('UserName' => $params->UserName), $params->UserID)) {
-					$chkExist = 0;
-					$this->flashMessenger()->addErrorMessage("用户名:{$params->UserName}已被占用！请更换其他用户名");
-				}
-				if ($table->checkExist(array('Email' => $params->Email), $params->UserID)) {
-					$chkExist = 0;
-					$this->flashMessenger()->addErrorMessage("邮箱:{$params->Email}已被占用！请更换其他邮箱");
-				}
-				if ($params->Mobile && $table->checkExist(array('Mobile' => $params->Mobile), $params->UserID)) {
-					$chkExist = 0;
-					$this->flashMessenger()->addErrorMessage("手机:{$params->Mobile}已被占用！请更换其他手机号码");
-				}
-				if (!$chkExist) {
-					if ($params->UserID) {
-						return $this->redirect()->toUrl("/member/save?id={$params->UserID}");
-					} else {
-						return $this->redirect()->toRoute('backend' , array('controller' => 'member' , 'action' => 'save'));
-					}
-				} 
+// 				if ($table->checkExist(array('UserName' => $params->UserName), $params->UserID)) {
+// 					$chkExist = 0;
+// 					$this->flashMessenger()->addErrorMessage("用户名:{$params->UserName}已被占用！请更换其他用户名");
+// 				}
+// 				if ($table->checkExist(array('Email' => $params->Email), $params->UserID)) {
+// 					$chkExist = 0;
+// 					$this->flashMessenger()->addErrorMessage("邮箱:{$params->Email}已被占用！请更换其他邮箱");
+// 				}
+// 				if ($params->Mobile && $table->checkExist(array('Mobile' => $params->Mobile), $params->UserID)) {
+// 					$chkExist = 0;
+// 					$this->flashMessenger()->addErrorMessage("手机:{$params->Mobile}已被占用！请更换其他手机号码");
+// 				}
+// 				if (!$chkExist) {
+// 					if ($params->UserID) {
+// 						return $this->redirect()->toUrl("/member/save?id={$params->UserID}");
+// 					} else {
+// 						return $this->redirect()->toRoute('backend' , array('controller' => 'member' , 'action' => 'save'));
+// 					}
+// 				} 
 				
 				$id = $table->save($member);
 			
@@ -154,9 +155,9 @@ class MemberController extends AbstractActionController
 				
 				if($member->UserID){
 					$this->trigger(ActionEvent::ACTION_UPDATE);
-					$this->_message('更新成功');
+					$this->_message('用户名为'.$member->UserName.'的会员资料更新成功');
 				}else{
-					$this->_message('添加成功');
+					$this->_message('用户名为'.$member->UserName.'的会员添加成功');
 					$this->trigger(ActionEvent::ACTION_INSERT);
 				}
 				return $this->redirect()->toRoute('backend' , array('controller' => 'member' , 'action' => 'index'));

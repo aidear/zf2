@@ -37,7 +37,10 @@ class MemberForm extends Form
             'name' => 'UserName',
             'options' => array (
                 'label' => '用户名' 
-            ) 
+            ),
+        	'attributes' => array(
+        		'must' => '*'
+        	)
         ) );
         
         $this->add ( array (
@@ -64,7 +67,10 @@ class MemberForm extends Form
         		'type' => 'Zend\Form\Element\Email',
         		'options' => array (
         				'label' => '邮箱'
-        		)
+        		),
+        	'attributes' => array(
+        		'must' => '*'
+        	)
         ) );
         $this->add ( array (
         		'name' => 'Mobile',

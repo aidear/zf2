@@ -26,9 +26,30 @@ use Zend\View\Model\ViewModel;
 use FrontEnd\Model\Users\Member;
 use Zend\View\Model\JsonModel;
 use FrontEnd\Model\System\ConfigTable;
+use Zend\Mvc\View\Console\ViewManager;
 
 class MemberController extends AbstractActionController
 {
+	private $firstType = array(
+		'1' => '爸爸',
+		'2' => '妈妈',
+		'3' => '爷爷',
+		'4' => '奶奶',
+		'5' => '哥哥',
+		'6' => '姐姐',
+	);
+	private $secondType = array(
+		'1' => '名字',
+		'2' => '生日',
+		'3' => '出生地'
+	);
+	const WEAK_PASSWORD = '弱';
+	private $passwordStrongLevel = array(
+		'0' => '密码未设置',
+		'1' => '弱',
+		'2' => '中',
+		'3' => '强',
+	);
 	public function indexAction()
 	{
 		$this->_isCenter();
@@ -246,7 +267,7 @@ class MemberController extends AbstractActionController
 				$this->_message('旧密码不正确！', 'error');
 				return $this->redirect()->toUrl('/member/password');
 			}
-			$flg = $member->updateFieldsByID(array('Password' => md5($params->newpassword)), $userid);
+			$flg = $member->updateFieldsByID(array('Password' => md5($params->newpassword), 'passwordStrong' => $this->_passwordStrongChk($params->newpassword)), $userid);
 			if ($flg) {
 				$this->_message('恭喜您,密码修改成功！', 'success');
 			} else {
@@ -325,6 +346,14 @@ class MemberController extends AbstractActionController
 	public function mobileAction()
 	{
 		$this->_isCenter();
+		$memberTable = $this->_getTable('MemberTable');
+		$uid = $this->_getCurrentUserID();
+		$memberInfo = $memberTable->getOneById($uid);
+		$assign = array(
+			'user' => $memberInfo
+		);
+		
+		return new ViewModel($assign);
 	}
 	public function identityAction()
 	{
@@ -365,6 +394,147 @@ class MemberController extends AbstractActionController
 		return new ViewModel($assign);
 	}
 	public function secretAction()
+	{
+		$this->_isCenter();
+		$userid = $this->_getCurrentUserID();
+		$secretTable = $this->_getTable('SecretTable');
+		$secInfo = $secretTable->getSecretList($userid);
+		$assign['secInfo'] = $secInfo;
+		$req = $this->getRequest();
+		if ($req->isPost()) {
+			$params = $req->getPost();
+			$arr = array();
+			if (!(isset($params->firstType) && $params->firstType && isset($params->secondType) && $params->secondType)) {
+				$this->_message('请选择第一个问题', 'error');
+				return $this->redirect()->toUrl('/member/secret');
+			}
+			if (!isset($params->answer) || empty($params->answer)) {
+				$this->_message('请输入问题的答案', 'error');
+				return $this->redirect()->toUrl('/member/secret');
+			}
+			if (!isset($params->question2) || empty($params->question2)) {
+				$this->_message('请输入第二个问题', 'error');
+				return $this->redirect()->toUrl('/member/secret');
+			}
+			$arr = array(
+				'firstType' => $params->firstType,
+				'secondType' => $params->secondType,
+				'answer' => $params->answer[0],
+			);
+			
+			$data1 = array(
+				'isSelect' => 1,
+				'content' => serialize($arr),
+				'user_id' => $userid,
+				'addTime' => date('Y-m-d H:i:s')
+			);
+			$arr = array(
+					'question' => $params->question2,
+					'answer' => $params->answer[1],
+			);
+			$data2 = array(
+					'isSelect' => 0,
+					'content' => serialize($arr),
+					'user_id' => $userid,
+					'addTime' => date('Y-m-d H:i:s')
+			);
+			$secretTable->editSecretByUID(array($data1, $data2), $userid);
+			$this->_message('成功', 'success');
+			$secInfo = $secretTable->getSecretList($userid);
+			$assign['secInfo'] = $secInfo;
+			$assign['saved'] = 1;
+		}
+		if (!empty($secInfo)) {
+			$title = array();
+			$answer = array();
+			foreach ($secInfo as $k=>$v) {
+				$content = unserialize($v['content']);
+				switch($v['isSelect']){
+					case 1:
+						$title1 = isset($this->firstType[$content['firstType']]) ? $this->firstType[$content['firstType']] : '';
+						$title2 = isset($this->secondType[$content['secondType']]) ? $this->secondType[$content['secondType']] : '';
+						$title[] = '我'.$title1.'的'.$title2;
+						$answer[] = $content['answer'];
+						break;
+					case 0:
+						$title[] = $content['question'];
+						$answer[] = $content['answer'];
+						break;
+					default:
+						break;
+				}
+			}
+			$assign['list'] = array('title' => $title, 'answer' => $answer);
+		}
+		return new ViewModel($assign);
+	}
+	public function optionProtectAction()
+	{
+		$this->_isCenter();
+		$memberTable = $this->_getTable('MemberTable');
+		$uid = $this->_getCurrentUserID();
+		$memberInfo = $memberTable->getOneById($uid);
+		$type = $this->params()->fromPost('type');
+		if ($type && $type == 'set') {
+			$dv = $this->params()->fromPost('dv');
+			$flg = $memberTable->updateFieldsByID(array('loginProtect' => (int)$dv), $uid);
+			if ($flg) {
+				$rs = array('code' => 0, 'msg' => 'suc');
+			} else {
+				$rs = array('code' => -1, 'msg' => '保存失败！');
+			}
+			return new JsonModel($rs);
+		}
+		$assign = array('user' => $memberInfo);
+		
+		return new ViewModel($assign);
+	}
+	public function  securityAction()
+	{
+		$this->_isCenter();
+		$memberTable = $this->_getTable('MemberTable');
+		$uid = $this->_getCurrentUserID();
+		$memberInfo = $memberTable->getOneById($uid);
+		$checkResult = array();
+		$checkResult['chkEmail']  = $memberInfo->isValidEmail;
+		$checkResult['chkMobile'] = $memberInfo->isValidMobile;
+		$checkResult['chkPwdStrong'] = $memberInfo->passwordStrong;//分值
+		
+		$identity = $this->_getTable('IdentityTable');
+		$identityInfo = $identity->getOneByUID($uid);
+		$checkResult['chkIdentity'] = isset($identityInfo->status) && $identityInfo->status == 1 ? 1 : 0;
+		
+		$secretTable = $this->_getTable('SecretTable');
+		$secInfo = $secretTable->getSecretList($uid);
+		$checkResult['chkSecret'] = !empty($secInfo) ? 1 : 0;
+		$checkResult['chkOption'] = $memberInfo->loginProtect;
+		$securityItems = count($checkResult) - 1 + 3;
+		$chked = array_sum($checkResult);
+		$percent = $securityItems ? ($chked/$securityItems)*100 : 0;
+		$assign = array(
+			'chkResult' => $checkResult,
+			'percent' => $percent,
+			'user' => $memberInfo,
+		);
+		return new ViewModel($assign);
+	}
+	public function unOrderAction()
+	{
+		$this->_isCenter();
+	}
+	public function orderAction()
+	{
+		$this->_isCenter();
+	}
+	public function pointAction()
+	{
+		$this->_isCenter();
+	}
+	public function pointExchangeAction()
+	{
+		$this->_isCenter();
+	}
+	public function orderSearchAction()
 	{
 		$this->_isCenter();
 	}
@@ -431,7 +601,7 @@ class MemberController extends AbstractActionController
 			}
 			if ($chk) {
 				if ($params['password'] == $params['repassword']) {
-					$flg = $member->update(array('Password' => md5($params['password'])), array('UserID' => $memberInfo->UserID));
+					$flg = $member->update(array('Password' => md5($params['password']), 'passwordStrong'=>$this->_passwordStrongChk($params['password'])), array('UserID' => $memberInfo->UserID));
 					if ($flg) {
 						$assign = array('code' => 0, 'msg' => '恭喜，密码重置成功！');
 					} else {
@@ -534,5 +704,20 @@ class MemberController extends AbstractActionController
 	{
 		$this->_login();
 		$this->layout('layout/center');
+	}
+	private function _passwordStrongChk($pwd)
+	{
+		if (!$pwd) {
+			return 0;
+		}
+		if (preg_match('^\d+$', $pwd) || preg_match('^[a-zA-Z]+$', $pwd)) {
+			return 1;
+		}
+		if (strlen($pwd) <= 10) {
+			return 2;
+		}
+		if (strlen($pwd) > 10) {
+			return 3;
+		}
 	}
 }

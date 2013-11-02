@@ -1,0 +1,112 @@
+<?php 
+$msg = $this->flashMessages();
+?>
+<div class="right">
+    <div class="r_t">
+    <h1>订单查询</h1>
+    <h4>回收站</h4>    <h3>可用余额 <span class="reddz">10.00 </span>元</h3></div>
+
+    <div class="r_c">
+       <div class="jil"><table width="728" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="149" align="center">起止日期</td>
+    <td width="187" align="center"><input name="textfield3" type="text" id="textfield3" size="8" />
+--
+  <input name="textfield4" type="text" id="textfield4" size="8" /></td>
+    <td width="95" align="center">今天</td>
+    <td width="97" align="center">最新一个月</td>
+    <td width="66" align="center">3个月</td>
+    <td width="66" align="center">1年</td>
+    <td width="68" align="center">1年前&gt;</td>
+    </tr>
+</table>
+<table width="728" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td align="center">
+    
+    <div class="sjz_bg">
+   <div class="sjz_l"><a href="#"><img src="images/1.jpg" width="12" height="17" border="0" /></a></div>
+   <div class="sjz_z"></div>
+   <div class="sjz_r"><a href="#"><img src="images/1.jpg" width="12" height="17" border="0" /></a></div>
+</div>
+    </td>
+  </tr>
+</table>
+
+</div>
+    
+    <div class="jil0">交易分类：<a href="#" class="dise">全部</a><a href="#">购物</a><a href="#">付款</a><a href="#">收款水电</a><a href="#">信用卡还款</a>
+    <a href="#">转账到银行卡</a></div>
+    
+    <div class="jil0">交易分类：<a href="#" class="dise">全部</a><a href="#">进行中</a><a href="#">未付款</a><a href="#">等待发货</a><a href="#">未确认收货</a>
+    <a href="#">退款</a><a href="#">成功</a><a href="#">失败</a><span>
+    <input type="submit" name="jilbtn" id="jilbtn" value="高级筛选" />
+    </span></div>
+    
+    <div class="jil11">
+    
+    <table width="728" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+              <td width="30" align="right"  class="wtj_lm"><label for="checkbox"></label></td>
+              <td width="95" align="center" valign="middle"  class="wtj_lm">创建时间</td>
+              <td width="186" align="center" valign="middle"  class="wtj_lm">名称 | 交易号</td>
+              <td width="106" align="center" valign="middle"  class="wtj_lm">对方</td>
+              <td width="95" align="center" valign="middle"  class="wtj_lm">金额 | 明细</td>
+              <td width="99" align="center" valign="middle"  class="wtj_lm">状态</td>
+              <td width="85" align="center" valign="middle"  class="wtj_lm">操作</td>
+            </tr>
+            <tr>
+              <td height="50" align="center"><input type="checkbox" name="checkbox2" id="checkbox2" /></td>
+              <td align="center" class="wtjimg"><p>2013.9.20</p>
+              <p>21:18</p></td>
+              <td align="center" valign="middle" class="wtjtit"><p>58充值</p>
+              <p>交易号：654312685</p></td>
+              <td align="center">58同城</td>
+              <td align="center"><span class="red">120.00￥</span></td>
+              <td align="center">交易成功</td>
+              <td align="center"><p><span class="lanse">详情</span><img src="images/jtjy.jpg" width="8" height="7" /></p></td>
+            </tr>
+            <tr>
+              <td height="50" align="center"><input type="checkbox" name="checkbox" id="checkbox" /></td>
+              <td align="center" class="wtjimg"><p>2013.9.20</p>
+                <p>21:18</p></td>
+              <td align="center" valign="middle" class="wtjtit"><p>58充值</p>
+              <p>交易号：654312685</p></td>
+              <td align="center">58同城</td>
+              <td align="center"><span class="red">120.00￥</span></td>
+              <td align="center">交易成功</td>
+              <td align="center"><span class="lanse">详情</span><img src="images/jtjy.jpg" alt="" width="8" height="7" /></td>
+          </tr>
+          </table>
+    </div>
+    
+    <div class="wtj02">
+      <table width="728" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td width="41" align="center"><input type="checkbox" name="checkbox4" id="checkbox4" /></td>
+          <td width="47" align="left" class="lanse">全选</td>
+          <td width="70" align="center" class="lanse">合并付款</td>
+          <td width="77" align="center" class="lanse">合并代付</td>
+          <td width="99" align="center"   class="lanse">批量确认收货</td>
+          <td width="313" align="center"  class="wrightk">
+          <div class="badoo"><span class="disabled"> <  Prev</span><span class="current">1</span><a href="#?page=2">2</a><a href="#?page=3">3</a><a href="#?page=4">4</a><a href="#?page=5">5</a><a href="#?page=2">> </a> 共5页 到第
+            <label for="ddpage"></label>
+            <input name="ddpage" type="text" id="ddpage" size="1" />
+            页</div> 
+         </td>
+          <td width="81" align="center" class="heidz"><a href="#">确定</a></td>
+        </tr>
+      </table>
+    </div>
+    
+    
+    </div>
+ </div>
+ <script>
+$(function(){
+	$("input[_href]").click(function(){
+		var href = $(this).attr('_href');
+		location.href=href;
+	});
+})
+ </script>

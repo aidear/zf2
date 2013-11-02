@@ -78,6 +78,7 @@ class MemberTable extends TableGateway
     
     function save(Member $user){
     	$u = $user->toArray();
+    	unset($u['dbAdapter']);
     	unset($u['inputFilter']);
     	unset($u['Password']);
     	unset($u['ImgUrl']);

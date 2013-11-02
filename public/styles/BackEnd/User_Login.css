@@ -112,10 +112,11 @@ user_main_c {
 	FLOAT: left; list-style-type: none
 }
 .user_main_box .user_main_text {
-	line-height 34px; HEIGHT: 34px
+	line-height 34px; HEIGHT: 34px;
+	font-size:15px;
 }
 .user_main_box .user_main_input {
-	line-height 42px; height: 42px
+	line-height 42px; height: 42px;
 }
 .user_main_box .user_main_text {
 	WIDTH: 60px; COLOR: #000
@@ -127,13 +128,16 @@ user_main_c {
 	
 }
 .TxtUserNameCssClass {
-	BORDER-TOP-WIDTH: 0px; PADDING-LEFT: 25px; BORDER-LEFT-WIDTH: 0px; BACKGROUND: url(../../images/BackEnd/user_login_name.gif) no-repeat; BORDER-BOTTOM-WIDTH: 0px; WIDTH: 165px; line-height 20px; HEIGHT: 21px; BORDER-RIGHT-WIDTH: 0px
+	BORDER-TOP-WIDTH: 0px; PADDING-LEFT: 25px; BORDER-LEFT-WIDTH: 0px; BACKGROUND: url(../../images/BackEnd/user_login_name.gif) no-repeat; BORDER-BOTTOM-WIDTH: 0px; WIDTH: 165px; line-height 20px; HEIGHT: 21px; BORDER-RIGHT-WIDTH: 0px;
+	font-size:15px;
 }
 .TxtPasswordCssClass {
-	BORDER-TOP-WIDTH: 0px; PADDING-LEFT: 25px; BORDER-LEFT-WIDTH: 0px; BACKGROUND: url(../../images/BackEnd/user_login_password.gif) no-repeat; BORDER-BOTTOM-WIDTH: 0px; WIDTH: 165px; line-height 20px; HEIGHT: 21px; BORDER-RIGHT-WIDTH: 0px
+	BORDER-TOP-WIDTH: 0px; PADDING-LEFT: 25px; BORDER-LEFT-WIDTH: 0px; BACKGROUND: url(../../images/BackEnd/user_login_password.gif) no-repeat; BORDER-BOTTOM-WIDTH: 0px; WIDTH: 165px; line-height 20px; HEIGHT: 21px; BORDER-RIGHT-WIDTH: 0px;
+	font-size:15px;
 }
 .TxtValidateCodeCssClass {
-	BORDER-TOP-WIDTH: 0px; PADDING-LEFT: 25px; BORDER-LEFT-WIDTH: 0px; background:url(../../images/BackEnd/user_login_validatecode.gif) no-repeat; IME-MODE: disabled; BORDER-BOTTOM-WIDTH: 0px; WIDTH: 91px; line-height 20px; HEIGHT: 21px; BORDER-RIGHT-WIDTH: 0px
+	BORDER-TOP-WIDTH: 0px; PADDING-LEFT: 25px; BORDER-LEFT-WIDTH: 0px; background:url(../../images/BackEnd/user_login_validatecode.gif) no-repeat; IME-MODE: disabled; BORDER-BOTTOM-WIDTH: 0px; WIDTH: 91px; line-height 20px; HEIGHT: 21px; BORDER-RIGHT-WIDTH: 0px;
+	font-size:15px;
 }
 .validateImg {cursor:pointer}
 .IbtnEnterCssClass {

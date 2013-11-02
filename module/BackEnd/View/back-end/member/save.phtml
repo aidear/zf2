@@ -31,14 +31,17 @@ $msg = $this->flashMessages();
             <?php endif;?>
         <form class="box-form" action="<?php echo $this->url('backend' , array('controller' => 'member' , 'action' => 'save'))?>"
               method="post" enctype="multipart/form-data">
-            <fieldset>
+              <?php $img =  $form->get('ImgUrl')->getValue();?>
+              <?php if (!empty($img)):?>
+              <span class="show_image">
+				<img height="150px" src="<?php echo $img;?>" />
+				</span>
+			<?php endif;?>
+            <fieldset style="border:0;">
             	<?php echo $this->formHidden($form->get('UserID'))?>
                 <?php echo $this->formText($form->get('UserName'))?>
                 <?php //echo $this->formText($form->get('Password'))?>
                 <?php echo $this->formText($form->get('Nick'))?>
-                <div class="input-gourp">
-				<img height="150px" src="<?php echo $form->get('ImgUrl')->getValue();?>" />
-				</div>
                 <?php echo $this->formFile($form->get('ImgUrl'))?>
                 <?php echo $this->formText($form->get('Email'))?>
                 <?php echo $this->formText($form->get('Mobile'))?>

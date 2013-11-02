@@ -149,6 +149,14 @@ class Module
     public function getViewHelperConfig(){
     	return include __DIR__ . '/config/viewhelper.config.php';
     }
+    public function getValidatorConfig()
+    {
+    	return array(
+    			'invokables' => array(
+    					'UserNameUnique' => 'Custom\Validator\UserNameUnique',
+    			),
+    	);
+    }
     
 //     public function getControllerConfig(){
 //     	return include __DIR__ . '/Config/controller.config.php';

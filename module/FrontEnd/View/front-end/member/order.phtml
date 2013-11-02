@@ -1,0 +1,101 @@
+<?php 
+$msg = $this->flashMessages();
+?>
+<div class="right">
+    <div class="r_t">
+    <h1>已提交订单</h1>
+    <h2>&nbsp;</h2></div>
+    <div class="r_c">
+        <div class="wtj">
+          <table width="728" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+              <td width="30">&nbsp;</td>
+              <td width="73">&nbsp;</td>
+              <td width="95">&nbsp;</td>
+              <td colspan="6" align="right">已选商品（不含邮费）：￥<span class="red">0.00</span></td>
+              <td width="77" align="center"><input type="submit" name="jiesuan" id="jiesuan" value="结算" /></td>
+            </tr>
+            <tr>
+              <td align="right" valign="middle"  class="wtj_lm"><input type="checkbox" name="checkbox" id="checkbox" />
+              <label for="checkbox"></label></td>
+              <td colspan="2" align="center" valign="middle"  class="wtj_lm">宝贝</td>
+              <td width="79" align="center" valign="middle"  class="wtj_lm">单位（元）</td>
+              <td width="63" align="center" valign="middle"  class="wtj_lm">数量</td>
+              <td width="68" align="center" valign="middle"  class="wtj_lm">售后</td>
+              <td width="85" align="center" valign="middle"  class="wtj_lm">实付款（元）</td>
+              <td width="90" align="center" valign="middle"  class="wtj_lm"><label for="select"></label>
+                <select name="select" id="select">
+                  <option value="交易状态">交易状态</option>
+                  <option>交易状态</option>
+              </select></td>
+              <td width="68" align="center" valign="middle"  class="wtj_lm">交易操作</td>
+              <td align="center" valign="middle"  class="wtj_lm">其他操作</td>
+            </tr>
+            <tr>
+              <td height="120" align="right"><input type="checkbox" name="checkbox2" id="checkbox2" /></td>
+              <td align="center" class="wtjimg1"><img src="images/wtj01.jpg" width="79" height="79" /></td>
+              <td align="left" valign="middle" class="wtjtit">10月22日，国务院总理李克强在北京人民大会堂与俄罗</td>
+              <td align="center">120.00￥</td>
+              <td align="center">2</td>
+              <td align="center" class="red"><p class="lanse">申请售后</p>
+              <p class="lanse">投诉卖家</p></td>
+              <td align="center">120.00￥</td>
+              <td align="center"><p class="lvs">交易成功</p>
+              <p class="lanse">订单详情</p></td>
+              <td align="center">再次购买</td>
+              <td align="center"><p>&nbsp;</p>
+              <p>删除</p>
+              <p>备忘</p>
+              <p>分享</p></td>
+            </tr>
+            <tr>
+              <td height="120" align="right" bgcolor="#F5F5F5"><input type="checkbox" name="checkbox3" id="checkbox3" /></td>
+              <td align="center" valign="middle" bgcolor="#F5F5F5" class="wtjimg1"><img src="images/wtj01.jpg" alt="" width="79" height="79" /></td>
+              <td align="left" valign="middle" bgcolor="#F5F5F5" class="wtjtit">10月22日，国务院总理李克强在北京人民大会堂与俄罗</td>
+              <td align="center" bgcolor="#F5F5F5">120.00￥</td>
+              <td align="center" bgcolor="#F5F5F5">4</td>
+              <td align="center" bgcolor="#F5F5F5" class="red"><p class="lanse">申请售后</p>
+              <p class="lanse">投诉卖家</p></td>
+              <td align="center" bgcolor="#F5F5F5">120.00￥</td>
+              <td align="center" bgcolor="#F5F5F5"><p class="lvs">交易成功</p>
+              <p class="lanse">订单详情</p></td>
+              <td align="center" bgcolor="#F5F5F5">再次购买</td>
+              <td align="center" bgcolor="#F5F5F5"><p>&nbsp;</p>
+                <p>删除</p>
+                <p>备忘</p>
+              <p>分享</p></td>
+            </tr>
+          </table>
+      </div>
+      
+    <div class="wtj01">成功删除1件宝贝，如有误，可<a href="#"><span class="lanse">撤销本次操作</span></a></div>
+    
+    <div class="wtj02">
+      <table width="728" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td width="41" align="center"><input type="checkbox" name="checkbox4" id="checkbox4" /></td>
+          <td width="47" align="left">全选</td>
+          <td width="47" align="center">删除</td>
+          <td width="118" align="center">批量移入收藏夹</td>
+          <td width="49" align="center"   class="wrightk">分享</td>
+          <td align="center"  class="wrightk">
+          <div class="badoo"><span class="disabled"> <  Prev</span><span class="current">1</span><a href="#?page=2">2</a><a href="#?page=3">3</a><a href="#?page=4">4</a><a href="#?page=5">5</a><a href="#?page=2">> </a> 共5页 到第
+            <label for="ddpage"></label>
+            <input name="ddpage" type="text" id="ddpage" size="1" />
+            页</div> 
+         </td>
+          <td width="81" align="center" class="heidz"><a href="#">确定</a></td>
+        </tr>
+      </table>
+    </div>
+    
+    </div>
+ </div>
+ <script>
+$(function(){
+	$("input[_href]").click(function(){
+		var href = $(this).attr('_href');
+		location.href=href;
+	});
+})
+ </script>

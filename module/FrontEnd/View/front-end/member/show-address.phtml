@@ -8,7 +8,8 @@ $addr = $this->address;
           <td width="85" height="38">&nbsp;</td>
           <td width="97" height="38" align="right">收货人姓名：</td>
           <td width="546" height="38"><label for="textfield3"></label>
-            <input autocomplete="off" data-required="true" data-trim="true" data-describedby="for_consignee" data-description="consignee" value="<?php echo isset($addr->consignee) ? $addr->consignee : '';?>" type="text" name="consignee" id="textfield3" /><span id="for_consignee"></span></td>
+            <input autocomplete="off" data-required="true" data-trim="true" data-describedby="for_consignee" data-description="consignee" value="<?php echo isset($addr->consignee) ? $addr->consignee : '';?>" type="text" name="consignee" id="textfield3" />
+            <span class="red">*</span><span id="for_consignee" class="red"></span></td>
         </tr>
         <tr>
           <td height="38">&nbsp;</td>
@@ -33,21 +34,21 @@ $addr = $this->address;
         <tr>
           <td height="38">&nbsp;</td>
           <td height="38" align="right">街道地址：</td>
-          <td height="38"><textarea name="address" id="textarea" cols="40" rows="5"><?php echo isset($addr->address) ? $addr->address : '';?></textarea>
-            <span class="red">*</span> <span class="huise">不需要重复填写省市区</span></td>
+          <td height="38"><textarea data-trim="true" data-required='true' data-describedby='for_address' data-description='address' name="address" id="textarea" cols="40" rows="5"><?php echo isset($addr->address) ? $addr->address : '';?></textarea>
+            <span class="red">*</span><span class='red' id='for_address'> <span class="huise">不需要重复填写省市区</span></span></td>
         </tr>
         <tr>
           <td height="38">&nbsp;</td>
           <td height="38" align="right">邮政编码：</td>
-          <td height="38"><input autocomplete="off" data-pattern="^\d+{6}$" data-describedby="for_zipcode" data-description="zipcode" value="<?php echo isset($addr->zipcode) ? $addr->zipcode : '';?>" name="zipcode" type="text" id="textfield" maxlength='6' size="15" />            
-            <span class="red"> * <span class="huise" id="for_zipcode">大陆以外地区可不填写</span></span></td>
+          <td height="38"><input autocomplete="off" data-required='true' data-pattern="^\d+{6}$" data-describedby="for_zipcode" data-description="zipcode" value="<?php echo isset($addr->zipcode) ? $addr->zipcode : '';?>" name="zipcode" type="text" id="textfield" maxlength='6' size="15" />            
+            <span class="red"> * </span><span class="red" id='id="for_zipcode"'><span class="huise">大陆以外地区可不填写</span></span></td>
         </tr>
         <tr>
           <td height="38">&nbsp;</td>
           <td height="38" align="right">手机号码：</td>
           <td width="546" height="38"><label for="textfield2"></label>
-            <input autocomplete="off" data-pattern="^(1(3|5|8))\d{9}$" value="<?php echo isset($addr->mobile) ? $addr->mobile : '';?>" name="mobile" type="text" id="textfield7" maxlength="11" size="20" />
-            <span class="red">* </span><span class="huise">电话号码和手机号码必填一项目</span></td>
+            <input autocomplete="off" data-required='true' data-pattern="^(1(3|5|8))\d{9}$" data-describedby='for_mobile' data-description='mobile' value="<?php echo isset($addr->mobile) ? $addr->mobile : '';?>" name="mobile" type="text" id="textfield7" maxlength="11" size="20" />
+            <span class="red">* </span><span class='red' id='for_mobile'><span class="huise">电话号码和手机号码必填一项目</span></span></td>
         </tr>
         <tr>
           <td height="38">&nbsp;</td>
@@ -57,11 +58,11 @@ $addr = $this->address;
           			$tel = explode('-', $addr->tel);
           		}
           ?>
-          <td height="38"><input name="tel1" type="text" id="textfield8" size="8" value="<?php echo isset($tel[0]) ? $tel[0] : ''?>" />
+          <td height="38"><input style="IME-MODE: disabled;" onkeyup="value=value.replace(/[^\d]/g,'')" name="tel1" type="text" id="textfield8" maxlength='4' size="8" value="<?php echo isset($tel[0]) ? $tel[0] : ''?>" />
 -
-  <input name="tel2" type="text" id="textfield9" size="8" value="<?php echo isset($tel[1]) ? $tel[1] : '';?>" />
+  <input style="IME-MODE: disabled;" onkeyup="value=value.replace(/[^\d]/g,'')" name="tel2" type="text" id="textfield9"  maxlength='8' size="8" value="<?php echo isset($tel[1]) ? $tel[1] : '';?>" />
 -
-<input name="tel3" type="text" id="textfield10" size="8" value="<?php echo isset($tel[2]) ? $tel[2] : '';?>" />
+<input style="IME-MODE: disabled;" onkeyup="value=value.replace(/[^\d]/g,'')" name="tel3" type="text"  maxlength='4' id="textfield10" size="8" value="<?php echo isset($tel[2]) ? $tel[2] : '';?>" />
 - <span class="huise">区号-电话-分机</span></td>
         </tr>
         <tr>
@@ -84,16 +85,20 @@ $('#addressForm').validate({
 	eachInvalidField : function() {
 	},
 	description : {
-		TrueName : {
-			pattern : '格式不正确'
+		consignee : {
+			required : '请输入收货人姓名'
 		},
-		Address : {
+		address : {
 			required : '请输入详细地址'
 		},
-		Mobile : {
+		mobile : {
 			required : '请输入手机号',
 			pattern : '根式不正确'
-		}
+		},
+// 		zipcode : {
+// 			required : '请输入邮政编码',
+// 			pattern : '格式不正确'
+// 		},
 //			repassword : {
 //				required : '<span><img src="/images/FrontEnd/no.jpg" width="24" height="24" /></span><h1>不能为空</h1>',
 //				pattern : '<span><img src="/images/FrontEnd/no.jpg" width="24" height="24" /></span><h1>请输入6到16位密码</h1>',
@@ -121,6 +126,7 @@ $('#addressForm').validate({
 		}
 	},
 	valid:function() {
+		alert(1);
 	}
 });
 $(function(){

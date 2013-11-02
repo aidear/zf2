@@ -57,7 +57,7 @@ $msg = $this->flashMessages();
           <td height="38" align="right">生日：</td>
           <?php $birth = explode('-', $user['Birthday']);?>
           <td width="484" height="38"><label for="textfield2"></label>
-          <input onpaste="return false" style="IME-MODE: disabled;" onkeyup="value=value.replace(/[^\d]/g,'')" name="birth1" type="text" id="textfield2" maxlength="4" size="8" value="<?php echo isset($birth[0]) ? $birth[0] : '';?>" />
+          <input onpaste="return false" style="IME-MODE: disabled;width:40px;" onkeyup="value=value.replace(/[^\d]/g,'')" name="birth1" type="text" id="textfield2" maxlength="4" size="8" value="<?php echo isset($birth[0]) ? $birth[0] : '';?>" />
           年
           <input onpaste="return false" style="IME-MODE: disabled;" onkeyup="value=value.replace(/[^\d]/g,'')" name="birth2" type="text" id="textfield3" maxlength="2" size="8" value="<?php echo isset($birth[1]) ? $birth[1] : '';?>" />
           月
@@ -87,7 +87,7 @@ $msg = $this->flashMessages();
           <td height="38">&nbsp;</td>
           <td height="38" align="right">详细地址：</td>
           <td height="38"><input data-trim="true" data-required='true' data-describedby="for_address" data-description="Address" name="Address" type="text" id="textfield5" size="35" value="<?php echo $user['Address'];?>" />
-            <span class="huise" id="for_address">请填写真实的有效地址</span> <span class="red">*</span></td>
+            <span id="for_address" class="red"><span class="huise">请填写真实的有效地址</span></span> <span class="red">*</span></td>
         </tr>
 <!--         <tr> -->
 <!--           <td height="38">&nbsp;</td> -->
@@ -135,7 +135,7 @@ $msg = $this->flashMessages();
 			},
 			Mobile : {
 				required : '请输入手机号',
-				pattern : '根式不正确'
+				pattern : '格式不正确'
 			}
 // 			repassword : {
 // 				required : '<span><img src="/images/FrontEnd/no.jpg" width="24" height="24" /></span><h1>不能为空</h1>',

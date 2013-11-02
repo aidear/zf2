@@ -44,6 +44,10 @@ class Member implements InputFilterAwareInterface
 	public $MSN;
 	public $address_id;
 	public $leftMsg;
+	public $isValidEmail;
+	public $isValidMobile;
+	public $loginProtect;
+	public $passwordStrong;
 	public $LoginCount = 0;
 	public $Status = 1;
 	public $AddTime;
@@ -75,7 +79,11 @@ class Member implements InputFilterAwareInterface
 		$this->MSN = isset($data['MSN']) ? $data['MSN'] : '';
 		$this->address_id = isset($data['address_id']) ? $data['address_id'] : '';
 		$this->leftMsg = isset($data['leftMsg']) ? $data['leftMsg'] : '';
+		$this->isValidEmail = isset($data['isValidEmail']) ? $data['isValidEmail'] : 0;
+		$this->isValidMobile = isset($data['isValidMobile']) ? $data['isValidMobile'] : 0;
+		$this->loginProtect = isset($data['loginProtect']) ? $data['loginProtect'] : 0;
 		$this->LoginCount = isset($data['LoginCount']) ? $data['LoginCount'] : 0;
+		$this->passwordStrong = isset($data['passwordStrong']) ? $data['passwordStrong'] : 0;
 		$this->Status = isset($data['Status']) ? $data['Status'] : 1;
 		$this->AddTime = isset($data['AddTime']) ? $data['AddTime'] : date('Y-m-d H:i:s');
 		$this->Source = isset($data['Source']) ? $data['Source'] : 1;

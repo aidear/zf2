@@ -285,14 +285,14 @@ li{
 	list-style :none;
 }
 [class^="icon-"], [class*=" icon-"] {
-    background-image: url("/images/BackEnd/glyphicons-halflings.png");
+    /*background-image: url("/images/BackEnd/glyphicons-halflings.png");*/
     background-position: 14px 14px;
     background-repeat: no-repeat;
     display: inline-block;
     height: 14px;
     line-height: 14px;
     vertical-align: text-top;
-    width: 14px;
+    /*width: 14px;*/
 }
 i[class^="icon-"] {
     opacity: 0.8;
@@ -360,6 +360,11 @@ i[class^="icon-"] {
 	margin-bottom:6px;
 	text-align:right;
 }
+.box-content .show_image {
+	float:left;
+	width:120px;
+}
+
 .box-form {
     margin: 0 0 18px;
 }
@@ -791,7 +796,10 @@ div.checker input {
     padding: 4px 10px;
     text-align: center;
     vertical-align: middle;
-    color: #FFFFFF;
+    /*color: #FFFFFF;*/
+	color:#555;
+	border-color:#787878;
+	background-color:#fbfbfb;
 }
 .btn-small {
     font-size: 11px;
@@ -862,6 +870,7 @@ div.checker input {
     border-top-color: rgba(0, 0, 0, 0.1);
 }
 .btn-success {
+	/*
     background-color: #7BB33D;
     background-image: -moz-linear-gradient(center top , #80BB3F, #73A839);
     background-repeat: repeat-x;
@@ -873,6 +882,7 @@ div.checker input {
     border-right-color-rtl-source: physical;
     border-right-color-value: rgba(0, 0, 0, 0.1);
     border-top-color: rgba(0, 0, 0, 0.1);
+    */
 }
 
 .btn-inverse,btn-clear {
@@ -1274,6 +1284,10 @@ button.close {
   -moz-border-radius: 4px;
   border-radius: 4px;
   color: #1c628b;
+}
+.alert p {
+	text-align:center;
+	font-size:14px;
 }
 .alert-heading {
   color: inherit;

@@ -1,0 +1,174 @@
+<?php 
+$this->headScript()->appendFile($this->basePath('js/jquery-validate.min.js'));
+$user = $this->user;
+$chkResult = $this->chkResult;
+$per = $this->percent;
+$level = '低';
+$star = '<img src="/images/FrontEnd/aq_05.jpg" width="22" height="13" />';
+$q = floor($per/20);
+$levelProcess = '';
+for($i = 1; $i < $q; $i ++) {
+	$levelProcess .= $star;
+}
+if ($per > 60) {
+	$level = '中';
+} elseif ($per > 80) {
+	$level = '高';
+}
+$passwordLevel = '<img src="/images/FrontEnd/aq_05.jpg" width="22" height="13" />';
+$paswordStrong = '';
+for ($i = 0; $i < $chkResult['chkPwdStrong']; $i ++) {
+	$paswordStrong .= $passwordLevel;
+}
+$msg = $this->flashMessages();
+?>
+<div class="right">
+    <div class="r_t">
+    <h1>安全体检</h1>
+    <h2>&nbsp;</h2></div>
+    <div class="r_c">
+      <div class="aq_01">
+        <div class="aq_b"></div>
+        <div class="aq_txt">会员账户安全体检</div>
+          <div class="an_tit">欢迎您：<?php echo $user->UserName;?> 安全等级：<?php echo $level;?></div>
+           <div class="an_jd"><?php echo $levelProcess;?></div>
+      </div>
+      <div class="aq_02">
+        <div class="an_2tit">
+   <?php if ($this->percent < 60):?>     
+        您的安全级别较低，强烈建议进按照体检结果操作。
+        <?php elseif ($this->percent < 80):?>
+        您的安全级别一般，建议按照体检结果操作。
+        <?php else:?>
+        您的安全级别很高。
+        <?php endif;?>
+        </div>
+        <table width="668" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+              <td width="54" height="35" align="center"><img src="/images/FrontEnd/aq_02.jpg" width="17" height="17" /></td>
+              <td width="84" align="left" class="lvs">密码强度</td>
+              <td width="363"><div class="an_jd"><?php echo $paswordStrong;?></div></td>
+              <td width="167">｛<a href="#">了解更多</a>｝</td>
+            </tr>
+            <tr>
+              <td align="center">&nbsp;</td>
+              <td colspan="2" align="left" class="huise">
+     		<?php 
+     		switch($chkResult['chkPwdStrong']) {
+     			case 0:
+     				echo '未设置';
+     				break;
+     			case 1:
+     				echo '安全级别差';
+     				break;
+     			case 2:
+     				echo '安全级别一般';
+     				break;
+     			case 3:
+     				echo '安全级别高';
+     				break;
+     			default:
+     				echo '未识别的安全级别';
+     				break;
+     		}
+     		?>         
+              </td>
+              <td>&nbsp;</td>
+            </tr>
+            <tr>
+              <td height="35" align="center"><img src="/images/FrontEnd/aq_02.jpg" alt="" width="17" height="17" /></td>
+              <td colspan="2" align="left" class="<?php echo $chkResult['chkEmail'] ? 'lvs' : 'red';?>">邮箱认证</td>
+              <td>
+              <?php if ($chkResult['chkEmail']):?>
+              	｛<a href="#">了解更多</a>｝
+              <?php else:?>
+              <input name="chkEmail" _href="/member/email" type="button" id="btn31" value="立即开通" />
+              <?php endif;?>
+              	</td>
+            </tr>
+            <tr>
+              <td align="center">&nbsp;</td>
+              <td colspan="2" align="left" class="huise"><?php echo $chkResult['chkEmail'] ? '已认证' : '未认证';?></td>
+              <td>&nbsp;</td>
+            </tr>
+            <tr>
+              <td height="35" align="center"><img src="/images/FrontEnd/aq_03.jpg" width="17" height="17" /></td>
+              <td colspan="2" align="left" class="<?php echo $chkResult['chkMobile'] ? 'lvs' : 'red';?>">手机认证</td>
+              <td>
+              <?php if ($chkResult['chkMobile']):?>
+              	｛<a href="#">了解更多</a>｝
+              <?php else:?>
+              <input name="chkMobile" _href="/member/mobile" type="button"  id="btn31" value="立即开通" />
+              <?php endif;?>
+<!--               <input name="btn31" type="submit" id="btn31" value="立即开通" /> -->
+              </td>
+            </tr>
+            <tr>
+              <td align="center">&nbsp;</td>
+              <td colspan="2" align="left" class="huise"><?php echo $chkResult['chkMobile'] ? '已认证' : '未认证';?></td>
+              <td>&nbsp;</td>
+            </tr>
+            <tr>
+              <td height="35" align="center"><img src="/images/FrontEnd/aq_03.jpg" alt="" width="17" height="17" /></td>
+              <td colspan="2" align="left" class="<?php echo $chkResult['chkIdentity'] ? 'lvs' : 'red';?>">身份认证</td>
+              <td>
+              <?php if ($chkResult['chkIdentity']):?>
+              	｛<a href="#">了解更多</a>｝
+              <?php else:?>
+              <input name="chkIdentity" _href="/member/identity" type="button" id="btn32"  value="立即开通" />
+              <?php endif;?>
+<!--               <input name="btn32" type="submit" id="btn32" value="立即开通" /> -->
+              </td>
+            </tr>
+            <tr>
+              <td align="center">&nbsp;</td>
+              <td colspan="2" align="left" class="huise"><?php echo $chkResult['chkIdentity'] ? '已认证' : '未认证';?></td>
+              <td>&nbsp;</td>
+            </tr>
+            <tr>
+              <td height="35" align="center"><img src="/images/FrontEnd/aq_03.jpg" alt="" width="17" height="17" /></td>
+              <td colspan="2" align="left" class="<?php echo $chkResult['chkSecret'] ? 'lvs' : 'red';?>">密保设置</td>
+              <td>
+              <?php if ($chkResult['chkSecret']):?>
+              	｛<a href="#">了解更多</a>｝
+              <?php else:?>
+              <input name="chkSecret" _href="/member/secret" type="button" id="btn33"  value="立即开通" />
+              <?php endif;?>
+<!--               <input name="btn33" type="submit" id="btn33" value="立即开通" /> -->
+              </td>
+            </tr>
+            <tr>
+              <td align="center">&nbsp;</td>
+              <td colspan="2" align="left" class="huise"><?php echo $chkResult['chkSecret'] ? '已设置' : '未设置';?></td>
+              <td>&nbsp;</td>
+            </tr>
+            <tr>
+              <td height="35" align="center"><img src="/images/FrontEnd/aq_03.jpg" alt="" width="17" height="17" /></td>
+              <td colspan="2" align="left" class="<?php echo $chkResult['chkOption'] ? 'lvs' : 'red';?>">操作保护</td>
+              <td>
+              <?php if ($chkResult['chkOption']):?>
+              	｛<a href="#">了解更多</a>｝
+              <?php else:?>
+              <input name="chkOption" _href="/member/optionProtect" type="button" id="btn34" value="立即开通" />
+              <?php endif;?>
+<!--               <input name="btn34" type="submit" id="btn34" value="立即开通" /> -->
+              </td>
+            </tr>
+            <tr>
+              <td align="center">&nbsp;</td>
+              <td colspan="2" align="left" class="huise"><?php echo $chkResult['chkOption'] ? '已设置' : '未设置';?></td>
+              <td>&nbsp;</td>
+            </tr>
+        </table>
+       </div>
+    
+    </div>
+ </div>
+ <script>
+$(function(){
+	$("input[_href]").click(function(){
+		var href = $(this).attr('_href');
+		location.href=href;
+	});
+})
+ </script>

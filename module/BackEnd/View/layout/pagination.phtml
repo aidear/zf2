@@ -1,4 +1,4 @@
-<?php if ($this->pageCount > 1): ?>
+<?php //if ($this->pageCount > 1): ?>
 <?php 
     if(strrpos($this->link , '?') === false){
         $prefix = '?page=';
@@ -15,9 +15,9 @@
     $action = $action.http_build_query($params);
 ?>
 <div class="pagination">
-	<ul class="set"><li><form id="pageSet" method="get" action="<?php echo $action;?>">
-	每页显示条数：<input type="text" name="pageSize" value="<?php echo $this->itemCountPerPage;?>" style="width:60px;height:30px;" />
-	<input type="button" name="button_page_size" value="确定" />
+	<ul class="set"><li><form id="pageSet" method="get" action="<?php echo $action;?>" style="margin-top:2px;">
+	每页显示条数：<input type="text" name="pageSize" value="<?php echo $this->itemCountPerPage;?>" style="width:40px;height:30px;margin-right:8px;" />
+<!-- 	<input type="button" name="button_page_size" value="确定" /> -->
 	</form>
 	</li></ul>
     <ul>
@@ -50,10 +50,10 @@
 </div>
 </div>
 
-<?php endif;?>
+<?php //endif;?>
 <script>
 $(function() {
-	$("input[type='button'][name='button_page_size']").click(function(){
+	var pageSizeEvent = function(){
 		var pageSize = $("input[name='pageSize']").val();
 		var reg = /^\d+$/;
 		if (reg.test(pageSize)) {
@@ -62,6 +62,13 @@ $(function() {
 			location.href=url;
 		} else {
 			alert('请输入数字！');
+		}
+	}
+	$("input[name='pageSize']").blur(pageSizeEvent);
+	$("input[name='pageSize']").focusin(function(e) {
+		e = window.event || e;
+		if (e.keyCode == 13) {
+			pageSizeEvent;
 		}
 	});
 })

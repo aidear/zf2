@@ -50,6 +50,9 @@ class FormInput extends \Zend\Form\View\Helper\FormInput
         if(isset($attributes['notemsg'])){
             $re .= "<span class='help-inline note'><i class='icon-info-sign'></i>{$attributes['notemsg']}</span>";
         }
+        if (isset($attributes['must'])) {
+        	$re .= "<span style='color:red;'> {$attributes['must']} </span>";
+        }
         
         if($errmsg){
             $re = '<div class="input-group error">' . $re;

@@ -23,10 +23,13 @@ class Module
 		$eventManager->attach('render', array($this, 'setDefaultView'));
 		
 		
-		$translator = $e->getApplication()->getServiceManager()->get('translator');
-		$translator
-		->setLocale(\Locale::acceptFromHttp($_SERVER['HTTP_ACCEPT_LANGUAGE']))
-		->setFallbackLocale('zh_CN');
+// 		$translator = $e->getApplication()->getServiceManager()->get('translator');
+// 		$translator
+// 		->setLocale(\Locale::acceptFromHttp($_SERVER['HTTP_ACCEPT_LANGUAGE']))
+// 		->setFallbackLocale('zh_CN');
+		$translator = new \Zend\Mvc\I18n\Translator();
+		$translator->addTranslationFile ( 'phparray' , __DIR__.'/language/zh_CN.php');
+		\Zend\Validator\AbstractValidator::setDefaultTranslator($translator);
 		$sys_config = array();
 		if (file_exists('./data/sys_config.php')) {
 			$sys_config = include'./data/sys_config.php';

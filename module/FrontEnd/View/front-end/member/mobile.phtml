@@ -1,3 +1,8 @@
+<?php 
+$this->headScript()->appendFile($this->basePath('js/jquery-validate.min.js'));
+$user = $this->user;
+$msg = $this->flashMessages();
+?>
 <div class="right">
     <div class="r_t">
     <h1>手机验证</h1>
@@ -12,23 +17,25 @@
        <p>3.新手机号码认证成功后，原认手机号码将会被撤销。</p>
        <p> 4.通过已认证的手机进行操作，进一步提高帐户安全性。 </p>
        </div>
-       <div class="mail_table"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+       <div class="mail_table">
+       <form id="mobileForm" method='post' action='' >
+       <table width="100%" border="0" cellspacing="0" cellpadding="0">
         <tr>
           <td width="88" height="38">&nbsp;</td>
-          <td width="100" height="38" align="right">当前邮箱地址：</td>
-          <td height="30" colspan="3">1388888888</td>
+          <td width="100" height="38" align="right">当前手机号码：</td>
+          <td height="30" colspan="3"><?php echo $user->Mobile;?></td>
         </tr>
         <tr>
           <td height="38">&nbsp;</td>
           <td height="38" align="right">新手机号：</td>
-          <td height="38" colspan="3"><input type="text" name="textfield2" id="textfield3" /></td>
+          <td height="38" colspan="3"><input data-required='true' data-pattern='^(1(3|5|8))\d{9}$' data-describedby='for_mobile' data-description='mobile' maxlength='11' type="text" name="textfield2" id="textfield3" /><span class='red' id='for_mobile'></span></td>
         </tr>
         <tr>
           <td height="38">&nbsp;</td>
           <td height="38" align="right">验证码：</td>
-          <td width="115" height="38"><input name="textfield4" type="text" id="textfield4" size="15" /></td>
-          <td width="69"><img src="images/yzm.jpg" alt="" width="55" height="21" /></td>
-          <td width="356" class="chengse"><a href="#">看不清，换一个</a></td>
+          <td width="115" height="38"><input data-required='true' data-describedby='for_valicate_code' data-description='valicate_code' name="valicate_code" type="text" id="textfield4" size="15" /><span class='red' id='for_valicate_code'></span></td>
+          <td width="69"><img src="/member/chkCaptcha?k=modify_mobile_captcha_code" id='mobile-captcha' alt="" width="55" height="21" /></td>
+          <td width="356" class="chengse"><a href="javascript:;" id="refresh_captcha">看不清，换一个</a></td>
         </tr>
         <tr>
           <td height="30">&nbsp;</td>
@@ -46,7 +53,26 @@
           <td height="38" align="right">&nbsp;</td>
           <td height="38" colspan="3"><input name="btn6" type="submit" id="btn6" value="提交" /></td>
         </tr>
-        </table></div>
+        </table></form></div>
       </div>
     </div>
  </div>
+ <script>
+$("#mobileForm").validate({
+	onBlur:true,
+	description:{
+		mobile:{
+			required:'请输入新手机号',
+			pattern:'格式不正确'
+		},
+		valicate_code:{
+			required:'请输入验证码'
+		}
+	}
+});
+$(function(){
+	$("#refresh_captcha").click(function(){
+		$("#mobile-captcha").attr('src', '/member/chkCaptcha?k=modify_mobile_captcha_code&t='+Math.random());
+	});
+})
+ </script>

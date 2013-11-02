@@ -1,0 +1,95 @@
+<?php 
+$msg = $this->flashMessages();
+?>
+<div class="right">
+    <div class="r_t">
+    <h1>积分明细</h1>
+    <h2>&nbsp;</h2></div>
+    <div class="r_c">
+       <div class="jif">
+         <table width="728" border="0" cellspacing="0" cellpadding="0">
+           <tr>
+             <td width="150" height="30" align="center" class="red">可用积分</td>
+             <td width="159" height="30" align="left">将要过期的积分</td>
+             <td width="187" height="30" align="center">节省金额</td>
+             <td width="232" height="30" align="center">&nbsp;</td>
+           </tr>
+           <tr>
+             <td height="30" align="center" class="heidz">11111</td>
+             <td height="30" align="left" class="heidz">0</td>
+             <td height="30" align="center"><span class="lvs">￥</span><span class="lanse">节省更多</span></td>
+             <td height="30" align="center">&nbsp;</td>
+           </tr>
+           <tr>
+             <td height="30" align="center">&nbsp;</td>
+             <td height="30" align="left">（2014年3月.1日 过期）</td>
+             <td height="30" align="center">&nbsp;</td>
+             <td height="30" align="center">&nbsp;</td>
+           </tr>
+         </table>
+       </div>
+        
+        <div class="jif01">
+        <div class="cz_lm"><li>全部明细</li>
+          <li>全部收入</li>
+          <li  class="out">全部支出</li>
+          <li>过期积分</li>
+          <li>冻结积分</li>
+          <li><input name="" type="text" value="订单编号" id="dingd" size="10" /></li>
+          <li>
+            <input type="submit" name="button" id="button123" value="查询" />
+          </li>
+          </div>
+          <div class="jftb">
+            <table width="728" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td height="30" align="center" bgcolor="#FBFBF3">日期</td>
+                <td height="30" align="center" bgcolor="#FBFBF3">来源/用途</td>
+                <td height="30" align="center" bgcolor="#FBFBF3">收入</td>
+                <td height="30" align="center" bgcolor="#FBFBF3">支出</td>
+                <td height="30" align="center" bgcolor="#FBFBF3">节省</td>
+                <td height="30" align="center" bgcolor="#FBFBF3">备注</td>
+              </tr>
+              <tr>
+                <td height="50" align="center"><p>2013.8.4</p>
+                <p>19:33:44</p></td>
+                <td height="50" align="center">充值话费</td>
+                <td height="50" align="center">55</td>
+                <td height="50" align="center">55同城</td>
+                <td height="50" align="center">&nbsp;</td>
+                <td height="50" align="center">交易获得</td>
+              </tr>
+              <tr>
+                <td height="50" align="center"><p>2013.8.4</p>
+                  <p>19:33:44</p></td>
+                <td height="50" align="center">充值话费</td>
+                <td height="50" align="center">55</td>
+                <td height="50" align="center">55同城</td>
+                <td height="50" align="center">&nbsp;</td>
+                <td height="50" align="center">交易获得</td>
+              </tr>
+              <tr>
+                <td height="50" align="center"><p>2013.8.4</p>
+                  <p>19:33:44</p></td>
+                <td height="50" align="center">充值话费</td>
+                <td height="50" align="center">55</td>
+                <td height="50" align="center">55同城</td>
+                <td height="50" align="center">&nbsp;</td>
+                <td height="50" align="center">交易获得</td>
+              </tr>
+            </table>
+          </div>
+          <div class="manu"><span class="current">1</span><a href="#?page=2">2</a><a href="#?page=3">3</a><a href="#?page=4">4</a><a href="#?page=5">5</a><a href="#?page=6">6</a><a href="#?page=7">7</a>...<a href="#?page=199">199</a><a href="#?page=200">200</a><a href="#?page=2"><span class="current">下一页</span>  </a></div>
+        
+        </div>
+        
+    </div>
+ </div>
+ <script>
+$(function(){
+	$("input[_href]").click(function(){
+		var href = $(this).attr('_href');
+		location.href=href;
+	});
+})
+ </script>

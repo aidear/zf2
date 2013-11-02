@@ -25,18 +25,18 @@ $msg = $this->flashMessages();
             <?php endif;?>
         <p><a class="btn btn-success" href="<?php echo $this->url('backend' 
             , array('controller' => 'member' , 'action' => 'save'))?>">
-        <i class="icon-plus"></i>新增会员</a>
+        <i class="icon-plus"></i>新增</a>
         					<a class="btn btn-edit" href="javascript:;" _href="<?php echo $this->url('backend', array('controller' 
                                 => 'member', 'action' => 'save')) ?>?id=">
                                 <i class="icon-edit"></i>编辑
                             </a>
                             <a class="btn btn-edit" href="javascript:;" _href="<?php echo $this->url('backend', array('controller' 
                                 => 'member', 'action' => 'pwd')) ?>?id=">
-                                <i class="icon-edit"></i>设置密码
+                                <i class="icon-edit"></i>设密
                             </a>
                             <a class="btn btn-edit" editMult="true" href="javascript:;" _href="<?php echo $this->url('backend', array('controller' 
                                 => 'member', 'action' => 'sendMail')) ?>?id=">
-                                <i class="icon-edit"></i>发送邮件
+                                <i class="icon-edit"></i>邮件
                             </a>
                             <a class="btn btn-delete" href="javascript:;" _href="<?php echo $this->url('backend', array('controller' 
                                 => 'member', 'action' => 'delete')) ?>?id=" onClick="diyConfirm('删除' , $(this).attr('href'), this);return false;"><i class="icon-delete"></i>删除
@@ -68,9 +68,30 @@ $msg = $this->flashMessages();
                     	用户名
                     <?php endif;?>
                     </th>
-                    <th key="Email" editable="true">邮箱</th>
-                    <th key="Mobile" editable="true">手机</th>
-                    <th key="Nick" editable="true">昵称</th>
+                    <th key="Email" editable="true">
+                     <?php if (isset($this->order['Email'])):?>
+                    <?php $name = $this->order['Email'];?>
+                    <a href="<?php echo $name['href'];?>">邮箱<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	邮箱
+                    <?php endif;?>
+ 					</th>
+                    <th key="Mobile" editable="true">
+       <?php if (isset($this->order['Mobile'])):?>
+                    <?php $name = $this->order['Mobile'];?>
+                    <a href="<?php echo $name['href'];?>"> 手机<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	 手机
+                    <?php endif;?>             
+                   </th>
+                    <th key="Nick" editable="true">
+       <?php if (isset($this->order['Nick'])):?>
+                    <?php $name = $this->order['Nick'];?>
+                    <a href="<?php echo $name['href'];?>">昵称<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	昵称
+                    <?php endif;?>             
+                    </th>
                     <th key="Points" editable="true">
                     <?php if (isset($this->order['Points'])):?>
                     <?php $name = $this->order['Points'];?>

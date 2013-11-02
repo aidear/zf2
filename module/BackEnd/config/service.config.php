@@ -44,15 +44,6 @@ return array(
 					$cache = \Zend\Cache\StorageFactory::factory($config['cache']);
 					return $cache;
 				},
-// 				'acl' => function($sm){
-// 					$dbAdapterFactory = new Custom\Db\Adapter\DefaultAdapter();
-// 					$dbAdapter = $dbAdapterFactory->createService($sm);
-				
-// 					return new \BackEnd\Model\Users\MyAcl($dbAdapter, $sm->get('cache'));
-// 					$config = $sm->get('Config');
-// 					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
-// 					return new Model\Users\MyAcl($dbAdapter, $sm->get('cache'));
-// 				},
 				'acl' => function($sm){
 					$dbAdapterFactory = new Custom\Db\Adapter\SmcninternalAdapter();
 					$dbAdapter = $dbAdapterFactory->createService($sm);

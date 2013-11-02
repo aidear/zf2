@@ -17,6 +17,7 @@ class Mail
 	{
 		$this->mail = new Message();
 		$this->mail->setFrom(ConfigTable::getSysConf('smtp_user'));
+		$this->mail->setEncoding('UTF-8');
 		$this->transport = new SmtpTransport();
 		
 		$connection_config = array(
