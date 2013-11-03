@@ -104,10 +104,10 @@ ul.input_test1 li{width:570px;height:auto;float:left;margin-top:10px;display:inl
 .pas_warp .con_2 .tit p{width:300px;float:left;font-size:12px;}
 .pas_warp .con_2 .c_1 img{float:left;padding-top:25px;padding-left:40px;padding-right:10px;}
 .pas_warp .con_2 .c_3{float:right;padding-top:30px;margin-right:10px;}
-.cg{height:110px;width:100%;border-top-width:1px;border-bottom-width:1px;border-top-style:solid;border-bottom-style:solid;border-top-color:#CCC;border-bottom-color:#CCC;background-color:#eaffd5;float:left;margin-top:20px;}
+.cg{/*height:110px;*/width:100%;border-top-width:1px;border-bottom-width:1px;border-top-style:solid;border-bottom-style:solid;border-top-color:#CCC;border-bottom-color:#CCC;background-color:#eaffd5;float:left;margin-top:20px;}
 .cg .pas_warp .cg_1{float:left;width:500px;line-height:48px;font-size:18px;font-weight:bold;color:#333;margin-top:30px;margin-left:30px;text-align:left;}
 .cg .pas_warp .cg_1 .cgimg img{float:left;}
-.fanh{background-color:#FFF;float:left;height:40px;width:100%;border-bottom-width:1px;border-bottom-style:solid;border-bottom-color:#CCC;}
+.fanh{background-color:#FFF;float:left;/*height:40px;*/width:100%;border-bottom-width:1px;border-bottom-style:solid;border-bottom-color:#CCC;}
 .fanh .pas_warp .fanh_t{float:left;line-height:40px;color:#06C;font-size:16px;font-weight:bold;padding-left:100px;}
 .fanh .pas_warp .fanh_t a{color:#09C;}
 .foot_1{background-color:#e8e8e8;float:left;width:100%;line-height:60px;height:60px;font-family:"微软雅黑";font-size:12px;margin-top:15px;}

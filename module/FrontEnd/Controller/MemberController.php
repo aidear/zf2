@@ -710,7 +710,7 @@ class MemberController extends AbstractActionController
 		if (!$pwd) {
 			return 0;
 		}
-		if (preg_match('^\d+$', $pwd) || preg_match('^[a-zA-Z]+$', $pwd)) {
+		if (preg_match('/^\d+$/', $pwd) || preg_match('/^[a-zA-Z]+$/', $pwd)) {
 			return 1;
 		}
 		if (strlen($pwd) <= 10) {
