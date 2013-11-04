@@ -147,3 +147,26 @@ button.close {
 	z-index:60;
 	border-bottom:1px dotted #8f8f8f;
 }
+
+.security_tips {
+	position:relative;
+}
+.security_tips .tips_span {
+	position:absolute;
+	left:0;
+	top:20px;
+	border:1px solid #eab591;
+	border-radius:3px;
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+	padding:6px;
+	background-color:#fff;
+	line-height:26px;
+	z-index:20;
+}
+.security_tips .tips_span i {
+	float:right;
+	margin-top:-8px;
+	margin-right:0px;
+	cursor:pointer;
+}

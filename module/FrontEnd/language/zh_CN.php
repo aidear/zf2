@@ -12,259 +12,259 @@
  */
 return array(
     // Zend_I18n_Validator_Alnum
-    "Invalid type given. String, integer or float expected" => "ÇëÊäÈëÒ»¸öÕûÊý»òÐ¡Êý",
-    "The input contains characters which are non alphabetic and no digits" => "ÊäÈë²»ÄÜÎª×ÖÄ¸Êý×ÖÒÔÍâµÄ×Ö·û",
-    "The input is an empty string" => "ÊäÈë²»ÄÜÎª¿Õ",
+    "Invalid type given. String, integer or float expected" => "è¯·è¾“å…¥ä¸€ä¸ªæ•´æ•°æˆ–å°æ•°",
+    "The input contains characters which are non alphabetic and no digits" => "è¾“å…¥ä¸èƒ½ä¸ºå­—æ¯æ•°å­—ä»¥å¤–çš„å­—ç¬¦",
+    "The input is an empty string" => "è¾“å…¥ä¸èƒ½ä¸ºç©º",
 
     // Zend_I18n_Validator_Alpha
-    "Invalid type given. String expected" => "ÊäÈëÎÞÐ§£¬ÇëÊäÈëÒ»¸ö×Ö·û´®",
-    "The input contains non alphabetic characters" => "ÊäÈë²»ÄÜÎª×ÖÄ¸ÒÔÍâµÄ×Ö·û",
-    "The input is an empty string" => "ÊäÈë²»ÄÜÎª¿Õ",
+    "Invalid type given. String expected" => "è¾“å…¥æ— æ•ˆï¼Œè¯·è¾“å…¥ä¸€ä¸ªå­—ç¬¦ä¸²",
+    "The input contains non alphabetic characters" => "è¾“å…¥ä¸èƒ½ä¸ºå­—æ¯ä»¥å¤–çš„å­—ç¬¦",
+    "The input is an empty string" => "è¾“å…¥ä¸èƒ½ä¸ºç©º",
 
     // Zend_I18n_Validator_Float
-    "Invalid type given. String, integer or float expected" => "ÇëÊäÈëÓëÒ»¸öÕûÊý»òÐ¡Êý",
-    "The input does not appear to be a float" => "ÊäÈëÎÞÐ§£¬ÇëÊäÈëÒ»¸öÐ¡Êý",
+    "Invalid type given. String, integer or float expected" => "è¯·è¾“å…¥ä¸Žä¸€ä¸ªæ•´æ•°æˆ–å°æ•°",
+    "The input does not appear to be a float" => "è¾“å…¥æ— æ•ˆï¼Œè¯·è¾“å…¥ä¸€ä¸ªå°æ•°",
 
     // Zend_I18n_Validator_Int
-    "Invalid type given. String or integer expected" => "ÊäÈëÎÞÐ§£¬ÇëÊäÈë×Ö·û»òÊý×Ö",
-    "The input does not appear to be an integer" => "ÇëÊäÈëÒ»¸öÕûÊý",
+    "Invalid type given. String or integer expected" => "è¾“å…¥æ— æ•ˆï¼Œè¯·è¾“å…¥å­—ç¬¦æˆ–æ•°å­—",
+    "The input does not appear to be an integer" => "è¯·è¾“å…¥ä¸€ä¸ªæ•´æ•°",
 
     // Zend_I18n_Validator_PostCode
-    "Invalid type given. String or integer expected" => "ÊäÈëÎÞÐ§£¬ÇëÊäÈëÒ»¸ö×Ö·û»òÊý×Ö",
-    "The input does not appear to be a postal code" => "ÎÞÐ§µÄÓÊÕþ±àÂë¸ñÊ½",
-    "An exception has been raised while validating the input" => "ÑéÖ¤ÊäÈëÊ±ÓÐÒì³£·¢Éú",
+    "Invalid type given. String or integer expected" => "è¾“å…¥æ— æ•ˆï¼Œè¯·è¾“å…¥ä¸€ä¸ªå­—ç¬¦æˆ–æ•°å­—",
+    "The input does not appear to be a postal code" => "æ— æ•ˆçš„é‚®æ”¿ç¼–ç æ ¼å¼",
+    "An exception has been raised while validating the input" => "éªŒè¯è¾“å…¥æ—¶æœ‰å¼‚å¸¸å‘ç”Ÿ",
 
     // Zend_Validator_Barcode
-    "The input failed checksum validation" => "ÊäÈëµÄÌõÂëÎÞ·¨Í¨¹ýÐ£Ñé",
-    "The input contains invalid characters" => "ÊäÈëµÄÌõÂë°üº¬ÎÞÐ§µÄ×Ö·û",
-    "The input should have a length of %length% characters" => "ÊäÈëµÄÌõÂë³¤¶ÈÓ¦Îª%length%¸ö×Ö·û",
-    "Invalid type given. String expected" => "ÊäÈëÎÞÐ§£¬ÇëÊäÈëÒ»¸ö×Ö·û´®",
+    "The input failed checksum validation" => "è¾“å…¥çš„æ¡ç æ— æ³•é€šè¿‡æ ¡éªŒ",
+    "The input contains invalid characters" => "è¾“å…¥çš„æ¡ç åŒ…å«æ— æ•ˆçš„å­—ç¬¦",
+    "The input should have a length of %length% characters" => "è¾“å…¥çš„æ¡ç é•¿åº¦åº”ä¸º%length%ä¸ªå­—ç¬¦",
+    "Invalid type given. String expected" => "è¾“å…¥æ— æ•ˆï¼Œè¯·è¾“å…¥ä¸€ä¸ªå­—ç¬¦ä¸²",
 
     // Zend_Validator_Between
-    "The input is not between '%min%' and '%max%', inclusively" => "ÇëÊäÈë´óÓÚµÈÓÚ'%min%'²¢Ð¡ÓÚµÈÓÚ'%max%'µÄÖµ",
-    "The input is not strictly between '%min%' and '%max%'" => "ÇëÊäÈë´óÓÚ'%min%'²¢Ð¡ÓÚ'%max%'µÄÖµ",
+    "The input is not between '%min%' and '%max%', inclusively" => "è¯·è¾“å…¥å¤§äºŽç­‰äºŽ'%min%'å¹¶å°äºŽç­‰äºŽ'%max%'çš„å€¼",
+    "The input is not strictly between '%min%' and '%max%'" => "è¯·è¾“å…¥å¤§äºŽ'%min%'å¹¶å°äºŽ'%max%'çš„å€¼",
 
     // Zend_Validator_Callback
-    "The input is not valid" => "ÊäÈëÎÞÐ§",
-    "An exception has been raised within the callback" => "»Øµ÷ÖÐÓÐÒì³£·¢Éú",
+    "The input is not valid" => "è¾“å…¥æ— æ•ˆ",
+    "An exception has been raised within the callback" => "å›žè°ƒä¸­æœ‰å¼‚å¸¸å‘ç”Ÿ",
 
     // Zend_Validator_CreditCard
-    "The input seems to contain an invalid checksum" => "ÊäÈëµÄ¿¨ºÅ¸ñÊ½ÓÐÎó",
-    "The input must contain only digits" => "¿¨ºÅÓ¦ÎªÊý×Ö",
-    "Invalid type given. String expected" => "ÊäÈëÎÞÐ§£¬ÇëÊäÈëÒ»¸ö×Ö·û´®",
-    "The input contains an invalid amount of digits" => "ÊäÈëµÄ¿¨ºÅ³¤¶ÈÓÐÎó",
-    "The input is not from an allowed institute" => "ÊäÈëµÄ¿¨ºÅÃ»ÓÐÕÒµ½¶ÔÓ¦µÄ·¢ÐÐ»ú¹¹",
-    "The input seems to be an invalid creditcard number" => "ÊäÈëµÄ¿¨ºÅÎÞ·¨Í¨¹ýÐ£Ñé",
-    "An exception has been raised while validating the input" => "ÑéÖ¤ÊäÈëÊ±ÓÐÒì³£·¢Éú",
+    "The input seems to contain an invalid checksum" => "è¾“å…¥çš„å¡å·æ ¼å¼æœ‰è¯¯",
+    "The input must contain only digits" => "å¡å·åº”ä¸ºæ•°å­—",
+    "Invalid type given. String expected" => "è¾“å…¥æ— æ•ˆï¼Œè¯·è¾“å…¥ä¸€ä¸ªå­—ç¬¦ä¸²",
+    "The input contains an invalid amount of digits" => "è¾“å…¥çš„å¡å·é•¿åº¦æœ‰è¯¯",
+    "The input is not from an allowed institute" => "è¾“å…¥çš„å¡å·æ²¡æœ‰æ‰¾åˆ°å¯¹åº”çš„å‘è¡Œæœºæž„",
+    "The input seems to be an invalid creditcard number" => "è¾“å…¥çš„å¡å·æ— æ³•é€šè¿‡æ ¡éªŒ",
+    "An exception has been raised while validating the input" => "éªŒè¯è¾“å…¥æ—¶æœ‰å¼‚å¸¸å‘ç”Ÿ",
 
     // Zend_Validator_Csrf
-    "The form submitted did not originate from the expected site" => "±íµ¥Ìá½»À´Ô´ÍøÕ¾Î´¾­¹ýÐí¿É",
+    "The form submitted did not originate from the expected site" => "è¡¨å•æäº¤æ¥æºç½‘ç«™æœªç»è¿‡è®¸å¯",
 
     // Zend_Validator_Date
-    "Invalid type given. String, integer, array or DateTime expected" => "ÊäÈëÎÞÐ§£¬ÇëÊäÈë×Ö·ûÊý×Ö»òÈÕÆÚ",
-    "The input does not appear to be a valid date" => "ÊäÈëµÄÈÕÆÚ¸ñÊ½ÎÞÐ§",
-    "The input does not fit the date format '%format%'" => "Çë°´ÕÕÈÕÆÚ¸ñÊ½'%format%'ÊäÈëÒ»¸öÈÕÆÚ",
+    "Invalid type given. String, integer, array or DateTime expected" => "è¾“å…¥æ— æ•ˆï¼Œè¯·è¾“å…¥å­—ç¬¦æ•°å­—æˆ–æ—¥æœŸ",
+    "The input does not appear to be a valid date" => "è¾“å…¥çš„æ—¥æœŸæ ¼å¼æ— æ•ˆ",
+    "The input does not fit the date format '%format%'" => "è¯·æŒ‰ç…§æ—¥æœŸæ ¼å¼'%format%'è¾“å…¥ä¸€ä¸ªæ—¥æœŸ",
 
     // Zend_Validator_DateStep
-    "Invalid type given. String, integer, array or DateTime expected" => "ÊäÈëÎÞÐ§£¬ÇëÊäÈë×Ö·ûÊý×Ö»òÈÕÆÚ",
-    "The input does not appear to be a valid date" => "ÊäÈëµÄÈÕÆÚ¸ñÊ½ÎÞÐ§",
+    "Invalid type given. String, integer, array or DateTime expected" => "è¾“å…¥æ— æ•ˆï¼Œè¯·è¾“å…¥å­—ç¬¦æ•°å­—æˆ–æ—¥æœŸ",
+    "The input does not appear to be a valid date" => "è¾“å…¥çš„æ—¥æœŸæ ¼å¼æ— æ•ˆ",
     "The input is not a valid step" => "The input is not a valid step",
 
     // Zend_Validator_Db_AbstractDb
-    "No record matching the input was found" => "Ã»ÓÐÕÒµ½Æ¥ÅäÊäÈëµÄ¼ÇÂ¼",
-    "A record matching the input was found" => "ÊäÈëÒÑ¾­±»Õ¼ÓÃ",
+    "No record matching the input was found" => "æ²¡æœ‰æ‰¾åˆ°åŒ¹é…è¾“å…¥çš„è®°å½•",
+    "A record matching the input was found" => "è¾“å…¥å·²ç»è¢«å ç”¨",
 
     // Zend_Validator_Digits
-    "The input must contain only digits" => "ÊäÈë²»ÄÜÎªÊý×ÖÒÔÍâµÄ×Ö·û",
-    "The input is an empty string" => "ÊäÈë²»ÄÜÎª¿Õ",
-    "Invalid type given. String, integer or float expected" => "ÊäÈëÎÞÐ§£¬ÇëÊäÈë×Ö·ûÕûÊý»òÐ¡Êý",
+    "The input must contain only digits" => "è¾“å…¥ä¸èƒ½ä¸ºæ•°å­—ä»¥å¤–çš„å­—ç¬¦",
+    "The input is an empty string" => "è¾“å…¥ä¸èƒ½ä¸ºç©º",
+    "Invalid type given. String, integer or float expected" => "è¾“å…¥æ— æ•ˆï¼Œè¯·è¾“å…¥å­—ç¬¦æ•´æ•°æˆ–å°æ•°",
 
     // Zend_Validator_EmailAddress
-    "Invalid type given. String expected" => "ÊäÈëÎÞÐ§£¬ÇëÊäÈëÒ»¸ö×Ö·û´®",
-    "The input is not a valid email address. Use the basic format local-part@hostname" => "ÊäÈëÓÊ¼þµØÖ·¸ñÊ½ÓÐÎó£¬Çë¼ì²é¸ñÊ½ÊÇ·ñÎªlocal-part@hostname",
-    "'%hostname%' is not a valid hostname for the email address" => "'%hostname%'²»ÊÇÒ»¸ö¿ÉÓÃµÄÓÊ¼þÓòÃû",
-    "'%hostname%' does not appear to have any valid MX or A records for the email address" => "'%hostname%'ÓòÃûÏÂÃ»ÓÐÕÒµ½¿ÉÓÃµÄMX»òA¼ÇÂ¼£¬ÓÊ¼þÎÞ·¨Í¶µÝ",
-    "'%hostname%' is not in a routable network segment. The email address should not be resolved from public network" => "'%hostname%'ÓòÃûËùÔÚÍø¶ÎÎÞ·¨±»Â·ÓÉ£¬ÓÊ¼þµØÖ·Ó¦Î»ÓÚ¹«¹²ÍøÂç",
-    "'%localPart%' can not be matched against dot-atom format" => "ÓÊ¼þÓÃ»§Ãû²¿·Ö'%localPart%'¸ñÊ½ÎÞ·¨Æ¥Åädot-atom¸ñÊ½",
-    "'%localPart%' can not be matched against quoted-string format" => "ÓÊ¼þÓÃ»§Ãû²¿·Ö'%localPart%'¸ñÊ½ÎÞ·¨Æ¥Åäquoted-string¸ñÊ½",
-    "'%localPart%' is not a valid local part for the email address" => "'%localPart%'²»ÊÇÒ»¸öÓÐÐ§µÄÓÊ¼þÓÃ»§Ãû",
-    "The input exceeds the allowed length" => "ÊäÈë³¬³öÔÊÐí³¤¶È",
+    "Invalid type given. String expected" => "è¾“å…¥æ— æ•ˆï¼Œè¯·è¾“å…¥ä¸€ä¸ªå­—ç¬¦ä¸²",
+    "The input is not a valid email address. Use the basic format local-part@hostname" => "è¾“å…¥é‚®ä»¶åœ°å€æ ¼å¼æœ‰è¯¯ï¼Œè¯·æ£€æŸ¥æ ¼å¼æ˜¯å¦ä¸ºlocal-part@hostname",
+    "'%hostname%' is not a valid hostname for the email address" => "'%hostname%'ä¸æ˜¯ä¸€ä¸ªå¯ç”¨çš„é‚®ä»¶åŸŸå",
+    "'%hostname%' does not appear to have any valid MX or A records for the email address" => "'%hostname%'åŸŸåä¸‹æ²¡æœ‰æ‰¾åˆ°å¯ç”¨çš„MXæˆ–Aè®°å½•ï¼Œé‚®ä»¶æ— æ³•æŠ•é€’",
+    "'%hostname%' is not in a routable network segment. The email address should not be resolved from public network" => "'%hostname%'åŸŸåæ‰€åœ¨ç½‘æ®µæ— æ³•è¢«è·¯ç”±ï¼Œé‚®ä»¶åœ°å€åº”ä½äºŽå…¬å…±ç½‘ç»œ",
+    "'%localPart%' can not be matched against dot-atom format" => "é‚®ä»¶ç”¨æˆ·åéƒ¨åˆ†'%localPart%'æ ¼å¼æ— æ³•åŒ¹é…dot-atomæ ¼å¼",
+    "'%localPart%' can not be matched against quoted-string format" => "é‚®ä»¶ç”¨æˆ·åéƒ¨åˆ†'%localPart%'æ ¼å¼æ— æ³•åŒ¹é…quoted-stringæ ¼å¼",
+    "'%localPart%' is not a valid local part for the email address" => "'%localPart%'ä¸æ˜¯ä¸€ä¸ªæœ‰æ•ˆçš„é‚®ä»¶ç”¨æˆ·å",
+    "The input exceeds the allowed length" => "è¾“å…¥è¶…å‡ºå…è®¸é•¿åº¦",
 
     // Zend_Validator_Explode
-    "Invalid type given. String expected" => "ÊäÈëÎÞÐ§£¬ÇëÊäÈëÒ»¸ö×Ö·û´®",
+    "Invalid type given. String expected" => "è¾“å…¥æ— æ•ˆï¼Œè¯·è¾“å…¥ä¸€ä¸ªå­—ç¬¦ä¸²",
 
     // Zend_Validator_File_Count
-    "Too many files, maximum '%max%' are allowed but '%count%' are given" => "ÎÄ¼þ¹ý¶à£¬×î¶àÔÊÐí'%max%'¸öÎÄ¼þ£¬ÕÒµ½'%count%'¸ö",
-    "Too few files, minimum '%min%' are expected but '%count%' are given" => "ÎÄ¼þ¹ýÉÙ£¬ÖÁÉÙÐèÒª'%min%'¸öÎÄ¼þ£¬ÕÒµ½'%count%'¸ö",
+    "Too many files, maximum '%max%' are allowed but '%count%' are given" => "æ–‡ä»¶è¿‡å¤šï¼Œæœ€å¤šå…è®¸'%max%'ä¸ªæ–‡ä»¶ï¼Œæ‰¾åˆ°'%count%'ä¸ª",
+    "Too few files, minimum '%min%' are expected but '%count%' are given" => "æ–‡ä»¶è¿‡å°‘ï¼Œè‡³å°‘éœ€è¦'%min%'ä¸ªæ–‡ä»¶ï¼Œæ‰¾åˆ°'%count%'ä¸ª",
 
     // Zend_Validator_File_Crc32
-    "File '%value%' does not match the given crc32 hashes" => "ÎÄ¼þ'%value%'ÎÞ·¨Í¨¹ýCRC32Ð£Ñé",
-    "A crc32 hash could not be evaluated for the given file" => "ÎÄ¼þÎÞ·¨Éú³ÉCRC32Ð£ÑéÂë",
-    "File '%value%' is not readable or does not exist" => "ÎÄ¼þ'%value%'ÎÞ·¨¶ÁÈ¡»ò²»´æÔÚ",
+    "File '%value%' does not match the given crc32 hashes" => "æ–‡ä»¶'%value%'æ— æ³•é€šè¿‡CRC32æ ¡éªŒ",
+    "A crc32 hash could not be evaluated for the given file" => "æ–‡ä»¶æ— æ³•ç”ŸæˆCRC32æ ¡éªŒç ",
+    "File '%value%' is not readable or does not exist" => "æ–‡ä»¶'%value%'æ— æ³•è¯»å–æˆ–ä¸å­˜åœ¨",
 
     // Zend_Validator_File_ExcludeExtension
-    "File '%value%' has a false extension" => "ÎÄ¼þ'%value%'À©Õ¹Ãû²»ÔÊÐí",
-    "File '%value%' is not readable or does not exist" => "ÎÄ¼þ'%value%'ÎÞ·¨¶ÁÈ¡»ò²»´æÔÚ",
+    "File '%value%' has a false extension" => "æ–‡ä»¶'%value%'æ‰©å±•åä¸å…è®¸",
+    "File '%value%' is not readable or does not exist" => "æ–‡ä»¶'%value%'æ— æ³•è¯»å–æˆ–ä¸å­˜åœ¨",
 
     // Zend_Validator_File_Exists
-    "File '%value%' does not exist" => "ÎÄ¼þ'%value%'²»´æÔÚ",
+    "File '%value%' does not exist" => "æ–‡ä»¶'%value%'ä¸å­˜åœ¨",
 
     // Zend_Validator_File_Extension
-    "File '%value%' has a false extension" => "ÎÄ¼þ'%value%'À©Õ¹Ãû²»ÔÊÐí",
-    "File '%value%' is not readable or does not exist" => "ÎÄ¼þ'%value%'ÎÞ·¨¶ÁÈ¡»ò²»´æÔÚ",
+    "File '%value%' has a false extension" => "æ–‡ä»¶'%value%'æ‰©å±•åä¸å…è®¸",
+    "File '%value%' is not readable or does not exist" => "æ–‡ä»¶'%value%'æ— æ³•è¯»å–æˆ–ä¸å­˜åœ¨",
 
     // Zend_Validator_File_FilesSize
-    "All files in sum should have a maximum size of '%max%' but '%size%' were detected" => "ËùÓÐÎÄ¼þ×Ü´óÐ¡'%size%'³¬³ö£¬×î´óÔÊÐí'%max%'",
-    "All files in sum should have a minimum size of '%min%' but '%size%' were detected" => "ËùÓÐÎÄ¼þ×Ü´óÐ¡'%size%'²»×ã£¬ÖÁÉÙÐèÒª'%min%'",
-    "One or more files can not be read" => "Ò»¸ö»ò¶à¸öÎÄ¼þÎÞ·¨¶ÁÈ¡",
+    "All files in sum should have a maximum size of '%max%' but '%size%' were detected" => "æ‰€æœ‰æ–‡ä»¶æ€»å¤§å°'%size%'è¶…å‡ºï¼Œæœ€å¤§å…è®¸'%max%'",
+    "All files in sum should have a minimum size of '%min%' but '%size%' were detected" => "æ‰€æœ‰æ–‡ä»¶æ€»å¤§å°'%size%'ä¸è¶³ï¼Œè‡³å°‘éœ€è¦'%min%'",
+    "One or more files can not be read" => "ä¸€ä¸ªæˆ–å¤šä¸ªæ–‡ä»¶æ— æ³•è¯»å–",
 
     // Zend_Validator_File_Hash
-    "File '%value%' does not match the given hashes" => "ÎÄ¼þ'%value%'ÎÞ·¨Í¨¹ý¹þÏ£Ð£Ñé",
-    "A hash could not be evaluated for the given file" => "ÎÄ¼þÎÞ·¨Éú³É¹þÏ£Ð£ÑéÂë",
-    "File '%value%' is not readable or does not exist" => "ÎÄ¼þ'%value%'ÎÞ·¨¶ÁÈ¡»ò²»´æÔÚ",
+    "File '%value%' does not match the given hashes" => "æ–‡ä»¶'%value%'æ— æ³•é€šè¿‡å“ˆå¸Œæ ¡éªŒ",
+    "A hash could not be evaluated for the given file" => "æ–‡ä»¶æ— æ³•ç”Ÿæˆå“ˆå¸Œæ ¡éªŒç ",
+    "File '%value%' is not readable or does not exist" => "æ–‡ä»¶'%value%'æ— æ³•è¯»å–æˆ–ä¸å­˜åœ¨",
 
     // Zend_Validator_File_ImageSize
-    "Maximum allowed width for image '%value%' should be '%maxwidth%' but '%width%' detected" => "Í¼Æ¬'%value%'µÄ¿í¶È'%width%'³¬³ö£¬×î´óÔÊÐí'%maxwidth%'",
-    "Minimum expected width for image '%value%' should be '%minwidth%' but '%width%' detected" => "Í¼Æ¬'%value%'µÄ¿í¶È'%width%'²»×ã£¬ÖÁÉÙÓ¦Îª'%minwidth%'",
-    "Maximum allowed height for image '%value%' should be '%maxheight%' but '%height%' detected" => "Í¼Æ¬'%value%'µÄ¸ß¶È'%height%'³¬³ö£¬×î´óÔÊÐí'%maxheight%'",
-    "Minimum expected height for image '%value%' should be '%minheight%' but '%height%' detected" => "Í¼Æ¬'%value%'µÄ¸ß¶È'%height%'²»×ã£¬ÖÁÉÙÓ¦Îª'%minheight%'",
-    "The size of image '%value%' could not be detected" => "Í¼Æ¬'%value%'µÄ³ß´çÎÞ·¨¶ÁÈ¡",
-    "File '%value%' is not readable or does not exist" => "ÎÄ¼þ'%value%'ÎÞ·¨¶ÁÈ¡»ò²»´æÔÚ",
+    "Maximum allowed width for image '%value%' should be '%maxwidth%' but '%width%' detected" => "å›¾ç‰‡'%value%'çš„å®½åº¦'%width%'è¶…å‡ºï¼Œæœ€å¤§å…è®¸'%maxwidth%'",
+    "Minimum expected width for image '%value%' should be '%minwidth%' but '%width%' detected" => "å›¾ç‰‡'%value%'çš„å®½åº¦'%width%'ä¸è¶³ï¼Œè‡³å°‘åº”ä¸º'%minwidth%'",
+    "Maximum allowed height for image '%value%' should be '%maxheight%' but '%height%' detected" => "å›¾ç‰‡'%value%'çš„é«˜åº¦'%height%'è¶…å‡ºï¼Œæœ€å¤§å…è®¸'%maxheight%'",
+    "Minimum expected height for image '%value%' should be '%minheight%' but '%height%' detected" => "å›¾ç‰‡'%value%'çš„é«˜åº¦'%height%'ä¸è¶³ï¼Œè‡³å°‘åº”ä¸º'%minheight%'",
+    "The size of image '%value%' could not be detected" => "å›¾ç‰‡'%value%'çš„å°ºå¯¸æ— æ³•è¯»å–",
+    "File '%value%' is not readable or does not exist" => "æ–‡ä»¶'%value%'æ— æ³•è¯»å–æˆ–ä¸å­˜åœ¨",
 
     // Zend_Validator_File_IsCompressed
-    "File '%value%' is not compressed, '%type%' detected" => "ÎÄ¼þ'%value%'Ã»ÓÐ±»Ñ¹Ëõ£¬¼ì²âµ½ÎÄ¼þµÄÃ½ÌåÀàÐÍÎª'%type%'",
-    "The mimetype of file '%value%' could not be detected" => "ÎÄ¼þ'%value%'µÄÃ½ÌåÀàÐÍÎÞ·¨¼ì²â",
-    "File '%value%' is not readable or does not exist" => "ÎÄ¼þ'%value%'ÎÞ·¨¶ÁÈ¡»ò²»´æÔÚ",
+    "File '%value%' is not compressed, '%type%' detected" => "æ–‡ä»¶'%value%'æ²¡æœ‰è¢«åŽ‹ç¼©ï¼Œæ£€æµ‹åˆ°æ–‡ä»¶çš„åª’ä½“ç±»åž‹ä¸º'%type%'",
+    "The mimetype of file '%value%' could not be detected" => "æ–‡ä»¶'%value%'çš„åª’ä½“ç±»åž‹æ— æ³•æ£€æµ‹",
+    "File '%value%' is not readable or does not exist" => "æ–‡ä»¶'%value%'æ— æ³•è¯»å–æˆ–ä¸å­˜åœ¨",
 
     // Zend_Validator_File_IsImage
-    "File '%value%' is no image, '%type%' detected" => "ÎÄ¼þ'%value%'²»ÊÇÍ¼Æ¬£¬¼ì²âµ½ÎÄ¼þµÄÃ½ÌåÀàÐÍÎª'%type%'",
-    "The mimetype of file '%value%' could not be detected" => "ÎÄ¼þ'%value%'µÄÃ½ÌåÀàÐÍÎÞ·¨¼ì²â",
-    "File '%value%' is not readable or does not exist" => "ÎÄ¼þ'%value%'ÎÞ·¨¶ÁÈ¡»ò²»´æÔÚ",
+    "File '%value%' is no image, '%type%' detected" => "æ–‡ä»¶'%value%'ä¸æ˜¯å›¾ç‰‡ï¼Œæ£€æµ‹åˆ°æ–‡ä»¶çš„åª’ä½“ç±»åž‹ä¸º'%type%'",
+    "The mimetype of file '%value%' could not be detected" => "æ–‡ä»¶'%value%'çš„åª’ä½“ç±»åž‹æ— æ³•æ£€æµ‹",
+    "File '%value%' is not readable or does not exist" => "æ–‡ä»¶'%value%'æ— æ³•è¯»å–æˆ–ä¸å­˜åœ¨",
 
     // Zend_Validator_File_Md5
-    "File '%value%' does not match the given md5 hashes" => "ÎÄ¼þ'%value%'ÎÞ·¨Í¨¹ýMD5Ð£Ñé",
-    "A md5 hash could not be evaluated for the given file" => "ÎÄ¼þÎÞ·¨Éú³ÉMD5Ð£ÑéÂë",
-    "File '%value%' is not readable or does not exist" => "ÎÄ¼þ'%value%'ÎÞ·¨¶ÁÈ¡»ò²»´æÔÚ",
+    "File '%value%' does not match the given md5 hashes" => "æ–‡ä»¶'%value%'æ— æ³•é€šè¿‡MD5æ ¡éªŒ",
+    "A md5 hash could not be evaluated for the given file" => "æ–‡ä»¶æ— æ³•ç”ŸæˆMD5æ ¡éªŒç ",
+    "File '%value%' is not readable or does not exist" => "æ–‡ä»¶'%value%'æ— æ³•è¯»å–æˆ–ä¸å­˜åœ¨",
 
     // Zend_Validator_File_MimeType
-    "File '%value%' has a false mimetype of '%type%'" => "ÎÄ¼þ'%value%'µÄÃ½ÌåÀàÐÍ'%type%'²»ÔÊÐí",
-    "The mimetype of file '%value%' could not be detected" => "ÎÄ¼þ'%value%'µÄÃ½ÌåÀàÐÍÎÞ·¨¼ì²â",
-    "File '%value%' is not readable or does not exist" => "ÎÄ¼þ'%value%'ÎÞ·¨¶ÁÈ¡»ò²»´æÔÚ",
+    "File '%value%' has a false mimetype of '%type%'" => "æ–‡ä»¶'%value%'çš„åª’ä½“ç±»åž‹'%type%'ä¸å…è®¸",
+    "The mimetype of file '%value%' could not be detected" => "æ–‡ä»¶'%value%'çš„åª’ä½“ç±»åž‹æ— æ³•æ£€æµ‹",
+    "File '%value%' is not readable or does not exist" => "æ–‡ä»¶'%value%'æ— æ³•è¯»å–æˆ–ä¸å­˜åœ¨",
 
     // Zend_Validator_File_NotExists
-    "File '%value%' exists" => "ÎÄ¼þ'%value%'ÒÑ¾­´æÔÚ",
+    "File '%value%' exists" => "æ–‡ä»¶'%value%'å·²ç»å­˜åœ¨",
 
     // Zend_Validator_File_Sha1
-    "File '%value%' does not match the given sha1 hashes" => "ÎÄ¼þ'%value%'ÎÞ·¨Í¨¹ýSHA1Ð£Ñé",
-    "A sha1 hash could not be evaluated for the given file" => "ÎÄ¼þÎÞ·¨Éú³ÉSHA1Ð£ÑéÂë",
-    "File '%value%' is not readable or does not exist" => "ÎÄ¼þ'%value%'ÎÞ·¨¶ÁÈ¡»ò²»´æÔÚ",
+    "File '%value%' does not match the given sha1 hashes" => "æ–‡ä»¶'%value%'æ— æ³•é€šè¿‡SHA1æ ¡éªŒ",
+    "A sha1 hash could not be evaluated for the given file" => "æ–‡ä»¶æ— æ³•ç”ŸæˆSHA1æ ¡éªŒç ",
+    "File '%value%' is not readable or does not exist" => "æ–‡ä»¶'%value%'æ— æ³•è¯»å–æˆ–ä¸å­˜åœ¨",
 
     // Zend_Validator_File_Size
-    "Maximum allowed size for file '%value%' is '%max%' but '%size%' detected" => "ÎÄ¼þ'%value%'µÄ´óÐ¡'%size%'³¬³ö£¬×î´óÔÊÐí'%max%'",
-    "Minimum expected size for file '%value%' is '%min%' but '%size%' detected" => "ÎÄ¼þ'%value%'µÄ´óÐ¡'%size%'²»×ã£¬ÖÁÉÙÐèÒª'%min%'",
-    "File '%value%' is not readable or does not exist" => "ÎÄ¼þ'%value%'ÎÞ·¨¶ÁÈ¡»ò²»´æÔÚ",
+    "Maximum allowed size for file '%value%' is '%max%' but '%size%' detected" => "æ–‡ä»¶'%value%'çš„å¤§å°'%size%'è¶…å‡ºï¼Œæœ€å¤§å…è®¸'%max%'",
+    "Minimum expected size for file '%value%' is '%min%' but '%size%' detected" => "æ–‡ä»¶'%value%'çš„å¤§å°'%size%'ä¸è¶³ï¼Œè‡³å°‘éœ€è¦'%min%'",
+    "File '%value%' is not readable or does not exist" => "æ–‡ä»¶'%value%'æ— æ³•è¯»å–æˆ–ä¸å­˜åœ¨",
 
     // Zend_Validator_File_Upload
-    "File '%value%' exceeds the defined ini size" => "ÎÄ¼þ'%value%'´óÐ¡³¬³öÏµÍ³ÔÊÐí·¶Î§",
-    "File '%value%' exceeds the defined form size" => "ÎÄ¼þ'%value%'´óÐ¡³¬³ö±íµ¥ÔÊÐí·¶Î§",
-    "File '%value%' was only partially uploaded" => "ÎÄ¼þ'%value%'ÉÏ´«²»ÍêÕû",
-    "File '%value%' was not uploaded" => "ÎÄ¼þ'%value%'Ã»ÓÐ±»ÉÏ´«",
-    "No temporary directory was found for file '%value%'" => "Ã»ÓÐÕÒµ½ÁÙÊ±ÎÄ¼þ¼Ð´æ·ÅÎÄ¼þ'%value%'",
-    "File '%value%' can't be written" => "ÎÄ¼þ'%value%'ÎÞ·¨±»Ð´Èë",
-    "A PHP extension returned an error while uploading the file '%value%'" => "ÎÄ¼þ'%value%'ÉÏ´«Ê±·¢ÉúÁËÒ»¸öPHPÀ©Õ¹´íÎó",
-    "File '%value%' was illegally uploaded. This could be a possible attack" => "ÎÄ¼þ'%value%'±»·Ç·¨ÉÏ´«£¬Õâ¿ÉÄÜ±»ÅÐ¶¨ÎªÒ»´ÎÈëÇÖ",
-    "File '%value%' was not found" => "ÎÄ¼þ'%value%'²»´æÔÚ",
-    "Unknown error while uploading file '%value%'" => "ÎÄ¼þ'%value%'ÉÏ´«Ê±·¢ÉúÁËÒ»¸öÎ´Öª´íÎó",
+    "File '%value%' exceeds the defined ini size" => "æ–‡ä»¶'%value%'å¤§å°è¶…å‡ºç³»ç»Ÿå…è®¸èŒƒå›´",
+    "File '%value%' exceeds the defined form size" => "æ–‡ä»¶'%value%'å¤§å°è¶…å‡ºè¡¨å•å…è®¸èŒƒå›´",
+    "File '%value%' was only partially uploaded" => "æ–‡ä»¶'%value%'ä¸Šä¼ ä¸å®Œæ•´",
+    "File '%value%' was not uploaded" => "æ–‡ä»¶'%value%'æ²¡æœ‰è¢«ä¸Šä¼ ",
+    "No temporary directory was found for file '%value%'" => "æ²¡æœ‰æ‰¾åˆ°ä¸´æ—¶æ–‡ä»¶å¤¹å­˜æ”¾æ–‡ä»¶'%value%'",
+    "File '%value%' can't be written" => "æ–‡ä»¶'%value%'æ— æ³•è¢«å†™å…¥",
+    "A PHP extension returned an error while uploading the file '%value%'" => "æ–‡ä»¶'%value%'ä¸Šä¼ æ—¶å‘ç”Ÿäº†ä¸€ä¸ªPHPæ‰©å±•é”™è¯¯",
+    "File '%value%' was illegally uploaded. This could be a possible attack" => "æ–‡ä»¶'%value%'è¢«éžæ³•ä¸Šä¼ ï¼Œè¿™å¯èƒ½è¢«åˆ¤å®šä¸ºä¸€æ¬¡å…¥ä¾µ",
+    "File '%value%' was not found" => "æ–‡ä»¶'%value%'ä¸å­˜åœ¨",
+    "Unknown error while uploading file '%value%'" => "æ–‡ä»¶'%value%'ä¸Šä¼ æ—¶å‘ç”Ÿäº†ä¸€ä¸ªæœªçŸ¥é”™è¯¯",
 
     // Zend_Validator_File_WordCount
-    "Too much words, maximum '%max%' are allowed but '%count%' were counted" => "ÊäÈëµÄµ¥´Ê¹ý¶à£¬×î¶àÔÊÐí'%max%'¸öµ¥´Ê£¬ÊäÈëÁË'%count%'¸ö",
-    "Too few words, minimum '%min%' are expected but '%count%' were counted" => "ÊäÈëµÄµ¥´Ê¹ýÉÙ£¬ÖÁÉÙÐèÒª'%min%'¸öµ¥´Ê£¬ÊäÈëÁË'%count%'¸ö",
-    "File '%value%' is not readable or does not exist" => "ÎÄ¼þ'%value%'ÎÞ·¨¶ÁÈ¡»ò²»´æÔÚ",
+    "Too much words, maximum '%max%' are allowed but '%count%' were counted" => "è¾“å…¥çš„å•è¯è¿‡å¤šï¼Œæœ€å¤šå…è®¸'%max%'ä¸ªå•è¯ï¼Œè¾“å…¥äº†'%count%'ä¸ª",
+    "Too few words, minimum '%min%' are expected but '%count%' were counted" => "è¾“å…¥çš„å•è¯è¿‡å°‘ï¼Œè‡³å°‘éœ€è¦'%min%'ä¸ªå•è¯ï¼Œè¾“å…¥äº†'%count%'ä¸ª",
+    "File '%value%' is not readable or does not exist" => "æ–‡ä»¶'%value%'æ— æ³•è¯»å–æˆ–ä¸å­˜åœ¨",
 
     // Zend_Validator_GreaterThan
-    "The input is not greater than '%min%'" => "ÊäÈëÓ¦´óÓÚ'%min%'",
-    "The input is not greater or equal than '%min%'" => "ÊäÈëÓ¦´óÓÚµÈÓÚ'%min%'",
+    "The input is not greater than '%min%'" => "è¾“å…¥åº”å¤§äºŽ'%min%'",
+    "The input is not greater or equal than '%min%'" => "è¾“å…¥åº”å¤§äºŽç­‰äºŽ'%min%'",
 
     // Zend_Validator_Hex
-    "Invalid type given. String expected" => "ÊäÈëÎÞÐ§£¬ÇëÊäÈëÒ»¸ö×Ö·û´®",
-    "The input contains non-hexadecimal characters" => "ÇëÊäÈëÊ®Áù½øÖÆÔÊÐíµÄ×Ö·û",
+    "Invalid type given. String expected" => "è¾“å…¥æ— æ•ˆï¼Œè¯·è¾“å…¥ä¸€ä¸ªå­—ç¬¦ä¸²",
+    "The input contains non-hexadecimal characters" => "è¯·è¾“å…¥åå…­è¿›åˆ¶å…è®¸çš„å­—ç¬¦",
 
     // Zend_Validator_Hostname
-    "The input appears to be a DNS hostname but the given punycode notation cannot be decoded" => "ÊäÈëµÄDNSÓòÃûÔÚ½âÎöÖÐÎÞ·¨ÓÃ¸ø¶¨µÄpunycodeÕýÈ·½âÂë",
-    "Invalid type given. String expected" => "ÊäÈëÎÞÐ§£¬ÇëÊäÈëÒ»¸ö×Ö·û´®",
-    "The input appears to be a DNS hostname but contains a dash in an invalid position" => "ÊäÈëµÄDNSÓòÃûÖÐÁ¬½Ó·ûÎ»ÖÃ²»·ûºÏ¹æ¶¨",
-    "The input does not match the expected structure for a DNS hostname" => "ÊäÈëµÄDNSÓòÃû½á¹¹×é³ÉÓÐÎó",
-    "The input appears to be a DNS hostname but cannot match against hostname schema for TLD '%tld%'" => "ÊäÈëµÄDNSÓòÃûµÄ¶¥¼¶ÓòÃû'%tld%'ÎÞ·¨±»½âÎö",
-    "The input does not appear to be a valid local network name" => "ÊäÈëÓòÃû²»ÊÇÒ»¸ö±¾µØÓòÃû",
-    "The input does not appear to be a valid URI hostname" => "ÓòÃû¸ñÊ½ÓÐÎó",
-    "The input appears to be an IP address, but IP addresses are not allowed" => "²»ÔÊÐíÊäÈëIPµØÖ·×÷ÎªÓòÃû",
-    "The input appears to be a local network name but local network names are not allowed" => "²»ÔÊÐíÊäÈë±¾µØ»ò¾ÖÓòÍøÄÚÓòÃû",
-    "The input appears to be a DNS hostname but cannot extract TLD part" => "ÔÚÊäÈëµÄDNSÓòÃûÖÐÎÞ·¨ÕÒµ½¶¥¼¶ÓòÃû²¿·Ö",
-    "The input appears to be a DNS hostname but cannot match TLD against known list" => "ÔÚÊäÈëµÄDNSÓòÃûÖÐ£¬¶¥¼¶ÓòÃû²¿·ÖÎÞ·¨Æ¥ÅäÒÑÖªÁÐ±í",
+    "The input appears to be a DNS hostname but the given punycode notation cannot be decoded" => "è¾“å…¥çš„DNSåŸŸååœ¨è§£æžä¸­æ— æ³•ç”¨ç»™å®šçš„punycodeæ­£ç¡®è§£ç ",
+    "Invalid type given. String expected" => "è¾“å…¥æ— æ•ˆï¼Œè¯·è¾“å…¥ä¸€ä¸ªå­—ç¬¦ä¸²",
+    "The input appears to be a DNS hostname but contains a dash in an invalid position" => "è¾“å…¥çš„DNSåŸŸåä¸­è¿žæŽ¥ç¬¦ä½ç½®ä¸ç¬¦åˆè§„å®š",
+    "The input does not match the expected structure for a DNS hostname" => "è¾“å…¥çš„DNSåŸŸåç»“æž„ç»„æˆæœ‰è¯¯",
+    "The input appears to be a DNS hostname but cannot match against hostname schema for TLD '%tld%'" => "è¾“å…¥çš„DNSåŸŸåçš„é¡¶çº§åŸŸå'%tld%'æ— æ³•è¢«è§£æž",
+    "The input does not appear to be a valid local network name" => "è¾“å…¥åŸŸåä¸æ˜¯ä¸€ä¸ªæœ¬åœ°åŸŸå",
+    "The input does not appear to be a valid URI hostname" => "åŸŸåæ ¼å¼æœ‰è¯¯",
+    "The input appears to be an IP address, but IP addresses are not allowed" => "ä¸å…è®¸è¾“å…¥IPåœ°å€ä½œä¸ºåŸŸå",
+    "The input appears to be a local network name but local network names are not allowed" => "ä¸å…è®¸è¾“å…¥æœ¬åœ°æˆ–å±€åŸŸç½‘å†…åŸŸå",
+    "The input appears to be a DNS hostname but cannot extract TLD part" => "åœ¨è¾“å…¥çš„DNSåŸŸåä¸­æ— æ³•æ‰¾åˆ°é¡¶çº§åŸŸåéƒ¨åˆ†",
+    "The input appears to be a DNS hostname but cannot match TLD against known list" => "åœ¨è¾“å…¥çš„DNSåŸŸåä¸­ï¼Œé¡¶çº§åŸŸåéƒ¨åˆ†æ— æ³•åŒ¹é…å·²çŸ¥åˆ—è¡¨",
 
     // Zend_Validator_Iban
-    "Unknown country within the IBAN" => "ÊäÈëµÄIBANÕÊºÅÎÞ·¨ÕÒµ½¶ÔÓ¦µÄ¹ú¼Ò",
-    "Countries outside the Single Euro Payments Area (SEPA) are not supported" => "²»Ö§³Öµ¥Ò»Å·ÔªÖ§¸¶Çø(SEPA)ÒÔÍâµÄÕÊºÅ",
-    "The input has a false IBAN format" => "ÊäÈëµÄIBANÕÊºÅ¸ñÊ½ÓÐÎó",
-    "The input has failed the IBAN check" => "ÊäÈëµÄIBANÕÊºÅÐ£ÑéÊ§°Ü",
+    "Unknown country within the IBAN" => "è¾“å…¥çš„IBANå¸å·æ— æ³•æ‰¾åˆ°å¯¹åº”çš„å›½å®¶",
+    "Countries outside the Single Euro Payments Area (SEPA) are not supported" => "ä¸æ”¯æŒå•ä¸€æ¬§å…ƒæ”¯ä»˜åŒº(SEPA)ä»¥å¤–çš„å¸å·",
+    "The input has a false IBAN format" => "è¾“å…¥çš„IBANå¸å·æ ¼å¼æœ‰è¯¯",
+    "The input has failed the IBAN check" => "è¾“å…¥çš„IBANå¸å·æ ¡éªŒå¤±è´¥",
 
     // Zend_Validator_Identical
-    "The two given tokens do not match" => "Á½¸öÑéÖ¤ÁîÅÆ²»Æ¥Åä",
-    "No token was provided to match against" => "Ã»ÓÐÁîÅÆÊäÈë£¬ÎÞ·¨Æ¥Åä",
+    "The two given tokens do not match" => "ä¸¤ä¸ªéªŒè¯ä»¤ç‰Œä¸åŒ¹é…",
+    "No token was provided to match against" => "æ²¡æœ‰ä»¤ç‰Œè¾“å…¥ï¼Œæ— æ³•åŒ¹é…",
 
     // Zend_Validator_InArray
-    "The input was not found in the haystack" => "ÊäÈëÃ»ÓÐÔÚÖ¸¶¨µÄÔÊÐí·¶Î§ÄÚ",
+    "The input was not found in the haystack" => "è¾“å…¥æ²¡æœ‰åœ¨æŒ‡å®šçš„å…è®¸èŒƒå›´å†…",
 
     // Zend_Validator_Ip
-    "Invalid type given. String expected" => "ÊäÈëÎÞÐ§£¬ÇëÊäÈëÒ»¸ö×Ö·û´®",
-    "The input does not appear to be a valid IP address" => "ÊäÈëµÄIPµØÖ·¸ñÊ½²»ÕýÈ·",
+    "Invalid type given. String expected" => "è¾“å…¥æ— æ•ˆï¼Œè¯·è¾“å…¥ä¸€ä¸ªå­—ç¬¦ä¸²",
+    "The input does not appear to be a valid IP address" => "è¾“å…¥çš„IPåœ°å€æ ¼å¼ä¸æ­£ç¡®",
 
     // Zend_Validator_Isbn
-    "Invalid type given. String or integer expected" => "ÊäÈëÎÞÐ§£¬ÇëÊäÈë×Ö·û»òÕûÊý",
-    "The input is not a valid ISBN number" => "ÊäÈëµÄISBN±àºÅ¸ñÊ½²»ÕýÈ·",
+    "Invalid type given. String or integer expected" => "è¾“å…¥æ— æ•ˆï¼Œè¯·è¾“å…¥å­—ç¬¦æˆ–æ•´æ•°",
+    "The input is not a valid ISBN number" => "è¾“å…¥çš„ISBNç¼–å·æ ¼å¼ä¸æ­£ç¡®",
 
     // Zend_Validator_LessThan
-    "The input is not less than '%max%'" => "ÊäÈëÓ¦Ð¡ÓÚ'%max%'",
-    "The input is not less or equal than '%max%'" => "ÊäÈëÓ¦Ð¡ÓÚµÈÓÚ'%max%'",
+    "The input is not less than '%max%'" => "è¾“å…¥åº”å°äºŽ'%max%'",
+    "The input is not less or equal than '%max%'" => "è¾“å…¥åº”å°äºŽç­‰äºŽ'%max%'",
 
     // Zend_Validator_NotEmpty
-    "Value is required and can't be empty" => "ÊäÈë²»ÄÜÎª¿Õ",
-    "Invalid type given. String, integer, float, boolean or array expected" => "ÊäÈëÎÞÐ§£¬Ö»ÔÊÐí×Ö·û¡¢ÕûÊý¡¢Ð¡Êý¡¢²¼¶ûÖµ¡¢Êý×éÀàÐÍ",
+    "Value is required and can't be empty" => "è¾“å…¥ä¸èƒ½ä¸ºç©º",
+    "Invalid type given. String, integer, float, boolean or array expected" => "è¾“å…¥æ— æ•ˆï¼Œåªå…è®¸å­—ç¬¦ã€æ•´æ•°ã€å°æ•°ã€å¸ƒå°”å€¼ã€æ•°ç»„ç±»åž‹",
 
     // Zend_Validator_Regex
-    "Invalid type given. String, integer or float expected" => "ÊäÈëÎÞÐ§£¬ÇëÊäÈë×Ö·û¡¢ÕûÊý»òÐ¡Êý",
-    "The input does not match against pattern '%pattern%'" => "ÊäÈë²»Æ¥ÅäÖ¸¶¨µÄÄ£Ê½'%pattern%'",
-    "There was an internal error while using the pattern '%pattern%'" => "Æ¥ÅäÖ¸¶¨Ä£Ê½'%pattern%'Ê±ÓÐÄÚ²¿´íÎó·¢Éú",
+    "Invalid type given. String, integer or float expected" => "è¾“å…¥æ— æ•ˆï¼Œè¯·è¾“å…¥å­—ç¬¦ã€æ•´æ•°æˆ–å°æ•°",
+    "The input does not match against pattern '%pattern%'" => "è¾“å…¥ä¸åŒ¹é…æŒ‡å®šçš„æ¨¡å¼'%pattern%'",
+    "There was an internal error while using the pattern '%pattern%'" => "åŒ¹é…æŒ‡å®šæ¨¡å¼'%pattern%'æ—¶æœ‰å†…éƒ¨é”™è¯¯å‘ç”Ÿ",
 
     // Zend_Validator_Sitemap_Changefreq
-    "The input is not a valid sitemap changefreq" => "ÊäÈë²»·ûºÏÍøÕ¾µØÍ¼µÄchangefreq¸ñÊ½",
-    "Invalid type given. String expected" => "ÊäÈëÎÞÐ§£¬ÇëÊäÈëÒ»¸ö×Ö·û´®",
+    "The input is not a valid sitemap changefreq" => "è¾“å…¥ä¸ç¬¦åˆç½‘ç«™åœ°å›¾çš„changefreqæ ¼å¼",
+    "Invalid type given. String expected" => "è¾“å…¥æ— æ•ˆï¼Œè¯·è¾“å…¥ä¸€ä¸ªå­—ç¬¦ä¸²",
 
     // Zend_Validator_Sitemap_Lastmod
-    "The input is not a valid sitemap lastmod" => "ÊäÈë²»·ûºÏÍøÕ¾µØÍ¼µÄlastmod¸ñÊ½",
-    "Invalid type given. String expected" => "ÊäÈëÎÞÐ§£¬ÇëÊäÈëÒ»¸ö×Ö·û´®",
+    "The input is not a valid sitemap lastmod" => "è¾“å…¥ä¸ç¬¦åˆç½‘ç«™åœ°å›¾çš„lastmodæ ¼å¼",
+    "Invalid type given. String expected" => "è¾“å…¥æ— æ•ˆï¼Œè¯·è¾“å…¥ä¸€ä¸ªå­—ç¬¦ä¸²",
 
     // Zend_Validator_Sitemap_Loc
-    "The input is not a valid sitemap location" => "ÊäÈë²»·ûºÏÍøÕ¾µØÍ¼µÄlocation¸ñÊ½",
-    "Invalid type given. String expected" => "ÊäÈëÎÞÐ§£¬ÇëÊäÈëÒ»¸ö×Ö·û´®",
+    "The input is not a valid sitemap location" => "è¾“å…¥ä¸ç¬¦åˆç½‘ç«™åœ°å›¾çš„locationæ ¼å¼",
+    "Invalid type given. String expected" => "è¾“å…¥æ— æ•ˆï¼Œè¯·è¾“å…¥ä¸€ä¸ªå­—ç¬¦ä¸²",
 
     // Zend_Validator_Sitemap_Priority
-    "The input is not a valid sitemap priority" => "ÊäÈë²»·ûºÏÍøÕ¾µØÍ¼µÄpriority¸ñÊ½",
-    "Invalid type given. Numeric string, integer or float expected" => "ÊäÈëÎÞÐ§£¬ÇëÊäÈëÒ»¸öÊý×Ö",
+    "The input is not a valid sitemap priority" => "è¾“å…¥ä¸ç¬¦åˆç½‘ç«™åœ°å›¾çš„priorityæ ¼å¼",
+    "Invalid type given. Numeric string, integer or float expected" => "è¾“å…¥æ— æ•ˆï¼Œè¯·è¾“å…¥ä¸€ä¸ªæ•°å­—",
 
     // Zend_Validator_Step
-    "Invalid value given. Scalar expected" => "ÊäÈëÎÞÐ§£¬ÇëÊäÈëÒ»¸öÊý×Ö",
-    "The input is not a valid step" => "ÊäÈë²»ÔÚ½×ÌÝ¼ÆËãµÄ½á¹û·¶Î§ÄÚ",
+    "Invalid value given. Scalar expected" => "è¾“å…¥æ— æ•ˆï¼Œè¯·è¾“å…¥ä¸€ä¸ªæ•°å­—",
+    "The input is not a valid step" => "è¾“å…¥ä¸åœ¨é˜¶æ¢¯è®¡ç®—çš„ç»“æžœèŒƒå›´å†…",
 
     // Zend_Validator_StringLength
-    "Invalid type given. String expected" => "ÊäÈëÎÞÐ§£¬ÇëÊäÈëÒ»¸ö×Ö·û´®",
-    "The input is less than %min% characters long" => "ÊäÈë×Ö·û¸öÊýÓ¦´óÓÚ%min%",
-    "The input is more than %max% characters long" => "ÊäÈë×Ö·û¸öÊýÓ¦Ð¡ÓÚ%max%",
+    "Invalid type given. String expected" => "è¾“å…¥æ— æ•ˆï¼Œè¯·è¾“å…¥ä¸€ä¸ªå­—ç¬¦ä¸²",
+    "The input is less than %min% characters long" => "è¾“å…¥å­—ç¬¦ä¸ªæ•°åº”å¤§äºŽ%min%",
+    "The input is more than %max% characters long" => "è¾“å…¥å­—ç¬¦ä¸ªæ•°åº”å°äºŽ%max%",
 
     // Zend_Validator_Uri
-    "Invalid type given. String expected" => "ÊäÈëÎÞÐ§£¬ÇëÊäÈëÒ»¸ö×Ö·û´®",
-    "The input does not appear to be a valid Uri" => "ÊäÈëµÄUri¸ñÊ½ÓÐÎó",
-
-	//Controller action
-	'Index' => 'Ê×Ò³',
+    "Invalid type given. String expected" => "è¾“å…¥æ— æ•ˆï¼Œè¯·è¾“å…¥ä¸€ä¸ªå­—ç¬¦ä¸²",
+    "The input does not appear to be a valid Uri" => "è¾“å…¥çš„Uriæ ¼å¼æœ‰è¯¯",
+    "Index" => "é¦–é¡µ",
+//     "index" => "æ¬¢è¿Žè®¿é—®",
+    "Member" => 'ä¼šå‘˜ä¸­å¿ƒ',
 );

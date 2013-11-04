@@ -497,17 +497,23 @@ class MemberController extends AbstractActionController
 		$memberInfo = $memberTable->getOneById($uid);
 		$checkResult = array();
 		$checkResult['chkEmail']  = $memberInfo->isValidEmail;
+		$checkResult['chkEmailDesc'] = "您验证的邮箱是：{$memberInfo->Email}";
 		$checkResult['chkMobile'] = $memberInfo->isValidMobile;
+		$checkResult['chkMobileDesc'] = "您验证的手机号码是：{$memberInfo->Mobile}"; 
 		$checkResult['chkPwdStrong'] = $memberInfo->passwordStrong;//分值
+		$checkResult['chkPwdStrongDesc'] = "密码是保证安全的第一道屏障。";
 		
 		$identity = $this->_getTable('IdentityTable');
 		$identityInfo = $identity->getOneByUID($uid);
 		$checkResult['chkIdentity'] = isset($identityInfo->status) && $identityInfo->status == 1 ? 1 : 0;
+		$checkResult['chkIdentityDesc'] = "您在{$identityInfo->addTime}提交了身份认证信息，并已通过审核。";
 		
 		$secretTable = $this->_getTable('SecretTable');
 		$secInfo = $secretTable->getSecretList($uid);
 		$checkResult['chkSecret'] = !empty($secInfo) ? 1 : 0;
+		$checkResult['chkSecretDesc'] = "请牢记您设置的密保信息";
 		$checkResult['chkOption'] = $memberInfo->loginProtect;
+		$checkResult['chkOptionDesc'] = "操作保护将在必要的时候验证是否是本人操作";
 		$securityItems = count($checkResult) - 1 + 3;
 		$chked = array_sum($checkResult);
 		$percent = $securityItems ? ($chked/$securityItems)*100 : 0;

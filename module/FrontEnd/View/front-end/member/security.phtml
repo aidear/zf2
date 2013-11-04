@@ -48,7 +48,7 @@ $msg = $this->flashMessages();
               <td width="54" height="35" align="center"><img src="/images/FrontEnd/aq_02.jpg" width="17" height="17" /></td>
               <td width="84" align="left" class="lvs">密码强度</td>
               <td width="363"><div class="an_jd"><?php echo $paswordStrong;?></div></td>
-              <td width="167">｛<a href="#">了解更多</a>｝</td>
+              <td width="167"><div class='security_tips'>｛<a href="javascript:;" class='knowMore'>了解更多</a>｝<span class='tips_span none'><i>×</i><?php echo isset($chkResult['chkPwdStrongDesc']) ? $chkResult['chkPwdStrongDesc'] : '';?></span></div></td>
             </tr>
             <tr>
               <td align="center">&nbsp;</td>
@@ -80,7 +80,7 @@ $msg = $this->flashMessages();
               <td colspan="2" align="left" class="<?php echo $chkResult['chkEmail'] ? 'lvs' : 'red';?>">邮箱认证</td>
               <td>
               <?php if ($chkResult['chkEmail']):?>
-              	｛<a href="#">了解更多</a>｝
+              	<div class='security_tips'>｛<a href="javascript:;" class='knowMore'>了解更多</a>｝<span class='tips_span none'><i>×</i><?php echo isset($chkResult['chkEmailDesc']) ? $chkResult['chkEmailDesc'] : '';?></span></div>
               <?php else:?>
               <input name="chkEmail" _href="/member/email" type="button" id="btn31" value="立即开通" />
               <?php endif;?>
@@ -96,7 +96,7 @@ $msg = $this->flashMessages();
               <td colspan="2" align="left" class="<?php echo $chkResult['chkMobile'] ? 'lvs' : 'red';?>">手机认证</td>
               <td>
               <?php if ($chkResult['chkMobile']):?>
-              	｛<a href="#">了解更多</a>｝
+              	<div class='security_tips'>｛<a href="javascript:;" class='knowMore'>了解更多</a>｝<span class='tips_span none'><i>×</i><?php echo isset($chkResult['chkMobileDesc']) ? $chkResult['chkMobileDesc'] : '';?></span></div>
               <?php else:?>
               <input name="chkMobile" _href="/member/mobile" type="button"  id="btn31" value="立即开通" />
               <?php endif;?>
@@ -113,7 +113,7 @@ $msg = $this->flashMessages();
               <td colspan="2" align="left" class="<?php echo $chkResult['chkIdentity'] ? 'lvs' : 'red';?>">身份认证</td>
               <td>
               <?php if ($chkResult['chkIdentity']):?>
-              	｛<a href="#">了解更多</a>｝
+              	<div class='security_tips'>｛<a href="javascript:;" class='knowMore'>了解更多</a>｝<span class='tips_span none'><i>×</i><?php echo isset($chkResult['chkMobileDesc']) ? $chkResult['chkMobileDesc'] : '';?></span></div>
               <?php else:?>
               <input name="chkIdentity" _href="/member/identity" type="button" id="btn32"  value="立即开通" />
               <?php endif;?>
@@ -130,7 +130,7 @@ $msg = $this->flashMessages();
               <td colspan="2" align="left" class="<?php echo $chkResult['chkSecret'] ? 'lvs' : 'red';?>">密保设置</td>
               <td>
               <?php if ($chkResult['chkSecret']):?>
-              	｛<a href="#">了解更多</a>｝
+              	<div class='security_tips'>｛<a href="javascript:;" class='knowMore'>了解更多</a>｝<span class='tips_span none'><i>×</i><?php echo isset($chkResult['chkSecretDesc']) ? $chkResult['chkSecretDesc'] : '';?></span></div>
               <?php else:?>
               <input name="chkSecret" _href="/member/secret" type="button" id="btn33"  value="立即开通" />
               <?php endif;?>
@@ -147,7 +147,7 @@ $msg = $this->flashMessages();
               <td colspan="2" align="left" class="<?php echo $chkResult['chkOption'] ? 'lvs' : 'red';?>">操作保护</td>
               <td>
               <?php if ($chkResult['chkOption']):?>
-              	｛<a href="#">了解更多</a>｝
+              	<div class='security_tips'>｛<a href="javascript:;" class='knowMore'>了解更多</a>｝<span class='tips_span none'><i>×</i><?php echo isset($chkResult['chkOptionDesc']) ? $chkResult['chkOptionDesc'] : '';?></span></div>
               <?php else:?>
               <input name="chkOption" _href="/member/optionProtect" type="button" id="btn34" value="立即开通" />
               <?php endif;?>
@@ -169,6 +169,13 @@ $(function(){
 	$("input[_href]").click(function(){
 		var href = $(this).attr('_href');
 		location.href=href;
+	});
+	$(".knowMore").click(function() {
+		var obj = $(this).parents('div.security_tips');
+		$(".tips_span", obj).slideDown();
+	});
+	$('div.security_tips .tips_span i').click(function() {
+		$(this).parents('.tips_span').slideUp();
 	});
 })
  </script>

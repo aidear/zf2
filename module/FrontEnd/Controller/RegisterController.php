@@ -79,6 +79,7 @@ class RegisterController extends AbstractActionController
     						'AddTime' => $now, 'LastLogin' => $now,
     						'Source' => 1,
     						'LoginCount' => 1,
+    						'passwordStrong' => $this->_passwordStrongChk($params['password'])
     						));
     				$UserID = $memberTable->getLastInsertValue();
     				$memberInfo = $memberTable->getOneById($UserID);
@@ -114,8 +115,8 @@ class RegisterController extends AbstractActionController
 				'Width' => '77',
 				'writeInFile'=>false,
 				'Font' => APPLICATION_PATH.'/data/AdobeSongStd-Light.otf',
-				'FontSize' => '24',
-				'DotNoiseLevel' => 6,
+				'FontSize' => '20',
+				'DotNoiseLevel' => 0,
 				'ImgDir' => '/images/FrontEnd'
 		));
 		//设置验证码保存路径
@@ -229,6 +230,21 @@ class RegisterController extends AbstractActionController
 		} else {
 			header('Content-Type: text/html; charset=utf-8');
 			die('验证失败，或者地址已失效');
+		}
+	}
+	private function _passwordStrongChk($pwd)
+	{
+		if (!$pwd) {
+			return 0;
+		}
+		if (preg_match('/^\d+$/', $pwd) || preg_match('/^[a-zA-Z]+$/', $pwd)) {
+			return 1;
+		}
+		if (strlen($pwd) <= 10) {
+			return 2;
+		}
+		if (strlen($pwd) > 10) {
+			return 3;
 		}
 	}
 }

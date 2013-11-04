@@ -264,4 +264,7 @@ return array(
     // Zend_Validator_Uri
     "Invalid type given. String expected" => "输入无效，请输入一个字符串",
     "The input does not appear to be a valid Uri" => "输入的Uri格式有误",
+    "Index" => "后台管理",
+    "index" => "首页",
+    "member" => '会员管理',
 );

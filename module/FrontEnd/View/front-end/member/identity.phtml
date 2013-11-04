@@ -5,15 +5,13 @@ $identityInfo = $this->identityInfo;
 $msg = $this->flashMessages();
 ?>
 <div class="right">
-	<?php if (!empty($identityInfo)):?>
+	<?php if (isset($this->applied) && $this->applied == 1):?>
     <div class="r_t">
     <h1>身份认证</h1>
     <h2>&nbsp;</h2></div>
     <div class="r_c">
         <div class="mimaxiugai">
-        <?php if (isset($this->applied) && $this->applied == 1):?>
        <div class="mimaxiugai_gongxi">恭喜你，身份认证成功</div>
-       <?php endif;?>
        <div class="shenfen_qd">
          <table width="642" border="0" cellspacing="1" cellpadding="0" bgcolor="#CCCCCC">
   <tr>
@@ -98,7 +96,7 @@ $msg = $this->flashMessages();
         <tr>
           <td height="30">&nbsp;</td>
           <td height="30" align="right">&nbsp;</td>
-          <td height="30" colspan="4" id="huise"><input type="checkbox" name="checkbox" id="checkbox" />
+          <td height="30" colspan="4" id="huise"><input type="checkbox" checked='checked' name="checkbox" id="checkbox" />
             <label for="checkbox"> 我同意 <a href="#">服务协议</a></label></td>
         </tr>
         <tr>
@@ -106,7 +104,26 @@ $msg = $this->flashMessages();
           <td height="38" align="right">&nbsp;</td>
           <td height="38" colspan="4"><input name="btn7" type="submit" id="btn7" value="确定" /></td>
         </tr>
-        </table></form></div>
+        </table></form>
+        <?php if (!empty($identityInfo)):?>
+        <div class="shenfen_qd">
+         <table width="642" border="0" cellspacing="1" cellpadding="0" bgcolor="#CCCCCC">
+  <tr>
+    <td width="191" align="center" bgcolor="#FFFFFF">认证时间</td>
+    <td width="172" align="center" bgcolor="#FFFFFF">企业名称</td>
+    <td width="137" align="center" bgcolor="#FFFFFF">组织结构代码</td>
+    <td width="137" align="center" bgcolor="#FFFFFF">认证状态</td>
+  </tr>
+  <tr>
+    <td align="center" bgcolor="#FFFFFF"><?php echo date('Y年m月d日', strtotime($identityInfo->addTime));?></td>
+    <td align="center" bgcolor="#FFFFFF"><p><?php echo $identityInfo->name;?></p></td>
+    <td align="center" bgcolor="#FFFFFF"><?php echo $identityInfo->code;?></td>
+    <td align="center" bgcolor="#FFFFFF"><p><?php echo $identityInfo->status == 0 ? '审核中' : (($identityInfo->status == 1) ? '已通过审核' : '未通过审核')?></p>
+<!--       <p class="lanse"><a href="#">尚未认证</a></p></td> -->
+  </tr>
+         </table>
+</div><?php endif;?>
+        </div>
       </div>
     </div>
     <?php endif;?>

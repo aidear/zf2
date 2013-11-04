@@ -1,7 +1,7 @@
 <?php 
 $addr = $this->address;
 ?>
-<form id="addressForm" action="/member/updateAddress" method="post" >
+<form id="addressForm" action="/member/updateAddress" method="post">
 <input type="hidden" name="id" value="<?php echo isset($addr->id) ? $addr->id : '';?>" />
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
         <tr>
@@ -40,8 +40,8 @@ $addr = $this->address;
         <tr>
           <td height="38">&nbsp;</td>
           <td height="38" align="right">邮政编码：</td>
-          <td height="38"><input autocomplete="off" data-required='true' data-pattern="^\d+{6}$" data-describedby="for_zipcode" data-description="zipcode" value="<?php echo isset($addr->zipcode) ? $addr->zipcode : '';?>" name="zipcode" type="text" id="textfield" maxlength='6' size="15" />            
-            <span class="red"> * </span><span class="red" id='id="for_zipcode"'><span class="huise">大陆以外地区可不填写</span></span></td>
+          <td height="38"><input autocomplete="off" data-required="true" data-trim="true" data-describedby="for_zipcode" data-description="zipcode" value="<?php echo isset($addr->zipcode) ? $addr->zipcode : '';?>" name="zipcode" type="text" id="textfield" maxlength='6' size="15" />            
+            <span class="red"> * </span><span class="red" id="for_zipcode"><span class="huise">大陆以外地区可不填写</span></span></td>
         </tr>
         <tr>
           <td height="38">&nbsp;</td>
@@ -91,42 +91,16 @@ $('#addressForm').validate({
 		address : {
 			required : '请输入详细地址'
 		},
+		zipcode : {
+			required : '请输入邮政编码'
+		},
 		mobile : {
 			required : '请输入手机号',
 			pattern : '根式不正确'
-		},
-// 		zipcode : {
-// 			required : '请输入邮政编码',
-// 			pattern : '格式不正确'
-// 		},
-//			repassword : {
-//				required : '<span><img src="/images/FrontEnd/no.jpg" width="24" height="24" /></span><h1>不能为空</h1>',
-//				pattern : '<span><img src="/images/FrontEnd/no.jpg" width="24" height="24" /></span><h1>请输入6到16位密码</h1>',
-//				conditional : {
-//					confirm : '<span><img src="/images/FrontEnd/no.jpg" width="24" height="24" /></span><h1>不能是纯数字或字母</h1>',
-//					same : '<span><img src="/images/FrontEnd/no.jpg" width="24" height="24" /></span><h1>两次输入的密码不一致</h1>'
-//				}
-//			}
-	},
-	conditional : {
-		confirm : function() {
-			var reg1 = /^[a-zA-Z]+$/;
-        	var reg2 = /^[0-9]+$/;
-        	var value = $(this).val();
-        	if (reg1.test(value)) {
-				return false;
-            }
-            if (reg2.test(value)) {
-				return false;
-            }
-            return true;
-		},
-		same : function() {
-			return $(this).val() == $('input[name="password"]').val();
 		}
 	},
 	valid:function() {
-		alert(1);
+		alert(1);return false;
 	}
 });
 $(function(){

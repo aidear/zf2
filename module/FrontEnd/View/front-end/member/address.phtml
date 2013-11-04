@@ -26,12 +26,12 @@ $msg = $this->flashMessages();
             <?php endforeach;?>
             </div>
             <?php endif;?>
-      	<span id="show_addr">
+      	<span id="show_addr" style="height:513px; display:block;">
       	
       	</span>
       <div class="sh_t">已保存的有效地址</div>
       <span id="hasAddr">
-      
+      &nbsp;
       </span>
 <div class="sh_f">最多保存20个有效地址</div>
       </div>
@@ -39,37 +39,6 @@ $msg = $this->flashMessages();
  </div>
  <script>
 $(function(){
-	$("select[name='Province']").change(function() {
-		$v = $(this).val();
-		if ($v == 0) return false;
-		$.ajax({
-			type: "POST",
-			url : "/ajax?s=region&p="+$v,
-			dataType :"json",
-			success: function(s){
-				var html = '<option >请选择城市</option>';
-				for(var o in s) {
-					html += "<option value='"+s[o].region_id+"'>"+s[o].region_name+"</option>";
-				}
-				$("select[name='City']").html(html);
-			}
-		});
-	});
-	$("select[name='City']").change(function() {
-		$v = $(this).val();
-		$.ajax({
-			type: "POST",
-			url : "/ajax?s=region&p="+$v,
-			dataType :"json",
-			success: function(s){
-				var html = '<option >请选择区域</option>';
-				for(var o in s) {
-					html += "<option value='"+s[o].region_id+"'>"+s[o].region_name+"</option>";
-				}
-				$("select[name='District']").html(html);
-			}
-		});
-	});
 	var url = "/member/showAddress";
 	Ajax.call(url, '', function(s){
 		$("#show_addr").html(s);

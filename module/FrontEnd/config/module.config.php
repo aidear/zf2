@@ -210,10 +210,10 @@ return array(
 			'locale' => 'zh_CN',
 			'translation_file_patterns' => array(
 					array(
-							'type'     => 'gettext',
+							'type'     => 'phparray',
 							'base_dir' => __DIR__ . '/../language',
 							'pattern'  => '%s.php',
-							'text_domain' => __NAMESPACE__,
+// 							'text_domain' => __NAMESPACE__,
 					),
 			),
 	),

@@ -126,7 +126,7 @@ class Image extends Father
      *
      * @var int
      */
-    protected $lineNoiseLevel = 1;
+    protected $lineNoiseLevel = 0;
     
     /**
      * Text Color
