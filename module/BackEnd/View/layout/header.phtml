@@ -12,11 +12,15 @@
     		<a href="?m=search" target="_blank" id="site_search">全站搜索</a> -->
     	</div>
         <ul class="nav white" id="top_menu">
-        <?php $prevDepth = 0;foreach($this->container as $k => $page):?>
-        <?php if (0 == $page->depth):?>
-        <li id="_M<?php echo $k;?>" class="top_menu<?php echo $k==0 ? ' on': '';?>"><a href="/"  hidefocus="true" style="outline:none;"><?php echo $page->label;?></a></li>
-        <?php endif;?>
-        <?php endforeach;?>
+        <?php //$prevDepth = 0;foreach($this->container as $k => $page):?>
+        <?php //if (0 == $page->depth):?>
+       <!-- <li id="_M<?php echo $k;?>" class="top_menu<?php echo $k==0 ? ' on': '';?>"><a href="/"  hidefocus="true" style="outline:none;"><?php echo $page->label;?></a></li> -->
+        <?php //endif;?>
+        <?php //endforeach;?>
+        <li id="_M0" class="top_menu on"><a href="javascript:;"  hidefocus="true" style="outline:none;"><?php
+echo $this->viewModel()->getRoot()->getVariable('tabName');
+?>
+</a></li>
         <!-- 
         <li id="_M10" class="on top_menu"><a href="javascript:_M(10,'#');" hidefocus="true" style="outline:none;">我的面板</a></li>
         <li id="_M1" class="top_menu"><a href="javascript:_M(1,'#');"  hidefocus="true" style="outline:none;">设置</a></li>

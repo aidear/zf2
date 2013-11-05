@@ -18,22 +18,13 @@
 namespace BackEnd\Controller;
 
 use Zend\Paginator\Paginator;
-use Zend\Form\Form;
-use Zend\Form\Element;
 use Custom\Mvc\Controller\AbstractActionController;
 use Custom\Util\Utilities;
 use BackEnd\Model\Users\Member;
-use BackEnd\Model\Users\MemberTable;
 use BackEnd\Form\MemberForm;
-use BackEnd\Model\Users\RegionTable;
 use Custom\Mvc\ActionEvent;
 use Custom\File\Uploader;
 use Zend\View\Model\ViewModel;
-use Custom\Validator\UserNameUnipue;
-
-use Zend\Validator\File\Size;
-
-use Zend\File\Transfer\Adapter\Http;
 
 class MemberController extends AbstractActionController
 {

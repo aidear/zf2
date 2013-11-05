@@ -322,6 +322,7 @@ i[class^="icon-"] {
     margin-bottom: 0;
     font-weight:bold;
     font-size:16px;
+	height:30px;
     background: -moz-linear-gradient(top,  rgba(255,255,255,0) 0%, rgba(0,0,0,0.1) 100%);
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,0)), color-stop(100%,rgba(0,0,0,0.1)));
     background: -webkit-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(0,0,0,0.1) 100%);
@@ -345,15 +346,34 @@ i[class^="icon-"] {
     margin-top:2px;
     padding-right:3px;
 }
-
+.t_top {
+    clear: none;
+    font-size: 15px;
+    line-height: 25px;
+    width: auto;
+    padding-left:20px;
+    padding-right:20px;
+    margin:0px;
+}
+.t_top .t_inline {
+    float:left;
+}
+.t_top .t_import {
+    float:left;
+    margin-left:6px;
+}
+.t_top .t_right {
+    float:right;
+}
+.t_top select {
+    height:26px;
+}
 .box-content {
     padding: 10px;
 }
 .button_stay {
 	display: block;
     position: fixed;
-    top: 80px;
-	right:23px;
     z-index: 90;
 }
 .box-content p {
@@ -674,7 +694,7 @@ div.checker input {
 	cursor: default;
 	color:#fff;
 	background-color: #7BB33D;
-    background-image: -moz-linear-gradient(center top , #80BB3F, #73A839);
+    /*background-image: -moz-linear-gradient(center top , #80BB3F, #73A839);
     background-repeat: repeat-x;
     border-bottom-color: rgba(0, 0, 0, 0.25);
     border-left-color-ltr-source: physical;
@@ -683,7 +703,7 @@ div.checker input {
     border-right-color-ltr-source: physical;
     border-right-color-rtl-source: physical;
     border-right-color-value: rgba(0, 0, 0, 0.1);
-    border-top-color: rgba(0, 0, 0, 0.1);
+    border-top-color: rgba(0, 0, 0, 0.1);*/
 }
 
 .button-reset{
@@ -835,7 +855,7 @@ div.checker input {
     border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
 }*/
 .btn-edit {
-	background-color: #7BB33D;
+	/*background-color: #7BB33D;
     background-image: -moz-linear-gradient(center top , #80BB3F, #73A839);
     background-repeat: repeat-x;
     border-bottom-color: rgba(0, 0, 0, 0.25);
@@ -845,15 +865,15 @@ div.checker input {
     border-right-color-ltr-source: physical;
     border-right-color-rtl-source: physical;
     border-right-color-value: rgba(0, 0, 0, 0.1);
-    border-top-color: rgba(0, 0, 0, 0.1);
+    border-top-color: rgba(0, 0, 0, 0.1);*/
 }
 .btn-delete {
-    background-color: #D41E24;
+    /*background-color: #D41E24;
     background-image: -moz-linear-gradient(center top , #DD1F26, #C71C22);
     background-repeat: repeat-x;
     padding-left:10px;
     padding-right:10px;
-    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);*/
 }
 
 .btn-primary,.btn-find{
@@ -1378,7 +1398,7 @@ button.close {
 }
 
 .modal.fade.in {
-  top: 10%;
+  top: 30%;
 }
 
 .modal-header {
@@ -1444,21 +1464,6 @@ button.close {
 
 .modal-footer .btn-block + .btn-block {
   margin-left: 0;
-}
-.t_top {
-}
-.t_top .t_inline {
-	float:left;
-}
-.t_top .t_import {
-	float:left;
-	margin-left:6px;
-}
-.t_top .t_right {
-	float:right;
-}
-.t_top select {
-	height:26px;
 }
 .order_up {
 	width:16px;

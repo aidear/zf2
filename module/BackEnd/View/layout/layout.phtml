@@ -135,15 +135,15 @@ function _MP(menuid,targetUrl) {
 	$("#current_pos").data('clicknum', 1);
 }
 $(window).load(function(){
-	var floatLT = $('.box-content>p').offset().top-80;
-	var floatLEFT = $('.box-content>p').offset().left;
+	var floatLT = $('.box-header').offset().top - 94;
+	var floatW = $('.box-header').width();
 	$(window).scroll(function() {
 		//浮动tab选择框
 		if($(document).scrollTop() > floatLT){
-			$('.box-content>p').addClass('button_stay');
+			$('.box-header').addClass('button_stay');
 		}else{
-			if($('.box-content>p').hasClass('button_stay')){
-				$('.box-content>p').removeClass('button_stay');
+			if($('.box-header').hasClass('button_stay')){
+				$('.box-header').removeClass('button_stay');
 			}else{
 				return false;
 			}

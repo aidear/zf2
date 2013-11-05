@@ -267,4 +267,6 @@ return array(
     "Index" => "后台管理",
     "index" => "首页",
     "member" => '会员管理',
+    
+    'member-index' => '会员列表',
 );

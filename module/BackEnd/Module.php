@@ -67,9 +67,9 @@ class Module
 // 		->setFallbackLocale('zh_CN');
 
 		//version 2.2
-		$translator = new \Zend\Mvc\I18n\Translator();
-		$translator->addTranslationFile ( 'phparray' , __DIR__.'/language/Zend_Validate.php' , 'default' , 'zh_CN' );
-		\Zend\Validator\AbstractValidator::setDefaultTranslator($translator);
+// 		$translator = new \Zend\Mvc\I18n\Translator();
+// 		$translator->addTranslationFile ( 'phparray' , __DIR__.'/language/Zend_Validate.php' , 'default' , 'zh_CN' );
+// 		\Zend\Validator\AbstractValidator::setDefaultTranslator($translator);
 		$sys_config = array();
 		if (file_exists('./data/sys_config.php')) {
 			$sys_config = include'./data/sys_config.php';
@@ -122,6 +122,8 @@ class Module
 		$viewModel = $e->getViewModel();
 		if (!($viewModel->terminate())) {
 			$viewModel->setVariables($queryParams);
+			$translator = $e->getApplication()->getServiceManager()->get('translator');
+			$viewModel->setVariables(array('tabName' => $translator->translate($controller.'-'.$action)));
 		}
 	}
     public function getAutoloaderConfig()
