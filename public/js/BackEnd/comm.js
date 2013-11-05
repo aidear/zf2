@@ -59,12 +59,18 @@ $(function(){
 		$(this).slideUp();
 	});
 	$("table.table tbody tr").mouseover(function() {
-		$(this).css('background-color', '#E2E9EA');
+		if (!$("td input[type='checkbox']",$(this)).is(":checked")) {
+			$(this).css('background-color', '#E2E9EA');
+		}
 	});
 	$("table.table tbody tr").mouseout(function() {
-		$(this).css('background-color', '#fff');
+		if ($("td input[type='checkbox']",$(this)).is(":checked")) {
+			$(this).css('background-color', '#f0f0f0');
+		} else {
+			$(this).css('background-color', '#fff');
+		}
 	});
-	$(".box-content .btn-edit").click(function() {
+	$(".box-header .btn-edit").click(function() {
 		if ($(this).attr('editMult')) {
 			if ($("input[type='checkbox'][name='select']:checked").size() == 0) {
 				alert('请先选择一个条目');
@@ -88,9 +94,9 @@ $(function(){
 		var url = $(this).attr('_href')+id;
 		$(this).attr('href', url);
 	});
-	$("input[type='reset']").click(function(){
-		history.go(-1);
-	});
+//	$("input[type='reset']").click(function(){
+//		history.go(-1);
+//	});
 	$("input[type='checkbox'][name='select_all']").click(
 		function() {
 			if ($(this).is(':checked')) {
@@ -98,8 +104,18 @@ $(function(){
 			} else {
 				$("input[type='checkbox'][name='select']").removeAttr('checked');
 			}
+			chkBg();
 		}
 	);
+	function chkBg() {
+		$("input[type='checkbox'][name='select']").each(function(){
+			if ($(this).is(':checked')) {
+				$(this).parents('tr').css('background-color', '#f0f0f0');
+			} else {
+				$(this).parents('tr').css('background-color', '#fff');
+			}
+		});
+	}
 	$("#table1 tr.row").each(function(){
 		$("td,th", $(this)).eq(0).click(function(e){
 			e = window.event || e;
@@ -107,6 +123,7 @@ $(function(){
 			if ($(obj).is('td') || $(obj).is('th')) {
 				$(this).find("input[type='checkbox']").trigger('click');
 			}
+			chkBg();
 		});
 	});
 	$("#table1 tr.row").each(function(){
@@ -116,6 +133,7 @@ $(function(){
 			if ($(obj).is('td') || $(obj).is('th')) {
 				$(this).prev().find("input[type='checkbox']").trigger('click');
 			}
+			chkBg();
 		});
 	});
 	$(".input-group input").focusin(function(){
@@ -123,6 +141,12 @@ $(function(){
 			$(this).parents('.input-group').removeClass('error');//alert($(this).next().html());
 			$(this).nextAll('.help-inline').remove();
 		}
+	});
+	$(".btn-submit").click(function(){
+		$("input[type='submit'][class='button-element']").trigger('click');
+	});
+	$(".btn-reset").click(function(){
+		$("input[type='reset'][class='button-element']").trigger('click');
 	});
 //	$("#table1 .row > td").each(function(){
 //		$(this).bind('click', function() {

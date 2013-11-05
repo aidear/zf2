@@ -5,11 +5,21 @@ $this->headScript()->appendFile($this->basePath('js/jquery-ui-1.10.2.custom.min.
 $this->headLink()->appendStylesheet($this->basePath('styles/jquery-ui-1.10.2.custom.min.css'))
 ->appendStylesheet($this->basePath('styles/jquery.cleditor.css'));
 $form = $this->form;
+$user = $this->user;
 $msg = $this->flashMessages();
 ?>
 <div class="box">
     <div class="box-header">
-        <h2><i class="icon-box"></i>设置会员<span style="color:#ff0000; font-weight: blod;"><?php echo $form->get('UserName')->getValue();?></span>的密码<span style="float: right;"><a href="/member">返回</a></span></h2>
+        <h2><i class="icon-box"></i>设置会员的密码<span style="float: right;"><a href="/member">返回</a></span></h2>
+    <div class="t_top">
+    <p class='t_right'>
+    <a class="btn btn-return" href="<?php echo $this->url('backend' 
+            , array('controller' => 'member' , 'action' => 'index'))?>">
+        <i class="icon-plus"></i>返回</a>
+    <a class="btn btn-submit" href="javascript:;">
+        <i class="icon-plus"></i>提交</a>
+    </p>
+    </div>
     </div>
     <div class="box-content">
         	<?php if(!empty($msg['error'])):?>
@@ -32,6 +42,18 @@ $msg = $this->flashMessages();
         <form class="box-form" action="<?php echo $this->url('backend' , array('controller' => 'member' , 'action' => 'pwd')).'?id='.$form->get('UserID')->getValue();?>"
               method="post" enctype="multipart/form-data">
             <fieldset>
+            <div class="input-group">
+	            <label for="UserName" class="input-label" style="margin-top:-10px;">用户名</label>
+	            <div class="input-item">
+	            <?php echo $user['UserName'];?>
+	            </div>
+            </div>
+            <div class="input-group">
+	            <label for="Nick" class="input-label" style="margin-top:-10px;">昵称</label>
+	            <div class="input-item">
+	            <?php echo $user['Nick'];?>
+	            </div>
+            </div>
             	<?php echo $this->formHidden($form->get('UserID'))?>
             	<?php echo $this->formText($form->get('Password'))?>
                 <?php echo $this->formText($form->get('rePassword'))?>
@@ -42,6 +64,8 @@ $msg = $this->flashMessages();
 </div>
 <script>
 $(function() {
-
+	$(".btn-submit").click(function(){
+		$("input[type='submit'][class='button-element']").trigger('click');
+	});
 })
 </script>

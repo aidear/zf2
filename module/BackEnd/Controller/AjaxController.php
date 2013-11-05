@@ -32,4 +32,21 @@ class AjaxController extends AbstractActionController
 		$assign = $regionTable->getRegionByPid($pid);
 		print_r(json_encode($assign));die;
 	}
+	public function memberListAction()
+	{
+		$member = $this->_getTable('MemberTable');
+		$rs = $member->getAll();
+		$data = array();
+		if ($rs) {
+			foreach ($rs as $v) {
+				$data[] = array(
+					'UserID' => $v->UserID,
+					'UserName' => $v->UserName,
+					'Email' => $v->Email,
+					'Mobile' => $v->Mobile,
+				);
+			}
+		}
+		return new JsonModel($data);
+	}
 }

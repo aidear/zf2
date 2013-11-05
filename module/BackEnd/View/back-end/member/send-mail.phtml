@@ -2,28 +2,37 @@
 $this->headScript()->appendFile($this->basePath('js/jquery-ui-1.10.2.custom.min.js'))
 ->appendFile($this->basePath('js/jquery.cleditor.min.js'))
 ->appendFile($this->basePath('js/jquery.ui.datepicker-zh-CN.js'));
-$this->headLink()->appendStylesheet($this->basePath('styles/jquery-ui-1.10.2.custom.min.css'))
+$this->headLink()->appendStylesheet('http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css')
 ->appendStylesheet($this->basePath('styles/jquery.cleditor.css'));
 $user = $this->user;
 $msg = $this->flashMessages();
-?>
+// 			if ($user['mult'] == 1) {
+// 				$sendTitleStr = '';
+// 				$email = array_filter($user['email']);
+// 				if (count($email) > 3) {
+// 					$sendTitleStr = '('.implode(',', array_slice($email, 0, 3)).'……)';
+// 				} else {
+// 					$sendTitleStr = '('.implode(',', $email).')';
+// 				}
+// 				echo $sendTitleStr;
+// 			} else {
+//         		echo $user['UserName'],'('.$user['Email'].')';
+//         	}
+        ?>
 <div class="box">
     <div class="box-header">
+    <!-- 
         <h2><i class="icon-box"></i>给会员<span style="color:#ff0000; font-weight: blod;">
-        <?php
-			if ($user['mult'] == 1) {
-				$sendTitleStr = '';
-				$email = array_filter($user['email']);
-				if (count($email) > 3) {
-					$sendTitleStr = '('.implode(',', array_slice($email, 0, 3)).'……)';
-				} else {
-					$sendTitleStr = '('.implode(',', $email).')';
-				}
-				echo $sendTitleStr;
-			} else {
-        		echo $user['UserName'],'('.$user['Email'].')';
-        	}
-        ?></span>发送邮件<span style="float: right;"><a href="/member">返回</a></span></h2>
+        </span>发送邮件<span style="float: right;"><a href="/member">返回</a></span></h2> -->
+        <div class="t_top">
+    <p class='t_right'>
+    <a class="btn btn-return" href="<?php echo $this->url('backend' 
+            , array('controller' => 'member' , 'action' => 'index'))?>">
+        <i class="icon-plus"></i>返回</a>
+    <a class="btn btn-submit" href="javascript:;">
+        <i class="icon-plus"></i>发送</a>
+    </p>
+    </div>
     </div>
     <div class="box-content">
         	<?php if(!empty($msg['error'])):?>
@@ -47,13 +56,46 @@ $msg = $this->flashMessages();
               method="post" enctype="multipart/form-data">
             <fieldset>
             <div class="input-group">
+            	<div style="float:left;">
+            	<label for="name" class="input-label">收件人</label>
+            	<div class="input-item receiver_style">
+            	<?php if (isset($user['name'])):?>
+            	<ul id="nameList">
+            	<?php foreach($user['name'] as $k=>$v):?>
+            	<li><?php echo $v;?></li>
+            	<?php endforeach;?>
+            	<?php endif;?>
+            	</ul>
+            	</div>
+            	</div>
+            	<div style="float:left; padding-left:6px;"><?php echo '共<span class="totalCount">',count($user),'</span>人';?>&nbsp;&nbsp;<input type='button' name='modify' value='调整' /></div>
+            </div>
+            <div style='clear:both;'>&nbsp;</div>
+            <div class="input-group">
+            	<div style="float:left;">
+	            	<label for="name" class="input-label">邮件地址</label>
+	            	<div class="input-item receiver_style">
+	            	<?php if (isset($user['email'])):?>
+	            	<ul id='emailList'>
+	            	<?php foreach($user['email'] as $k=>$v):?>
+	            	<li><?php echo $v;?></li>
+	            	<?php endforeach;?>
+	            	</ul>
+	            	<?php endif;?>
+	            	</div>
+	            </div>
+	            <div style="float:left; padding-left:6px;"><?php echo '共<span class="totalCount">',count($user),'</span>人';?></div>
+            </div>
+            <div style='clear:both;'>&nbsp;</div>
+            <div class="input-group">
             	<label for="name" class="input-label">邮件标题</label>
             	<div class="input-item"><input autocomplete="off" type="text" value="" name="subject" class="input-element"></div>
             </div>
-            <div class="input-group">
-            	<label for="name" class="input-label">收件人地址</label>
-            	<div class="input-item"><input style="color:#996633; width:300px;" type="text" readonly value="<?php echo $user['mult'] == 1 ? implode(',', $email) : $user['Email'];?>" name="email" class="input-element"></div>
-            </div>
+            <input style="color:#996633; width:300px;" type="hidden" readonly value="<?php echo implode(',', $user['email']);?>" name="email" class="input-element">
+<!--             <div class="input-group"> -->
+<!--             	<label for="name" class="input-label">收件人地址</label> -->
+            	<div class="input-item"></div>
+<!--             </div> -->
             <div class="input-group">
          	<label class="input-label" for="footer">邮件内容</label>
          	     <div class="input-item">
@@ -65,7 +107,10 @@ $msg = $this->flashMessages();
         </form>
     </div>
 </div>
-<script>
+<div id="dialog" title="请选择收件人" class="none">
+  <p>This is the default dialog which is useful for displaying information. The dialog window can be moved, resized and closed with the 'x' icon.</p>
+</div>
+<script type="text/javascript">
 $(function(){
     
     $(".cleditor").cleditor({
@@ -101,5 +146,60 @@ $(function(){
         bodyStyle:    // style to assign to document body contained within the editor
                       "margin:4px; font:10pt Arial,Verdana; cursor:text"
     });
+    $(".btn-submit").click(function(){
+		$("input[type='submit'][class='button-element']").trigger('click');
+	});
+
+//     $("input[name='modify']").click(function(){
+// 		$('<div class="modal fade"><div class="modal-dialog"><div class="modal-content"><div class="modal-body">是否</div><div class="modal-footer"><button type="button" class="btn btn-default" data-dismiss="modal">关闭</button><a href="" class="btn btn-primary">dd</a></div></div></div></div>').modal({keyboard: false});
+// 	});
+	$("input[name='modify']").click(function(){
+		var url = "/ajax/memberList";
+		$.ajax({
+			type:'POST',
+			url:url,
+			data:null,
+			dataType:'json',
+			cache:false,
+			async:false,
+			success:function(s) {
+				var html = "<table class='table' id='table1'>";
+				html += "<tr><th>全选<input type='checkbox' name='dialog_name_all' /></th><th>用户名</th><th>邮箱</th><th>手机号</th></tr>";
+				for(var o in s) {
+					html += "<tr><td><input type='checkbox' name='dialog_name' data-name='"+s[o].UserName+"' data-email='"+s[o].Email+"' data-mobile='"+s[o].Mobile+"' value='"+s[o].UserID+"' /></td><td>"+s[o].UserName+"</td><td>"+s[o].Email+"</td><td>"+s[o].Mobile+"</td><tr>";
+// 					html += "<option value='"+s[o].region_id+"'>"+s[o].region_name+"</option>";
+				}
+				html += "</table>";
+				$("#dialog").html(html);
+				$("input[type='checkbox'][name='dialog_name_all']").click(
+						function() {
+							if ($(this).is(':checked')) {
+								$("input[type='checkbox'][name='dialog_name']").prop('checked', this.checked);
+							} else {
+								$("input[type='checkbox'][name='dialog_name']").removeAttr('checked');
+							}
+						}
+					);
+			}
+		});
+		$("#dialog").dialog({position:'right',width:500,buttons: [ { text: "确定", click: function() {
+			var nameList = '';
+			var emailList = '';
+			var email = '';
+			var num = 0;
+			$("input[type='checkbox'][name='dialog_name']:checked").each(function(){
+				nameList += "<li>"+$(this).attr('data-name')+"</li>";
+				emailList += "<li>"+$(this).attr('data-email')+"</li>";
+				email += email ? ','+$(this).attr('data-email') : $(this).attr('data-email');
+				num ++;
+			});
+			$("#nameList").html(nameList);
+			$("#emailList").html(emailList);
+			$(".totalCount").html(num);
+			$("input[name='email']").val(email);
+			 $( this ).dialog( "close" ); 
+			} } ]});
+	});
+	
 })
 </script>

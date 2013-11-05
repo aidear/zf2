@@ -5,7 +5,35 @@ $msg = $this->flashMessages();
 ?>
 <div class="box">
     <div class="box-header">
-        <h2><i class="icon-box"></i>导航分类</h2>
+<!--         <h2><i class="icon-box"></i>导航分类</h2> -->
+    <div class="t_top">
+        	<div class="t_inline">
+        	<form class="form-inline" action="<?php echo $this->url('backend', array('controller' 
+            => 'nav', 'action' => 'category')); ?>" method="get">
+                <div class="input-group">
+                    <label>搜索分类</label>
+                    <input autocomplete="off" class="input-element span3" name="name" type="text">
+                    
+                <button class="button-element" type="submit">搜索</button>
+                </div>
+        </form>
+        	</div>
+        	<p class='t_right'><a class="btn btn-success" href="<?php echo $this->url('backend' 
+            , array('controller' => 'nav' , 'action' => 'save'))?>">
+        <i class="icon-plus"></i>新增分类</a>
+        <a class="btn btn-edit" href="javascript:;" _href="<?php echo $this->url('backend', array('controller' 
+                                => 'nav', 'action' => 'save')) ?>?id=">
+                                <i class="icon-edit"></i>编辑
+                            </a>
+                            <a class="btn btn-edit" href="javascript:;" _href="<?php echo $this->url('backend', array('controller' 
+                                => 'nav', 'action' => 'items')) ?>?cid=">
+                                <i class="icon-edit"></i>导航列表
+                            </a>
+                            <a class="btn btn-delete" href="javascript:;" _href="<?php echo $this->url('backend', array('controller' 
+                                => 'nav', 'action' => 'delete')) ?>?id=" onClick="diyConfirm('删除' , $(this).attr('href'), this);return false;"><i class="icon-delete"></i>删除
+                            </a>
+        </p>
+        </div>
     </div>
     <div class="box-content">
     <?php if(!empty($msg['error'])):?>
@@ -25,38 +53,6 @@ $msg = $this->flashMessages();
             <?php endforeach;?>
             </div>
             <?php endif;?>
-        <p><a class="btn btn-success" href="<?php echo $this->url('backend' 
-            , array('controller' => 'nav' , 'action' => 'save'))?>">
-        <i class="icon-plus"></i>新增分类</a>
-        <a class="btn btn-edit" href="javascript:;" _href="<?php echo $this->url('backend', array('controller' 
-                                => 'nav', 'action' => 'save')) ?>?id=">
-                                <i class="icon-edit"></i>编辑
-                            </a>
-                            <a class="btn btn-edit" href="javascript:;" _href="<?php echo $this->url('backend', array('controller' 
-                                => 'nav', 'action' => 'items')) ?>?cid=">
-                                <i class="icon-edit"></i>导航列表
-                            </a>
-                            <a class="btn btn-delete" href="javascript:;" _href="<?php echo $this->url('backend', array('controller' 
-                                => 'nav', 'action' => 'delete')) ?>?id=" onClick="diyConfirm('删除' , $(this).attr('href'), this);return false;"><i class="icon-delete"></i>删除
-                            </a>
-        </p>
-        <div class="t_top">
-        	<div class="t_inline">
-        	<form class="form-inline" action="<?php echo $this->url('backend', array('controller' 
-            => 'nav', 'action' => 'category')); ?>" method="get">
-                <div class="input-group">
-                    <label>搜索分类</label>
-                    <input autocomplete="off" class="input-element span3" name="name" type="text">
-                    
-                <button class="button-element" type="submit">搜索</button>
-                </div>
-        </form>
-        	</div>
-        	<div class="t_right">
-        					
-        	</div>
-        </div>
-        
         <table class="table" id="table1">
             <thead>
                 <tr class="row">

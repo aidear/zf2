@@ -3,7 +3,17 @@ $form = $this->form;
 ?>
 <div class="box">
     <div class="box-header">
-        <h2><i class="icon-box"></i>用户资料<span style="float: right;"><a href="/user">返回</a></span></h2>
+        <h2><i class="icon-box"></i>用户资料</h2>
+        <div class="t_top">
+        <p class='t_right'>
+        <a class="btn btn-return" href="<?php echo $this->url('backend' 
+            , array('controller' => 'user' , 'action' => 'index'))?>">
+        <i class="icon-plus"></i>返回</a>
+        <a class="btn btn-submit" href="javascript:;">
+        <i class="icon-plus"></i>提交</a>
+        <a class="btn btn-reset" href="javascript:;">
+        <i class="icon-plus"></i>重填</a>
+        </div>
     </div>
     <div class="box-content">
         <form class="box-form" action="<?php echo $this->url('backend' , array('controller' => 'user' , 'action' => 'save'))?>"

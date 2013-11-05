@@ -136,7 +136,7 @@ function _MP(menuid,targetUrl) {
 }
 $(window).load(function(){
 	var floatLT = $('.box-header').offset().top - 94;
-	var floatW = $('.box-header').width();
+	var pW = $('.box').width();
 	$(window).scroll(function() {
 		//浮动tab选择框
 		if($(document).scrollTop() > floatLT){
@@ -148,6 +148,7 @@ $(window).load(function(){
 				return false;
 			}
 		}
+		$('.box-header').width(pW+'px');
 	});
 })
 	

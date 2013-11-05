@@ -187,6 +187,8 @@ class MemberController extends AbstractActionController
 	{
 		$form = new MemberForm();
 		$post = $this->getRequest();
+		$UserID = $this->params()->fromQuery('id');
+		$userInfo = $this->_getMemberByID($UserID);
 		if($post->isPost()){
 			$password = trim($post->getPost()->Password);
 			$rePassword = trim($post->getPost()->rePassword);
@@ -197,15 +199,13 @@ class MemberController extends AbstractActionController
 			} elseif ($password == $rePassword) {
 				$memberTable = $this->_getTable('MemberTable');
 				$memberTable->updateFieldsByID(array('Password' => md5($password)), $UserID);
-				$this->flashMessenger()->addSuccessMessage('会员密码已重置成功');
-// 				return $this->redirect()->toRoute('backend' , array('controller' => 'member' , 'action' => 'pwd'));
+				$this->flashMessenger()->addSuccessMessage('会员'.$userInfo['UserName'].'密码已重置成功');
+				return $this->redirect()->toRoute('backend' , array('controller' => 'member' , 'action' => 'index'));
 			} else {
 				$this->flashMessenger()->addErrorMessage('抱歉，两次输入的密码不一致！请重新输入');
 			}
 			return $this->redirect()->toUrl("/member/pwd?id={$UserID}");
 		}
-		$UserID = $this->params()->fromQuery('id');
-		$userInfo = $this->_getMemberByID($UserID);
 		unset($userInfo['Password']);
 		$form->setData($userInfo);
 		$form->add ( array (
@@ -218,7 +218,7 @@ class MemberController extends AbstractActionController
 // 		if($this->flashMessenger()->hasMessages()){
 // 			return array('form' => $form, 'msg' => $this->flashMessenger()->getMessages());
 // 		} else {
-			return array('form' => $form);
+			return array('form' => $form, 'user' => $userInfo);
 // 		}
 		
 // 		return array('form'=>'');
@@ -244,20 +244,22 @@ class MemberController extends AbstractActionController
 		}
 		if (strpos($userid, ',') !== false) {
 			$userid = explode(',', $userid);
+		} else {
+			$userid = array($userid);
 		}
-		$user = $this->_getMemberByID($userid);
+		$user = $table->getUserListByID($userid)->toArray();
 		$assign = array();
-		if (count($user) != count($user,  COUNT_RECURSIVE)) {
-			$assign['mult'] = 1;
+// 		if (count($user) != count($user,  COUNT_RECURSIVE)) {
+// 			$assign['mult'] = 1;
 			foreach ($user as $u) {
 				$assign['email'][] = $u['Email'];
 				$assign['name'][] = $u['UserName'];
 			}
-		} else {
-			$assign['mult'] = 0;
-			$assign['Email'] = $user['Email'];
-			$assign['UserName'] = $user['UserName'];
-		}
+// 		} else {
+// 			$assign['mult'] = 0;
+// 			$assign['Email'] = $user['Email'];
+// 			$assign['UserName'] = $user['UserName'];
+// 		}
 		
 		return array('user' => $assign, 'id' => $id);
 	}

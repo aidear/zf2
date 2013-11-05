@@ -61,6 +61,18 @@ class MemberTable extends TableGateway
 	        return $row;
     	}
     }
+    function getUserListByID($id = array()) {
+    	if (is_array($id)) {
+    		$select = $this->getSql()->select();
+    		$where = function(Where $where) use ($id) {
+    			$where->in('UserID', $id);
+    		};
+    		$select->where($where);
+    		return $this->selectWith($select);
+    	} else {
+    		return null;
+    	}
+    }
     
     function getUserForName($name){
         $select = $this->getSql()->select();

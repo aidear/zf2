@@ -1,10 +1,8 @@
 <div class="box">
     <div class="box-header">
         <h2><i class="icon-box"></i>资源列表</h2>
-    </div>
-    
-    <div class="box-content">
-    <p>
+        <div class="t_top">
+        <p class="t_right">
      <a class="btn btn-success" href="<?php echo $this->url('backend' 
          , array('controller' => 'resource' , 'action' => 'updateResource'));?>">
         <i class="icon-plus"></i>更新资源</a>
@@ -12,11 +10,10 @@
                             , 'action' => 'save'))?>?id="><i class="icon-edit"></i>
                             设置别名</a>
         </p>
-        <div class="t_top">
-    	<div class="t_right" style="margin-bottom:6px;">
-        	 
-        	</div>
+        </div>
     </div>
+    
+    <div class="box-content">
         <table class="table">
             <thead>
                 <tr class="row">

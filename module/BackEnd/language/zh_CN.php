@@ -269,4 +269,12 @@ return array(
     "member" => '会员管理',
     
     'member-index' => '会员列表',
+    'member-save' => '会员列表',
+    'member-pwd' => '设置密码',
+    'member-sendMail' => '发送邮件',
+    
+    'role-index' => '角色管理',
+    'role-save' => '角色管理',
+    'resoure-index' => '资源管理',
+    'user-index' => '帐号管理',
 );

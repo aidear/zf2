@@ -1,9 +1,8 @@
 <div class="box">
     <div class="box-header">
         <h2><i class="icon-box"></i>角色列表</h2>
-    </div>
-    <div class="box-content">
-    <p><a class="btn btn-success" href="<?php echo $this
+        <div class="t_top">
+        <p  class='t_right'><a class="btn btn-success" href="<?php echo $this
     ->url('backend' , array('controller' => 'role' , 'action' => 'save'));
     ?>"><i class="icon-plus"></i>添加角色</a>
     <a class="btn btn-edit" href="javascript:;" _href="<?php echo $this->url('backend' , array('controller' => 'acl'
@@ -12,11 +11,9 @@
                         <a class="btn btn-delete" href="javascript:;" _href="<?php echo $this->url('backend' , array('controller' => 'role'
                             , 'action' => 'delete'));?>?name=" onClick="diyConfirm('删除' , $(this).attr('href'), this);return false;"><i class="icon-delete"></i>
                             删除</a></p>
-    <div class="t_top">
-    	<div class="t_right" style="margin-bottom:6px;">
-        	 
-        	</div>
+        </div>
     </div>
+    <div class="box-content">
         <table class="table">
         <thead>
             <tr class="row">
