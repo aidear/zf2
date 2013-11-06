@@ -135,7 +135,34 @@ class MemberTable extends TableGateway
     		->orPredicate(new Like('Nick', '%' . $data['k'] . '%'))
     		->orPredicate(new Like('Mobile', '%' . $data['k'] . '%'));
     	}
-    
+    	if (isset($data['Points'])) {
+    		$sep = explode('|', $data['Points']);
+    		$field = $sep[0];
+    		$than = $sep[1];
+    		$v = $sep[2];
+    		switch($than) {
+    			case 'than':
+	    			$where->greaterThan($field, $v);
+	    			break;
+    			case 'lthan':
+    				$where->lessThan($field, $v);
+    				break;
+    			case 'nequal':
+    				$where->equalTo($field, $v);
+    				break;
+    			case 'sthan':
+    				$where->lessThanOrEqualTo($field, $v);
+    				break;
+    			case 'bthan':
+    				$where->bthan($field, $v);
+    				break;
+    			default:
+    				break;
+    		}
+    	}
+    	if (isset($data['Gender'])) {
+    		$where->equalTo('Gender', $data['Gender']);
+    	}
     	$this->select->where($where);
     	return $this;
     }

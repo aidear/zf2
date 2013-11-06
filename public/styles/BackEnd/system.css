@@ -1589,3 +1589,13 @@ div#RobPub1SysMsg{
 .RobPub1BlueBorder{
     /*border:1px solid #f6892f;*/
 }
+
+/*筛选*/
+
+#frmFilter .filter_label,#frmFilter .filter_opt,#frmFilter .filter_val {
+	float:left;
+	padding-right:4px;
+}
+#frmFilter .filter_val input[type='text'] {
+	width:80px;
+}

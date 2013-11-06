@@ -45,6 +45,15 @@ class MemberController extends AbstractActionController
         if ($this->params()->fromQuery('pageSize')) {
         	$params['pageSize'] = $this->params()->fromQuery('pageSize');
         }
+        $noFilterParams = $params;
+        $points = $this->params()->fromQuery('Points', '');
+        if ($points) {
+        	$params['Points'] = $points;
+        }
+        $gender = $this->params()->fromQuery('Gender', '');
+        if ($gender) {
+        	$params['Gender'] = $gender;
+        }
         
         $removePageParams = $params;
         
@@ -62,6 +71,7 @@ class MemberController extends AbstractActionController
         		'startNumber' => $startNumber,
         		'orderQuery' => http_build_query($orderPageParams),
         		'query' => http_build_query($removePageParams),
+        		'filterQuery' => http_build_query($noFilterParams),
         		'order' => $order,
         );
         return new ViewModel($assign);

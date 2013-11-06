@@ -1,4 +1,6 @@
-<?php 
+<?php
+$this->headScript()->appendFile($this->basePath('js/jquery-ui-1.10.2.custom.min.js'));
+$this->headLink()->appendStylesheet('http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css');
 $msg = $this->flashMessages();
 ?>
 <div class="box">
@@ -12,6 +14,8 @@ $msg = $this->flashMessages();
                     <input autocomplete="off" class="input-element span3" name="k" type="text">
                     
                 <button class="button-element" type="submit">搜索</button>
+                
+                <button class="button-element" type='button' id="selector">筛选</button>
                 </div>
         	</form>
         	</div>
@@ -146,6 +150,32 @@ $msg = $this->flashMessages();
             => $this->url('backend' , array('controller' => 'member' , 'action' => 'index')).'?'.$this->query));?>
     </div>
 </div>
+<div id="dialog" title="筛选" style="display: none;">
+<!-- 	添加筛选条件：<select name="selector_limit" id="select_all_options"> -->
+<!-- 		<option value="Point" vtype="int" ctype="select">积分</option> -->
+<!-- 		<option value="Gender" vtype="int" ctype="radio">性别</option> -->
+<!-- 	</select> -->
+	<form id="frmFilter">
+		<div id="Point">
+			<div class="filter_label">积分</div>
+			<div class="filter_opt">
+				<select name="select_Point"><option value="than">大于</option><option value="lthan">小于</option><option value="nequal">等于</option><option value="sthan">小于等于</option><option value="bthan">大于等于</option></select>
+			</div>
+			<div class='filter_val'><input id="filter_value" value="" type="text" name="Point" /></div>
+		</div>
+		<div style='clear: both;'>&nbsp;</div>
+		<div id="Gender">
+			<div class="filter_label">性别</div>
+			<div class="filter_opt">
+			</div>
+			<div class='filter_val'>
+				<input type="radio" value="0" name="Gender">保密
+				<input type="radio" value="1" name="Gender">男
+				<input type="radio" value="2" name="Gender">女
+			</div>
+		</div>
+	</form>
+</div>
 <script type="text/javascript">
 <!--
 var productEditableParam={
@@ -193,5 +223,24 @@ var options={
 		editableParam:productEditableParam
 }
 new Editable(options,$("#table1"));
+var url = '<?php echo $this->url('backend' , array('controller' => 'member' , 'action' => 'index'));?>';
+var query = '<?php echo $this->filterQuery?>';
+$(function(){
+	$("#selector").click(function(){
+		$("#dialog").dialog({position:'center',width:300,buttons: [ { text: "确定", click: function() {
+			var point_val = $("input[type='text'][name='Point']").val();
+			if (point_val != '') {
+				var p_filter = $("select[name='select_Point']").val();
+				query += "&Points=Points|" + p_filter + "|" + point_val;
+			}
+			var gender_val = $("input[type='radio'][name='Gender']:checked").val();	
+			if (typeof gender_val != 'undefined') {
+				query += "&Gender="+gender_val;
+			}
+			location.href=url+'?'+query;
+			 $( this ).dialog( "close" ); 
+			} } ]});
+	});
+})
 //-->
 </script>
