@@ -116,7 +116,7 @@ $(function(){
 			}
 		});
 	}
-	$("#table1 tr.row").each(function(){
+	$("table.table tr.row").each(function(){
 		$("td,th", $(this)).eq(0).click(function(e){
 			e = window.event || e;
 			var obj = e.srcElement || e.target;
@@ -126,7 +126,7 @@ $(function(){
 			chkBg();
 		});
 	});
-	$("#table1 tr.row").each(function(){
+	$("table.table tr.row").each(function(){
 		$("td,th", $(this)).eq(1).click(function(e){
 			e = window.event || e;
 			var obj = e.srcElement || e.target;
@@ -447,4 +447,34 @@ $(function(){
           });
       }
 	}
+})();
+(function(){
+	var Area = this.Area = function(options) {
+		this.options = options;
+		this.init();
+	};
+	Area.prototype = {
+		init : function() {
+			var that = this;
+			$(this.options.prov).bind('change', this.baseBind($(this.options.prov), $(this.options.city), '城市'));
+			$(this.options.city).bind('change', this.baseBind($(this.options.city), $(this.options.dist), '区域'));
+		},
+		baseBind : function($obj, $sub, areaTitle) {
+			$obj.change(function() {
+				$v = $(this).val();
+				$.ajax({
+					type: "POST",
+					url : "/ajax/region?p="+$v,
+					dataType :"json",
+					success: function(s){
+						var html = '<option >===请选择'+areaTitle+'===</option>';
+						for(var o in s) {
+							html += "<option value='"+s[o].region_id+"'>"+s[o].region_name+"</option>";
+						}
+						$sub.html(html);
+					}
+				});
+			});
+		}
+	};
 })();

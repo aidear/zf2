@@ -29,7 +29,7 @@
             <tbody>
                 <?php if(count($this->paginaction) > 0):?>
                 <?php foreach($this->paginaction as $resource):?>
-                <tr>
+                <tr class="row">
                 	<td><input type="checkbox" name="select" value="<?php echo $resource->ResourceID?>" data-key="资源名" data-value="<?php echo $resource->Name; ?>" /></td>
                     <td><?php echo $resource->Name?></td>
                     <td><?php echo $resource->Controller?></td>

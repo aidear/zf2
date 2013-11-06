@@ -74,37 +74,9 @@ $msg = $this->flashMessages();
     </div>
 </div>
 <script>
+var options = {prov : "select[name='Province']", city : "select[name='City']", dist : "select[name='District']"};
+new Area(options);
 $(function() {
-	$("select[name='Province']").change(function() {
-		$v = $(this).val();
-		$.ajax({
-			type: "POST",
-			url : "/ajax/region?p="+$v,
-			dataType :"json",
-			success: function(s){
-				var html = '<option >===请选择城市===</option>';
-				for(var o in s) {
-					html += "<option value='"+s[o].region_id+"'>"+s[o].region_name+"</option>";
-				}
-				$("select[name='City']").html(html);
-			}
-		});
-	});
-	$("select[name='City']").change(function() {
-		$v = $(this).val();
-		$.ajax({
-			type: "POST",
-			url : "/ajax/region?p="+$v,
-			dataType :"json",
-			success: function(s){
-				var html = '<option >===请选择区域===</option>';
-				for(var o in s) {
-					html += "<option value='"+s[o].region_id+"'>"+s[o].region_name+"</option>";
-				}
-				$("select[name='District']").html(html);
-			}
-		});
-	});
 	$("input[name='Birthday']").datepicker();
 	$(".btn-submit").click(function(){
 		$("input[type='submit'][class='button-element']").trigger('click');

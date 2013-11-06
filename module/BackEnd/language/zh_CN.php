@@ -268,13 +268,9 @@ return array(
     "index" => "首页",
     "member" => '会员管理',
     
-    'member-index' => '会员列表',
-    'member-save' => '会员列表',
-    'member-pwd' => '设置密码',
-    'member-sendMail' => '发送邮件',
+    'menu_member' => '会员列表',
     
-    'role-index' => '角色管理',
-    'role-save' => '角色管理',
-    'resoure-index' => '资源管理',
-    'user-index' => '帐号管理',
+    'menu_role' => '角色管理',
+    'menu_resoure' => '资源管理',
+    'menu_user' => '帐号管理',
 );
