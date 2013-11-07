@@ -44,6 +44,20 @@ var diyConfirm = function(name , url, obj){
              + url +' class="btn btn-primary">'
              + name +'</a></div></div></div></div>').modal({keyboard: false});
 };
+function getcookie(name) {
+	var cookie_start = document.cookie.indexOf(name);
+	var cookie_end = document.cookie.indexOf(";", cookie_start);
+	return cookie_start == -1 ? '' : unescape(document.cookie.substring(cookie_start + name.length + 1, (cookie_end > cookie_start ? cookie_end : document.cookie.length)).replace(';', ''));
+}
+function setcookie(cookieName, cookieValue, seconds, path, domain, secure) {
+	var expires = new Date();
+	expires.setTime(expires.getTime() + seconds);
+	document.cookie = escape(cookieName) + '=' + escape(cookieValue)
+	+ (expires ? '; expires=' + expires.toGMTString() : '')
+	+ (path ? '; path=' + path : '/')
+	+ (domain ? '; domain=' + domain : '')
+	+ (secure ? '; secure' : '');
+}
 $(function(){
 	$("html").click(function(e){
 		e = window.event || e;
@@ -108,13 +122,16 @@ $(function(){
 		}
 	);
 	function chkBg() {
+		var ids = '';
 		$("input[type='checkbox'][name='select']").each(function(){
 			if ($(this).is(':checked')) {
 				$(this).parents('tr').css('background-color', '#f0f0f0');
+				ids += ','+$(this).val();
 			} else {
 				$(this).parents('tr').css('background-color', '#fff');
 			}
 		});
+		setcookie('memory_id_list', ids, 24*3600);
 	}
 	$("table.table tr.row").each(function(){
 		$("td,th", $(this)).eq(0).click(function(e){

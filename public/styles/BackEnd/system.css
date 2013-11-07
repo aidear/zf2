@@ -31,7 +31,7 @@ body fieldset.blue legend{padding:3px 8px;font-weight:700;color:#347add; backgro
 .vote_bar div{background: url(../../images/BackEnd/admin_img/x_bg.png) repeat-x left -194px; float: left; position:relative; height:16px;_height:13px}
 .vote_bar div span{ display:block; position:absolute; left:0; top:0; width:180px; text-align:center; height:16px; font-size:10px; line-height:12px; vertical-align:middle}
 
-/*头部*/
+/*澶撮儴*/
 .crumbs,.tab-web-panel li a:hover,.tab-web-panel li.on a{background: url(../../images/BackEnd/admin_img/icon_use.png) no-repeat}
 .header {background:#3c86c5 url(../../images/BackEnd/admin_img/hdbg.gif) no-repeat right top; height:80px; width:100%;}
 .stayHere {
@@ -77,7 +77,7 @@ body fieldset.blue legend{padding:3px 8px;font-weight:700;color:#347add; backgro
 	#Skin .s2 {background-position:0 -55px}
 	#Skin .s3 {background-position:0 -33px}
 	#Skin .s4 {}
-/*主体样式*/
+/*涓讳綋鏍峰紡*/
 #content {margin-top:80px;}
 .left_menu{margin-right:12px;_margin-right:10px;padding:12px;_padding:12px 0 12px 12px;width:110px; position:relative; display:block; background-color:#F7FBFC; height:100%;}
 .left_menu_on{ width:0; padding:0;}
@@ -97,13 +97,13 @@ body fieldset.blue legend{padding:3px 8px;font-weight:700;color:#347add; backgro
 .left_menu a.close{background-position:right center}
 .left_menu h3 span{background-position: left -78px; display:block; float:right; height:14px; width:14px; margin-top:5px}
 .left_menu h3 span.on{background-position: -33px -78px;}
-/*当前位置*/
+/*褰撳墠浣嶇疆*/
 .crumbs{background-position:left -18px; height:6px; padding:6px 0 0 18px;*height:6px;*padding:8px 0 0 18px;}
 .shortcut{ float:right; position:relative; top:-3px;*top:-4px;}
 .shortcut a{ margin-left:6px; padding-left:6px; color:#0364ae}
 .shortcut a,.shortcut a span{background: url(../../images/BackEnd/admin_img/bnt_bg.png) no-repeat 0 -83px; height:21px; line-height:21px;*line-height:24px;_line-height:20px; text-align:center;}
 .shortcut a span{background-position: right -83px; padding-right:6px;}
-/*容器样式*/
+/*瀹瑰櫒鏍峰紡*/
 .col-tab{ }
 .col-tab ul.tabBut{height:27px; padding-left:14px;position:relative;bottom:-1px}
 .col-tab ul.tabBut li{float:left; border:1px solid #dce3ed; height:25px; line-height:26px; margin-right:5px;}
@@ -138,10 +138,10 @@ box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05
 transition: 0.1s linear background-image;
 overflow: visible; padding-left:5px; font-size:14px;}
 .menu-collapse td .desc { background-color:#fff;}
-/*栏目菜单*/
+/*鏍忕洰鑿滃崟*/
 .cat-menu{ width:180px; margin:10px 8px 0 0; }
 .cat-menu div.content{padding-left:8px}
-/*收藏导航*/
+/*鏀惰棌瀵艰埅*/
 .fav-nav,.fav-nav span,.fav-nav a{height:28px;line-height:28px;background: url(../../images/BackEnd/admin_img/fav-nav-bg.png) repeat-x left top;}
 .fav-nav{padding:0 0 0 12px;position: absolute; left:0;bottom:0px;width:100%;}
 .fav-nav span{background-position: right -78px;position:relative;display:block;float:left;background-repeat: no-repeat; padding-right:2px}
@@ -153,7 +153,7 @@ overflow: visible; padding-left:5px; font-size:14px;}
 .fav-nav a.panel-add:hover{background-position: center -163px;}
 .fav-nav a.panel-delete:hover{background-position: center -46px;}
 .fav-nav a.panel-delete em,.fav-nav a.panel-add em{ display:none}
-/*内容菜单*/
+/*鍐呭鑿滃崟*/
 .content-menu{ padding:0 0 6px}
 .content-menu a:hover{text-decoration: none}
 .content-menu a em{display:inline-block;display:-moz-inline-stack;zoom:1;*display:inline;}
@@ -165,22 +165,22 @@ overflow: visible; padding-left:5px; font-size:14px;}
 .content-menu a.add em{ padding:0 10px 0 5px;color:#fff;background-position: right top}
 .content-menu a.on{background-position: left -40px;*background-position: left -41px;_background-position: left -39px; color:#fff; padding:0 0 0 5px;}
 .content-menu a.on em{background-position: right -40px;*background-position: right -41px;_background-position: right -39px; padding:0 10px 0 5px}
-/*分页*/
-#pages { padding:14px 0 10px;font-family:宋体; text-align:right}
+/*鍒嗛〉*/
+#pages { padding:14px 0 10px;font-family:瀹嬩綋; text-align:right}
 #pages a { display:inline-block; width:26px; height:22px; line-height:22px; background:#fff; border:1px solid #e3e3e3; text-align:center; color:#333}
 #pages a.a1 { background:url(../../images/BackEnd/admin_img/pages.png) no-repeat 0 5px; width:56px; }
 #pages a:hover { background:#f1f1f1; color:#000; text-decoration:none; }
 #pages span { display:inline-block; width:26px; height:22px; line-height:22px; background:#5a85b2; border:1px solid #5a85b2; color:#fff; text-align:center; }
 .page .noPage { display:inline-block; width:56px; height:22px; line-height:22px; background:url(../img/icu/titleBg.png) repeat-x 0 -55px ; border:1px solid #e3e3e3; text-align:center; color:#a4a4a4; }
 
-/*图片列表水平左右居中*/
+/*鍥剧墖鍒楄〃姘村钩宸﹀彸灞呬腑*/
 .img-wrap{border:1px solid #eee;text-align:center;overflow:hidden;background:#fff}
 .img-wrap a{display:table-cell;vertical-align:middle;text-align:center;*display:block;}
 
 #imgPreview td.on{background:#f4f9fe}
 #imgPreview td.on a{background:url("../../images/BackEnd/msg_bg.png") no-repeat right -250px;vertical-align:middle; padding-right:70px;display:inline-block;display:-moz-inline-stack;zoom:1;*display:inline; height:16px; line-height:16px}
 
-/*角色权限设置*/
+/*瑙掕壊鏉冮檺璁剧疆*/
 .role-memu{ padding:5px 0}
 .role-memu li a{cursor: hand;!important;cursor: pointer;display:block;color:#2e74d7;text-decoration: none; height:24px; padding:0 6px; overflow:hidden; line-height:24px; vertical-align:middle; background-color:#FFF}
 .role-memu li a em{ width:80px; overflow:hidden; display:block}
@@ -190,7 +190,7 @@ overflow: visible; padding-left:5px; font-size:14px;}
 .role-but,.role-but span{background: url(../../images/BackEnd/admin_img/tbtn.png) no-repeat; height:36px; line-height:36px; vertical-align:middle; padding-left:12px; border:none;display:inline-block;display:-moz-inline-stack;zoom:1;*display:inline;}
 .role-but span{background-position: right top; padding:0 12px 0 0; font-weight:700; font-size:14px; color:#fff}
 
-/*发布内容
+/*鍙戝竷鍐呭
 .addContent{width:960px; margin:0 auto; overflow:hidden;}
 .addContent .col-auto{width:750px;margin-right:6px;_margin-right:5px;}
 .addContent .col-right .content h6{ border-bottom:1px solid #cfdce3; padding:8px 0 3px; margin-bottom:7px}
@@ -212,7 +212,7 @@ overflow: visible; padding-left:5px; font-size:14px;}
 .addContent .col-right select#template{max-width:188px;*width:188px;_width:188px}
 
 .list-dot{ padding-bottom:10px}
-.list-dot li,.list-dot-othors li{padding:5px 0; border-bottom:1px dotted #c6dde0; font-family:"宋体"; color:#bbb; position:relative;_height:22px}
+.list-dot li,.list-dot-othors li{padding:5px 0; border-bottom:1px dotted #c6dde0; font-family:"瀹嬩綋"; color:#bbb; position:relative;_height:22px}
 .list-dot li:hover,.list-dot-othors li:hover{ background-color:#d9e5ee}
 .list-dot li span,.list-dot-othors li span{color:#004499}
 .list-dot li a.close span,.list-dot-othors li a.close span{display:none}
@@ -220,7 +220,7 @@ overflow: visible; padding-left:5px; font-size:14px;}
 .list-dot li a.close:hover,.list-dot-othors li a.close:hover{background-position: left -46px}
 .list-dot-othors li{float:left;width:24%;overflow:hidden;}
 
-/*评论*/
+/*璇勮*/
 .comment{ padding:8px 10px}
 .comment .title{ margin-bottom:5px}
 .comment .title span{ position:relative; top:-5px}
@@ -230,7 +230,7 @@ overflow: visible; padding-left:5px; font-size:14px;}
 .comment_button a{padding:5px; border:solid 1px #C3D4E7; }
 .comment_button a.on{background:#4C7FB6; color:#fff;border:solid 1px #3E73A9}
 
-/*圆角*/
+/*鍦嗚*/
 .fillet{position:relative; border:1px solid #c4d5df; zoom:1;}
 .fillet span.o1,
 	.fillet span.o2,
@@ -241,7 +241,7 @@ overflow: visible; padding-left:5px; font-size:14px;}
 	.fillet span.o3{background-position: left bottom; bottom:-1px; left:-1px}
 	.fillet span.o4{background-position: right bottom; bottom:-1px; right:-1px;}
 	
-/*工作流*/
+/*宸ヤ綔娴�/
 .workflow{padding:10px 140px 10px 10px;}
 .workflow .col{padding-bottom:20px;background: url(../../images/BackEnd/admin_img/arrowhead-y.png) no-repeat 10px bottom;}
 .workflow div.off{padding:0; background:none}
@@ -251,21 +251,21 @@ overflow: visible; padding-left:5px; font-size:14px;}
 .workflow .fillet{background:#f6f9fb; padding:8px 10px 7px}
 .workflow .name{font-size:14px}
 
-/*锁频*/
+/*閿侀*/
 .ScreenLock {background-color:#3a6ea5;background-image:url("../../images/BackEnd/admin_img/ScreenLock.png")}
 .ScreenLock {background-position:50% 50%;background-repeat:no-repeat;height:100%;left:0;position:absolute;top:0;width:100%;z-index:2000}
 .ScreenLock .inputpwd {font-size:14px;height:134px;left:50%;margin:-102px 0 0 -150px;padding:28px;position:absolute;top:50%;width:280px}
 .ScreenLock h5{ height:60px; line-height:60px; padding-top:10px; padding-left:40px;background:url(../../images/BackEnd/msg_img/msg_bg.png) no-repeat 0px -476px;}
-.ScreenLock .input-text{border:1px solid #A7A6AA;height:18px;margin:0 5px 0 0;padding:2px 0 2px 5px;border: 1px solid #d0d0d0;background: #FFF url(../../images/BackEnd/admin_img/input.png) repeat-x; font-family: Verdana, Geneva, sans-serif,"宋体";font-size:12px;}
+.ScreenLock .input-text{border:1px solid #A7A6AA;height:18px;margin:0 5px 0 0;padding:2px 0 2px 5px;border: 1px solid #d0d0d0;background: #FFF url(../../images/BackEnd/admin_img/input.png) repeat-x; font-family: Verdana, Geneva, sans-serif,"瀹嬩綋";font-size:12px;}
 .ScreenLock .submit{ background: url(../../images/BackEnd/admin_img/ScreenLockBut.png) no-repeat; height:24px; width:55px;cursor:hand;display:inline-block;display:-moz-inline-stack;zoom:1;*display:inline; border:none}
 
-/*网站地图*/
+/*缃戠珯鍦板浘*/
 .map-menu ul{margin:4px;width:156px;border:1px solid #A4C0F7;}
 .map-menu ul li.title{background:#EDF2F8;font-weight:bold;padding-left:5px;}
 .map-menu ul li.title2{font-weight:bold;padding-left:10px;}
 .map-menu ul li{padding:4px;padding-left:20px;}
 
-/*附件 未使用-已使用*/
+/*闄勪欢 鏈娇鐢�宸蹭娇鐢�/
 .tab-use{ position: relative}
 .tab-use .arrows{background: url(../../images/BackEnd/admin_img/toggle-collapse-dark.png) no-repeat;  width:16px; height:16px; overflow:hidden; position:absolute; left:0; top:-11px;}
 .tab-use ul{ position:absolute; display:none; top:5px; left:0; width:80px}
@@ -277,7 +277,7 @@ overflow: visible; padding-left:5px; font-size:14px;}
 @charset "utf-8";
 /* CSS Document */
 body, button, input, select, textarea {
-    font: 12px/1.5 tahoma,arial,宋体,sans-serif;
+    font: 12px/1.5 tahoma,arial,瀹嬩綋,sans-serif;
 }
 
 
@@ -1172,7 +1172,7 @@ hr {
 .hidden{
 	display:none;
 }
-/*图标*/
+/*鍥炬爣*/
 .icon-view{
     background-position: -336px 0;
 }
@@ -1590,7 +1590,7 @@ div#RobPub1SysMsg{
     /*border:1px solid #f6892f;*/
 }
 
-/*筛选*/
+/*绛涢�*/
 
 #frmFilter .filter_label,#frmFilter .filter_opt,#frmFilter .filter_val {
 	float:left;
@@ -1598,4 +1598,31 @@ div#RobPub1SysMsg{
 }
 #frmFilter .filter_val input[type='text'] {
 	width:80px;
+}
+.index_table {
+	border-collapse:collapse;
+	width:100%;
+}
+.index_table h3 {
+	border-bottom:1px dashed #ccc;
+	vertical-align:text-top;
+	margin-top:0;
+}
+.index_table td {
+	width:50%;
+	border:1px solid #ccc;
+	padding:6px;
+}
+.index_table td li {
+	line-height:150%;
+}
+.index_table td span.left_sort {
+	width:100px;
+	display:inline-table;
+	text-align:right;
+	padding-right:4px;
+	padding-bottom:4px;
+}
+.none {
+	display:none;
 }

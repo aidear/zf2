@@ -9,7 +9,7 @@ $msg = $this->flashMessages();
         <div class="t_top">
         	<div class="t_inline">
         	<form class="form-inline" action="<?php echo $this->url('backend', array('controller' 
-            => 'member', 'action' => 'index')); ?>" method="get">
+            => 'member', 'action' => 'contact')); ?>" method="get">
                 <div class="input-group">
                     <input autocomplete="off" class="input-element span3" name="k" type="text">
                     
@@ -19,7 +19,7 @@ $msg = $this->flashMessages();
                 </div>
         	</form>
         	</div>
-        	<p class='t_right'><a class="btn btn-success" href="<?php echo $this->url('backend' 
+        	<p class='t_right none'><a class="btn btn-success" href="<?php echo $this->url('backend' 
             , array('controller' => 'member' , 'action' => 'save'))?>">
         <i class="icon-plus"></i>新增</a>
         					<a class="btn btn-edit" href="javascript:;" _href="<?php echo $this->url('backend', array('controller' 
@@ -87,61 +87,16 @@ $msg = $this->flashMessages();
                     	 手机
                     <?php endif;?>             
                    </th>
-                    <th key="Nick" editable="true">
-       <?php if (isset($this->order['Nick'])):?>
-                    <?php $name = $this->order['Nick'];?>
-                    <a href="<?php echo $name['href'];?>">昵称<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
-                    <?php else:?>
-                    	昵称
-                    <?php endif;?>             
-                    </th>
-                    <th key="Points" editable="true">
-                    <?php if (isset($this->order['Points'])):?>
-                    <?php $name = $this->order['Points'];?>
-                    <a href="<?php echo $name['href'];?>">积分<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
-                    <?php else:?>
-                    	积分
-                    <?php endif;?>
-                    	</th>
-                    <th>
-      <?php if (isset($this->order['LastLogin'])):?>
-                    <?php $name = $this->order['LastLogin'];?>
-                    <a href="<?php echo $name['href'];?>"> 最后登录时间<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
-                    <?php else:?>
-                    	 最后登录时间
-                    <?php endif;?>              
-                   </th>
-                    <th>
-      <?php if (isset($this->order['LoginCount'])):?>
-                    <?php $name = $this->order['LoginCount'];?>
-                    <a href="<?php echo $name['href'];?>"> 登录次数<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
-                    <?php else:?>
-                    	登录次数
-                    <?php endif;?>              
-                    </th>
-                    <th>
-      <?php if (isset($this->order['LastUpdate'])):?>
-                    <?php $name = $this->order['LastUpdate'];?>
-                    <a href="<?php echo $name['href'];?>"> 最后修改时间<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
-                    <?php else:?>
-                    	最后修改时间
-                    <?php endif;?>              
-                    </th>
                 </tr>
             </thead>
             <tbody>
                 <?php $startNumber = $this->startNumber;foreach ($this->paginaction as $user): ?>
                     <tr class="row" primary_value="<?php echo $user->UserID; ?>">
-                    	<td><input type="checkbox" name="select" value="<?php echo $user->UserID; ?>" data-key="用户名" data-value="<?php echo $user->UserName; ?>" /></td>
+                    	<td width="60"><input type="checkbox" name="select" value="<?php echo $user->UserID; ?>" data-key="用户名" data-value="<?php echo $user->UserName; ?>" /></td>
                     	<td><?php echo $startNumber++;?></td>
                         <td key="UserName" editable="true"><?php echo $user->UserName; ?></td>
                         <td key="Email" editable="true"><?php echo $user->Email; ?></td>
                         <td key="Mobile" editable="true"><?php echo $user->Mobile; ?></td>
-                        <td key="Nick" editable="true"><?php echo $user->Nick; ?></td>
-                        <td key="Points" editable="true"><?php echo $user->Points; ?></td>
-                        <td><?php echo $user->LastLogin; ?></td>
-                        <td><?php echo $user->LoginCount; ?></td>
-                        <td><?php echo $user->LastUpdate; ?></td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>

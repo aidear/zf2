@@ -52,7 +52,20 @@ return array (
 							array(
 									'label' => '会员列表',
 									'controller' => 'member',
+									'action' => 'index',
 									'resource' => 'member_index',
+							),
+							array(
+									'label' => '通讯录',
+									'controller' => 'member',
+									'action' => 'contact',
+									'resource' => 'member_contact',
+							),
+							array(
+									'label' => '全息表',
+									'controller' => 'member',
+									'action' => 'all',
+									'resource' => 'member_all',
 							),
 							array(
 									'label' => '新增会员',

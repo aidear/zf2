@@ -267,7 +267,7 @@ return array(
     "Index" => "后台管理",
     "index" => "首页",
     "member" => '会员管理',
-    
+    "menu_Index" => '管理中心',
     'menu_member' => '会员列表',
     
     'menu_role' => '角色管理',

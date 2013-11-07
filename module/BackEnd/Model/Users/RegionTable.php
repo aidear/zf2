@@ -44,6 +44,18 @@ class RegionTable extends TableGateway
 		
 		return $resultSet->toArray();
 	}
+	public function getRegionList()
+	{
+		$data = array();
+		$select = $this->getSql()->select();
+		$resultSet = $this->selectWith($select);
+		
+		$rows = $resultSet->toArray();
+		foreach ($rows as $v) {
+			$data[$v['region_id']] = $v['region_name'];
+		}
+		return $data;
+	}
 	public function getSelectRegion($type = 1, $pid = 1) 
 	{
 		$result = array();

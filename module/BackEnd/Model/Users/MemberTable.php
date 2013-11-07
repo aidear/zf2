@@ -18,7 +18,18 @@ class MemberTable extends TableGateway
 {
     protected $table = "member";
     protected $select;
-    
+    public function getStatistics()
+    {
+    	$sql = "SELECT SUM(IF (DATE_FORMAT(`AddTime`, 'YYYY-MM-DD')=CURDATE(), 1, 0)) AS todayTotal,
+SUM(IF (WEEK(`AddTime`)=WEEK(NOW()), 1, 0)) AS weekTotal,
+SUM(IF (DATE_FORMAT(`AddTime`, 'YYYY-MM')=DATE_FORMAT(NOW(), 'YYYY-MM'), 1, 0)) AS monthTotal,
+SUM(IF (QUARTER(`AddTime`) = QUARTER(NOW()), 1, 0)) AS quarterTotal,
+SUM(IF (YEAR(`AddTime`)=YEAR(NOW()), 1, 0)) AS yearTotal,
+COUNT(1) as allTotal
+FROM member;";
+    	$rs = $this->adapter->query($sql, Adapter::QUERY_MODE_EXECUTE);
+    	return $rs->current();
+    }
     function getMemberByName($name)
     {
 //     	$rowset = $this->select(array('Status' => 1, 'UserName' => $name));

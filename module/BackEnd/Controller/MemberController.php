@@ -76,6 +76,105 @@ class MemberController extends AbstractActionController
         );
         return new ViewModel($assign);
 	}
+	public function contactAction()
+	{
+		$routeParams = array('controller' => 'member' , 'action' => 'contact');
+		$prefixUrl = $this->url()->fromRoute(null, $routeParams);
+		$params = array();
+	
+		$table = $this->_getTable('MemberTable');
+		$k = $this->params()->fromQuery('k' , '');
+	
+		if($k){
+			$params['k']  = $k;
+		}
+		$params['orderField'] = $this->params()->fromQuery('orderField', '');
+		$params['orderType'] = $this->params()->fromQuery('orderType', '');
+		if ($this->params()->fromQuery('pageSize')) {
+			$params['pageSize'] = $this->params()->fromQuery('pageSize');
+		}
+		$noFilterParams = $params;
+		$points = $this->params()->fromQuery('Points', '');
+		if ($points) {
+			$params['Points'] = $points;
+		}
+		$gender = $this->params()->fromQuery('Gender', '');
+		if ($gender) {
+			$params['Gender'] = $gender;
+		}
+	
+		$removePageParams = $params;
+	
+		$params['page'] = $this->params()->fromQuery('page' , 1);
+	
+		$orderPageParams = $params;
+	
+		$paginaction = $this->_getNavPaginator($params);
+	
+		$startNumber = 1+($params['page']-1)*$paginaction->getItemCountPerPage();
+		$order = $this->_getOrder($prefixUrl, array('UserName', 'Points', 'Email', 'Mobile', 'Nick', 'LastLogin', 'LoginCount', 'LastUpdate'), $removePageParams);
+	
+		$assign = array(
+				'paginaction' => $paginaction,
+				'startNumber' => $startNumber,
+				'orderQuery' => http_build_query($orderPageParams),
+				'query' => http_build_query($removePageParams),
+				'filterQuery' => http_build_query($noFilterParams),
+				'order' => $order,
+		);
+		return new ViewModel($assign);
+	}
+	public function allAction()
+	{
+		$routeParams = array('controller' => 'member' , 'action' => 'all');
+		$prefixUrl = $this->url()->fromRoute(null, $routeParams);
+		$params = array();
+	
+		$table = $this->_getTable('MemberTable');
+		$k = $this->params()->fromQuery('k' , '');
+	
+		if($k){
+			$params['k']  = $k;
+		}
+		$params['orderField'] = $this->params()->fromQuery('orderField', '');
+		$params['orderType'] = $this->params()->fromQuery('orderType', '');
+		if ($this->params()->fromQuery('pageSize')) {
+			$params['pageSize'] = $this->params()->fromQuery('pageSize');
+		}
+		$noFilterParams = $params;
+		$points = $this->params()->fromQuery('Points', '');
+		if ($points) {
+			$params['Points'] = $points;
+		}
+		$gender = $this->params()->fromQuery('Gender', '');
+		if ($gender) {
+			$params['Gender'] = $gender;
+		}
+	
+		$removePageParams = $params;
+	
+		$params['page'] = $this->params()->fromQuery('page' , 1);
+	
+		$orderPageParams = $params;
+	
+		$paginaction = $this->_getNavPaginator($params);
+	
+		$startNumber = 1+($params['page']-1)*$paginaction->getItemCountPerPage();
+		$order = $this->_getOrder($prefixUrl, array('UserName', 'Points', 'Email', 'Mobile', 'Nick', 'LastLogin', 'LoginCount', 'LastUpdate'), $removePageParams);
+	
+		$region = $this->_getTable('RegionTable');
+		
+		$assign = array(
+				'paginaction' => $paginaction,
+				'startNumber' => $startNumber,
+				'orderQuery' => http_build_query($orderPageParams),
+				'query' => http_build_query($removePageParams),
+				'filterQuery' => http_build_query($noFilterParams),
+				'order' => $order,
+				'region' => $region->getRegionList(),
+		);
+		return new ViewModel($assign);
+	}
 	private function _getNavPaginator($params)
 	{
 		$page = isset($params['page']) ? $params['page'] : 1;

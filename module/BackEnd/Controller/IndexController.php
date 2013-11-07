@@ -10,7 +10,10 @@ class IndexController extends AbstractActionController
 	protected $adminTable;
 	public function indexAction()
 	{
-		$rs = array('rs' => 'Welcome!');
+		$memberTable = $this->_getTable('MemberTable');
+		$memberS = $memberTable->getStatistics();
+		
+		$rs = array('memberStatist' => $memberS);
 // 		return $this->redirect()->toUrl('/login');
 		return new ViewModel($rs);
 	}
