@@ -37,3 +37,13 @@ ALTER TABLE `project`.`member` ADD COLUMN `passwordStrong` TINYINT(1) UNSIGNED D
 */
 ALTER TABLE `project`.`identity_record` ADD COLUMN `lastApproved` DATETIME NULL COMMENT '最后审核时间' AFTER `status`; 
 ALTER TABLE `project`.`member` CHANGE `Points` `Points` VARCHAR(30) CHARSET utf8 COLLATE utf8_general_ci DEFAULT '0' NULL COMMENT '可用积分值'; 
+CREATE TABLE `secret` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '唯一id',
+  `isSelect` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '问题是否是选择',
+  `content` varchar(200) DEFAULT NULL COMMENT '问题（序列化）',
+  `user_id` int(10) unsigned NOT NULL COMMENT '会员id',
+  `addTime` datetime DEFAULT NULL COMMENT '添加时间',
+  PRIMARY KEY (`id`),
+  KEY `s_user_id` (`user_id`),
+  CONSTRAINT `s_user_id` FOREIGN KEY (`user_id`) REFERENCES `member` (`UserID`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8

@@ -506,7 +506,9 @@ class MemberController extends AbstractActionController
 		$identity = $this->_getTable('IdentityTable');
 		$identityInfo = $identity->getOneByUID($uid);
 		$checkResult['chkIdentity'] = isset($identityInfo->status) && $identityInfo->status == 1 ? 1 : 0;
-		$checkResult['chkIdentityDesc'] = "您在{$identityInfo->addTime}提交了身份认证信息，并已通过审核。";
+		if ($identityInfo) {
+			$checkResult['chkIdentityDesc'] = "您在{$identityInfo->addTime}提交了身份认证信息，并已通过审核。";
+		}
 		
 		$secretTable = $this->_getTable('SecretTable');
 		$secInfo = $secretTable->getSecretList($uid);
