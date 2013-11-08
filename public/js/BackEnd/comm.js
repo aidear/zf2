@@ -338,6 +338,7 @@ $(function(){
                                                     edt.children('#RobPub1EdtContent').
                                                     append('<input '+checked+' type="radio" val="'+v+'" name="'+key+'" value="'+i+'">'+v);
                                               });
+                                              edt.children('#RobPub1EdtContent').width(w+'px').height(h+'px');
                                               break;
                                         //End of radio
 

@@ -45,6 +45,9 @@ class IndexController extends AbstractActionController
 		} elseif($tableModel == 'MemberTable' && $field == 'Mobile' && $table->checkExist(array('Mobile' => $value), $primary_value)) {
 			$assign = array('code' => 1, 'msg' => "手机号码{$value}重复");
 		} else {
+			if($tableModel == 'IdentityTable' && $field == 'status' && $value==1) {
+				$update['lastApproved'] = date('Y-m-d H:i:s');
+			}
 			$flg = $table->update($update, $where);
 			if ($flg) {
 				$assign = array('code' => 0, 'msg' => 'success');

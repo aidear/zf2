@@ -291,7 +291,39 @@ class MemberController extends AbstractActionController
 			return array('member' => new Member() , 'form' => $form);
 // 		}
 	}
-	
+	function identityAction()
+	{
+		$page = $this->params()->fromQuery('page' ,1);
+		$pageSize = $this->params()->fromQuery('pageSize');
+		$table = $this->_getTable('IdentityTable');
+		$member = $this->_getTable('MemberTable');
+		$paginaction = new Paginator($table->getPage());
+		$paginaction->setCurrentPageNumber($page);
+		$paginaction->setItemCountPerPage($pageSize ? $pageSize : self::LIMIT);
+		$idRecords = $paginaction->getCurrentItems()->toArray();
+		$startNumber = 1+($page-1)*$paginaction->getItemCountPerPage();
+		foreach ($idRecords as $k=>$v) {
+			$idRecords[$k]['UserName'] = $member->getUserNameByID($v['user_id']);
+			$idRecords[$k]['type_name'] = $v['type'] == 1 ? '个人' : '企业';
+			$check_desc = '<span class="red">未审核</span>';
+			switch($v['status']) {
+				case 1:
+					$check_desc = "已审核";
+					break;
+				case 2:
+					$check_desc = '未通过';
+					break;
+				default:
+					break;
+			}
+			$idRecords[$k]['check_desc'] = $check_desc;
+		}
+		$url = '/member/identity';
+		if ($pageSize) {
+			$url .= "?pageSize=".$pageSize;
+		}
+		return array('paginaction' => $paginaction, 'records' => $idRecords, 'startNumber' => $startNumber);
+	}
 	function pwdAction()
 	{
 		$form = new MemberForm();

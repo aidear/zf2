@@ -1,0 +1,99 @@
+<div class="box">
+    <div class="box-header">
+        <h2><i class="icon-box"></i>身份认证</h2>
+        <div class="t_top">
+        <p class="t_right">
+     <a class="btn btn-success" id="chk_Approved" key='1' href="javascript:;">
+        <i class="icon-plus"></i>审核通过</a>
+        <a class="btn btn-success" id="chk_unApproved" key='0' href="javascript:;">
+        <i class="icon-plus"></i>审核不通过</a>
+        </p>
+        </div>
+    </div>
+    
+    <div class="box-content">
+        <table class="table" id="table1">
+            <thead>
+                <tr class="row">
+                	<th>全选<input type="checkbox" name="select_all" value="all"/></th>
+                	<th>编号</th>
+                    <th>用户名</th>
+                    <th>认证类型</th>
+                    <th>真实姓名/公司名称</th>
+                    <th>身份证号码/组织代码机构</th>
+                    <th>申请时间</th>
+                    <th key="status" editable="true">审核状态</th>
+                    <th>批准时间</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php if(count($this->records) > 0):?>
+                <?php $startNumber = $this->startNumber;foreach($this->records as $r):?>
+                <tr class="row" primary_value="<?php echo $r['id']?>">
+                	<td><input type="checkbox" name="select" value="<?php echo $r['id']?>" data-key="认证记录" data-value="<?php echo $r['UserName']; ?>" /></td>
+                    <td><?php echo $startNumber++;?></td>
+                    <td><?php echo $r['UserName'];?></td>
+                    <td><?php echo $r['type_name']?></td>
+                    <td><?php echo $r['name']?></td>
+                    <td><?php echo $r['code']?></td>
+                    <td><?php echo $r['addTime']?></td>
+                    <td key="status" editable="true"><?php echo $r['check_desc']?></td>
+                    <td><?php echo $r['lastApproved']?></td>
+                </tr>
+                <?php endforeach;?>
+                <?php endif;?>
+            </tbody>
+        </table>
+        <?php echo $this->paginationControl($this->paginaction,'Sliding','layout/pagination' , array('link' => $this->url));?>
+    </div>
+</div>
+<script>
+var productEditableParam={
+		'postUrl':'/index/updateColumn',
+		'primary_key':'id',
+		'table':'IdentityTable',
+		'status':{
+			type:'radio',
+	        group:{
+				0:'<span class=red>未审核</span>',
+	            1:'已审核',
+	            2:'未通过'
+	        }
+		}
+	};
+var options={
+		tableID:'table1',
+		editableParam:productEditableParam
+}
+new Editable(options,$("#table1"));
+$(function(){
+	$("#chk_Approved, #chk_unApproved").click(function(){
+		var ids = '';
+		$("input[type='checkbox'][name='select']").each(function(){
+			if ($(this).is(':checked')) {
+				ids += ','+$(this).val();
+			}
+		});
+		if (ids != '') {
+			var url = "/ajax/approved";
+			var key = $(this).attr('key');
+			$.ajax({
+                type: 'POST',
+                url: url,
+                data: "ids="+ids+"&key="+key,
+                success: function(data){
+					if (data.code == 0) {
+						location.reload();
+					} else {
+						alert(data.msg);
+					}
+                },
+                dataType: 'JSON'
+			});
+// 			Ajax.call(url, "ids="+ids, function(s){
+				
+// 			});
+		}
+	});
+})
+</script>

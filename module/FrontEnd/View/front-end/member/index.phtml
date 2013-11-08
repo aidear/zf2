@@ -57,11 +57,29 @@ $msg = $this->flashMessages();
           <td height="38" align="right">生日：</td>
           <?php $birth = explode('-', $user['Birthday']);?>
           <td width="484" height="38"><label for="textfield2"></label>
-          <input onpaste="return false" style="IME-MODE: disabled;width:40px;" onkeyup="value=value.replace(/[^\d]/g,'')" name="birth1" type="text" id="textfield2" maxlength="4" size="8" value="<?php echo isset($birth[0]) ? $birth[0] : '';?>" />
+          <span class="birthSelect"><input onpaste="return false" style="IME-MODE: disabled;width:40px;" onkeyup="value=value.replace(/[^\d]/g,'')" name="birth1" type="text" id="textfield2" maxlength="4" size="8" value="<?php echo isset($birth[0]) ? $birth[0] : '';?>" />
+          <ul>
+          <?php $curYear = date('Y');for($i = $curYear; $i >= $curYear-60; $i --) { ?>
+          	<li data-val='<?php echo $i;?>'><?php echo $i;?></li>
+          	<?php }?>
+          </ul>
+          </span>
           年
-          <input onpaste="return false" style="IME-MODE: disabled;" onkeyup="value=value.replace(/[^\d]/g,'')" name="birth2" type="text" id="textfield3" maxlength="2" size="8" value="<?php echo isset($birth[1]) ? $birth[1] : '';?>" />
+          <span class="birthSelect"><input onpaste="return false" style="IME-MODE: disabled;" onkeyup="value=value.replace(/[^\d]/g,'')" name="birth2" type="text" id="textfield3" maxlength="2" size="8" value="<?php echo isset($birth[1]) ? $birth[1] : '';?>" />
+         <ul>
+          <?php for($i = 1; $i <= 12; $i ++) { ?>
+          	<li data-val='<?php echo $i;?>'><?php echo $i;?></li>
+          	<?php }?>
+          </ul>
+          </span>
           月
-          <input onpaste="return false" style="IME-MODE: disabled;" onkeyup="value=value.replace(/[^\d]/g,'')" name="birth3" type="text" id="textfield4" maxlength="2" size="8" value="<?php echo isset($birth[2]) ? $birth[2] : '';?>" />
+          <span class="birthSelect"><input onpaste="return false" style="IME-MODE: disabled;" onkeyup="value=value.replace(/[^\d]/g,'')" name="birth3" type="text" id="textfield4" maxlength="2" size="8" value="<?php echo isset($birth[2]) ? $birth[2] : '';?>" />
+   		<ul>
+          <?php for($i = 1; $i <= 31; $i ++) { ?>
+          	<li data-val='<?php echo $i;?>'><?php echo $i;?></li>
+          	<?php }?>
+          </ul>
+          </span>      
           日</td>
         </tr>
         <tr>
@@ -86,7 +104,7 @@ $msg = $this->flashMessages();
         <tr>
           <td height="38">&nbsp;</td>
           <td height="38" align="right">详细地址：</td>
-          <td height="38"><input data-trim="true" data-required='true' data-describedby="for_address" data-description="Address" name="Address" type="text" id="textfield5" size="35" value="<?php echo $user['Address'];?>" />
+          <td height="38"><input autocomplete='off' data-trim="true" data-required='true' data-describedby="for_address" data-description="Address" name="Address" type="text" id="textfield5" size="35" value="<?php echo $user['Address'];?>" />
             <span id="for_address" class="red"><span class="huise">请填写真实的有效地址</span></span> <span class="red">*</span></td>
         </tr>
 <!--         <tr> -->
@@ -197,6 +215,20 @@ $(function(){
 				$("select[name='District']").html(html);
 			}
 		});
+	});
+	$("ul>li", $(".birthSelect")).click(function(){
+		$(this).parents('ul').prev("input[type='text']").val($(this).attr('data-val'));
+		$(this).parents('ul').slideUp('fast');
+	});
+	$("input[name='birth1'],input[name='birth2'],input[name='birth3']").focusin(function() {
+		$(this).next('ul').slideDown('fast');
+	});
+	$("input[name='birth1'],input[name='birth2'],input[name='birth3']").focusout(function(e) {
+		e = window.event || e;
+		var obj = e.srcElement || e.target;
+		if (!$(obj).is('.birthSelect *')) {
+			$(this).next('ul').slideUp('fast');
+		}
 	});
 })
  </script>

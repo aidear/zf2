@@ -20,6 +20,12 @@ return array(
 					$resultSetPrototype->setArrayObjectPrototype(new Model\Users\Role());
 					return new Model\Users\RoleTable('sys_role', $dbAdapter, null, $resultSetPrototype);
 				},
+				'IdentityTable' =>  function($sm) {
+					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+					$resultSetPrototype = new ResultSet();
+					$resultSetPrototype->setArrayObjectPrototype(new Model\Users\Identity());
+					return new Model\Users\IdentityTable('identity_record', $dbAdapter, null, $resultSetPrototype);
+				},
 				'ResourceTable' =>  function($sm) {
 					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
 					$resultSetPrototype = new ResultSet();

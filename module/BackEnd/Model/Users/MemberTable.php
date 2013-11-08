@@ -72,6 +72,10 @@ FROM member;";
 	        return $row;
     	}
     }
+    function getUserNameByID($uid) {
+    	$row = $this->getOneForId($uid);
+    	return isset($row->UserName) ? $row->UserName : null;
+    }
     function getUserListByID($id = array()) {
     	if (is_array($id)) {
     		$select = $this->getSql()->select();

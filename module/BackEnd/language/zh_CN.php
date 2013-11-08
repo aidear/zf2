@@ -273,4 +273,5 @@ return array(
     'menu_role' => '角色管理',
     'menu_resoure' => '资源管理',
     'menu_user' => '帐号管理',
+    'menu_identity' => '身份认证',
 );

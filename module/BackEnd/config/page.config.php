@@ -68,6 +68,12 @@ return array (
 									'resource' => 'member_all',
 							),
 							array(
+									'label' => '身份认证',
+									'controller' => 'member',
+									'action' => 'identity',
+									'resource' => 'member_identity',
+							),
+							array(
 									'label' => '新增会员',
 									'controller' => 'member',
 									'action' => 'save',

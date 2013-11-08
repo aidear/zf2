@@ -49,4 +49,20 @@ class AjaxController extends AbstractActionController
 		}
 		return new JsonModel($data);
 	}
+	public function approvedAction()
+	{
+		$table = $this->_getTable('IdentityTable');
+		$rs = array();
+		$ids = $this->params()->fromPost('ids');
+		$approved = $this->params()->fromPost('key');
+		$approved = $approved == 1 ? 1 : 0;
+		$ids = explode(',', trim($ids, ','));
+		
+		if($table->updateStatus($approved, $ids)) {
+			$rs = array('code' => 0, 'msg' => '设置成功', 'data' => $ids);
+		} else {
+			$rs = array('code' => -1, 'msg' => '数据错误');
+		}
+		return new JsonModel($rs);
+	}
 }

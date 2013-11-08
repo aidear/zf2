@@ -170,3 +170,23 @@ button.close {
 	margin-right:0px;
 	cursor:pointer;
 }
+.birthSelect {
+	position:relative;
+}
+.birthSelect ul {
+	display:none;
+	position:absolute;
+	background-color:#fff;
+	border:1px solid #decab1;
+	padding:2px;
+	width:320px;
+	top:24;
+	left:0;
+}
+.birthSelect ul li {
+	float:left;
+	display:inline;
+	cursor:pointer;
+	width:40px;
+	height:24px;
+}
