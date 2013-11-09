@@ -73,6 +73,7 @@ class MemberController extends AbstractActionController
         		'query' => http_build_query($removePageParams),
         		'filterQuery' => http_build_query($noFilterParams),
         		'order' => $order,
+        		'k' => $k,
         );
         return new ViewModel($assign);
 	}
@@ -121,6 +122,7 @@ class MemberController extends AbstractActionController
 				'query' => http_build_query($removePageParams),
 				'filterQuery' => http_build_query($noFilterParams),
 				'order' => $order,
+				'k' => $k,
 		);
 		return new ViewModel($assign);
 	}
@@ -172,6 +174,7 @@ class MemberController extends AbstractActionController
 				'filterQuery' => http_build_query($noFilterParams),
 				'order' => $order,
 				'region' => $region->getRegionList(),
+				'k' => $k,
 		);
 		return new ViewModel($assign);
 	}

@@ -12,7 +12,7 @@ $region = $this->region;
         	<form class="form-inline" action="<?php echo $this->url('backend', array('controller' 
             => 'member', 'action' => 'all')); ?>" method="get">
                 <div class="input-group">
-                    <input autocomplete="off" class="input-element span3" name="k" type="text">
+                    <input autocomplete="off" class="input-element span3" value="<?php echo isset($this->k) ? $this->k : '';?>" name="k" type="text">
                     
                 <button class="button-element" type="submit">搜索</button>
                 

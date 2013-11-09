@@ -79,13 +79,17 @@ body fieldset.blue legend{padding:3px 8px;font-weight:700;color:#347add; backgro
 	#Skin .s4 {}
 /*涓讳綋鏍峰紡*/
 #content {margin-top:80px;}
-.left_menu{margin-right:12px;_margin-right:10px;padding:12px;_padding:12px 0 12px 12px;width:110px; position:relative; display:block; background-color:#F7FBFC; height:100%;}
+.left_menu{margin-right:12px;_margin-right:10px;padding:12px;_padding:12px 0 12px 12px;width:110px;  background-color:#F7FBFC; height:100%;
+	display: block;
+    position: fixed;
+    z-index: 90;
+}
 .left_menu_on{ width:0; padding:0;}
 .left_menu_on div{ visibility:hidden;_display:none}
 .left_menu h3{font-weight: 700;color: #275d96;border-bottom:1px solid #d9e4ea; line-height:24px; height:24px; margin-bottom:4px;_width:112px;_margin-right:12px}
 
 .left_menu ul li{width:122px;color:#666; display:block;_margin-right:2px}
-.left_menu ul li a{line-height:24px;padding-left:8px;display:block;text-decoration: none;background-color:#f7fbfc;_width:100px;}
+.left_menu ul li a{line-height:24px;padding-left:20px;display:block;text-decoration: none;background-color:#f7fbfc;_width:100px;}
 .left_menu ul li a:hover,
 	.left_menu ul li.on,.left_menu h3 span{background: url(../../images/BackEnd/admin_img/left_menu.png) no-repeat;text-decoration: none}
 	.left_menu ul li.on{width:104px; height:29px; padding-left:20px; margin:0}
@@ -331,6 +335,7 @@ i[class^="icon-"] {
     background: -ms-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(0,0,0,0.1) 100%);
     background: linear-gradient(to bottom,  rgba(255,255,255,0) 0%,rgba(0,0,0,0.1) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#1a000000',GradientType=0 );
+	background-color:#fff;
 }
 
 .box-header h2 {
@@ -377,6 +382,7 @@ i[class^="icon-"] {
     position: fixed;
     z-index: 90;
 }
+
 .box-content p {
 	margin-bottom:6px;
 	text-align:right;
@@ -1044,6 +1050,7 @@ textarea.span1,
     margin-left: 0;
     padding:0px;
     text-align: center;
+	margin-right:205px;
 }
 ul.set {
 	vertical-align:top;
@@ -1057,6 +1064,7 @@ ul.set input {
 	margin:0;
 	padding:0;
 }
+
 .pagination li {
     display: inline;
     line-height: 18px;
@@ -1081,7 +1089,10 @@ ul.set input {
     cursor: default;
 }
 .pagination a:hover, .pagination .active a {
-    background-color: #F5F5F5;
+    /*background-color: #F5F5F5;*/
+}
+.pagination .active a {
+	text-decoration: none;
 }
 .pagination disabled {
     color: #999999;
@@ -1092,6 +1103,10 @@ ul.set input {
 }
 .pagination li:last-child a {
     border-radius: 0 3px 3px 0;
+}
+.pagination > div > ul {
+	text-align:center;
+	margin:0;
 }
 /*hr style css*/
 hr {

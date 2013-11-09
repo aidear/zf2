@@ -15,7 +15,7 @@
     $action = $action.http_build_query($params);
 ?>
 <ul class="set"><li><form id="pageSet" method="get" action="<?php echo $action;?>" style="margin-top:2px;">
-	<input autocomplete='off' type="text" name="pageSize" value="<?php echo $this->itemCountPerPage;?>" style="width:50px;height:30px;margin-right:8px;" />
+	<input autocomplete='off' type="text" name="pageSize" value="<?php echo $this->itemCountPerPage;?>" style="width:56px;height:30px;margin-right:8px;" />
 条/页
 <!-- 	<input type="button" name="button_page_size" value="确定" /> -->
 	</form>
@@ -53,8 +53,8 @@
      </ul>
      <div>
      <ul>
-         <li>共(<span><?php echo $this->pageCount?></span>)页</li>
-         <li>(<span><?php echo $this->totalItemCount?></span>)项</li>
+         <li>共<span><?php echo $this->totalItemCount?></span>条</li>
+         <li> <span><?php echo $this->pageCount?></span> 页</li>
      </ul>
 </div>
 </div>

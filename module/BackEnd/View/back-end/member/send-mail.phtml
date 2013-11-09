@@ -68,7 +68,7 @@ $msg = $this->flashMessages();
             	</ul>
             	</div>
             	</div>
-            	<div style="float:left; padding-left:6px;"><?php echo '共<span class="totalCount">',count($user),'</span>人';?>&nbsp;&nbsp;<input type='button' name='modify' value='调整' /></div>
+            	<div style="float:left; padding-left:6px;"><?php echo '共<span class="totalCount">',count($user['name']),'</span>人';?>&nbsp;&nbsp;<input type='button' name='modify' value='调整' /></div>
             </div>
             <div style='clear:both;'>&nbsp;</div>
             <div class="input-group">
@@ -84,7 +84,7 @@ $msg = $this->flashMessages();
 	            	<?php endif;?>
 	            	</div>
 	            </div>
-	            <div style="float:left; padding-left:6px;"><?php echo '共<span class="totalCount">',count($user),'</span>人';?></div>
+	            <div style="float:left; padding-left:6px;"><?php echo '共<span class="totalCount">',count($user['email']),'</span>人';?></div>
             </div>
             <div style='clear:both;'>&nbsp;</div>
             <div class="input-group">

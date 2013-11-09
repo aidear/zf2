@@ -40,8 +40,8 @@ var diyConfirm = function(name , url, obj){
 	var url = $(obj).attr('_href')+id;
 	$(obj).attr('href', url);
     $('<div class="modal fade"><div class="modal-dialog"><div class="modal-content"><div class="modal-body">是否' + 
-             name +' '+ key+' 为'+data+'的条目?</div><div class="modal-footer"><button type="button" class="btn btn-default" data-dismiss="modal">关闭</button><a href=' 
-             + url +' class="btn btn-primary">'
+             name +' '+ key+' 为'+data+'的条目?</div><div class="modal-footer"><button type="button" class="btn btn-success" data-dismiss="modal">关闭</button><a href=' 
+             + url +' class="btn btn-delete">'
              + name +'</a></div></div></div></div>').modal({keyboard: false});
 };
 function getcookie(name) {
@@ -164,6 +164,11 @@ $(function(){
 	});
 	$(".btn-reset").click(function(){
 		$("input[type='reset'][class='button-element']").trigger('click');
+	});
+	$("input[name='k']").focusout(function() {
+		if ($(this).val() == '') {
+			$(this).next("button[type='submit']").trigger('click');
+		}
 	});
 //	$("#table1 .row > td").each(function(){
 //		$(this).bind('click', function() {
