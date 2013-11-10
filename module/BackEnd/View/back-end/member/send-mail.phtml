@@ -6,6 +6,8 @@ $this->headScript()->appendFile($this->basePath('js/jquery-ui-1.10.2.custom.min.
 $this->headLink()->appendStylesheet('http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css');
 $user = $this->user;
 $msg = $this->flashMessages();
+$name=array_filter($user['name']);
+$email = array_filter($user['email']);
 // 			if ($user['mult'] == 1) {
 // 				$sendTitleStr = '';
 // 				$email = array_filter($user['email']);
@@ -56,35 +58,35 @@ $msg = $this->flashMessages();
               method="post" enctype="multipart/form-data">
             <fieldset>
             <div class="input-group">
-            	<div style="float:left;width:480px;">
+            	<div style="float:left;width:865px;">
             	<label for="name" class="input-label">收件人</label>
             	<div class="input-item receiver_style">
-            	<?php if (isset($user['name'])):?>
-            	<ul id="nameList">
-            	<?php foreach($user['name'] as $k=>$v):?>
-            	<li><?php echo $v;?></li>
-            	<?php endforeach;?>
-            	<?php endif;?>
-            	</ul>
+	            	<?php if (isset($user['name'])):?>
+	            	<ul id="nameList">
+	            	<?php foreach($name as $k=>$v):?>
+	            	<li data-name="<?php echo $v;?>" data-email="<?php echo isset($email[$k]) ? $email[$k] : '';?>"><span class='cont'><?php echo $v;?></span><span class="clo">×</span><span class="segment">，</span></li>
+	            	<?php endforeach;?>
+	            	<?php endif;?>
+	            	</ul>
             	</div>
             	</div>
-            	<div style="float:left; padding-left:6px;"><?php echo '共<span class="totalCount">',count($user['name']),'</span>人';?>&nbsp;&nbsp;<input type='button' name='modify' value='调整' /></div>
+            	<div style="float:left; padding-left:6px;"><?php echo '共<span class="totalCount">',count($name),'</span>人';?>&nbsp;&nbsp;<input type='button' name='modify' value='调整' /></div>
             </div>
             <div style='clear:both;'>&nbsp;</div>
             <div class="input-group">
-            	<div style="float:left;width:480px;">
+            	<div style="float:left;width:865px;">
 	            	<label for="name" class="input-label">邮件地址</label>
 	            	<div class="input-item receiver_style">
 	            	<?php if (isset($user['email'])):?>
 	            	<ul id='emailList'>
-	            	<?php foreach($user['email'] as $k=>$v):?>
-	            	<li><?php echo $v;?></li>
+	            	<?php foreach($email as $k=>$v):?>
+	            	<li data-name="<?php echo isset($email[$k]) ? $email[$k] : '';?>" data-email="<?php echo $v;?>"><?php echo '<span class="cont">'.$v.'</span><span class="clo">×</span>';?><span class="segment">，</span></li>
 	            	<?php endforeach;?>
 	            	</ul>
 	            	<?php endif;?>
 	            	</div>
 	            </div>
-	            <div style="float:left; padding-left:6px;"><?php echo '共<span class="totalCount">',count($user['email']),'</span>人';?></div>
+	            <div style="float:left; padding-left:6px;"><?php echo '共<span class="totalCount">',count($email),'</span>人';?></div>
             </div>
             <div style='clear:both;'>&nbsp;</div>
             <div class="input-group">
@@ -110,6 +112,8 @@ $msg = $this->flashMessages();
 <div id="dialog" title="请选择收件人" class="none">
 </div>
 <script type="text/javascript">
+var emailStore = <?php echo json_encode($email);?>;
+var emailName = <?php echo json_encode($name);?>;
 $(function(){
     UE.getEditor('myEditor');
     $(".btn-submit").click(function(){
@@ -153,19 +157,39 @@ $(function(){
 			var emailList = '';
 			var email = '';
 			var num = 0;
+			emailStore = new Array();
+			emailName = new Array();
+			$("#nameList").html('');
+			$("#emailList").html('');
 			$("input[type='checkbox'][name='dialog_name']:checked").each(function(){
-				nameList += "<li>"+$(this).attr('data-name')+"</li>";
-				emailList += "<li>"+$(this).attr('data-email')+"</li>";
-				email += email ? ','+$(this).attr('data-email') : $(this).attr('data-email');
-				num ++;
+				if ($(this).attr('data-email') != '') {
+					$("#nameList").append("<li data-name='"+$(this).attr('data-name')+"' data-email='"+$(this).attr('data-email')+"'><span class='cont'>"+$(this).attr('data-name')+"</span></span><span class='clo'>×</span><span class='segment'>，</span></li>");
+					$("#emailList").append("<li data-name='"+$(this).attr('data-name')+"' data-email='"+$(this).attr('data-email')+"'><span class='cont'>"+$(this).attr('data-email')+"</span></span><span class='clo'>×</span><span class='segment'>，</span></li>");
+					email += email ? ','+$(this).attr('data-email') : $(this).attr('data-email');
+					num ++;
+					emailName.push($(this).attr('data-name'));
+					emailStore.push($(this).attr('data-email'));
+				}
 			});
-			$("#nameList").html(nameList);
-			$("#emailList").html(emailList);
+// 			$("#nameList").html(nameList);
+// 			$("#emailList").html(emailList);
 			$(".totalCount").html(num);
 			$("input[name='email']").val(email);
 			 $( this ).dialog( "close" ); 
 			} } ]});
 	});
-	
+	$("#emailList,#nameList").on("click",'.clo',function(){
+		var curEmail = $(this).parents('li').attr('data-email');
+		var curName = $(this).parents('li').attr('data-name');
+		for (var i = 0; i < emailStore.length; i ++) {
+			if (emailStore[i] == curEmail) {
+				emailStore.splice(i, 1);
+				emailName.splice(i, 1);
+				$("#emailList li[data-email='"+curEmail+"']").remove();
+				$("#nameList li[data-email='"+curEmail+"']").remove();
+			}
+		}
+		$("input[name='email']").val(emailStore.join(','));
+	});
 })
 </script>

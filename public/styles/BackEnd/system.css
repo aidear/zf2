@@ -395,7 +395,32 @@ i[class^="icon-"] {
 	height:90px;
 	border:1px solid #ccc;
 	overflow-y:scroll;
-	width:300px;
+	width:700px;
+
+}
+.receiver_style ul {
+	padding-top:4px;
+}
+.receiver_style li {
+	float:left;
+	height:28px;
+}
+.receiver_style li span.cont {
+	float:left;
+}
+.receiver_style li span.segment {
+	float:left;
+}
+.receiver_style li span.clo {
+	float:left;
+	border:1px solid #ccc;
+	width:15px;
+	height:15px;
+	line-height:10px;
+	padding:0;
+	margin-left:2px;
+	text-align:center;
+	cursor:pointer;
 }
 .box-form {
     margin: 0 0 18px;

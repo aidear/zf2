@@ -17,7 +17,7 @@ class Mail
 	{
 		$this->mail = new Message();
 		$this->mail->setFrom(ConfigTable::getSysConf('smtp_user'));
-		$this->mail->setEncoding('UTF-8');
+// 		$this->mail->setEncoding('UTF-8');
 		$this->transport = new SmtpTransport();
 		
 		$connection_config = array(
@@ -56,7 +56,7 @@ class Mail
     		$this->mail->addTo($to);
     	}
     	$this->mail->addFrom(ConfigTable::getSysConf('smtp_user'))
-    	->setSubject($subject)
+    	->setSubject("=?UTF-8?B?".base64_encode($subject)."?=")
     	->setBody($body);
     	$this->transport->send($this->mail);
     }
