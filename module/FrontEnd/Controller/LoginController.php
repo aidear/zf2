@@ -45,6 +45,8 @@ class LoginController extends AbstractActionController
 						$container = $this->_getSession('member');
 						$container->UserID = $user->UserID;
     					$container->UserName = $user->UserName;
+    					$container->LoginCount = $user->LoginCount+1;
+    					$container->Points = $user->Points;
 						$rs = array('code' => 0, 'msg' => '登录成功');
 					} else {
 						$rs = array('code' => 1, 'msg' => '密码错误！');

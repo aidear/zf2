@@ -28,6 +28,7 @@ use Zend\Db\Sql\Update;
 use Zend\Db\Sql\Where;
 use Zend\Db\TableGateway\TableGateway;
 use BackEnd\Model\Nav\NavCategory;
+use Zend\Db\Sql\Expression;
 
 class NavCategoryTable extends TableGateway
 {
@@ -167,22 +168,26 @@ class NavCategoryTable extends TableGateway
     			$where->like('name', '%' . $data['name'] . '%');
 //     		}
     	}
-//     	if(!empty($data['SiteID'])){
-//     		$where->equalTo('Affiliate.SiteID', $data['SiteID']);
-//     	}
-//     	if(isset($data['AffiliateID']) && $data['AffiliateID'] >= 0){
-//     		$where->equalTo('MerchantFeedConfig.AffiliateID', $data['AffiliateID']);
-//     	}
-    
+    	if (isset($data['root']) && $data['root'] == 1) {
+//     		$where->equalTo('nav_category.parentID', '0');
+			$this->select->where("nav_category.parentID=0");
+    	} else {
+//     		$where->notEqualTo('nav_category.parentID', '0');
+    		$this->select->where("nav_category.parentID<>0");
+    	}    
     	$this->select->where($where);
     	return $this;
     }
     public function getListToPaginator($order = array())
     {
     	$select = $this->_getSelect();
+//     	$select->columns(array('id', 'name', 'subCount' => new Expression('COUNT(nav_category.id)')));
+//     	$select->join(array('nc'=>'nav_category'), "INSTR(nc.catPath,CONCAT(',',nav_category.id,','))", array('catPath'), 'left');
     	if (!empty($order)) {
     		$select->order($order);
-    	}//echo str_replace('"', '', $select->getSqlString());die;
+    	}
+//     	$select->group(array("nav_category.id"));
+//     	echo str_replace('"', '', $select->getSqlString());die;
     	 
     	return new DbSelect($select, $this->getAdapter());
     }
@@ -191,5 +196,11 @@ class NavCategoryTable extends TableGateway
     		$this->select = $this->getSql()->select();
     	}
     	return $this->select;
+    }
+    public function getSubCountByPID($pid) {
+    	$select = $this->getSql()->select();
+    	$select->where("INSTR(catPath,CONCAT(',',{$pid},','))");
+    	$resultSet = $this->selectWith($select);
+    	return $resultSet->count();
     }
 }

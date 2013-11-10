@@ -126,10 +126,22 @@ return array (
 					'order' => 3,
 					'pages' => array(
 							array(
-									'label' => '分类管理',
+									'label' => '顶级分类',
 									'controller' => 'nav',
 									'action' => 'category',
 									'resource' => 'nav_category',
+							),
+							array(
+									'label' => '二级分类',
+									'controller' => 'nav',
+									'action' => 'subCategory',
+									'resource' => 'nav_subCategory',
+							),
+							array(
+									'label' => '网址库',
+									'controller' => 'nav',
+									'action' => 'items',
+									'resource' => 'nav_items',
 							)
 					)
 			)

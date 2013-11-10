@@ -274,4 +274,5 @@ return array(
     'menu_resoure' => '资源管理',
     'menu_user' => '帐号管理',
     'menu_identity' => '身份认证',
+    'menu_nav' => '顶级分类',
 );

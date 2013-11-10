@@ -58,6 +58,7 @@ $msg = $this->flashMessages();
                 <tr class="row">
                 	<th>全选<input type="checkbox" name="select_all" value="all"/></th>
                     <th>编号</th>
+                    <th>上级分类</th>
                     <th key="name" editable="true">
                     <?php if (isset($this->order['name'])):?>
                     <?php $name = $this->order['name'];?>
@@ -66,8 +67,6 @@ $msg = $this->flashMessages();
                     	分类名称
                     <?php endif;?>
                     </th>
-<!--                     <th>上级分类</th> -->
-                    <th>子类个数</th>
                     <th>网址个数</th>
                     <th key="isShow" editable="true">
                     <?php if (isset($this->order['isShow'])):?>
@@ -107,9 +106,8 @@ $msg = $this->flashMessages();
                     <tr class="row" primary_value="<?php echo $nav['id']; ?>">
                     	<td width="60"><input type="checkbox" name="select" value="<?php echo $nav['id']; ?>" data-key="分类名称" data-value="<?php echo $nav['name']; ?>" /></td>
                         <td><?php echo $startNumber++; ?></td>
+                        <td><?php echo $nav['parentName']; ?></td>
                         <td key="name" editable="true"><?php echo $nav['name']; ?></td>
-                        <!-- <td><?php echo $nav['parentName']; ?></td> -->
-                        <td><?php echo $nav['subCount'];?></td>
                         <td><?php echo $nav['linkCount'];?></td>
                         <td key="isShow" editable="true"><?php echo $nav['isShow'] ? '显示' : '不显示'; ?></td>
                         <td key="order" editable="true"><?php echo $nav['order']; ?></td>

@@ -1,20 +1,4 @@
 <?php
-/**
- * LinkTable.php
- *------------------------------------------------------
- *
- * 
- *
- * PHP versions 5
- *
- *
- *
- * @author Willing Peng<pcq2006@gmail.com>
- * @copyright (C) 2013-2018 
- * @version CVS: Id: LinkTable.php,v 1.0 2013-10-4 下午3:03:16 Willing Exp
- * @link http://localhost
- * @deprecated File deprecated in Release 3.0.0
- */
 namespace BackEnd\Model\Nav;
 
 
@@ -30,9 +14,9 @@ use Zend\Db\TableGateway\TableGateway;
 use BackEnd\Model\Nav\NavCategory;
 use Zend\Db\Sql\Predicate\Like;
 
-class LinkTable extends TableGateway
+class RecommendLinkTable extends TableGateway
 {
-    protected $table = "link";
+    protected $table = "recommend_link";
     protected $select;
     
     function getAllToPage($where = array()){
@@ -154,7 +138,6 @@ class LinkTable extends TableGateway
     public function getListToPaginator($order = array())
     {
     	$select = $this->_getSelect();
-    	$select->join(array('rl' => 'recommend_link'), "rl.id=link.recommend_id", array('user_name', 'email', 'mobile'), 'left');
     	if (!empty($order)) {
     		$select->order($order);
     	}//echo str_replace('"', '', $select->getSqlString());die;

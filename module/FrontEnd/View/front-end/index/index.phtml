@@ -1,4 +1,55 @@
+
 <div id="Tab2">
+  <div class="Menubox2">
+    <ul>
+      <li class="hover">首 页</li>
+      <li >珍藏页</li>
+      <li >分类页</li>
+    </ul>
+  </div>
+  <div class="zwf"></div>
+  <div class="Contentbox2"> 
+    <div id="con_men_1" class="hover">
+    
+    <ul class="menu">
+    <?php foreach ($this->nav as $k=>$v):?>
+    <?php $line = $v['line'];?>
+    <li more="<?php echo $line*8 < count($v['links']) ? 'true' : 'false';?>">
+    <?php if ($v['img']):?>
+    <img src="<?php echo $v['img'];?>" alt="<?php echo $v['name'];?>" width="108" height="41" />
+    <?php else:?>
+        	<?php echo $v['name'];?>
+    <?php endif;?>
+    </li>
+    <?php endforeach;?>
+<!--      <li><img src="images/yi.jpg" width="108" height="41" /></li><li class="menu_a"><img src="images/shi.jpg" width="108" height="41" /></li><li><img src="images/zhu.jpg" width="108" height="41" /> -->
+<!--      </li><li><img src="images/xing.jpg" width="108" height="41" /></li><li><img src="images/jiao.jpg" width="108" height="41" /></li><li><img src="images/yu.jpg" width="108" height="41" /></li><li><img src="images/jian.jpg" width="108" height="41" /></li><li><img src="images/cai.jpg" width="108" height="41" /></li> -->
+   
+    </ul>
+    <?php foreach ($this->nav as $k=>$v):?>
+    <div class="menu_k none">
+    <?php foreach ($v['links'] as $n=>$link):?>
+        	<li><a href="<?php echo $link['url'];?>" target="<?php echo $link['target'];?>" title="<?php echo $link['title'];?>"><?php echo $link['title'];?></a></li>
+        	<?php endforeach;?>
+    </div>
+    <?php endforeach;?>
+    
+    <div class="link_k">
+    <?php foreach ($this->nav as $k=>$v):?>
+    <?php $line = $v['line'];?>
+    <div class="list">
+    <?php foreach ($v['links'] as $n=>$link):?>
+    <?php if (($n+1) > ($line*8)) break;?>
+    <li style="width:90px;"><a href="<?php echo $link['url'];?>" target="<?php echo $link['target'];?>" title="<?php echo $link['title'];?>"><?php echo $link['title'];?></a></li>
+    <?php endforeach;;?>
+    </div>
+	<?php endforeach;?>
+	</div>
+    </div>
+    
+  </div>
+</div>
+<div id="Tab2" style="display:none;">
   <div class="Menubox2">
     <ul>
       <li  class="hover">首 页</li>
@@ -6,6 +57,7 @@
       <li >分类页</li>
     </ul>
   </div>
+  <div class="zwf"></div>
   <div class="Contentbox2"> 
     <div id="con_men_1" class="hover">
         <?php foreach ($this->nav as $k=>$v):?>
@@ -43,15 +95,26 @@ provList += "<option value='<?php echo $v['region_id'];?>'><?php echo $v['region
 <?php endforeach;?>
 $(function() {
 	$('.swith_area .area_name').html(z_loc != '' ? z_loc : defCity);
-	$(".list > span").each(function(){
-		if ($(this).attr('more') == 'true') {
+	$(".menu > li").each(function(i){
 			$(this).bind('mouseover', function() {
-				$(this).find('ul.show_all').css({position:'absolute',left:"120px", top:"0"}).show();
-			}).bind('mouseout', function() {
-				$(this).find('ul.show_all').hide();
+				if ($(this).attr('more') == 'true') {
+					$(this).addClass('menu_a')
+					var t = $(this).offset();
+					var h = -100 + 25*i;
+					$("#con_men_1 .menu_k").eq(i).css('top', h+'px').show();
+				}
+				$(this).siblings('li').removeClass('menu_a');
+				$("#con_men_1 .menu_k").siblings('.menu_k').not($("#con_men_1 .menu_k").eq(i)).hide();
 			});
-		}
 	});
+	$("#con_men_1 .menu_k").hover(function() {
+	},
+	function() {
+		$(this).hide();
+		var index = $("#con_men_1 .menu_k").index($(this));
+		$(".menu > li").eq(index).removeClass('menu_a');
+	}
+	);
 	var oHtml = '';
 	var swith_area = $("<div class='swith_area'></div>");
 	var aName = $("<div class='area_name'>"+z_loc != '' ? z_loc : defCity+"</div>");

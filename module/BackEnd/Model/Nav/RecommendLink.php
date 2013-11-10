@@ -1,20 +1,4 @@
 <?php
-/**
- * Link.php
- *------------------------------------------------------
- *
- * 
- *
- * PHP versions 5
- *
- *
- *
- * @author Willing Peng<pcq2006@gmail.com>
- * @copyright (C) 2013-2018 
- * @version CVS: Id: Link.php,v 1.0 2013-10-4 下午3:01:01 Willing Exp
- * @link http://localhost
- * @deprecated File deprecated in Release 3.0.0
- */
 namespace BackEnd\Model\Nav;
 
 use Zend\InputFilter\Factory as InputFactory;
@@ -22,19 +6,18 @@ use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
 
-class Link implements InputFilterAwareInterface
+class RecommendLink implements InputFilterAwareInterface
 {
 	public $id;
 	public $title;
 	public $url;
-	public $target;
 	public $category;
-	public $province;
-	public $city;
-	public $isShow = 1;
-	public $order = 1;
-	public $updateTime;
-	public $updateUser;
+	public $user_name;
+	public $email;
+	public $mobile;
+	public $status;
+	public $approvedTime;
+	public $approvedUser;
 	public $addTime;
 	
 	protected $inputFilter;
@@ -44,14 +27,13 @@ class Link implements InputFilterAwareInterface
 		$this->id = isset($data['id']) ? $data['id'] : '';
 		$this->title = isset($data['title']) ? $data['title'] : '';
 		$this->url = isset($data['url']) ? $data['url'] : '';
-		$this->target = isset($data['target']) ? $data['target'] : '';
 		$this->category = isset($data['category']) ? $data['category'] : 0;
-		$this->province = isset($data['province']) ? $data['province'] : NULL;
-		$this->city = isset($data['city']) ? $data['city'] : NULL;
-		$this->isShow = isset($data['isShow']) ? $data['isShow'] : 1;
-		$this->order = isset($data['order']) ? $data['order'] : 1;
-		$this->updateTime = isset($data['updateTime']) ? $data['updateTime'] : date('Y-m-d H:i:s');
-		$this->updateUser = isset($data['updateUser']) ? $data['updateUser'] : '';
+		$this->user_name = isset($data['user_name']) ? $data['user_name'] : NULL;
+		$this->email = isset($data['email']) ? $data['email'] : NULL;
+		$this->mobile = isset($data['mobile']) ? $data['mobile'] : '';
+		$this->status = isset($data['status']) ? $data['status'] : 0;
+		$this->approvedTime = isset($data['approvedTime']) ? $data['approvedTime'] : date('Y-m-d H:i:s');
+		$this->approvedUser = isset($data['approvedUser']) ? $data['approvedUser'] : '';
 		$this->addTime = isset($data['addTime']) ? $data['addTime'] : date('Y-m-d H:i:s');
 	}
 	public function getArrayCopy()

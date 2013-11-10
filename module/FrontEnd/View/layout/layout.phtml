@@ -63,9 +63,8 @@ font-weight:bold;
 use Custom\Util\Lunar;
 ?>
 <div class="wrap">
-
 <div class="top">
-<div class="logo"><a href="/"><img src="/images/FrontEnd/logo.jpg" width="147" height="98" /></a></div> 
+<div class="logo"><a href="/"><img src="/images/FrontEnd/logo.png" width="147" height="70" /></a></div> 
 <div class="tq">
 	<div class="weather"><div class="swith_area"><div class="area_name"></div><div class="switch_b"><a href="javascript:;">[切换]</a></div></div><script type="text/javascript" src="http://ext.weather.com.cn/49388.js"></script><!-- <img src="/images/FrontEnd/tq.jpg" width="572" height="65" /> --></div>
 	<div class="lunar">
@@ -100,15 +99,54 @@ echo "周".$weekarray[date("w")]; ?></span></li>
 	</div>
 </div>
 <div class="btn">
-<?php if ($this->container->UserID):?>
-<div>欢迎您，<?php echo $this->container->UserName;?></div>
-<div><a href="/logout">退出</a></div>
-<?php else:?>
-<div class="btn_zc"><a href="/register">免费注册</a></div>
-<div class="btn_dl"> <a href="/login">请 登 录</a></div>
-<?php endif;?>
+<div class="btn_dl">
+  <input name="search_in3" type="text" id="search_in3" value=" 网盘登录" />
+</div>
+<div class="btn_zc">
+  <input name="search_in2" type="text" id="search_in2" value=" 邮箱登录" />
+</div>
+<div class="tancmail none">
+<form target="_blank" method="post" id="mail-form" name="mail-form">
+<div class="btn_zc1">
+  <input name="search_in2" type="text" id="search_in2" value="邮箱账号" />
+</div>
+<div class="btn_zc1">
+    <label for="mailxl"></label>
+  <select name="mailxl" id="mailxl">
+    <option act="http://reg.163.com/CheckUser.jsp" value="@163.com" selected="selected">@163.com</option>
+    <option act="https://reg.163.com/logins.jsp" value="@1393.com">@1393.com</option>
+    <option value="@126.com">@126.com</option>
+<option value="@sina.com">@sina.com</option>
+<option value="@sohu.com">@sohu.com</option>
+<option value="@yeah.net">@yeah.net</option>
+<option value="@tom.com">@tom.com</option>
+<option value="@21cn.com">@21cn.com</option>
+<option value="@139.com">@139.com</option>
+<option style="font-weight:600;" value="以下在弹出页登录">以下在弹出页登录</option>
+<option value="@qq.com">@qq.com</option>
+<option value="@gmail.com">@gmail.com</option>
+<option value="@hotmail.com">@hotmail.com</option>
+<option value="阿里云邮箱">阿里云邮箱</option>
+<option value="淘宝账号">淘宝账号</option>
+<option value="支付宝">支付宝</option>
+<option value="新浪微博">新浪微博</option>
+<option value="开心网">开心网</option>
+<option value="人人网">人人网</option>
+<option value="百度">百度</option>
+<option value="51.com">51.com</option>
+<option value="chinaren校友录">chinaren校友录</option>
+<option value="天涯社区">天涯社区</option>
+  </select>
+</div>
+<div class="btn_zc2">
+  <input name="search_in3" type="text" id="search_in4" value="邮箱密码" />
+</div>
+<div class="btn_zc3"><input name="mail_dl" type="submit" id="mail_dl" value="登录" /></div>
+</form>
 </div>
 </div>
+</div>
+
 
 <div class="search">
     <div class="drop_down">
@@ -158,9 +196,7 @@ echo "周".$weekarray[date("w")]; ?></span></li>
 
 </div>
 
-
 <?php echo $this->content;?>
-
 
 
 </div>
@@ -291,6 +327,21 @@ $(function(){
 	},
 	function() {
 		$(".Calendar").slideUp();
+	});
+// 	var mailDomain = {@163.com:'http://reg.163.com/CheckUser.jsp',}
+	$("#mail_dl").click(function(){
+		var optVal = $("select[name='mailxl']").val();
+		var optAct = $("select[name='mailxl']").find('option:selected').attr('act');
+		$("#mail-form").attr('action', optAct);
+	});
+	$("#search_in2").click(function(){
+		$(".tancmail").show();
+	});
+	$(document).click(function(e){
+		e = window.event || e;
+		if (!$(e.srcElement || e.target).is(".tancmail *") && !$(e.srcElement || e.target).is("#search_in2")) {
+			$(".tancmail").hide();
+		}
 	});
 })
 </script>

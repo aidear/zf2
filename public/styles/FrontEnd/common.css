@@ -4,7 +4,7 @@
 .tq .weather {margin-left:20px; padding-top:10px; position:relative;}
 .tq .weather .swith_area {
 	float:left;
-	background-color:#f6f6f6;
+	background-color:#fff;
 	border:0px solid #000;
 	height:60px;
 	width:auto;
@@ -35,7 +35,7 @@
 	background-color:#f6f6f6;
 	border:1px solid #f5db86;
 }
-.tq .lunar {margin-left:18px; width:125px; border-left:1px solid #d9d9d9;border-right:1px solid #d9d9d9; position:relative;}
+.tq .lunar {margin-left:18px; width:125px;  position:relative;}
 .tq .lunar .Calendar {positoin:absolute; z-index:30;}
 .tq .lunar ul {margin-top:10px; color:#656364;}
 .btn_zc a {color:#FFA625;}
@@ -43,8 +43,8 @@
 .lanse a:link,.hhz a:link {color:#0099FF}
 .lanse a:visited,.hhz a:visited {color:#0099FF}
 .list span {background-repeat:no-repeat;background-position:center;float:left;width:120px;display:inline;margin-left:10px;}
-.list ul {border-left:1px solid #8f8f8f; min-height:60px;}
-.list ul li { width:90px; line-height:30px; font-size:14px;}
+/*.list ul {border-left:1px solid #8f8f8f; min-height:60px;}*/
+.list li { width:90px; line-height:30px; font-size:14px;}
 .foot{background-color:#e8e8e8;float:left;width:100%;line-height:60px;height:60px;font-family:"微软雅黑";font-size:12px;margin-top:15px;}
 .foot_1{background-color:#e8e8e8;float:left;width:100%;line-height:60px;height:60px;font-family:"微软雅黑";font-size:12px;margin-top:15px;}
 .stayHere {
@@ -141,13 +141,32 @@ button.close {
 .alert-block p + p {
   margin-top: 5px;
 }
+.menu>li {
+	position:relative;
+}
 .list .show_all {
-	width:740px;
+	/*width:740px;
 	background-color:#fff;
 	z-index:60;
-	border-bottom:1px dotted #8f8f8f;
+	border-bottom:1px dotted #8f8f8f;*/
+	border: 1px solid #F00;
+	position: absolute;
+	height: 500px;
+	width: 745px;
+	background-color: #FFF;
+	z-index: 99;
+	left: 150px;
+	top: -149px;
 }
-
+.list .show_all li {
+	float:left;
+}
+.menu_k li {
+	float:left;
+	width:90px;
+	padding:4px;
+	font-size:14px;
+}
 .security_tips {
 	position:relative;
 }
@@ -189,4 +208,9 @@ button.close {
 	cursor:pointer;
 	width:40px;
 	height:24px;
+}
+
+.Menubox1 ul li.hover {
+    background-color: #FF8A21;
+    color: #FFFFFF;
 }

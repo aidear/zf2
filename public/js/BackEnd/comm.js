@@ -165,7 +165,7 @@ $(function(){
 	$(".btn-reset").click(function(){
 		$("input[type='reset'][class='button-element']").trigger('click');
 	});
-	$("input[name='k']").focusout(function() {
+	$("input[name='k'], input[name='name']").focusout(function() {
 		if ($(this).val() == '') {
 			$(this).next("button[type='submit']").trigger('click');
 		}

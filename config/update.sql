@@ -47,3 +47,25 @@ CREATE TABLE `secret` (
   KEY `s_user_id` (`user_id`),
   CONSTRAINT `s_user_id` FOREIGN KEY (`user_id`) REFERENCES `member` (`UserID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8
+
+/**
+*2013/11/10
+*/
+ALTER TABLE `project`.`nav_category` ADD COLUMN `updateTime` DATETIME NULL COMMENT '更新时间' AFTER `order`, ADD COLUMN `updateUser` VARCHAR(20) NULL COMMENT '更新人' AFTER `updateTime`;
+ALTER TABLE `project`.`link` ADD COLUMN `updateTime` DATETIME NULL COMMENT '更新时间' AFTER `order`, ADD COLUMN `updateUser` VARCHAR(20) NULL COMMENT '更新人' AFTER `updateTime`; 
+ALTER TABLE `project`.`link` ADD COLUMN `recommend_id` INT UNSIGNED DEFAULT 0 NOT NULL COMMENT '推荐id' AFTER `order`; 
+
+CREATE TABLE `recommend_link` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `title` varchar(20) NOT NULL COMMENT '网址标题',
+  `url` varchar(100) NOT NULL COMMENT '链接地址',
+  `category` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '分类',
+  `user_name` varchar(80) DEFAULT NULL COMMENT '推荐人',
+  `email` varchar(100) DEFAULT NULL COMMENT '邮箱',
+  `mobile` varchar(20) DEFAULT NULL COMMENT '手机',
+  `addTime` datetime DEFAULT NULL COMMENT '添加时间',
+  `status` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '审核状态(0-审核中，1-审核通过，2-未通过)',
+  `approvedTime` datetime DEFAULT NULL COMMENT '审核时间',
+  `approvedUser` varchar(100) DEFAULT NULL COMMENT '审核人',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8

@@ -34,6 +34,8 @@ class NavCategory implements InputFilterAwareInterface
 	public $line = 2;
 	public $isShow = 1;
 	public $order = 1;
+	public $updateTime;
+	public $updateUser;
 	public $addTime;
 	
 	protected $inputFilter;
@@ -50,6 +52,8 @@ class NavCategory implements InputFilterAwareInterface
 		$this->line = isset($data['line']) ? $data['line'] : 2;
 		$this->isShow = isset($data['isShow']) ? $data['isShow'] : 1;
 		$this->order = isset($data['order']) ? $data['order'] : 1;
+		$this->updateTime = isset($data['updateTime']) ? $data['updateTime'] : date('Y-m-d H:i:s');
+		$this->updateUser = isset($data['updateUser']) ? $data['updateUser'] : '';
 		$this->addTime = isset($data['addTime']) ? $data['addTime'] : date('Y-m-d H:i:s');
 	}
 	public function getArrayCopy()

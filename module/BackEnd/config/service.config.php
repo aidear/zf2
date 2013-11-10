@@ -86,6 +86,12 @@ return array(
 					$resultSetPrototype->setArrayObjectPrototype(new Model\Nav\Link());
 					return new Model\Nav\LinkTable('link', $dbAdapter, null, $resultSetPrototype);
 				},
+				'RecommendLinkTable' =>  function($sm) {
+					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+					$resultSetPrototype = new ResultSet();
+					$resultSetPrototype->setArrayObjectPrototype(new Model\Nav\RecommendLink());
+					return new Model\Nav\RecommendLinkTable('recommend_link', $dbAdapter, null, $resultSetPrototype);
+				},
 				//Nav
 				'backendNav' => '\Custom\Navigation\Service\BackendNavigation',
 				

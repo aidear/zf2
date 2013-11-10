@@ -38,6 +38,8 @@ class NavController extends AbstractActionController
 {
 	protected  $op = array();
 	protected  $category = array();
+	protected  $prov = array();
+	protected  $city = array();
 	function indexAction()
 	{
 		
@@ -68,16 +70,18 @@ class NavController extends AbstractActionController
         
         
 //         $paginaction = new Paginator($re);
-        $paginaction = $this->_getNavPaginator($params);
+        $paginaction = $this->_getNavPaginator($params, 1);
         
         $navList = $paginaction->getCurrentItems()->toArray();
-        
+        $linkTable = $this->_getTable('LinkTable');
         foreach ($navList as $k=>$v) {
         	$navList[$k]['parentName'] = $table->getCateNameById($v['parentID']);
+        	$navList[$k]['subCount'] = $table->getSubCountByPID($v['id']);
+        	$navList[$k]['linkCount'] = $linkTable->getLinkCountByCID($v['id']);
         }
         
         $startNumber = 1+($params['page']-1)*$paginaction->getItemCountPerPage();
-        $order = $this->_getOrder($prefixUrl, array('name', 'isShow', 'order', 'addTime'), $removePageParams);
+        $order = $this->_getOrder($prefixUrl, array('name', 'isShow', 'order', 'updateTime', 'updateUser'), $removePageParams);
         
         $assign = array(
         		'paginaction' => $paginaction, 
@@ -86,18 +90,71 @@ class NavController extends AbstractActionController
         		'orderQuery' => http_build_query($orderPageParams),
         		'query' => http_build_query($removePageParams),
         		'order' => $order,
+        		'k' => $name,
         );
         
         return new ViewModel($assign);
 	}
-	private function _getNavPaginator($params)
+	function subCategoryAction()
+	{
+		$routeParams = array('controller' => 'nav' , 'action' => 'category');
+		$prefixUrl = $this->url()->fromRoute(null, $routeParams);
+		$params = array();
+		$table = $this->_getTable('NavCategoryTable');
+		$name = $this->params()->fromQuery('name' , '');
+		$pageSize = $this->params()->fromQuery('pageSize');
+	
+		if($name){
+			$params['name'] = $name;
+		}
+		if ($pageSize) {
+			$params['pageSize'] = $pageSize;
+		}
+		$params['orderField'] = $this->params()->fromQuery('orderField', 'order');
+		$params['orderType'] = $this->params()->fromQuery('orderType', __LIST_ORDER);
+	
+		$removePageParams = $params;
+	
+		$params['page'] = $this->params()->fromQuery('page' , 1);
+	
+		$orderPageParams = $params;
+	
+	
+		//         $paginaction = new Paginator($re);
+		$paginaction = $this->_getNavPaginator($params, 0);
+	
+		$navList = $paginaction->getCurrentItems()->toArray();
+		$linkTable = $this->_getTable('LinkTable');
+		foreach ($navList as $k=>$v) {
+			$navList[$k]['parentName'] = $table->getCateNameById($v['parentID']);
+// 			$navList[$k]['subCount'] = $table->getSubCountByPID($v['id']);
+			$navList[$k]['linkCount'] = $linkTable->getLinkCountByCID($v['id']);
+		}
+	
+		$startNumber = 1+($params['page']-1)*$paginaction->getItemCountPerPage();
+		$order = $this->_getOrder($prefixUrl, array('name', 'isShow', 'order', 'updateTime', 'updateUser'), $removePageParams);
+	
+		$assign = array(
+				'paginaction' => $paginaction,
+				'navList' => $navList,
+				'startNumber' => $startNumber,
+				'orderQuery' => http_build_query($orderPageParams),
+				'query' => http_build_query($removePageParams),
+				'order' => $order,
+				'k' => $name,
+		);
+	
+		return new ViewModel($assign);
+	}
+	private function _getNavPaginator($params, $root = 0)
 	{
 		$page = isset($params['page']) ? $params['page'] : 1;
 		$order = array();
 		if ($params['orderField']) {
-			$order = array($params['orderField'] => $params['orderType']);
+			$order = array('nav_category.'.$params['orderField'] => $params['orderType']);
 		}
 		$table = $this->_getTable('NavCategoryTable');
+		$params['root']  = $root;
 		$paginator = new Paginator($table->formatWhere($params)->getListToPaginator($order));
 		$paginator->setCurrentPageNumber($page)->setItemCountPerPage(isset($params['pageSize']) ? $params['pageSize'] : self::LIMIT);
 		return $paginator;
@@ -134,7 +191,12 @@ class NavController extends AbstractActionController
 				$navCategory->parentID = $params->parentID;
 				$navCategory->isShow = $params->isShow;
 				$navCategory->order = $params->order;
-				$navCategory->addTime = Utilities::getDateTime();
+				if ($params->id) {
+					$navCategory->addTime = Utilities::getDateTime();
+				}
+				$navCategory->updateTime = Utilities::getDateTime();
+				$container = $this->_getSession();
+				$navCategory->updateUser = $container->Name;
 				
 				$navCategory->catPath = $navCategoryTable->getPathByParent($navCategory->parentID);
 				$id = $navCategoryTable->save($navCategory);
@@ -225,6 +287,7 @@ class NavController extends AbstractActionController
 		$items = $paginaction->getCurrentItems()->toArray();
 		foreach ($items as $k=>$v) {
 			$items[$k]['categoryName'] = isset($this->category[$v['category']]) ? $this->category[$v['category']] : '';
+			$items[$k]['area'] = $this->_getAreaLink($v['province'], $v['city']);
 		}
 		
 		if ($act == 'down') {
@@ -280,7 +343,7 @@ class NavController extends AbstractActionController
 		}
 		$startNumber = 1+($page-1)*$paginaction->getItemCountPerPage();
 		
-		$order = $this->_getOrder($prefixUrl, array('title', 'isShow', 'order', 'addTime'), $removePageParams);
+		$order = $this->_getOrder($prefixUrl, array('title', 'isShow', 'order', 'url','user_name', 'email', 'mobile', 'updateTime'), $removePageParams);
 		
 		$assign = array(
 				'category' => $this->op,
@@ -428,7 +491,12 @@ class NavController extends AbstractActionController
 				$link->category = $params->category;
 				$link->isShow = $params->isShow;
 				$link->order = $params->order;
-				$link->addTime = Utilities::getDateTime();
+				if ($params->id) {
+					$link->addTime = Utilities::getDateTime();
+				}
+				$link->updateTime = Utilities::getDateTime();
+				$container = $this->_getSession();
+				$link->updateUser = $container->Name;
 				if (false === strpos($link->url, 'http://')) {
 					$link->url = 'http://'.$link->url;
 				}
@@ -542,5 +610,22 @@ class NavController extends AbstractActionController
 				$this->_returnOptionValue($v['sub']);
 			}
 		}
+	}
+	private function _getAreaLink($prov, $city)
+	{
+		$str = '';
+		if (!$prov && !$city) {
+			return '全国';
+		}
+		if ($prov || $city) {
+			$region = $this->_getTable('RegionTable');
+			if (empty($this->prov)) {
+				$this->prov = $region->getSelectRegion(2);
+			}
+			$this->city = $region->getSelectRegion(3, $prov);
+			$str .= (isset($this->prov[$prov]) ? $this->prov[$prov] : '');
+			$str .= (isset($this->city[$city]) ? '-'.$this->city[$city] : '');
+		}
+		return $str;
 	}
 }
