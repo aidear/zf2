@@ -106,7 +106,6 @@ echo "周".$weekarray[date("w")]; ?></span></li>
   <input name="search_in2" type="text" id="search_in2" value=" 邮箱登录" />
 </div>
 <div class="tancmail none">
-<form target="_blank" method="post" id="mail-form" name="mail-form">
 <div class="btn_zc1">
   <input name="search_in2" type="text" id="search_in2" value="邮箱账号" />
 </div>
@@ -114,14 +113,13 @@ echo "周".$weekarray[date("w")]; ?></span></li>
     <label for="mailxl"></label>
   <select name="mailxl" id="mailxl">
     <option act="http://reg.163.com/CheckUser.jsp" value="@163.com" selected="selected">@163.com</option>
-    <option act="https://reg.163.com/logins.jsp" value="@1393.com">@1393.com</option>
-    <option value="@126.com">@126.com</option>
-<option value="@sina.com">@sina.com</option>
-<option value="@sohu.com">@sohu.com</option>
-<option value="@yeah.net">@yeah.net</option>
-<option value="@tom.com">@tom.com</option>
-<option value="@21cn.com">@21cn.com</option>
-<option value="@139.com">@139.com</option>
+    <option act="https://reg.163.com/logins.jsp" value="@126.com">@126.com</option>
+<option act="http://mail.sina.com.cn/cgi-bin/login.cgi" value="@sina.com">@sina.com</option>
+<option act="http://passport.sohu.com/login.jsp" value="@sohu.com">@sohu.com</option>
+<option act="https://reg.163.com/logins.jsp" value="@yeah.net">@yeah.net</option>
+<option act="http://login.mail.tom.com/cgi/login" value="@tom.com">@tom.com</option>
+<option act="http://passport.21cn.com/maillogin.jsp" value="@21cn.com">@21cn.com</option>
+<option act="https://mail.10086.cn/Login/Login.ashx?clientid=5025" value="@139.com">@139.com</option>
 <option style="font-weight:600;" value="以下在弹出页登录">以下在弹出页登录</option>
 <option value="@qq.com">@qq.com</option>
 <option value="@gmail.com">@gmail.com</option>
@@ -141,7 +139,9 @@ echo "周".$weekarray[date("w")]; ?></span></li>
 <div class="btn_zc2">
   <input name="search_in3" type="text" id="search_in4" value="邮箱密码" />
 </div>
-<div class="btn_zc3"><input name="mail_dl" type="submit" id="mail_dl" value="登录" /></div>
+<form target="_blank" method="post" id="mail-form" name="mail-form">
+<span class="mail-hide none"></span>
+<div class="btn_zc3"><input name="mail_dl" type="button" id="mail_dl" value="登录" /></div>
 </form>
 </div>
 </div>
@@ -332,7 +332,102 @@ $(function(){
 	$("#mail_dl").click(function(){
 		var optVal = $("select[name='mailxl']").val();
 		var optAct = $("select[name='mailxl']").find('option:selected').attr('act');
-		$("#mail-form").attr('action', optAct);
+		var p = $("#search_in4").val();
+		var u = $("#search_in2").val();
+		if (typeof aptAct != 'undefined') {
+			switch(optVal) {
+			  case '@163.com':
+				  $(".mail-hide").html('<input type="hidden" name="username" value="'+u+'"><input type="hidden" name="password" value="'+p+'">');
+				  break;
+			  case '@126.com':
+				  $(".mail-hide").html('<input type="hidden" name="domain" value="126.com">'
+						  +'<input type="hidden" name="username" value="'+u+'@126.com">
+						  +'<input type="hidden" name="password" value="'+p+'">');
+				  break;
+			  case '@sina.com':
+				  $(".mail-hide").html('<input type="hidden" name="u" value="'+u+'@sina.com">
+						  +'<input type="hidden" name="psw" value="'+p+'">');
+				  break;
+			  case '@sohu.com':
+				  $(".mail-hide").html('<input type="hidden" name="loginid" value="'+u+'@sohu.com">'
+						  +'<input type="hidden" name="passwd" value="'+p+'">'
+						  +'<input type="hidden" name="fl" value="1">'
+						  +'<input type="hidden" name="vr" value="1|1">'
+						  +'<input type="hidden" name="appid" value="1000">'
+						  +'<input type="hidden" name="ru" value="http://login.mail.sohu.com/servlet/LoginServlet">'
+						  +'<input type="hidden" name="ct" value="1173080990">''
+						  +'<input type="hidden" name="sg" value="5082635c77272088ae7241ccdf7cf062">');
+				  break;
+			  case '@yeah.net':
+				  $(".mail-hide").html('<input type="hidden" name="domain" value="yeah.net">'
+						  +'<input type="hidden" name="username" value="'+u+'@yeah.net">'
+						  +'<input type="hidden" name="password" value="'+p+'">');
+				  break;
+			  case '@tom.com':
+				  $(".mail-hide").html('<input type="hidden" name="user" value="'+u+'">'
+						  +'<input type="hidden" name="pass" value="'+p+'">');
+				  break;
+			  case '@21cn.com':
+				  $(".mail-hide").html('<input type="hidden" name="UserName" value="'+u+'@21cn.com">'
+						  +'<input type="hidden" name="passwd" value="'+p+'">'
+						  +'<input type="hidden" name="domainname" value="21cn.com">');
+				  break;
+			  case '@139.com':
+				  $(".mail-hide").html('<input type="hidden" name="UserName" value="'+u+'">'
+						  +'<input type="hidden" name="Password" value="'+p+'">'
+						  +'<input type="hidden" name="ClientId" value="5025">');
+				  break;
+			  default:
+				  break;
+			}
+			  $("#mail-form").attr('action', optAct).submit();
+		}
+	});
+	$("#mailxl").change(function(){
+		var optVal = $("select[name='mailxl']").val();
+		switch(optVal) {
+		case '@qq.com':
+			window.open('http://mail.qq.com');
+			break;
+		case '@gmail.com':
+			window.open('http://mail.google.com');
+			break;
+		case '@hotmail.com':
+			window.open('http://www.hotmail.com');
+			break;
+		case '阿里云邮箱':
+			window.open('https://passport.alipay.com/login/login.htm?return_url=http%3A%2F%2Fmail.aliyun.com%2Falimail%2Fauth%2FcallbackForHavana%3Freurl%3D%252Falimail%252F&fromSite=9');
+			break;
+		case '淘宝账号':
+			window.open('https://login.taobao.com/member/login.jhtml');
+			break;
+		case '支付宝':
+			window.open('https://www.alipay.com/user/login.htm');
+			break;
+		case '新浪微博':
+			window.open('http://t.sina.com.cn/');
+			break;
+		case '开心网':
+			window.open('http://www.kaixin001.com/');
+			break;
+		case '人人网':
+			window.open('http://www.renren.com');
+			break;
+		case '百度':
+			window.open('https://passport.baidu.com/?login');
+			break;
+		case '51.com':
+			window.open('http://www.51.com/');
+			break;
+		case 'chinaren校友录':
+			window.open('http://class.chinaren.com/');
+			break;
+		case '天涯社区':
+			window.open('http://www.tianya.cn/');
+			break;
+		default:
+			break;
+		}
 	});
 	$("#search_in2").click(function(){
 		$(".tancmail").show();
