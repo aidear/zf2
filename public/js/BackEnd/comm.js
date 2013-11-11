@@ -67,10 +67,10 @@ $(function(){
 		}
 	});
 	$(".alert button.close").click(function() {
-		$(this).parents('.alert').slideUp();
+		$(this).parents('.alert').hide();
 	});
 	$(".alert").click(function() {
-		$(this).slideUp();
+		$(this).hide();
 	});
 	$("table.table tbody tr").mouseover(function() {
 		if (!$("td input[type='checkbox']",$(this)).is(":checked")) {

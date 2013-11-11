@@ -66,7 +66,7 @@ $(function() {
 	$("select[name='province']").change(function() {
 		$v = $(this).val();
 		if ($v == 0) {
-			$("select[name='city']").html('');
+			$("select[name='city']").html('<option value="0" >全市</option>');
 		} else {
 			$.ajax({
 				type: "POST",
