@@ -108,7 +108,7 @@ $msg = $this->flashMessages();
                         <td><?php echo $startNumber++; ?></td>
                         <td><?php echo $nav['parentName']; ?></td>
                         <td key="name" editable="true"><?php echo $nav['name']; ?></td>
-                        <td><?php echo $nav['linkCount'];?></td>
+                        <td><?php echo $nav['subLinkCount'] ? $nav['subLinkCount'] : 0;?></td>
                         <td key="isShow" editable="true"><?php echo $nav['isShow'] ? '显示' : '不显示'; ?></td>
                         <td key="order" editable="true"><?php echo $nav['order']; ?></td>
                         <td><?php echo $nav['updateTime']; ?></td>

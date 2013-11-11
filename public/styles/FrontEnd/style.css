@@ -261,7 +261,7 @@ body{background-color:#F6F6F6;background-image:url(/images/FrontEnd/bg_l.png);ba
 .list li span{line-height:40px;float:left;margin-top:6px;margin-right:3px;margin-left:3px;}
 .foot{background-color:#e8e8e8;float:left;width:100%;line-height:60px;height:60px;font-family:"宋体";font-size:14px;margin-top:15px;}
 #badu_btn,#google_btn{background-image:url(/images/FrontEnd/btn_baidu.jpg);height:39px;width:90px;border-top-width:0px;border-right-width:0px;border-bottom-width:0px;border-left-width:0px;border-top-style:none;border-right-style:none;border-bottom-style:none;border-left-style:none;color:#666;font-family:"宋体";font-size:18px;font-weight:normal;}
-.huaf{height:auto;width:988px;margin:0 auto;font-family:"宋体";position:relative;}
+.huaf{height:auto;width:988px;margin:33px auto;font-family:"宋体";position:relative;}
 .huaf .lm{background-image:url(/images/FrontEnd/hf.jpg);float:left;height:26px;width:86px;position:absolute;line-height:26px;font-weight:bold;}
 .huaf .hh .wk{float:left;height:170px;width:986px;border:1px solid #91C4F7;margin-top:25px;background-color:#FFF;}
 .huaf .hh .wk .hf_n{float:left;height:auto;width:947px;margin-top:10px;padding-left:47px;}

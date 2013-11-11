@@ -191,6 +191,62 @@ class NavCategoryTable extends TableGateway
     	 
     	return new DbSelect($select, $this->getAdapter());
     }
+    public function getListsToPaginator(array $data, $order = array())
+    {
+    	$sql = "SELECT nt.*,(SUM(ns.lkCount)+nt.lkCount) AS subLinkCount FROM
+(SELECT nStat.id,nStat.name,nStat.subCount,nStat.parentID,nStat.order,nStat.isShow,nStat.updateTime,nStat.updateUser,nl.category,nl.catPath,nl.lkCount FROM
+(SELECT na.id,na.name,na.parentID,na.isShow,na.updateTime,na.updateUser,COUNT(nc.id) AS subCount,na.order
+FROM nav_category na
+LEFT JOIN
+nav_category nc
+ON INSTR(nc.catPath,CONCAT(',',na.id,','))
+GROUP BY na.id) AS nStat
+LEFT JOIN
+(SELECT nc.id,nc.name,nc.`parentID`,COUNT(lk.id) AS lkCount,lk.`title`,lk.category,nc.catPath
+FROM nav_category nc
+LEFT JOIN
+link lk
+ON lk.`category`=nc.`id`
+GROUP BY nc.`id`) AS nl
+ON nStat.id=nl.id) AS nt
+LEFT JOIN
+(SELECT nStat.id,nStat.name,nStat.subCount,nl.category,nl.catPath,nl.lkCount FROM
+(SELECT na.id,na.name,na.parentID,COUNT(nc.id) AS subCount
+FROM nav_category na
+LEFT JOIN
+nav_category nc
+ON INSTR(nc.catPath,CONCAT(',',na.id,','))
+GROUP BY na.id) AS nStat
+LEFT JOIN
+(SELECT nc.id,nc.name,nc.`parentID`,COUNT(lk.id) AS lkCount,lk.`title`,lk.category,nc.catPath
+FROM nav_category nc
+LEFT JOIN
+link lk
+ON lk.`category`=nc.`id`
+GROUP BY nc.`id`) AS nl
+ON nStat.id=nl.id) AS ns
+ON INSTR(ns.catPath, CONCAT(',',nt.id,','))";
+    	$where = '1=1';
+    	if(!empty($data['name'])){
+    		$where .= " AND nt.name LIKE '%{$data['name']}%'";
+    	}
+    	if (isset($data['root']) && $data['root'] == 1) {
+    		$where .= " AND nt.parentID=0";
+    	} else {
+    		$where .= " AND nt.parentID<>0";
+    	}
+    	$sql .= " WHERE {$where} GROUP BY nt.id";
+    	if (!empty($order)) {
+    		list($k, $v) = each($order);
+    		if (in_array($k, array('subLinkCount'))) {
+    			$sql .= " ORDER BY {$k} {$v}";
+    		} else {
+    			$sql .= " ORDER BY nt.{$k} {$v}";
+    		}
+    	}
+    	$rs = $this->getAdapter()->query($sql, Adapter::QUERY_MODE_EXECUTE);
+    	return $rs ? $rs->toArray() : array();
+    }
     protected function _getSelect(){
     	if(!isset($this->select)){
     		$this->select = $this->getSql()->select();

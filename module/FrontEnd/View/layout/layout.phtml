@@ -107,7 +107,7 @@ echo "周".$weekarray[date("w")]; ?></span></li>
 </div>
 <div class="tancmail none">
 <div class="btn_zc1">
-  <input name="search_in2" type="text" id="search_in2" value="邮箱账号" />
+  <input name="search_in2" type="text" id="dsearch_in2" value="邮箱登录" />
 </div>
 <div class="btn_zc1">
     <label for="mailxl"></label>
@@ -137,7 +137,7 @@ echo "周".$weekarray[date("w")]; ?></span></li>
   </select>
 </div>
 <div class="btn_zc2">
-  <input name="search_in3" type="text" id="search_in4" value="邮箱密码" />
+  <input name="search_in3" type="password" id="search_in4" value="邮箱密码" />
 </div>
 <form target="_blank" method="post" id="mail-form" name="mail-form">
 <span class="mail-hide none"></span>
@@ -329,23 +329,39 @@ $(function(){
 		$(".Calendar").slideUp();
 	});
 // 	var mailDomain = {@163.com:'http://reg.163.com/CheckUser.jsp',}
+	$("#dsearch_in2").focusin(function(){
+		if ($(this).val() == '邮箱登录') {
+			$(this).val('');
+		}
+	});
+	$("#dsearch_in2").focusout(function(){
+		if ($(this).val() == '') {
+			$(this).val('邮箱登录');
+		}
+	});
+	$("#search_in4").focusin(function(){
+		if ($(this).val() == '邮箱密码') {
+			$(this).val('');
+		}
+	});
 	$("#mail_dl").click(function(){
 		var optVal = $("select[name='mailxl']").val();
 		var optAct = $("select[name='mailxl']").find('option:selected').attr('act');
 		var p = $("#search_in4").val();
-		var u = $("#search_in2").val();
-		if (typeof aptAct != 'undefined') {
+		var u = $("#dsearch_in2").val();
+		if (typeof optAct != 'undefined') {
 			switch(optVal) {
 			  case '@163.com':
-				  $(".mail-hide").html('<input type="hidden" name="username" value="'+u+'"><input type="hidden" name="password" value="'+p+'">');
+				  $(".mail-hide").html('<input type="hidden" name="url" value="http://entry.mail.163.com/coremail/fcg/ntesdoor2?lightweight=1&verifycookie=1&language=-1&style=15"><input type="hidden" name="username" value="'+u+'"><input type="hidden" name="password" value="'+p+'">');
 				  break;
 			  case '@126.com':
 				  $(".mail-hide").html('<input type="hidden" name="domain" value="126.com">'
-						  +'<input type="hidden" name="username" value="'+u+'@126.com">
-						  +'<input type="hidden" name="password" value="'+p+'">');
+						  +'<input type="hidden" name="username" value="'+u+'@126.com">'
+						  +'<input type="hidden" name="password" value="'+p+'">'
+						  +'<input type="hidden" name="url" value="http://entry.mail.126.com/cgi/ntesdoor?lightweight%3D1%26verifycookie%3D1%26language%3D0%26style%3D-1">');
 				  break;
 			  case '@sina.com':
-				  $(".mail-hide").html('<input type="hidden" name="u" value="'+u+'@sina.com">
+				  $(".mail-hide").html('<input type="hidden" name="u" value="'+u+'@sina.com">'
 						  +'<input type="hidden" name="psw" value="'+p+'">');
 				  break;
 			  case '@sohu.com':
@@ -355,13 +371,14 @@ $(function(){
 						  +'<input type="hidden" name="vr" value="1|1">'
 						  +'<input type="hidden" name="appid" value="1000">'
 						  +'<input type="hidden" name="ru" value="http://login.mail.sohu.com/servlet/LoginServlet">'
-						  +'<input type="hidden" name="ct" value="1173080990">''
+						  +'<input type="hidden" name="ct" value="1173080990">'
 						  +'<input type="hidden" name="sg" value="5082635c77272088ae7241ccdf7cf062">');
 				  break;
 			  case '@yeah.net':
 				  $(".mail-hide").html('<input type="hidden" name="domain" value="yeah.net">'
 						  +'<input type="hidden" name="username" value="'+u+'@yeah.net">'
-						  +'<input type="hidden" name="password" value="'+p+'">');
+						  +'<input type="hidden" name="password" value="'+p+'">'
+						  +'<input type="hidden" name="url" value="http://entry.mail.yeah.net/cgi/ntesdoor?lightweight%3D1%26verifycookie%3D1%26style%3D-1">');
 				  break;
 			  case '@tom.com':
 				  $(".mail-hide").html('<input type="hidden" name="user" value="'+u+'">'

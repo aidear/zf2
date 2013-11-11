@@ -67,8 +67,21 @@ $msg = $this->flashMessages();
                     <?php endif;?>
                     </th>
 <!--                     <th>上级分类</th> -->
-                    <th>子类个数</th>
-                    <th>网址个数</th>
+                    <th>
+       				<?php if (isset($this->order['subCount'])):?>
+                    <?php $name = $this->order['subCount'];?>
+                    <a href="<?php echo $name['href'];?>">子类个数<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	子类个数
+                    <?php endif;?>             
+                    </th>
+                    <th>
+                    <?php if (isset($this->order['subLinkCount'])):?>
+                    <?php $name = $this->order['subLinkCount'];?>
+                    <a href="<?php echo $name['href'];?>">网址个数<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	网址个数
+                    <?php endif;?></th>
                     <th key="isShow" editable="true">
                     <?php if (isset($this->order['isShow'])):?>
                     <?php $name = $this->order['isShow'];?>
@@ -110,7 +123,7 @@ $msg = $this->flashMessages();
                         <td key="name" editable="true"><?php echo $nav['name']; ?></td>
                         <!-- <td><?php echo $nav['parentName']; ?></td> -->
                         <td><?php echo $nav['subCount'];?></td>
-                        <td><?php echo $nav['linkCount'];?></td>
+                        <td><?php echo $nav['subLinkCount'] ? $nav['subLinkCount'] : 0;?></td>
                         <td key="isShow" editable="true"><?php echo $nav['isShow'] ? '显示' : '不显示'; ?></td>
                         <td key="order" editable="true"><?php echo $nav['order']; ?></td>
                         <td><?php echo $nav['updateTime']; ?></td>

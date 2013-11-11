@@ -33,10 +33,42 @@
   <li class="login_li"><a href="javascript:;">请登录</a></li>
   <?php endif;?><li><a href="/register">免费注册</a></li>
   </ul>
-  <div class="top_nav"><a href="javascript:;"  onClick="setHome(window.location);">设为首页</a>|<a href="/shortcut">下载桌面</a>|<a href="huanfu.html">换肤</a>|<a href="#">联系我们</a></div></div>
+  <div class="top_nav"><a href="javascript:;"  onClick="setHome(window.location);">设为首页</a>|<a href="/shortcut">下载桌面</a>|<a href="javascript:;" id="select_skin">换肤</a>|<a href="#">联系我们</a></div></div>
+</div>
+<div class="huaf none">
+   <div class="hh">
+   <div class="lm">选择皮肤</div>
+   <div class="wk">
+    <ul class="hf_n"><li>全部</li>
+    <li>kit</li><li>全部</li><li>全部</li><li>全部</li><li class="outn">全部</li><li>全部</li>
+    <li class="rig">当前第1共11页面</li></ul>
+    <div class="hf_c">
+      <div class="lf"><img src="/images/FrontEnd/hf_z.jpg" width="29" height="29" /></div>
+          <div class="hf_xk">
+         <div class="hft"><img src="/images/FrontEnd/hf_02.jpg" width="136" height="92" /><p><input name="" type="checkbox" value="" checked="checked" />
+           <strong>小兔子</strong></p></div>
+         <div class="hft"><img src="/images/FrontEnd/hf_02.jpg" width="136" height="92" /><p><input name="" type="checkbox" value="" />小兔子</p></div>
+         <div class="hft"><img src="/images/FrontEnd/hf_02.jpg" width="136" height="92" /><p><input name="" type="checkbox" value="" />小兔子</p></div>
+         <div class="hft"><img src="/images/FrontEnd/hf_02.jpg" width="136" height="92" /><p><input name="" type="checkbox" value="" />小兔子</p></div>
+         <div class="hft"><img src="/images/FrontEnd/hf_02.jpg" width="136" height="92" /><p><input name="" type="checkbox" value="" />小兔子</p></div>
+         <div class="hft"><img src="/images/FrontEnd/hf_02.jpg" width="136" height="92" /><p><input name="" type="checkbox" value="" />小兔子</p></div>
+         </div>
+      <div class="ri"><img src="/images/FrontEnd/hf_y.jpg" width="29" height="29" /></div>
+    </div>
+   </div>
+   
+   <div class="hf_btn"><input name="hf_bc" type="submit" id="hf_bc" value="保存" /> 
+     <input name="hf_gb" type="submit" id="hf_gb" value="关闭" /></div>
+   </div>
 </div>
 <script>
 $(function(){
+	$("#hf_gb").click(function(){
+		$(".huaf").slideUp('fast');
+	});
+	$("#select_skin").click(function(){
+		$(".huaf").slideDown('fast');
+	});
 	$(".login_li").click(function(){
 		$(this).hide();
 		$("#login_cue").show();

@@ -72,16 +72,16 @@ class NavController extends AbstractActionController
 //         $paginaction = new Paginator($re);
         $paginaction = $this->_getNavPaginator($params, 1);
         
-        $navList = $paginaction->getCurrentItems()->toArray();
+        $navList = $paginaction->getCurrentItems();
         $linkTable = $this->_getTable('LinkTable');
-        foreach ($navList as $k=>$v) {
-        	$navList[$k]['parentName'] = $table->getCateNameById($v['parentID']);
-        	$navList[$k]['subCount'] = $table->getSubCountByPID($v['id']);
-        	$navList[$k]['linkCount'] = $linkTable->getLinkCountByCID($v['id']);
-        }
+//         foreach ($navList as $k=>$v) {
+//         	$navList[$k]['parentName'] = $table->getCateNameById($v['parentID']);
+//         	$navList[$k]['subCount'] = $table->getSubCountByPID($v['id']);
+//         	$navList[$k]['linkCount'] = $linkTable->getLinkCountByCID($v['id']);
+//         }
         
         $startNumber = 1+($params['page']-1)*$paginaction->getItemCountPerPage();
-        $order = $this->_getOrder($prefixUrl, array('name', 'isShow', 'order', 'updateTime', 'updateUser'), $removePageParams);
+        $order = $this->_getOrder($prefixUrl, array('name', 'isShow', 'order', 'subCount', 'subLinkCount', 'updateTime', 'updateUser'), $removePageParams);
         
         $assign = array(
         		'paginaction' => $paginaction, 
@@ -123,12 +123,11 @@ class NavController extends AbstractActionController
 		//         $paginaction = new Paginator($re);
 		$paginaction = $this->_getNavPaginator($params, 0);
 	
-		$navList = $paginaction->getCurrentItems()->toArray();
+		$navList = $paginaction->getCurrentItems();
 		$linkTable = $this->_getTable('LinkTable');
 		foreach ($navList as $k=>$v) {
 			$navList[$k]['parentName'] = $table->getCateNameById($v['parentID']);
-// 			$navList[$k]['subCount'] = $table->getSubCountByPID($v['id']);
-			$navList[$k]['linkCount'] = $linkTable->getLinkCountByCID($v['id']);
+// 			$navList[$k]['linkCount'] = $linkTable->getLinkCountByCID($v['id']);
 		}
 	
 		$startNumber = 1+($params['page']-1)*$paginaction->getItemCountPerPage();
@@ -151,11 +150,12 @@ class NavController extends AbstractActionController
 		$page = isset($params['page']) ? $params['page'] : 1;
 		$order = array();
 		if ($params['orderField']) {
-			$order = array('nav_category.'.$params['orderField'] => $params['orderType']);
+			$order = array($params['orderField'] => $params['orderType']);
 		}
 		$table = $this->_getTable('NavCategoryTable');
 		$params['root']  = $root;
-		$paginator = new Paginator($table->formatWhere($params)->getListToPaginator($order));
+		$lists = $table->getListsToPaginator($params, $order);
+		$paginator = new Paginator(new \Zend\Paginator\Adapter\ArrayAdapter($lists));
 		$paginator->setCurrentPageNumber($page)->setItemCountPerPage(isset($params['pageSize']) ? $params['pageSize'] : self::LIMIT);
 		return $paginator;
 	}
