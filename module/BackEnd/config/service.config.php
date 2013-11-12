@@ -74,6 +74,12 @@ return array(
 					$resultSetPrototype->setArrayObjectPrototype(new Model\System\Config());
 					return new Model\System\ConfigTable('sys_config', $dbAdapter, null, $resultSetPrototype);
 				},
+				'AdminLogTable' =>  function($sm) {
+					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+					$resultSetPrototype = new ResultSet();
+					$resultSetPrototype->setArrayObjectPrototype(new Model\System\AdminLog());
+					return new Model\System\AdminLogTable('admin_log', $dbAdapter, null, $resultSetPrototype);
+				},
 				'NavCategoryTable' =>  function($sm) {
 					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
 					$resultSetPrototype = new ResultSet();

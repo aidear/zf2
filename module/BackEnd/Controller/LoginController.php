@@ -71,6 +71,10 @@ class LoginController extends AbstractActionController
 					$container->Name = $user->UserName;
 // 					$container->LastChangeDate = $user->LastChangeDate;
 					$container->Role = $user->Role;
+					
+					$adminLogTable = $this->_getTable('AdminLogTable');
+					$logInfo = array('user_id' => $user->ID, 'user_name' => $user->UserName, 'opt_type' => 1, 'info' => 'login');
+					$adminLogTable->addLogInfo($logInfo);
 					if($url = $this->params()->fromQuery('url')){
 						return $this->redirect()->toUrl($url);
 					}else{
@@ -104,6 +108,9 @@ class LoginController extends AbstractActionController
 	 */
 	public function logoutAction(){
 		$container = new Container('user');
+		$adminLogTable = $this->_getTable('AdminLogTable');
+		$logInfo = array('user_id' => $container->UserID, 'user_name' => $container->Name, 'opt_type' => 2, 'info' => 'logout');
+		$adminLogTable->addLogInfo($logInfo);
 		$container->getManager()->destroy();
 		return $this->redirect()->toRoute('backend' , array('controller' => 'login' , 'action' => 'index'));
 	}

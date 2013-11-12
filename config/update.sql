@@ -73,3 +73,13 @@ CREATE TABLE `recommend_link` (
  *11/12/2013
  */
 ALTER TABLE `link` ADD INDEX cate(category);
+CREATE TABLE `admin_log` (
+  `user_id` smallint(5) unsigned NOT NULL COMMENT '账户id',
+  `user_name` varchar(200) NOT NULL COMMENT '账户名',
+  `opt_type` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '操作类型（0-其他，1-登录，2-管理）',
+  `info` varchar(400) DEFAULT '' COMMENT '描述信息',
+  `ip` varchar(15) DEFAULT '' COMMENT 'ip地址',
+  `add_time` datetime DEFAULT '0000-00-00 00:00:00' COMMENT '添加时间',
+  KEY `usr` (`user_id`,`user_name`),
+  KEY `opt_type` (`opt_type`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
