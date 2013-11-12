@@ -9,7 +9,7 @@ $msg = $this->flashMessages();
     <div class="t_top">
         	<div class="t_inline">
         	<form class="form-inline" action="<?php echo $this->url('backend', array('controller' 
-            => 'nav', 'action' => 'category')); ?>" method="get">
+            => 'nav', 'action' => 'subCategory')); ?>" method="get">
                 <div class="input-group">
 <!--                     <label>搜索分类</label> -->
                     <input autocomplete="off" class="input-element span3" value="<?php echo isset($this->k) ? $this->k : '';?>" name="name" type="text">
@@ -118,7 +118,7 @@ $msg = $this->flashMessages();
             </tbody>
         </table>
         <?php echo $this->paginationControl($this->paginaction,'Sliding','layout/pagination' , array('link' 
-            => $this->url('backend' , array('controller' => 'nav' , 'action' => 'category')).'?'.$this->query));?>
+            => $this->url('backend' , array('controller' => 'nav' , 'action' => 'subCategory')).'?'.$this->query));?>
     </div>
 </div>
 <script type="text/javascript">

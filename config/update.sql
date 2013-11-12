@@ -69,3 +69,7 @@ CREATE TABLE `recommend_link` (
   `approvedUser` varchar(100) DEFAULT NULL COMMENT '…Û∫À»À',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8
+/**
+ *11/12/2013
+ */
+ALTER TABLE `link` ADD INDEX cate(category);

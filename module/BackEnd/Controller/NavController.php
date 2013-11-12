@@ -97,7 +97,7 @@ class NavController extends AbstractActionController
 	}
 	function subCategoryAction()
 	{
-		$routeParams = array('controller' => 'nav' , 'action' => 'category');
+		$routeParams = array('controller' => 'nav' , 'action' => 'subCategory');
 		$prefixUrl = $this->url()->fromRoute(null, $routeParams);
 		$params = array();
 		$table = $this->_getTable('NavCategoryTable');
