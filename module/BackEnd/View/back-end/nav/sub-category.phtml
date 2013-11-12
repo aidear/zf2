@@ -67,7 +67,14 @@ $msg = $this->flashMessages();
                     	分类名称
                     <?php endif;?>
                     </th>
-                    <th>网址个数</th>
+                    <th>
+                    <?php if (isset($this->order['subLinkCount'])):?>
+                    <?php $name = $this->order['subLinkCount'];?>
+                    <a href="<?php echo $name['href'];?>">网址个数<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	网址个数
+                    <?php endif;?>
+                    </th>
                     <th key="isShow" editable="true">
                     <?php if (isset($this->order['isShow'])):?>
                     <?php $name = $this->order['isShow'];?>

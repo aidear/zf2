@@ -271,8 +271,9 @@ return array(
     'menu_member' => '会员列表',
     
     'menu_role' => '角色管理',
-    'menu_resoure' => '资源管理',
+    'menu_resource' => '资源管理',
     'menu_user' => '帐号管理',
     'menu_identity' => '身份认证',
     'menu_nav' => '顶级分类',
+    'menu_config' => '系统设置',
 );

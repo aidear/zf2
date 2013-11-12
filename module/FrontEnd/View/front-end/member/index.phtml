@@ -57,30 +57,25 @@ $msg = $this->flashMessages();
           <td height="38" align="right">生日：</td>
           <?php $birth = explode('-', $user['Birthday']);?>
           <td width="484" height="38"><label for="textfield2"></label>
-          <span class="birthSelect"><input onpaste="return false" style="IME-MODE: disabled;width:40px;" onkeyup="value=value.replace(/[^\d]/g,'')" name="birth1" type="text" id="textfield2" maxlength="4" size="8" value="<?php echo isset($birth[0]) ? $birth[0] : '';?>" />
-          <ul>
-          <?php $curYear = date('Y');for($i = $curYear; $i >= $curYear-60; $i --) { ?>
-          	<li data-val='<?php echo $i;?>'><?php echo $i;?></li>
+          <select name="birth1">
+          	<option value=''>年</option>
+          <?php $curYear = date('Y');for($i = $curYear; $i >= $curYear-70; $i --) { ?>
+          	<option value="<?php echo $i;?>" <?php echo $i== (isset($birth[0]) ? $birth[0] : '') ? 'selected' : '';?>><?php echo $i;?></option>
           	<?php }?>
-          </ul>
-          </span>
-          年
-          <span class="birthSelect"><input onpaste="return false" style="IME-MODE: disabled;" onkeyup="value=value.replace(/[^\d]/g,'')" name="birth2" type="text" id="textfield3" maxlength="2" size="8" value="<?php echo isset($birth[1]) ? $birth[1] : '';?>" />
-         <ul>
+          </select>
+		  <select name="birth2">
+          	<option value=''>月</option>
           <?php for($i = 1; $i <= 12; $i ++) { ?>
-          	<li data-val='<?php echo $i;?>'><?php echo $i;?></li>
+          	<option value="<?php echo $i;?>" <?php echo $i== (isset($birth[1]) ? $birth[1] : '') ? 'selected' : '';?>><?php echo $i;?></option>
           	<?php }?>
-          </ul>
-          </span>
-          月
-          <span class="birthSelect"><input onpaste="return false" style="IME-MODE: disabled;" onkeyup="value=value.replace(/[^\d]/g,'')" name="birth3" type="text" id="textfield4" maxlength="2" size="8" value="<?php echo isset($birth[2]) ? $birth[2] : '';?>" />
-   		<ul>
+          </select>
+          <select name="birth3">
+          	<option value=''>月</option>
           <?php for($i = 1; $i <= 31; $i ++) { ?>
-          	<li data-val='<?php echo $i;?>'><?php echo $i;?></li>
+          	<option value="<?php echo $i;?>" <?php echo $i== (isset($birth[2]) ? $birth[2] : '') ? 'selected' : '';?>><?php echo $i;?></option>
           	<?php }?>
-          </ul>
-          </span>      
-          日</td>
+          </select>
+         </td>
         </tr>
         <tr>
           <td height="38">&nbsp;</td>

@@ -131,7 +131,7 @@ class NavController extends AbstractActionController
 		}
 	
 		$startNumber = 1+($params['page']-1)*$paginaction->getItemCountPerPage();
-		$order = $this->_getOrder($prefixUrl, array('name', 'isShow', 'order', 'updateTime', 'updateUser'), $removePageParams);
+		$order = $this->_getOrder($prefixUrl, array('name', 'isShow', 'order', 'subLinkCount', 'updateTime', 'updateUser'), $removePageParams);
 	
 		$assign = array(
 				'paginaction' => $paginaction,
@@ -208,8 +208,11 @@ class NavController extends AbstractActionController
 					$this->_updateNavImage($navCategory->id ? $navCategory->id : $id , $navCategory->imgUrl );
 				}
 				$this->_message('保存成功！');
-				
-				return $this->redirect()->toRoute('backend' , array('controller' => 'nav' , 'action' => 'category'));
+				if ($navCategory->parentID) {
+					return $this->redirect()->toRoute('backend' , array('controller' => 'nav' , 'action' => 'subCategory'));
+				} else {
+					return $this->redirect()->toRoute('backend' , array('controller' => 'nav' , 'action' => 'category'));
+				}
 			}
 			
 		} elseif ($id = $this->params()->fromQuery('id')) {

@@ -40,15 +40,18 @@ $msg = $this->flashMessages();
             <?php endif;?>
         <form class="box-form" action="<?php echo $this->url('backend' , array('controller' => 'nav' , 'action' => 'save'))?>"
               method="post" enctype="multipart/form-data">
-            <fieldset>
+              <?php $img =  $form->get('imgUrl')->getValue();?>
+              <?php if (!empty($img)):?>
+              <span class="show_image">
+				<img width="150px" src="<?php echo $img;?>" />
+				</span>
+			<?php endif;?>
+            <fieldset  style="border:0;">
             	<?php echo $this->formHidden($form->get('id'))?>
                 <?php echo $this->formText($form->get('name'))?>
                 <?php echo $this->formText($form->get('desc'))?>
                 <?php echo $this->formText($form->get('keyword'))?>
                 <?php echo $this->formSelect($form->get('parentID'))?>
-                <div class="input-gourp">
-				<img width="120px" src="<?php echo $form->get('imgUrl')->getValue();?>" />
-				</div>
                 <?php echo $this->formFile($form->get('imgUrl'))?>
                 <?php echo $this->formText($form->get('line'))?>
                 <?php echo $this->formSelect($form->get('isShow'))?>
