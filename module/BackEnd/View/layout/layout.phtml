@@ -31,7 +31,7 @@
 <div id="content">
 <?php echo $this->mynavigation('backendNav')->menu()->setPartial('layout/leftSideBar.phtml');
        //echo $this->partial('layout/leftSideBar.phtml'); ?>
-       	 <div class="crumbs"></div>
+<!--        	 <div class="crumbs"></div> -->
         <!-- <div class="crumbs">
             <div class="shortcut cu-span">
             	<a href="#" target="right"><span>生成首页</span></a>
@@ -70,6 +70,8 @@ $(window).resize(function(){
 		//$('body').css('overflow','hidden');
 		
 	}
+	var pW = $('.box').width();
+	$('.box-header').width(pW+'px')
 });
 window.onresize = function(){
 	var clientHeight = document.documentElement.clientHeight;
@@ -80,7 +82,9 @@ window.onresize = function(){
 	var openClose = $("#rightMain").height()+39;
 	$('.left_menu').css("height", (scrollHeight < clientHeight ? clientHeight : scrollHeight)+"px");
 	//$('.col-1').css('height', document.documentElement.clientHeight+"px");
-	$("#openClose").height(openClose+30);	
+	$("#openClose").height(openClose+30);
+	var pW = $('.box').width();
+	$('.box-header').width(pW+'px')
 }
 window.onresize();
 
@@ -139,19 +143,22 @@ $(window).load(function(){
 	var pW = $('.box').width();
 	$(window).scroll(function() {
 		//浮动tab选择框
-		if($(document).scrollTop() > floatLT){
-			$('.box-header').addClass('button_stay');
-		}else{
-			if($('.box-header').hasClass('button_stay')){
-				$('.box-header').removeClass('button_stay');
-			}else{
-				return false;
-			}
-		}
+// 		if($(document).scrollTop() > floatLT){
+// 			$('.box-header').addClass('button_stay');
+// 		}else{
+// 			if($('.box-header').hasClass('button_stay')){
+// 				$('.box-header').removeClass('button_stay');
+// 			}else{
+// 				return false;
+// 			}
+// 		}
 		$('.box-header').width(pW+'px');
 	});
 })
-	
+$(function(){
+	var pW = $('.box').width();
+	$('.box-header').width(pW+'px').addClass('button_stay');
+})	
 </script>
 </body>
 </html>

@@ -45,7 +45,7 @@
             <tbody>
                 <?php foreach ($this->paginaction as $user): ?>
                     <tr class="row">
-                    	<td><input type="checkbox" name="select" value="<?php echo $user->ID; ?>" data-key="用户名" data-value="<?php echo $user->UserName; ?>"/></td>
+                    	<td width=60><input type="checkbox" name="select" value="<?php echo $user->ID; ?>" data-key="用户名" data-value="<?php echo $user->UserName; ?>"/></td>
                         <td><?php echo $user->UserName; ?></td>
                         <td><?php echo $user->Role; ?></td>
                         <td><?php echo $user->LastUpdate; ?></td>

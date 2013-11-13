@@ -23,14 +23,14 @@
 <div class="pagination">
     <ul>
         <?php //if (isset($this->previous)): ?>
-        <li class="prev disabled">
+        <li class="prev">
             <a href="<?php echo $this->link . $prefix . 1;?>">首页</a>
         </li>
         <?php if (isset($this->previous)):?>
-        <li class="prev disabled">
+        <li class="prev">
             <a href="<?php echo $this->link . $prefix . $this->previous;?>">上一页</a>
         <?php else:?>
-        <li class="prev active">
+        <li class="prev disabled">
         	<a href="javascript:;">上一页</a>
         <?php endif;?>
         </li>
@@ -40,15 +40,15 @@
             <li><a href="<?php echo $this->link . $prefix . $page;?>"><?php echo $page; ?></a></li>
             
         <?php else:?>
-            <li class="active"><a href="#"><?php echo $page; ?></a></li>
+            <li class="active"><a href="javascript:;"><?php echo $page; ?></a></li>
         <?php endif;?>
         <?php endforeach;?>
         <?php if (isset($this->next)): ?>
         <li class="next"><a href="<?php echo $this->link . $prefix . $this->next;?>">下一页</a></li>
         <li class="next"><a href="<?php echo $this->link . $prefix . $this->pageCount;?>">末页</a></li>
         <?php else:?>
-        <li class="active"><a href="javascript:;">下一页</a></li>
-        <li class="active"><a href="javascript:;">末页</a></li>
+        <li class="disabled"><a href="javascript:;">下一页</a></li>
+        <li><a href="javascript:;">末页</a></li>
         <?php endif;?>
      </ul>
      <div>

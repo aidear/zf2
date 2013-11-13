@@ -58,9 +58,9 @@ $email = array_filter($user['email']);
               method="post" enctype="multipart/form-data">
             <fieldset>
             <div class="input-group">
-            	<div style="float:left;width:865px;">
-            	<label for="name" class="input-label">收件人</label>
-            	<div class="input-item receiver_style">
+            	<div style="float:left;width:750px;">
+            	<label for="name" class="input-label-mail">收件人</label>
+            	<div class="input-item-mail receiver_style">
 	            	<?php if (isset($user['name'])):?>
 	            	<ul id="nameList">
 	            	<?php foreach($name as $k=>$v):?>
@@ -70,13 +70,13 @@ $email = array_filter($user['email']);
 	            	</ul>
             	</div>
             	</div>
-            	<div style="float:left; padding-left:6px;"><?php echo '共<span class="totalCount">',count($name),'</span>人';?>&nbsp;&nbsp;<input type='button' name='modify' value='调整' /></div>
+            	<div style="float:left; padding-left:6px;"><?php echo '共<span class="totalCount">',count($name),'</span>人';?></div>
             </div>
             <div style='clear:both;'>&nbsp;</div>
             <div class="input-group">
-            	<div style="float:left;width:865px;">
-	            	<label for="name" class="input-label">邮件地址</label>
-	            	<div class="input-item receiver_style">
+            	<div style="float:left;width:750px;">
+	            	<label for="name" class="input-label-mail">地址</label>
+	            	<div class="input-item-mail receiver_style">
 	            	<?php if (isset($user['email'])):?>
 	            	<ul id='emailList'>
 	            	<?php foreach($email as $k=>$v):?>
@@ -86,21 +86,21 @@ $email = array_filter($user['email']);
 	            	<?php endif;?>
 	            	</div>
 	            </div>
-	            <div style="float:left; padding-left:6px;"><?php echo '共<span class="totalCount">',count($email),'</span>人';?></div>
+	            <div style="float:left; padding-left:6px;"><input type='button' name='modify' value='调整' /></div>
             </div>
             <div style='clear:both;'>&nbsp;</div>
             <div class="input-group">
-            	<label for="name" class="input-label">邮件标题</label>
-            	<div class="input-item"><input autocomplete="off" type="text" value="" name="subject" class="input-element"></div>
+            	<label for="name" class="input-label-mail">标题</label>
+            	<div class="input-item-mail"><input autocomplete="off" type="text" value="" name="subject" class="input-element"></div>
             </div>
             <input style="color:#996633; width:300px;" type="hidden" readonly value="<?php echo implode(',', $user['email']);?>" name="email" class="input-element">
 <!--             <div class="input-group"> -->
 <!--             	<label for="name" class="input-label">收件人地址</label> -->
-            	<div class="input-item"></div>
+            	<div class="input-item-mail"></div>
 <!--             </div> -->
             <div class="input-group">
-         	<label class="input-label" for="footer">邮件内容</label>
-         	     <div class="input-item">
+<!--          	<label class="input-label-mail" for="footer">邮件内容</label> -->
+         	     <div class="input-item-mail">
          	     <textarea id="myEditor" class="cleditor" type="text" name="content" class="input-element"></textarea>
          	     </div>
          	</div>
@@ -187,6 +187,8 @@ $(function(){
 				emailName.splice(i, 1);
 				$("#emailList li[data-email='"+curEmail+"']").remove();
 				$("#nameList li[data-email='"+curEmail+"']").remove();
+				var num = $('.totalCount').html();
+				$('.totalCount').html(num-1);
 			}
 		}
 		$("input[name='email']").val(emailStore.join(','));
