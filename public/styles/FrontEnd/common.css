@@ -35,9 +35,10 @@
 	background-color:#f6f6f6;
 	border:1px solid #f5db86;
 }
-.tq .lunar {margin-left:18px; width:125px;  position:relative;}
-.tq .lunar .Calendar {positoin:absolute; z-index:30;}
-.tq .lunar ul {margin-top:10px; color:#656364;}
+.tq .lunar {margin-left:18px; width:125px;}
+.Calendar {positoin:absolute;z-index:99999999}
+.Calendar table {background-color:#fff;}
+.tq .lunar ul {margin:10px auto; text-align:center; color:#656364;}
 .btn_zc a {color:#FFA625;}
 .btn_dl a {color:#369AF1;}
 .lanse a:link,.hhz a:link {color:#0099FF}
@@ -215,3 +216,18 @@ button.close {
     color: #FFFFFF;
 }
 #dsearch_in2{height:15px;width:160px;border:1px solid #CCC;color:#999;line-height:15px;font-size:12px;}
+#userTool {
+	width: auto;
+	height: 33px;
+	position: relative;
+	text-align: center;
+	border-right-width: 1px;
+	border-left-width: 1px;
+	background-position: right center;
+	background-repeat: no-repeat;
+	padding-right: 20px;
+	padding-left: 5px;
+}
+.none-border {
+
+}

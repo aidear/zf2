@@ -2,11 +2,11 @@
   <div class="header">
   <?php if ($this->container->UserID):?>
   <div class="dlh none">
-      <p class="fegx"><a href="/member">账号管理</a> | <a href="/logout">退出</a></p>
+      <p class="fegx"><a href="/member" style="padding-right:8px;">会员中心</a> <span style="color:#ccc;">|</span> <a href="/logout" style="padding-left:8px;">安全退出</a></p>
       <p>登录 <?php echo $this->container->LoginCount;?> 次        </p>
       <p>交易  <?php echo 0;?> 次</p>
       <p> 积分 <?php echo $this->container->Points;?>分        </p>
-<!--       <p>星级  一  星 </p> -->
+      <p>星级  一  星 </p>
    </div>
   <?php else:?>
    <div class="dl none" id="login_f">
@@ -18,20 +18,21 @@
      <label for="yhm"></label>
      <input type="password" name="mim" id="mim" />
    </span></div>
+   <div id="curMsg" style="color:red;"></div>
    <div class="dl_yh"><span class="jiz">
      <input type="checkbox" name="remberMe" id="checkbox" />
-     记住登录状态</span><span></span><span class="dlb">
+     记住登录状态</span><span><a href="/forget_password/" style="color:#000;padding-top:4px;">忘记密码</a></span><span class="dlb">
      <input type="submit" name="tcdl" id="tcdl" value="登录" />
    </span></div>
-   <div class="dl_yh1"><a href="/register">注册新用户</a> <a href="/forget_password/">忘记密码</a> <a href="#">帮助中心</a></div>
+<!--    <div class="dl_yh1"><a href="/register">注册新用户</a> <a href="/forget_password/">忘记密码</a> <a href="#">帮助中心</a></div> -->
    </div>
    <?php endif;?>
-  <ul class="lgoin"><li>我的导航</li><li class="dldt none" id="login_cue">请输入密码</li>
+  <ul class="lgoin"><li>我的导航</li><li class="dldt none" id="login_cue">请输入</li>
   <?php if ($this->container->UserID):?>
-  <li class="dldt01">你好，<?php echo $this->container->UserName;?></li>
+  <li id="userTool">你好，<?php echo $this->container->UserName;?></li>
   <?php else:?>
   <li class="login_li"><a href="javascript:;">请登录</a></li>
-  <?php endif;?><li><a href="/register">免费注册</a></li>
+  <?php endif;?><li><a href="/register" style="color:#000;">免费注册</a></li>
   </ul>
   <div class="top_nav"><a href="javascript:;"  onClick="setHome(window.location);">设为首页</a>|<a href="/shortcut">下载桌面</a>|<a href="javascript:;" id="select_skin">换肤</a>|<a href="#">联系我们</a></div></div>
 </div>
@@ -78,15 +79,18 @@ $(function(){
 		$("#login_f, #login_cue").hide();
 		$(".login_li").show();
 	});
-	$(".dldt01").hover(function() {
+	$("#userTool").hover(function() {
 		$(".dlh").show();
+		$(this).addClass('dldt01');
 	},function(e){
 		$(".dlh").hide();
+		$(this).removeClass('dldt01');
 	});
-	$(".dlh").hover(function(){$(".dlh").show();},function(){$(".dlh").hide();});
+	$(".dlh").hover(function(){$(".dlh").show();$("#userTool").addClass('dldt01');},function(){$(".dlh").hide();$("#userTool").removeClass('dldt01');});
 	$("#tcdl").click(function(){
 		var userName = $.trim($("#yhm").val());
 		var password = $.trim($("#mim").val());
+		$("#curMsg").html('');
 		if ($("input[name='remberMe']").is(':checked')) {
 			var rememberMe = 1;
 		} else {
@@ -95,7 +99,7 @@ $(function(){
 		
 		
 		if (userName != '' && password != '' && userName != '用户名' && password != '密码') {
-			$("#curMsg").html('<font color:#ff0000;>正在登录中……</font>');
+			$("#curMsg").html('正在登录中……');
 			$.ajax({
 				type: 'POST',
 				url:'/login',
@@ -105,9 +109,9 @@ $(function(){
 					if (e.code == 0) {
 						location.href='/';
 					} else {
-						alert(e.msg);
+						$("#curMsg").html(e.msg);
 					}
-					$("#curMsg").html('');
+// 					$("#curMsg").html('');
 				}
 			});
 		} else {

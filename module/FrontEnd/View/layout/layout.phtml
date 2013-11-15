@@ -10,50 +10,138 @@
         
         <?php
         echo $this->headScript()->prependFile($this->basePath('js/FrontEnd/comm.js'))
+        	->prependFile($this->basePath('js/FrontEnd/Calendar.js'))
             ->prependFile($this->basePath('js/jquery.min.js'));
        ?>
 <style type="text/css"> 
-.Calendar { 
-font-family:Verdana; 
-font-size:9pt; 
-background-color:#eee; 
-text-align:center; 
-width:198px; 
-height:158px; 
-padding:10px; 
-line-height:1.5em; 
-} 
-.Calendar a{ 
-color:#0066CC; 
-} 
-.Calendar table{ 
-width:100%; 
-border:0;
-	background-color:#eee;
-	z-index:50;
-} 
-.Calendar table thead{color:#acacac;} 
-.Calendar table td { 
-font-size: 11px; 
-padding:1px; 
-} 
-#idCalendarPre{ 
-cursor:pointer; 
-float:left; 
-padding-right:5px; 
-} 
-#idCalendarNext{ 
-cursor:pointer; 
-float:right; 
-padding-right:5px; 
-} 
-#idCalendar td.onToday { 
-font-weight:bold; 
-color:#C60; 
-} 
-#idCalendar td.onSelect { 
-font-weight:bold; 
-} 
+.Calendar .aorange {
+	font-size: 14px;
+	color: #ff5f07;
+	font-family: "黑体",serif;
+	font-weight: bold;
+}
+.Calendar .agreen {
+	font-size: 14px;
+	color: #55e8df;
+	font-weight: bold;
+}
+
+.Calendar .one {
+	font-family: "黑体",serif;
+	font-size: 14px;
+	color: #000;
+	font-weight: normal;
+}
+
+.Calendar .spc {
+	color:#ff5f07;
+}
+
+.Calendar div,select,p {
+	font-size: 12px;
+	color:#000;
+	margin:1px;
+}
+
+.Calendar div#festival {
+	color: #d8f6f8; 
+	width: 130px; 
+	padding: 2px; 
+	margin: 0; 
+	background-color: #0978a6; 
+}
+.Calendar div#datedetail {
+	width: 130px; 
+	border: 0; 
+	padding: 2px; 
+	margin: 0; 
+	background-color:#e8f5f9; 
+	text-align:right; 
+}
+.Calendar div#datedetail span {
+	color: #23460f;
+}
+.Calendar div#detail {
+	position: absolute;
+	top:20px;
+	visibility: hidden;
+	margin: 0;
+	border:1px solid #a6a8ab;
+}
+
+.Calendar div#date {
+	width:99%;
+	font-size:14px;
+	border: 1px solid #a6a8ab; 
+	background-color: #e6f0fa;
+}
+.Calendar div#calendar {
+	float:left;
+	text-align:center;
+	width:290px;
+	border: 1px solid #a6a8ab; 
+	border-top:0;
+	height:auto;
+}
+.Calendar #calendarhead {
+	color: #fafbfb;
+	border:0;
+	padding:0;
+	margin:0;
+	background-color: #0978a6;
+}
+
+.Calendar #calendarhead tr td {
+	width:40px;
+	font-weight:bold;
+	font-family:"黑体",serif;
+	font-size:14px;
+	padding:1px;
+}
+
+.Calendar div#panel {
+	margin:0;
+	padding:10px;
+	}
+.Calendar div#panel div {
+	padding:2px;
+	margin-top:20px;
+	background:#e8f5f9;
+	border:1px solid #a6a8ab;
+	font-size:9pt;
+	cursor:pointer;
+}
+
+.Calendar #week {
+	background-color: #fcfcfc;
+	border:0;
+	padding:0;
+	margin:0;
+}
+.Calendar #week tr td {
+	padding:1px;
+	margin:0;
+	width:40px;
+	border-bottom: 1px solid #efefef;
+	border-left: 1px solid #efefef;
+}
+
+.Calendar .tr2 td {
+	background-color: #e8f5f9;
+}
+
+.Calendar #valid {
+	float:left;
+	margin:0;
+	padding: 30px;
+}
+.Calendar #valid div {
+	padding:2px;
+	margin-top:20px;
+}
+.Calendar #valid a img {
+	border:0;
+}
 </style>
 </head>
 
@@ -63,6 +151,7 @@ font-weight:bold;
 use Custom\Util\Lunar;
 ?>
 <div class="wrap">
+<?php echo $this->partial('front-end/default/Calendar.phtml');?>
 <div class="top">
 <div class="logo"><a href="/"><img src="/images/FrontEnd/logo.png" width="147" height="70" /></a></div> 
 <div class="tq">
@@ -76,26 +165,7 @@ echo "周".$weekarray[date("w")]; ?></span></li>
 		$nl = $lunar->S2L($today);
 		echo $nl;?></li>
 	</ul>
-	<div class="Calendar none"> 
-		<div id="idCalendarPre"></div> 
-		<div id="idCalendarNext"></div> 
-		<span id="idCalendarYear">2008</span>年 <span id="idCalendarMonth">8</span>月 
-		<table cellspacing="0"> 
-		<thead> 
-		<tr> 
-		<td>日</td> 
-		<td>一</td> 
-		<td>二</td> 
-		<td>三</td> 
-		<td>四</td> 
-		<td>五</td> 
-		<td>六</td> 
-		</tr> 
-		</thead> 
-		<tbody id="idCalendar"> 
-		</tbody> 
-		</table> 
-	</div>
+	
 	</div>
 </div>
 <div class="btn">
@@ -205,129 +275,26 @@ echo "周".$weekarray[date("w")]; ?></span></li>
 </body>
 </html>
 <script type="text/javascript"> 
-var jq = function (id) { 
-return "string" == typeof id ? document.getElementById(id) : id; 
-}; 
-var Class = { 
-create: function() { 
-return function() { 
-this.initialize.apply(this, arguments); 
-} 
-} 
-} 
-Object.extend = function(destination, source) { 
-for (var property in source) { 
-destination[property] = source[property]; 
-} 
-return destination; 
-} 
-var Calendar = Class.create(); 
-Calendar.prototype = { 
-initialize: function(container, options) { 
-this.Container = jq(container);//table结构容器
-this.Days = [];//日期列表 
-this.SetOptions(options); 
-this.Year = this.options.Year; 
-this.Month = this.options.Month; 
-this.SelectDay = this.options.SelectDay ? new Date(this.options.SelectDay) : null; 
-this.onSelectDay = this.options.onSelectDay; 
-this.onToday = this.options.onToday; 
-this.onFinish = this.options.onFinish; 
-this.Draw(); 
-}, 
- 
-SetOptions: function(options) { 
-this.options = {//默认值 
-Year: new Date().getFullYear(), 
-Month: new Date().getMonth() + 1, 
-SelectDay: null,//选择日期 
-onSelectDay: function(){}, 
-onToday: function(){}, 
-onFinish: function(){} 
-}; 
-Object.extend(this.options, options || {}); 
-}, 
-//上月 
-PreMonth: function() { 
-//取得上月日期对象 
-var d = new Date(this.Year, this.Month - 2, 1); 
-//设置属性 
-this.Year = d.getFullYear(); 
-this.Month = d.getMonth() + 1; 
-//重绘日历 
-this.Draw(); 
-}, 
-//下一个月 
-NextMonth: function() { 
-var d = new Date(this.Year, this.Month, 1); 
-this.Year = d.getFullYear(); 
-this.Month = d.getMonth() + 1; 
-this.Draw(); 
-}, 
 
-Draw: function() { 
-//保存日期列表 
-var arr = []; 
-//用当月第一天在一周中的日期值作为当月离第一天的天数 
-for(var i = 1, firstDay = new Date(this.Year, this.Month - 1, 1).getDay(); i <= firstDay; i++){ arr.push(" "); } 
-//用当月最后一天在一个月中的日期值作为当月的天数 
-for(var i = 1, monthDay = new Date(this.Year, this.Month, 0).getDate(); i <= monthDay; i++){ arr.push(i); } 
-// /
-var frag = document.createDocumentFragment(); 
-this.Days = []; 
-while(arr.length > 0){ 
-//每个星期插入一个tr
-var row = document.createElement("tr"); 
-//星期 
-for(var i = 1; i <= 7; i++){ 
-var cell = document.createElement("td"); 
-cell.innerHTML = " "; 
-if(arr.length > 0){ 
-var d = arr.shift(); 
-cell.innerHTML = d; 
-if(d > 0){ 
-this.Days[d] = cell; 
-//获取今日 
-if(this.IsSame(new Date(this.Year, this.Month - 1, d), new Date())){ this.onToday(cell); } 
-//判断用户是否作了选择
-if(this.SelectDay && this.IsSame(new Date(this.Year, this.Month - 1, d), this.SelectDay)){ this.onSelectDay(cell); } 
-} 
-} 
-row.appendChild(cell); 
-} 
-frag.appendChild(row); 
-} 
-//此先清空然后再插入(ie的table不能用innerHTML) 
-while(this.Container.hasChildNodes()){ this.Container.removeChild(this.Container.firstChild); } 
-this.Container.appendChild(frag); 
-this.onFinish(); 
-}, 
-//判断是否同一日
-IsSame: function(d1, d2) { 
-return (d1.getFullYear() == d2.getFullYear() && d1.getMonth() == d2.getMonth() && d1.getDate() == d2.getDate()); 
-} 
-}; 
-var cale = new Calendar("idCalendar", { 
-SelectDay: new Date().setDate(10), 
-onSelectDay: function(o){ o.className = "onSelect"; }, 
-onToday: function(o){ o.className = "onToday"; }, 
-onFinish: function(){ 
-jq("idCalendarYear").innerHTML = this.Year; jq("idCalendarMonth").innerHTML = this.Month; 
-// var flag = [10,15,20]; 
-// for(var i = 0, len = flag.length; i < len; i++){ 
-// this.Days[flag[i]].innerHTML = "<a href='javascript:void(0);' onclick=\"alert('您选择的日期是："+this.Year+"/"+this.Month+"/"+flag[i]+"');return false;\">" + flag[i] + "</a>"; 
-// 	this.Days[flag[i]].innerHTML = "<a href='javascript:void(0);'>" + flag[i] + "</a>";
-// } 
-} 
-}); 
-jq("idCalendarPre").onclick = function(){ cale.PreMonth(); } 
-jq("idCalendarNext").onclick = function(){ cale.NextMonth(); } 
 $(function(){
+	initial();
 	$(".lunar").hover(function(){
-		$(".Calendar").slideDown();
+		var t = $(this).offset();
+		$(".Calendar").css({position:'absolute',left:t.left+'px',top:t.top+'px'}).slideDown();
 	},
 	function() {
-		$(".Calendar").slideUp();
+// 		$(".Calendar").slideUp();
+	});
+	$(".Calendar").hover(function(e){
+		e = window.event || e;
+		if (!$(e.srcElement || e.target).is('.tq .lunar *,.Calendar *, #sy *')) {
+			$(".Calendar").slideUp();
+		}
+	},function(e){
+		e = window.event || e;
+		if (!$(e.srcElement || e.target).is('#sy,#sm')) {
+			$(".Calendar").slideUp();
+		}
 	});
 // 	var mailDomain = {@163.com:'http://reg.163.com/CheckUser.jsp',}
 	$("#dsearch_in2").focusin(function(){

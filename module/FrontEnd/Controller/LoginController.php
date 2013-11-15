@@ -49,10 +49,10 @@ class LoginController extends AbstractActionController
     					$container->Points = $user->Points;
 						$rs = array('code' => 0, 'msg' => '登录成功');
 					} else {
-						$rs = array('code' => 1, 'msg' => '密码错误！');
+						$rs = array('code' => 1, 'msg' => '密码输入有误');
 					}
 				} else {
-					$rs = array('code' => 2, 'msg' => '帐号不存在！');
+					$rs = array('code' => 2, 'msg' => '用户名不存在');
 				}
 			} else {
 				$rs = array('code' => -1, 'msg' => '请提供用户名和密码');
