@@ -193,7 +193,7 @@ class NavCategoryTable extends TableGateway
     }
     public function getListsToPaginator(array $data, $order = array())
     {
-    	$sql = "SELECT nt.*,(SUM(ns.lkCount)+nt.lkCount) AS subLinkCount FROM
+    	$sql = "SELECT nt.*,(SUM(IFNULL(ns.lkCount, 0))+nt.lkCount) AS subLinkCount FROM
 (SELECT nStat.id,nStat.name,nStat.subCount,nStat.parentID,nStat.order,nStat.isShow,nStat.updateTime,nStat.updateUser,nl.category,nl.catPath,nl.lkCount FROM
 (SELECT na.id,na.name,na.parentID,na.isShow,na.updateTime,na.updateUser,COUNT(nc.id) AS subCount,na.order
 FROM nav_category na
