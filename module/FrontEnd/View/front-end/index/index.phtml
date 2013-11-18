@@ -14,7 +14,7 @@
     <ul class="menu">
     <?php foreach ($this->nav as $k=>$v):?>
     <?php $line = $v['line'];?>
-    <li more="<?php echo $line*8 < count($v['links']) ? 'true' : 'false';?>">
+    <li more="<?php echo $line*7 < count($v['links']) ? 'true' : 'false';?>">
     <?php if ($v['img']):?>
     <img src="<?php echo $v['img'];?>" alt="<?php echo $v['name'];?>" width="108" height="41" />
     <?php else:?>
@@ -39,7 +39,7 @@
     <?php $line = $v['line'];?>
     <div class="list">
     <?php foreach ($v['links'] as $n=>$link):?>
-    <?php if (($n+1) > ($line*8)) break;?>
+    <?php if (($n+1) > ($line*7)) break;?>
     <li style="width:90px;"><a href="<?php echo $link['url'];?>" target="<?php echo $link['target'];?>" title="<?php echo $link['title'];?>"><?php echo $link['title'];?></a></li>
     <?php endforeach;;?>
     </div>
