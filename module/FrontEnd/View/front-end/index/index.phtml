@@ -99,8 +99,8 @@ $(function() {
 			$(this).bind('mouseover', function() {
 				if ($(this).attr('more') == 'true') {
 					$(this).addClass('menu_a')
-					var t = $(this).offset();
-					var h = -100 + 25*i;
+// 					var t = $(this).offset();
+					var h = -150 + 20*i;
 					$("#con_men_1 .menu_k").eq(i).css('top', h+'px').show();
 				}
 				$(this).siblings('li').removeClass('menu_a');
