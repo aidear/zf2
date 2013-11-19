@@ -29,6 +29,7 @@ class NavCategory implements InputFilterAwareInterface
 	public $imgUrl;
 	public $desc;
 	public $keyword;
+	public $catPath;
 	public $parentID = 0;
 	public $line = 2;
 	public $isShow = 1;
@@ -44,6 +45,7 @@ class NavCategory implements InputFilterAwareInterface
 		$this->imgUrl = isset($data['imgUrl']) ? $data['imgUrl'] : '';
 		$this->desc = isset($data['desc']) ? $data['desc'] : '';
 		$this->keyword = isset($data['keyword']) ? $data['keyword'] : '';
+		$this->catPath = isset($data['catPath']) ? $data['catPath'] : '';
 		$this->parentID = isset($data['parentID']) ? $data['parentID'] : 0;
 		$this->line = isset($data['line']) ? $data['line'] : 2;
 		$this->isShow = isset($data['isShow']) ? $data['isShow'] : 1;

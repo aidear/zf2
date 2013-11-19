@@ -243,3 +243,9 @@ button.close {
 .header_bg .header h2 {
 	width:auto;
 }
+.wrap {
+	margin-top:33px;
+}
+.search_input #search_in {
+	margin-top:3px;
+}

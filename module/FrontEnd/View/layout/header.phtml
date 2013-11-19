@@ -27,9 +27,9 @@
 <!--    <div class="dl_yh1"><a href="/register">注册新用户</a> <a href="/forget_password/">忘记密码</a> <a href="#">帮助中心</a></div> -->
    </div>
    <?php endif;?>
-  <ul class="lgoin"><li>我的导航</li><li class="dldt none" id="login_cue">请输入</li>
+  <ul class="lgoin"><li>我的导航</li><li class="dldt dldtjt none" id="login_cue">请输入</li>
   <?php if ($this->container->UserID):?>
-  <li id="userTool">你好，<?php echo $this->container->UserName;?></li>
+  <li id="userTool" class="dldt02">你好，<?php echo $this->container->UserName;?></li>
   <?php else:?>
   <li class="login_li"><a href="javascript:;">请登录</a></li>
   <?php endif;?><li><a href="/register" style="color:#000;">免费注册</a></li>
@@ -81,12 +81,12 @@ $(function(){
 	});
 	$("#userTool").hover(function() {
 		$(".dlh").show();
-		$(this).addClass('dldt01');
+		$(this).removeClass('dldt02').addClass('dldt01');
 	},function(e){
 		$(".dlh").hide();
-		$(this).removeClass('dldt01');
+		$(this).removeClass('dldt01').addClass('dldt02');
 	});
-	$(".dlh").hover(function(){$(".dlh").show();$("#userTool").addClass('dldt01');},function(){$(".dlh").hide();$("#userTool").removeClass('dldt01');});
+	$(".dlh").hover(function(){$(".dlh").show();$("#userTool").removeClass('dldt02').addClass('dldt01');},function(){$(".dlh").hide();$("#userTool").removeClass('dldt01').addClass('dldt02');});
 	$("#tcdl").click(function(){
 		var userName = $.trim($("#yhm").val());
 		var password = $.trim($("#mim").val());
