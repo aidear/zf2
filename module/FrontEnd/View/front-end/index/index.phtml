@@ -35,6 +35,8 @@
     <ul class="menu_k_u">
     
     <?php foreach ($v['subNav'] as $s=>$n):?>
+    <?php if ($s > 4):break;
+    		endif;?>
     <li><a href="javascript:;"><?php echo $n['name'];?></a></li>
     <?php endforeach;?>
     
