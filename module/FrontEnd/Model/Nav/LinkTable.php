@@ -133,4 +133,16 @@ class LinkTable extends TableGateway
     	$resultSet = $this->selectWith($select);
     	return $resultSet->count();
     }
+    public function getAllLinksByNid($nid)
+    {
+        $sql = "SELECT *
+FROM link lk
+WHERE lk.`category` IN 
+(SELECT nav.id FROM nav_category nav
+WHERE (INSTR(catPath, CONCAT(',' ,{$nid}, ',')) OR nav.id={$nid}) AND nav.`isShow`=1)
+AND lk.`isShow`=1
+ORDER BY lk.`order` ASC";
+        $rs = $this->getAdapter()->query($sql, Adapter::QUERY_MODE_EXECUTE);
+        return $rs ? $rs->toArray() : array();
+    }
 }
