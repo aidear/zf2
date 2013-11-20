@@ -27,21 +27,38 @@ class IndexController extends AbstractActionController
 			$city = $region->getRidByName($name);
 		}
 		$navLists = array();
+		$structNavLists = array();
 		foreach ($nav as $k=>$v) {
-			$where = "isShow=1 AND category='{$v['id']}'";
+			$where = "isShow=1";
 			if (isset($city) && $city) {
 				$where .= " AND (city IS NULL OR city='0' OR city='{$city}' OR province='0' OR province='{$city}')";
 			}
-			$links = $linkTable->getlist($where);
-// 			$links = $linkTable->getlist(array('isShow' => 1, 'category' => $v['id']));
-			$navLists[] = array (
+// 			$links = $linkTable->getlist($where);
+			$links = $linkTable->getAllLinksByNid($v['id'], $where);
+			$tmp = array (
+				'id' => $v['id'],
+				'catPath' => $v['catPath'],
+				'pid' => $v['parentID'],
 				'name' => $v['name'],
 				'img' => $v['imgUrl'],
 				'line' => $v['line'],
 				'links' => $links,
 			);
+			$navLists[] = $tmp;
+			if (0 == $v['parentID']) {
+				$structNavLists['rootNav'][$v['id']]['info'] = $v;
+				$structNavLists['rootNav'][$v['id']]['links'] = $links;
+			}
 		}
-		$rs = array('rs' => 'Welcome!', 'nav' => $navLists, 'provList' => $prov, 'defCity' => $defCity);
+		if ($navLists) {
+			foreach ($navLists as $k=>$v) {
+				$ids = trim($v['catPath'], ',');
+				if (is_numeric($ids) && in_array($ids, array_keys($structNavLists['rootNav']))) {
+					$structNavLists['rootNav'][$ids]['subNav'][] = $v;
+				}
+			}
+		}//print_r($navLists);die;
+		$rs = array('rs' => 'Welcome!', 'struct' => $structNavLists, 'nav' => $navLists, 'provList' => $prov, 'defCity' => $defCity);
 		return new ViewModel($rs);
 	}
 	

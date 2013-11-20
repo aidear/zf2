@@ -249,3 +249,25 @@ button.close {
 .search_input #search_in {
 	margin-top:3px;
 }
+.menu_k_all {
+    float: left;
+    height: auto;
+    width: 690px;
+}
+.menu_k_all .l1 {
+    border-bottom: 1px dotted #CCCCCC;
+    float: left;
+    width: 690px;
+}
+
+.menu_k_all .l1 .l2 {
+    color: #CCCCCC;
+    float: left;
+    height: auto;
+    text-align: left;
+    width: 690px;
+}
+.menu .line {
+	border-top:1px solid #fff;
+	border-bottom:1px solid #fff;
+}

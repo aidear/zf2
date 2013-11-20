@@ -13,9 +13,11 @@
     
     <ul class="menu">
     <?php foreach ($this->nav as $k=>$v):?>
-    <?php $line = $v['line'];?>
+    <?php 
+    if ($v['pid']) continue;
+    $line = $v['line'];?>
     <li more="<?php echo $line*7 < count($v['links']) ? 'true' : 'false';?>">
-    <?php if ($v['img']):?>
+    <?php $first=1;if ($v['img']):?>
     <img src="<?php echo $v['img'];?>" alt="<?php echo $v['name'];?>" width="108" height="41" />
     <?php else:?>
         	<?php echo $v['name'];?>
@@ -26,17 +28,82 @@
 <!--      </li><li><img src="images/xing.jpg" width="108" height="41" /></li><li><img src="images/jiao.jpg" width="108" height="41" /></li><li><img src="images/yu.jpg" width="108" height="41" /></li><li><img src="images/jian.jpg" width="108" height="41" /></li><li><img src="images/cai.jpg" width="108" height="41" /></li> -->
    
     </ul>
-    <?php foreach ($this->nav as $k=>$v):?>
+    
+    <?php foreach ($this->struct['rootNav'] as $k=>$v):?>
     <div class="menu_k none">
-    <?php foreach ($v['links'] as $n=>$link):?>
-        	<li><a href="<?php echo $link['url'];?>" target="<?php echo $link['target'];?>" title="<?php echo $link['title'];?>"><?php echo $link['title'];?></a></li>
-        	<?php endforeach;?>
+    <?php if (isset($v['subNav'])):?>
+    <ul class="menu_k_u">
+    
+    <?php foreach ($v['subNav'] as $s=>$n):?>
+    <li><a href="javascript:;"><?php echo $n['name'];?></a></li>
+    <?php endforeach;?>
+    
+    </ul>
+    <?php $subCount = count($v['subNav']);
+    	  $subLeft = ceil($subCount/2);
+    	  $subRight = $subCount-$subLeft;
+    ?>
+    
+    <?php if ($subLeft>0):?>
+      <div class="menu_k_left">
+      <?php foreach ($v['subNav'] as $sl=>$slv):?>
+      <?php if ($subLeft < $sl+1) break;?>
+         <div class="l1">
+           <h1><?php echo $slv['name'];?></h1>
+           <?php if (isset($slv['links'])):?>
+           <span class="l2">
+           <?php $linkCount = count($slv['links']);foreach ($slv['links'] as $j=>$lk):?>
+           <a href="<?php echo $lk['url'];?>" target="<?php echo $lk['target'];?>" title="<?php echo $lk['title'];?>"><?php echo $lk['title'];?></a><?php echo $linkCount > $j+1 ? '|' : '';?>
+           <?php endforeach;?>
+           </span>
+         	<?php endif;?>
+         </div>
+      <?php endforeach;?>
+      </div>
+      <?php endif;?>
+      
+      <?php if ($subRight>0):?>
+      <div class="menu_k_right">
+	      <?php foreach ($v['subNav'] as $sl=>$slv):?>
+	      <?php if ($subLeft >= $sl+1) continue;?>
+	         <div class="l1">
+	           <h1><?php echo $slv['name'];?></h1>
+	           <?php if (isset($slv['links'])):?>
+	           <span class="l2">
+	           <?php $linkCount = count($slv['links']);foreach ($slv['links'] as $j=>$lk):?>
+	           <a href="<?php echo $lk['url'];?>" target="<?php echo $lk['target'];?>" title="<?php echo $lk['title'];?>"><?php echo $lk['title'];?></a><?php echo $linkCount > $j+1 ? '|' : '';?>
+	           <?php endforeach;?>
+	           </span>
+	         	<?php endif;?>
+	         </div>
+	      <?php endforeach;?>
+      </div>
+      <?php endif;?>
+      <?php elseif (isset($v['links'])):?>
+      <div class="menu_k_all">
+         <div class="l1">
+           <h1><?php echo isset($v['info']['name']) ? $v['info']['name'] : '';?></h1>
+           <?php if (!empty($v['links'])):?>
+           <span class="l2">
+           <?php $linkCount = count($v['links']);foreach ($v['links'] as $a=>$ks):?>
+           <a href="<?php echo $ks['url'];?>" target="<?php echo $ks['target'];?>" title="<?php echo $ks['title'];?>"><?php echo $ks['title'];?></a><?php echo $linkCount > $a+1 ? '|' : '';?>
+           <?php endforeach;?>
+           </span>
+         	<?php endif;?>
+         </div>
+      </div>
+      <?php endif;?>
     </div>
     <?php endforeach;?>
     
+    
+    
+    
     <div class="link_k">
     <?php foreach ($this->nav as $k=>$v):?>
-    <?php $line = $v['line'];?>
+    <?php 
+    if ($v['pid']) continue;
+    $line = $v['line'];?>
     <div class="list">
     <?php foreach ($v['links'] as $n=>$link):?>
     <?php if (($n+1) > ($line*7)) break;?>
@@ -102,9 +169,12 @@ $(function() {
 // 					var t = $(this).offset();
 					var h = -150 + 20*i;
 					$("#con_men_1 .menu_k").eq(i).css('top', h+'px').show();
+// 					$(".menu > li").eq(0).removeClass('line');
 				}
 				$(this).siblings('li').removeClass('menu_a');
 				$("#con_men_1 .menu_k").siblings('.menu_k').not($("#con_men_1 .menu_k").eq(i)).hide();
+			}).bind('mouseout', function(){
+// 				$(".menu > li").eq(0).addClass('line');
 			});
 	});
 	$("#con_men_1 .menu_k").hover(function() {
@@ -113,6 +183,7 @@ $(function() {
 		$(this).hide();
 		var index = $("#con_men_1 .menu_k").index($(this));
 		$(".menu > li").eq(index).removeClass('menu_a');
+// 		$(".menu > li").eq(0).addClass('line');
 	}
 	);
 	var oHtml = '';
