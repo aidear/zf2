@@ -69,6 +69,12 @@ $(function(){
 	});
 	$("#select_skin").click(function(){
 		$(".huaf").slideDown('fast');
+		if ($(this).html() == '换肤') {
+			$(this).html('收起');
+		} else {
+			$(this).html('换肤');
+			$("#hf_gb").trigger('click');
+		}
 	});
 	$(".login_li").click(function(){
 		$(this).hide();
