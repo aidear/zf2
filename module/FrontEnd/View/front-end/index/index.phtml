@@ -168,8 +168,9 @@ $(function() {
 			$(this).bind('mouseover', function() {
 				if ($(this).attr('more') == 'true') {
 					$(this).addClass('menu_a')
+					var s_top = $(document).scrollTop();
 // 					var t = $(this).offset();
-					var h = -150 + 20*i;
+					var h = -150 + 20*i + s_top;
 					$("#con_men_1 .menu_k").eq(i).css('top', h+'px').show();
 // 					$(".menu > li").eq(0).removeClass('line');
 				}

@@ -29,7 +29,7 @@
    <?php endif;?>
   <ul class="lgoin"><li>我的导航</li><li class="dldt dldtjt none" id="login_cue">请输入</li>
   <?php if ($this->container->UserID):?>
-  <li id="userTool" class="dldt02">你好，<?php echo $this->container->UserName;?></li>
+  <li id="userTool" class="dldt02">您好  <font style="font-size:14px;"><?php echo $this->container->UserName;?> ！</font></li>
   <?php else:?>
   <li class="login_li"><a href="javascript:;">请登录</a></li><li><a href="/register" style="color:#000;">免费注册</a></li>
   <?php endif;?>
@@ -42,17 +42,13 @@
    <div class="wk">
     <ul class="hf_n"><li>全部</li>
     <li>kit</li><li>全部</li><li>全部</li><li>全部</li><li class="outn">全部</li><li>全部</li>
-    <li class="rig">当前第1共11页面</li></ul>
+    <li class="rig">当前第1共1页面</li></ul>
     <div class="hf_c">
       <div class="lf"><img src="/images/FrontEnd/hf_z.jpg" width="29" height="29" /></div>
           <div class="hf_xk">
-         <div class="hft"><img src="/images/FrontEnd/hf_02.jpg" width="136" height="92" /><p><input name="" type="checkbox" value="" checked="checked" />
-           <strong>小兔子</strong></p></div>
-         <div class="hft"><img src="/images/FrontEnd/hf_02.jpg" width="136" height="92" /><p><input name="" type="checkbox" value="" />小兔子</p></div>
-         <div class="hft"><img src="/images/FrontEnd/hf_02.jpg" width="136" height="92" /><p><input name="" type="checkbox" value="" />小兔子</p></div>
-         <div class="hft"><img src="/images/FrontEnd/hf_02.jpg" width="136" height="92" /><p><input name="" type="checkbox" value="" />小兔子</p></div>
-         <div class="hft"><img src="/images/FrontEnd/hf_02.jpg" width="136" height="92" /><p><input name="" type="checkbox" value="" />小兔子</p></div>
-         <div class="hft"><img src="/images/FrontEnd/hf_02.jpg" width="136" height="92" /><p><input name="" type="checkbox" value="" />小兔子</p></div>
+         <div class="hft"><img src="/images/FrontEnd/bg_l.png" width="136" height="92" /><p><input name="select_skin" type="checkbox" value="bg_default" <?php echo (isset($_COOKIE['bg_class']) && $_COOKIE['bg_class'] == 'bg_default') ? 'checked="checked"' : '';?> />
+           <strong>默认</strong></p></div>
+         <div class="hft"><img src="/images/FrontEnd/hf_02.jpg" width="136" height="92" /><p><input name="select_skin" type="checkbox" value="bg_a" <?php echo (isset($_COOKIE['bg_class']) && $_COOKIE['bg_class'] == 'bg_a') ? 'checked="checked"' : '';?>/>小兔子</p></div>
          </div>
       <div class="ri"><img src="/images/FrontEnd/hf_y.jpg" width="29" height="29" /></div>
     </div>
@@ -64,8 +60,22 @@
 </div>
 <script>
 $(function(){
+	$(".hf_c input[name='select_skin']").click(function(){
+		$('body').removeClass().addClass($(this).val());
+		$(".hf_c input[name='select_skin']").not($(this)).removeAttr('checked');
+	});
 	$("#hf_gb").click(function(){
 		$(".huaf").slideUp('fast');
+		$("#select_skin").html('换肤');
+	});
+	$("#hf_bc").click(function(){
+		var bg_class = $(".hf_c input[name='select_skin']:checked").val();
+		if (bg_class) {
+			setcookie('bg_class', bg_class, 7000*24*3600);
+			$("#hf_gb").trigger('click');
+		} else {
+			alert('请选择皮肤');
+		}
 	});
 	$("#select_skin").click(function(){
 		$(".huaf").slideDown('fast');
@@ -81,6 +91,7 @@ $(function(){
 		$("#login_cue").show();
 		$("#login_f").show();
 	});
+	$("input[name='yhm'], input[name='mim']").focusin(function(){$("#curMsg").html('');});
 	$("#login_cue").click(function(){
 		$("#login_f, #login_cue").hide();
 		$(".login_li").show();
@@ -89,8 +100,11 @@ $(function(){
 		$(".dlh").show();
 		$(this).removeClass('dldt02').addClass('dldt01');
 	},function(e){
-		$(".dlh").hide();
-		$(this).removeClass('dldt01').addClass('dldt02');
+		e = window.event || e;
+		if (!$(e.srcElement || e.target).is('.header .lgoin *,.header .dlh *')) {
+			$(".dlh").hide();
+			$(this).removeClass('dldt01').addClass('dldt02');
+		}
 	});
 	$(".dlh").hover(function(){$(".dlh").show();$("#userTool").removeClass('dldt02').addClass('dldt01');},function(){$(".dlh").hide();$("#userTool").removeClass('dldt01').addClass('dldt02');});
 	$("#tcdl").click(function(){

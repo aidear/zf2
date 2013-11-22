@@ -145,7 +145,7 @@
 </style>
 </head>
 
-<body>
+<body class="<?php echo isset($_COOKIE['bg_class']) ? $_COOKIE['bg_class'] : '';?>">
 <?php echo $this->partial('layout/header.phtml');?>
 <?php 
 use Custom\Util\Lunar;
