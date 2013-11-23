@@ -16,7 +16,7 @@
     <?php 
     if ($v['pid']) continue;
     $line = $v['line'];?>
-    <li more="<?php echo $line*7 < count($v['links']) ? 'true' : 'false';?>">
+    <li more="<?php echo 'true';//$line*7 < count($v['links']) ? 'true' : 'false';?>">
     <?php $first=1;if ($v['img']):?>
     <img src="<?php echo $v['img'];?>" alt="<?php echo $v['name'];?>" width="108" height="41" />
     <?php else:?>
@@ -169,9 +169,18 @@ $(function() {
 				if ($(this).attr('more') == 'true') {
 					$(this).addClass('menu_a')
 					var s_top = $(document).scrollTop();
-// 					var t = $(this).offset();
-					var h = -150 + 20*i + s_top;
-					$("#con_men_1 .menu_k").eq(i).css('top', h+'px').show();
+					var sBox = $("#con_men_1 .menu_k").eq(i);
+					var off = $(this).offset();
+					var h = -158 + s_top;
+// 					sBox.css('top', h+'px');
+// 					h = sBox.offset().top > off.top ? 1 : h;
+
+					h = h+$('#con_men_1').offset().top > off.top ? 1 : h;
+					var diff = off.top + $(this).height() + 20 - (h+$('#con_men_1').offset().top + sBox.height());
+// 					alert(off.top + $(this).height());
+					h = diff > 0 ? (h+diff) : h;
+					sBox.css('top', h+'px').show();
+					//alert(h);alert($("#con_men_1 .menu_k").eq(i).offset().top);alert(s_top);
 // 					$(".menu > li").eq(0).removeClass('line');
 				}
 				$(this).siblings('li').removeClass('menu_a');
