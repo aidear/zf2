@@ -172,6 +172,18 @@ echo "周".$weekarray[date("w")]; ?></span></li>
 <div class="btn_dl">
   <input name="search_in3" type="text" id="search_in3" value=" 网盘登录" />
 </div>
+<div id="disk_login" class="none">
+<div class="btn_zc1">
+  <input name="search_in3" type="text" id="dsearch_in3" value="网盘登录" />
+</div>
+<select name="disk_url" id="disk_url">
+	<option value="">请选择</option>
+	<option value="http://pan.baidu.com/disk/home">百度网盘</option>
+	<option value="http://yunpan.360.cn/">360云盘</option>
+	<option value="http://wp.163.com/">网易网盘</option>
+	<option value="http://www.kuaipan.cn/">金山快盘</option>
+</select>
+</div>
 <div class="btn_zc">
   <input name="search_in2" type="text" id="search_in2" value=" 邮箱登录" />
 </div>
@@ -414,13 +426,27 @@ $(function(){
 			break;
 		}
 	});
+	$("#disk_url").change(function(){var url = $(this).val();if (url != '') {window.open(url);}});
 	$("#search_in2").click(function(){
 		$(".tancmail").show();
+	});
+	$("#search_in3").click(function(){
+		$("#disk_login").removeClass('none');
 	});
 	$(document).click(function(e){
 		e = window.event || e;
 		if (!$(e.srcElement || e.target).is(".tancmail *") && !$(e.srcElement || e.target).is("#search_in2")) {
 			$(".tancmail").hide();
+		}
+		if (!$(e.srcElement || e.target).is("#search_in3") && !$(e.srcElement || e.target).is("#disk_login *")) {
+			$("#disk_login").addClass('none');
+		}
+	});
+	$(document).mouseover(function(e){
+		e = window.event || e;
+		if (!$(e.srcElement || e.target).is("#con_men_1 *")) {
+			$("#con_men_1 .menu_k").hide();
+			$(".menu > li").removeClass('menu_a');
 		}
 	});
 })

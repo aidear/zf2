@@ -247,7 +247,7 @@ button.close {
 	margin-top:33px;
 }
 .search_input #search_in {
-	margin-top:3px;
+	margin-top:2px;
 }
 .menu_k_all {
     float: left;
@@ -276,3 +276,26 @@ button.close {
 }
 .bg_default {background-image:url(/images/FrontEnd/bg_l.png);}
 .bg_a {background-image:url(/images/FrontEnd/hf_02.jpg);}
+#disk_login {
+	float:left;width:166px;border:1px solid #666;margin-left:19px;background-color:#FFF;position:absolute;z-index:999;left:-1px;top:0px;
+}
+#dsearch_in3 {font-size:12px; color:#999;width: 160px;}
+#disk_url {border: 1px solid #CCCCCC;
+    color: #999999;
+    font-family: Arial,Helvetica,sans-serif;
+    height: 22px;
+    width: 164px;
+    margin-top:6px;
+}
+.menu_k {
+	height:500px;
+	width:805px;
+	padding-top:6px;
+}
+.menu_k .l1,.menu_k .l1 h1,.menu_k .menu_k_left,
+.menu_k .l1 .l2 {width:385px;}
+.menu_k .menu_k_right {width:385px;}
+.menu_k .l1 {border-bottom:none;}
+.menu_k .l1 .l2 {border-bottom:1px solid #ccc;}
+.menu_k .l1 .l2 a {width:80px;display:inline-table}
+.search_input #search_in {color:#000;}

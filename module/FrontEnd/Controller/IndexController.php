@@ -48,6 +48,7 @@ class IndexController extends AbstractActionController
 			if (0 == $v['parentID']) {
 				$structNavLists['rootNav'][$v['id']]['info'] = $v;
 				$structNavLists['rootNav'][$v['id']]['links'] = $links;
+				$structNavLists['rootNav'][$v['id']]['line'] = $v['line'];
 			}
 		}
 		if ($navLists) {
@@ -57,7 +58,7 @@ class IndexController extends AbstractActionController
 					$structNavLists['rootNav'][$ids]['subNav'][] = $v;
 				}
 			}
-		}//print_r($navLists);die;
+		}//print_r($structNavLists);die;
 		$rs = array('rs' => 'Welcome!', 'struct' => $structNavLists, 'nav' => $navLists, 'provList' => $prov, 'defCity' => $defCity);
 		return new ViewModel($rs);
 	}

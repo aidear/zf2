@@ -31,16 +31,23 @@
     
     <?php foreach ($this->struct['rootNav'] as $k=>$v):?>
     <div class="menu_k none">
-    <?php if (isset($v['subNav'])):?>
-    <ul class="menu_k_u">
-    
-    <?php foreach ($v['subNav'] as $s=>$n):?>
-    <?php if ($s > 4):break;
-    		endif;?>
-    <li><a href="javascript:;"><?php echo $n['name'];?></a></li>
+    <?php if (isset($v['links'])):?>
+    <?php $line=$v['line'];foreach ($v['links'] as $n=>$link):?>
+    <?php if (($n+1) > ($line*7)) break;?>
+    <li style="width:100px;"><a href="<?php echo $link['url'];?>"target="<?php echo $link['target'];?>" title="<?php echo $link['title'];?>"><?php echo$link['title'];?></a></li>
     <?php endforeach;?>
+    <?php endif;?>
+    <?php if (isset($v['subNav'])):?>
+    <div style="clear: both; border-bottom:1px solid #ccc;height:25px;"></div>
+    <!-- <ul class="menu_k_u"> -->
     
-    </ul>
+    <?php //foreach ($v['subNav'] as $s=>$n):?>
+    <?php //if ($s > 4):break;
+    		//endif;?>
+    <!-- <li><a href="javascript:;"><?php echo $n['name'];?></a></li> -->
+    <?php //endforeach;?>
+    
+    <!-- </ul> -->
     <?php $subCount = count($v['subNav']);
     	  $subLeft = ceil($subCount/2);
     	  $subRight = $subCount-$subLeft;
@@ -55,7 +62,7 @@
            <?php if (isset($slv['links'])):?>
            <span class="l2">
            <?php $linkCount = count($slv['links']);foreach ($slv['links'] as $j=>$lk):?>
-           <a href="<?php echo $lk['url'];?>" target="<?php echo $lk['target'];?>" title="<?php echo $lk['title'];?>"><?php echo $lk['title'];?></a><?php echo $linkCount > $j+1 ? '|' : '';?>
+           <a href="<?php echo $lk['url'];?>" target="<?php echo $lk['target'];?>" title="<?php echo $lk['title'];?>"><?php echo $lk['title'];?></a><?php //echo $linkCount > $j+1 ? '|' : '';?>
            <?php endforeach;?>
            </span>
          	<?php endif;?>
@@ -73,7 +80,7 @@
 	           <?php if (isset($slv['links'])):?>
 	           <span class="l2">
 	           <?php $linkCount = count($slv['links']);foreach ($slv['links'] as $j=>$lk):?>
-	           <a href="<?php echo $lk['url'];?>" target="<?php echo $lk['target'];?>" title="<?php echo $lk['title'];?>"><?php echo $lk['title'];?></a><?php echo $linkCount > $j+1 ? '|' : '';?>
+	           <a href="<?php echo $lk['url'];?>" target="<?php echo $lk['target'];?>" title="<?php echo $lk['title'];?>"><?php echo $lk['title'];?></a><?php //echo $linkCount > $j+1 ? '|' : '';?>
 	           <?php endforeach;?>
 	           </span>
 	         	<?php endif;?>
@@ -81,14 +88,14 @@
 	      <?php endforeach;?>
       </div>
       <?php endif;?>
-      <?php elseif (isset($v['links'])):?>
+      <?php elseif (isset($v['links']) && 1==2):?>
       <div class="menu_k_all">
          <div class="l1">
            <h1><?php echo isset($v['info']['name']) ? $v['info']['name'] : '';?></h1>
            <?php if (!empty($v['links'])):?>
            <span class="l2">
            <?php $linkCount = count($v['links']);foreach ($v['links'] as $a=>$ks):?>
-           <a href="<?php echo $ks['url'];?>" target="<?php echo $ks['target'];?>" title="<?php echo $ks['title'];?>"><?php echo $ks['title'];?></a><?php echo $linkCount > $a+1 ? '|' : '';?>
+           <a href="<?php echo $ks['url'];?>" target="<?php echo $ks['target'];?>" title="<?php echo $ks['title'];?>"><?php echo $ks['title'];?></a><?php //echo $linkCount > $a+1 ? '|' : '';?>
            <?php endforeach;?>
            </span>
          	<?php endif;?>
