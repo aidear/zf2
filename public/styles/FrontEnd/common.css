@@ -276,6 +276,13 @@ button.close {
 }
 .bg_default {background-image:url(/images/FrontEnd/bg_l.png);}
 .bg_a {background-image:url(/images/FrontEnd/hf_02.jpg);}
+.bg_1 {background-image:url(/images/FrontEnd/bg1.jpg);}
+.bg_2 {background-image:url(/images/FrontEnd/bg2.jpg);}
+.bg_3 {background-image:url(/images/FrontEnd/bg3.jpg);}
+.bg_4 {background-image:url(/images/FrontEnd/bg4.jpg);}
+.bg_5 {background-image:url(/images/FrontEnd/bg5.jpg);}
+.bg_6 {background-image:url(/images/FrontEnd/bg6.jpg);}
+.bg_7 {background-image:url(/images/FrontEnd/bg7.jpg);}
 #disk_login {
 	float:left;width:166px;border:1px solid #666;margin-left:19px;background-color:#FFF;position:absolute;z-index:999;left:-1px;top:0px;
 }
@@ -299,3 +306,16 @@ button.close {
 .menu_k .l1 .l2 {border-bottom:1px solid #ccc;}
 .menu_k .l1 .l2 a {min-width:30px;display:inline-table}
 .search_input #search_in {color:#000;}
+.header_bg .header .lgoin .dldt01,.header_bg .header .lgoin .dldt02 {background-image:none;}
+.huaf .hh .wk .hf_c {overflow:hidden; height:130px;position:relative;}
+.huaf .hh .wk .hf_c .items {width:20000em;position:absolute;clear: both;}
+.huaf .hh .wk .items .hft p {height: 25px;line-height: 25px;}
+
+.huaf .hh .wk  .hft img {
+    border: 1px solid #CCCCCC;
+    height: 88px;
+    padding: 1px;
+    width: 132px;
+	cursor:pointer;
+}
+.search_input #search_in {margin-left:2px;}

@@ -29,7 +29,7 @@
    <?php endif;?>
   <ul class="lgoin"><li>我的导航</li><li class="dldt dldtjt none" id="login_cue">请输入</li>
   <?php if ($this->container->UserID):?>
-  <li id="userTool" class="dldt02">您好  <font style="font-size:14px;"><?php echo $this->container->UserName;?> ！</font></li>
+  <li id="userTool" class="dldt02">您好  <font style="font-size:14px;"><?php echo $this->container->UserName;?> <span style="color:#999;font-size:12px;">^_^</span></font></li>
   <?php else:?>
   <li class="login_li"><a href="javascript:;">请登录</a></li><li><a href="/register" style="color:#000;">免费注册</a></li>
   <?php endif;?>
@@ -43,23 +43,74 @@
     <ul class="hf_n"><li>全部</li>
     <li>kit</li><li>全部</li><li>全部</li><li>全部</li><li class="outn">全部</li><li>全部</li>
     <li class="rig">当前第1共1页面</li></ul>
-    <div class="hf_c">
-      <div class="lf"><img src="/images/FrontEnd/hf_z.jpg" width="29" height="29" /></div>
-          <div class="hf_xk">
+    <!-- <div class="hf_c" id="scrollable">
+      <div class="lf" id="arrowLeft"><a href="javascript:;" class="prev"><img src="/images/FrontEnd/hf_z.jpg" width="29" height="29" /></a></div>
+          <div class="hf_xk items">
          <div class="hft"><img src="/images/FrontEnd/bg_l.png" width="136" height="92" /><p><input name="select_skin" type="checkbox" value="bg_default" <?php echo (isset($_COOKIE['bg_class']) && $_COOKIE['bg_class'] == 'bg_default') ? 'checked="checked"' : '';?> />
            <strong>默认</strong></p></div>
-         <div class="hft"><img src="/images/FrontEnd/hf_02.jpg" width="136" height="92" /><p><input name="select_skin" type="checkbox" value="bg_a" <?php echo (isset($_COOKIE['bg_class']) && $_COOKIE['bg_class'] == 'bg_a') ? 'checked="checked"' : '';?>/>小兔子</p></div>
+         <div class="hft"><img src="/images/FrontEnd/bg1.jpg" width="136" height="92" /><p><input name="select_skin" type="checkbox" value="bg_1" <?php echo (isset($_COOKIE['bg_class']) && $_COOKIE['bg_class'] == 'bg_1') ? 'checked="checked"' : '';?>/>背景</p></div>
+         <div class="hft"><img src="/images/FrontEnd/bg2.jpg" width="136" height="92" /><p><input name="select_skin" type="checkbox" value="bg_2" <?php echo (isset($_COOKIE['bg_class']) && $_COOKIE['bg_class'] == 'bg_2') ? 'checked="checked"' : '';?>/>背景</p></div>
+         <div class="hft"><img src="/images/FrontEnd/bg3.jpg" width="136" height="92" /><p><input name="select_skin" type="checkbox" value="bg_3" <?php echo (isset($_COOKIE['bg_class']) && $_COOKIE['bg_class'] == 'bg_3') ? 'checked="checked"' : '';?>/>背景</p></div>
+         <div class="hft"><img src="/images/FrontEnd/bg4.jpg" width="136" height="92" /><p><input name="select_skin" type="checkbox" value="bg_4" <?php echo (isset($_COOKIE['bg_class']) && $_COOKIE['bg_class'] == 'bg_4') ? 'checked="checked"' : '';?>/>背景</p></div>
+         <div class="hft"><img src="/images/FrontEnd/bg5.jpg" width="136" height="92" /><p><input name="select_skin" type="checkbox" value="bg_5" <?php echo (isset($_COOKIE['bg_class']) && $_COOKIE['bg_class'] == 'bg_5') ? 'checked="checked"' : '';?>/>背景</p></div>
+         <div class="hft"><img src="/images/FrontEnd/bg6.jpg" width="136" height="92" /><p><input name="select_skin" type="checkbox" value="bg_6" <?php echo (isset($_COOKIE['bg_class']) && $_COOKIE['bg_class'] == 'bg_6') ? 'checked="checked"' : '';?>/>背景</p></div>
+         <div class="hft"><img src="/images/FrontEnd/bg7.jpg" width="136" height="92" /><p><input name="select_skin" type="checkbox" value="bg_7" <?php echo (isset($_COOKIE['bg_class']) && $_COOKIE['bg_class'] == 'bg_7') ? 'checked="checked"' : '';?>/>背景</p></div>
          </div>
-      <div class="ri"><img src="/images/FrontEnd/hf_y.jpg" width="29" height="29" /></div>
-    </div>
+      <div class="ri" id="arrowRight"><a href="javascript:;" class="next"><img src="/images/FrontEnd/hf_y.jpg" width="29" height="29" /></a></div>
+    </div> -->
+    
+    
+    
+    <div class="hf_c scrollable"><!--实体部分 定宽 溢出隐藏-->
+    <div class="lf" id="arrowLeft" style="z-index: 1000;"><a href="javascript:;" class="prev"><img src="/images/FrontEnd/hf_z.jpg" width="29" height="29" /></a></div>
+   <!-- root element for the items -->
+   <ul class="items">
+         <li><div class="hft"><img src="/images/FrontEnd/bg_l.png" width="136" height="92" /><p><input name="select_skin" type="checkbox" value="bg_default" <?php echo (isset($_COOKIE['bg_class']) && $_COOKIE['bg_class'] == 'bg_default') ? 'checked="checked"' : '';?> />
+           <strong>默认</strong></p></div></li>
+         <li><div class="hft"><img src="/images/FrontEnd/bg1.jpg" width="136" height="92" /><p><input name="select_skin" type="checkbox" value="bg_1" <?php echo (isset($_COOKIE['bg_class']) && $_COOKIE['bg_class'] == 'bg_1') ? 'checked="checked"' : '';?>/>背景</p></div></li>
+         <li><div class="hft"><img src="/images/FrontEnd/bg2.jpg" width="136" height="92" /><p><input name="select_skin" type="checkbox" value="bg_2" <?php echo (isset($_COOKIE['bg_class']) && $_COOKIE['bg_class'] == 'bg_2') ? 'checked="checked"' : '';?>/>背景</p></div></li>
+         <li><div class="hft"><img src="/images/FrontEnd/bg3.jpg" width="136" height="92" /><p><input name="select_skin" type="checkbox" value="bg_3" <?php echo (isset($_COOKIE['bg_class']) && $_COOKIE['bg_class'] == 'bg_3') ? 'checked="checked"' : '';?>/>背景</p></div></li>
+         <li><div class="hft"><img src="/images/FrontEnd/bg4.jpg" width="136" height="92" /><p><input name="select_skin" type="checkbox" value="bg_4" <?php echo (isset($_COOKIE['bg_class']) && $_COOKIE['bg_class'] == 'bg_4') ? 'checked="checked"' : '';?>/>背景</p></div></li>
+         <li><div class="hft"><img src="/images/FrontEnd/bg5.jpg" width="136" height="92" /><p><input name="select_skin" type="checkbox" value="bg_5" <?php echo (isset($_COOKIE['bg_class']) && $_COOKIE['bg_class'] == 'bg_5') ? 'checked="checked"' : '';?>/>背景</p></div></li>
+         <li><div class="hft"><img src="/images/FrontEnd/bg6.jpg" width="136" height="92" /><p><input name="select_skin" type="checkbox" value="bg_6" <?php echo (isset($_COOKIE['bg_class']) && $_COOKIE['bg_class'] == 'bg_6') ? 'checked="checked"' : '';?>/>背景</p></div></li>
+         <li><div class="hft"><img src="/images/FrontEnd/bg7.jpg" width="136" height="92" /><p><input name="select_skin" type="checkbox" value="bg_7" <?php echo (isset($_COOKIE['bg_class']) && $_COOKIE['bg_class'] == 'bg_7') ? 'checked="checked"' : '';?>/>背景</p></div></li>
+   </ul>
+   <div class="ri" id="arrowRight"><a href="javascript:;" class="next"><img src="/images/FrontEnd/hf_y.jpg" width="29" height="29" /></a></div>
+</div>
    </div>
    
    <div class="hf_btn"><input name="hf_bc" type="submit" id="hf_bc" value="保存" /> 
      <input name="hf_gb" type="submit" id="hf_gb" value="关闭" /></div>
    </div>
 </div>
+<style>
+.scrollable {
+position:relative;
+overflow:hidden;
+width:986px;
+height:130px;
+}
+.scrollable .items {
+width:20000em;
+position:absolute;
+}
+.items li {
+float:left;
+padding:5px;
+}
+</style>
 <script>
 $(function(){
+	$("div.scrollable").scrollable({circular: false,next:".next",
+        prev:".prev", mousewheel: false});
+	$("#arrowRight").click(function(){
+		var left = $(".huaf .hh .wk .hf_c .hf_xk").css('left');
+		$(".huaf .hh .wk .hf_c .hf_xk").animate({'left': '-'+left+150+'px'},1000);
+	});
+	$("#arrowLeft").click(function(){
+		var left = $(".huaf .hh .wk .hf_c .hf_xk").css('left');
+		$(".huaf .hh .wk .hf_c .hf_xk").animate({'left': left+150+'px'},1000);
+	});
 	$(".hf_c input[name='select_skin']").click(function(){
 		$('body').removeClass().addClass($(this).val());
 		$(".hf_c input[name='select_skin']").not($(this)).removeAttr('checked');
@@ -77,6 +128,7 @@ $(function(){
 			alert('请选择皮肤');
 		}
 	});
+	$(".scrollable .items li img").click(function(){$(this).next('p').find('input[name="select_skin"]').trigger('click');});
 	$("#select_skin").click(function(){
 		$(".huaf").slideDown('fast');
 		if ($(this).html() == '换肤') {
@@ -106,6 +158,7 @@ $(function(){
 			$(this).removeClass('dldt01').addClass('dldt02');
 		}
 	});
+	$(".header .lgoin").hover(function(){}, function(){$(".dlh").hide();$("#userTool").removeClass('dldt01').addClass('dldt02');});
 	$(".dlh").hover(function(){$(".dlh").show();$("#userTool").removeClass('dldt02').addClass('dldt01');},function(){$(".dlh").hide();$("#userTool").removeClass('dldt01').addClass('dldt02');});
 	$("#tcdl").click(function(){
 		var userName = $.trim($("#yhm").val());

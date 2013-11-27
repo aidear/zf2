@@ -34,13 +34,13 @@ if (z_loc == '') {
 }
 $(function() {
 	$("#search_in").focusin(function() {
-		if ($(this).val() == '输入关键字') {
-			$(this).val('');
-		}
+//		if ($(this).val() == '输入关键字') {
+//			$(this).val('');
+//		}
 	});
 	$("#search_in").focusout(function() {
 		if ($(this).val() == '') {
-			$(this).val('输入关键字');
+//			$(this).val('输入关键字');
 		}
 	});
 	$(".Menubox1 > ul > li").click(function(){
