@@ -46,7 +46,7 @@ $msg = $this->flashMessages();
         <tr>
           <td height="38">&nbsp;</td>
           <td height="38" align="right">新邮箱地址：</td>
-          <td height="38" colspan="3"><input data-required='true' data-pattern='^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*$' data-describedby='for_toEmail' data-description='toEmail' type="text" name="toEmail" id="textfield3" />
+          <td height="38" colspan="3"><input data-required='true' data-pattern='^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*$' data-describedby='for_toEmail' data-description='toEmail' type="text" name="toEmail" id="textfield3" value="<?php echo isset($_GET['email']) ? $_GET['email'] : '';?>" />
           <span class='red' id='for_toEmail'></span>
           </td>
         </tr>
@@ -59,7 +59,7 @@ $msg = $this->flashMessages();
           <td height="38">&nbsp;</td>
           <td height="38" align="right">验证码：</td>
           <td width="115" height="38"><input data-required='true' data-describedby='for_valicate_code' data-description='valicate_code' name="valicate_code" type="text" id="textfield4" size="15" /><span class='red' id='for_valicate_code'></span></td>
-          <td width="69"><img id="pass-captcha" src="/member/chkCaptcha?k=chk-email-captcha" alt="" width="55" height="21" /></td>
+          <td width="69"><img id="pass-captcha" src="/member/chkCaptcha?k=chk-email-captcha" alt="" width="55" height="30" /></td>
           <td width="356" class="chengse"><a href="javascript:;" id="refresh_captcha">看不清，换一个</a></td>
           </tr>
         <tr>

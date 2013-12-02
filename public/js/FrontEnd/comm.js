@@ -43,6 +43,9 @@ $(function() {
 //			$(this).val('输入关键字');
 		}
 	});
+	$(".alert").click(function() {
+		$(this).hide();
+	});
 	$(".Menubox1 > ul > li").click(function(){
 		$(this).addClass('hover').siblings().removeClass('hover');
 		$("input[name='tab']").val($(this).attr('date-tab'));

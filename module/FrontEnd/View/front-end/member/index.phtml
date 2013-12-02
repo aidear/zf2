@@ -70,7 +70,7 @@ $msg = $this->flashMessages();
           	<?php }?>
           </select>
           <select name="birth3">
-          	<option value=''>月</option>
+          	<option value=''>日</option>
           <?php for($i = 1; $i <= 31; $i ++) { ?>
           	<option value="<?php echo $i;?>" <?php echo $i== (isset($birth[2]) ? $birth[2] : '') ? 'selected' : '';?>><?php echo $i;?></option>
           	<?php }?>
@@ -225,5 +225,60 @@ $(function(){
 			$(this).next('ul').slideUp('fast');
 		}
 	});
+	$("select[name='birth1']").change(function(){
+		var year = $(this).val();
+		var curMonth = $("select[name='birth2']").val();
+		if (curMonth == 2) {
+			getFebruary(year);
+		}
+	});
+	$("select[name='birth2']").change(function(){
+		var year = $("select[name='birth1']").val();
+		var curMonth = $("select[name='birth2']").val();
+		if (curMonth == 2) {
+			getFebruary(year);
+		} else {
+			var dayCount = 30;
+			var dayOptions = "<option value=\"\">日</option>";
+			switch (curMonth) {
+				case '1':
+				case '3':
+				case '5':
+				case '7':
+				case '8':
+				case '10':
+				case '12':
+					dayCount = 31;
+				break;
+			}
+			for(var i=1; i <= dayCount; i ++) {
+				dayOptions += "<option value=\""+i+"\">"+i+"</option>";
+			}
+			$("select[name='birth3']").html(dayOptions);
+		}
+	});
+	var curMonth = $("select[name='birth2']").val();
+	var defDay = '<?php echo (isset($birth[2]) ? $birth[2] : '');?>';
+	if (curMonth == 2) {
+		var year = $("select[name='birth1']").val();
+		if (year) {
+			getFebruary(year);
+		}
+	}
+	function getFebruary(year) {
+		var dayCount = 29;
+		var dayOptions = "<option value=\"\">日</option>";
+		if (year%4 != 0) {
+			dayCount = 28;
+		}
+		for(var i=1; i <= dayCount; i ++) {
+			if (defDay == i) {
+				dayOptions += "<option value=\""+i+"\" selected>"+i+"</option>";
+			} else {
+				dayOptions += "<option value=\""+i+"\">"+i+"</option>";
+			}
+		}
+		$("select[name='birth3']").html(dayOptions);
+	}
 })
  </script>

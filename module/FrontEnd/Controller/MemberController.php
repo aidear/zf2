@@ -298,11 +298,11 @@ class MemberController extends AbstractActionController
 			}
 			if ($params->valicate_code != $_SESSION['chk-email-captcha']) {
 				$this->_message('抱歉，验证码不正确，或者验证码已经过期', 'error');
-				return $this->redirect()->toUrl('/member/email');
+				return $this->redirect()->toUrl('/member/email?email='.$params->toEmail);
 			}
 			if ($member->checkExist(array('Email' =>$params->toEmail), $userid)) {
 				$this->_message('抱歉,邮箱地址'.$params->toEmail.'已被注册过，请更换其他可用邮箱', 'error');
-				return $this->redirect()->toUrl('/member/email');
+				return $this->redirect()->toUrl('/member/email?email='.$params->toEmail);
 			}
 			$code = $userid.'||'.$user->Email.'||'.$params->toEmail.'||'.time();
 			$k = md5($user->Email);
@@ -655,7 +655,7 @@ class MemberController extends AbstractActionController
 		$captcha = new \Custom\Captcha\Image(array(
 				'Expiration' => '300',
 				'wordlen' => '4',
-				'Height' => '21',
+				'Height' => '30',
 				'Width' => '55',
 				'writeInFile'=>false,
 				'Font' => APPLICATION_PATH.'/data/AdobeSongStd-Light.otf',
