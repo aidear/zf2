@@ -179,16 +179,18 @@ $(function() {
 					var sBox = $("#con_men_1 .menu_k").eq(i);
 					var off = $(this).offset();
 					var h = -158 + s_top;
-// 					sBox.css('top', h+'px');
-// 					h = sBox.offset().top > off.top ? 1 : h;
 
-					h = h+$('#con_men_1').offset().top > off.top ? 1 : h;
+// 					h = h+$('#con_men_1').offset().top > off.top ? 1 : h;
+// 					var diff = off.top + $(this).height() + 20 - (h+$('#con_men_1').offset().top + sBox.height());
+// 					h = diff > 0 ? (h+diff) : h;
+
+					h = h > 1 ? 1 : h;
 					var diff = off.top + $(this).height() + 20 - (h+$('#con_men_1').offset().top + sBox.height());
-// 					alert(off.top + $(this).height());
-					h = diff > 0 ? (h+diff) : h;
+// 					alert(diff);
+					if (diff > 0) {
+						sBox.height(sBox.height()+diff);
+					}
 					sBox.css('top', h+'px').show();
-					//alert(h);alert($("#con_men_1 .menu_k").eq(i).offset().top);alert(s_top);
-// 					$(".menu > li").eq(0).removeClass('line');
 				}
 				$(this).siblings('li').removeClass('menu_a');
 				$("#con_men_1 .menu_k").siblings('.menu_k').not($("#con_men_1 .menu_k").eq(i)).hide();
