@@ -241,6 +241,7 @@ new Editable(options,$("#table1"));
 var url = '<?php echo $this->url('backend' , array('controller' => 'member' , 'action' => 'all'));?>';
 var query = '<?php echo $this->filterQuery?>';
 $(function(){
+	$(".col-1").css({'width':'1600px'});
 	$("#selector").click(function(){
 		$("#dialog").dialog({position:'center',width:300,buttons: [ { text: "确定", click: function() {
 			var point_val = $("input[type='text'][name='Point']").val();
