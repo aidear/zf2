@@ -1,5 +1,5 @@
 body{color:#444; height:100%}a{text-decoration:none; color:#444}
-html.off,html.off body {background: #e2e9ea url(../../../images/BackEnd/BackEnd/admin_img/left_bg.png) repeat-y -40px top;}
+html.off,html.off body {background: #e2e9ea url(/images/BackEnd/admin_img/left_bg.png) repeat-y -40px top;}
 html.on,html.on body{background: #e2e9ea; background-image:none;}
 html.addbg,html.addbg body{background:#e2e9ea}
 a:hover{text-decoration:underline;}
