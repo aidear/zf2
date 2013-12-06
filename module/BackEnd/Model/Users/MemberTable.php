@@ -20,9 +20,9 @@ class MemberTable extends TableGateway
     protected $select;
     public function getStatistics()
     {
-    	$sql = "SELECT SUM(IF (DATE_FORMAT(`AddTime`, 'YYYY-MM-DD')=CURDATE(), 1, 0)) AS todayTotal,
+    	$sql = "SELECT SUM(IF (DATE_FORMAT(`AddTime`, '%Y-%m-%d')=CURDATE(), 1, 0)) AS todayTotal,
 SUM(IF (WEEK(`AddTime`)=WEEK(NOW()), 1, 0)) AS weekTotal,
-SUM(IF (DATE_FORMAT(`AddTime`, 'YYYY-MM')=DATE_FORMAT(NOW(), 'YYYY-MM'), 1, 0)) AS monthTotal,
+SUM(IF (DATE_FORMAT(`AddTime`, '%Y-%m')=DATE_FORMAT(NOW(), '%Y-%m'), 1, 0)) AS monthTotal,
 SUM(IF (QUARTER(`AddTime`) = QUARTER(NOW()), 1, 0)) AS quarterTotal,
 SUM(IF (YEAR(`AddTime`)=YEAR(NOW()), 1, 0)) AS yearTotal,
 COUNT(1) as allTotal
