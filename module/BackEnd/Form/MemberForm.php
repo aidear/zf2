@@ -77,6 +77,7 @@ class MemberForm extends Form
         		'attributes' => array(
         				'maxlength' => 11,
         				'pattern'  => '^((\+86)|(86))?(1(3|5|8))\d{9}$',
+        				'must' => '*'
         		),
         		'options' => array (
         				'label' => '手机'
