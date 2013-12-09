@@ -186,6 +186,8 @@ FROM member;";
     	$select = $this->_getSelect();
     	if (!empty($order)) {
     		$select->order($order);
+    	} else {
+    		$select->order(array('LastUpdate' => 'DESC'));
     	}//echo str_replace('"', '', $select->getSqlString());die;
     
     	return new DbSelect($select, $this->getAdapter());

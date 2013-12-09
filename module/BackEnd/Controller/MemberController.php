@@ -219,33 +219,27 @@ class MemberController extends AbstractActionController
 			$member->Status = $params->Status;
 			$member->Source = $params->Source;
 			$member->LastUpdate = $member->AddTime = Utilities::getDateTime();
+			$File = $this->params()->fromFiles('ImgUrl');
+			$params->ImgUrl = $File['name'];
 			$form->setData($params);
 			
 			$form->setInputFilter($member->getInputFilter());
 				
 			if ($form->isValid()) {
-// 				$member->exchangeArray($form->getData());
-				$table = $this->_getTable('MemberTable');
+				$size = new \Zend\Validator\File\Size(array('min' => 0,'max' => '255kB'));
+				$adapter = new \Zend\File\Transfer\Adapter\Http();
+				$adapter->setValidators(array($size), $File['name']);
+				if (!$adapter->isValid() && !empty($params->ImgUrl)){
+					$dataError = $adapter->getMessages();
+					$error = array();
+					foreach($dataError as $key=>$row)
+					{
+						$error[] = $row;
+					}
+					$form->setMessages(array('ImgUrl'=>$error ));
+				} else {
+					$table = $this->_getTable('MemberTable');
 				$chkExist = 1;
-// 				if ($table->checkExist(array('UserName' => $params->UserName), $params->UserID)) {
-// 					$chkExist = 0;
-// 					$this->flashMessenger()->addErrorMessage("用户名:{$params->UserName}已被占用！请更换其他用户名");
-// 				}
-// 				if ($table->checkExist(array('Email' => $params->Email), $params->UserID)) {
-// 					$chkExist = 0;
-// 					$this->flashMessenger()->addErrorMessage("邮箱:{$params->Email}已被占用！请更换其他邮箱");
-// 				}
-// 				if ($params->Mobile && $table->checkExist(array('Mobile' => $params->Mobile), $params->UserID)) {
-// 					$chkExist = 0;
-// 					$this->flashMessenger()->addErrorMessage("手机:{$params->Mobile}已被占用！请更换其他手机号码");
-// 				}
-// 				if (!$chkExist) {
-// 					if ($params->UserID) {
-// 						return $this->redirect()->toUrl("/member/save?id={$params->UserID}");
-// 					} else {
-// 						return $this->redirect()->toRoute('backend' , array('controller' => 'member' , 'action' => 'save'));
-// 					}
-// 				} 
 				
 				$id = $table->save($member);
 			
@@ -264,6 +258,7 @@ class MemberController extends AbstractActionController
 					$this->trigger(ActionEvent::ACTION_INSERT);
 				}
 				return $this->redirect()->toRoute('backend' , array('controller' => 'member' , 'action' => 'index'));
+				}
 			}
 			
 			

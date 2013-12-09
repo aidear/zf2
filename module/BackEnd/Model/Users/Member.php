@@ -132,7 +132,18 @@ class Member implements InputFilterAwareInterface
 							),
 					),
 			)));
-	
+// 			$inputFilter->add($factory->createInput(array(
+// 					'name'     => 'ImgUrl',
+// 					'required' => false,
+// 					'validators' => array(
+// 							array(
+// 									'name'    => 'Zend\Validator\File\Size',
+// 									'options' => array(
+// 											'max'      => '200kB',
+// 									),
+// 							),
+// 					),
+// 			)));
 			$inputFilter->add($factory->createInput(array(
 					'name'     => 'Email',
 					'required' => true,
