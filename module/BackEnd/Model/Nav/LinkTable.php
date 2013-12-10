@@ -138,7 +138,8 @@ class LinkTable extends TableGateway
     		//     		if('id' == $data['searchType']){
     		//     			$where->equalTo('MerchantFeedConfig.MerchantID', (int)$data['search']);
     		//     		}elseif('name' == $data['searchType']){
-    		$where->like('title', '%' . $data['title'] . '%')->orPredicate(new Like('Url', '%' . $data['title'] . '%'));
+    		$where->like('link.title', '%' . $data['title'] . '%')
+    		->orPredicate(new Like('link.Url', '%' . $data['title'] . '%'));
     		//     		}
     	}
     	if(!empty($data['cid'])){

@@ -81,7 +81,7 @@ class NavController extends AbstractActionController
 //         }
         
         $startNumber = 1+($params['page']-1)*$paginaction->getItemCountPerPage();
-        $order = $this->_getOrder($prefixUrl, array('name', 'isShow', 'order', 'subCount', 'subLinkCount', 'updateTime', 'updateUser'), $removePageParams);
+        $order = $this->_getOrder($prefixUrl, array('name', 'isShow', 'line',  'order', 'subCount', 'subLinkCount', 'updateTime', 'updateUser'), $removePageParams);
         
         $assign = array(
         		'paginaction' => $paginaction, 
@@ -227,6 +227,92 @@ class NavController extends AbstractActionController
 		}
 		
 		
+		return array('navCategory' => new NavCategory() , 'form' => $form);
+	}
+	public function saveSubAction()
+	{
+		$req = $this->getRequest();
+		$form = new NavCategoryForm();
+	
+		$navCategoryTable = $this->_getTable('NavCategoryTable');
+		// 		print_r($navCategoryTable->getCateTree());die;
+		$navCate = $navCategoryTable->getlist(array('isShow' => 1));
+	
+		$fCategory = $this->_formatCategory($navCate);
+		$navOption = array();
+		$this->op[0] = '顶级分类';
+		$this->_returnOptionValue($fCategory);
+		if ($catid = $this->params()->fromQuery('id')) {
+			unset($this->op[$catid]);
+		}
+		$form->get('parentID')->setValueOptions($this->op);
+		if($req->isPost()){
+			$params = $req->getPost();
+			$navCategory = new NavCategory();
+			$form->bind($navCategory);
+			$File = $this->params()->fromFiles('imgUrl');
+			$params->imgUrl = $File['name'];
+			$form->setData($params);
+			if ($form->isValid()) {
+				$size = new \Zend\Validator\File\Size(array('min' => 0,'max' => '255kB'));
+				$adapter = new \Zend\File\Transfer\Adapter\Http();
+				$adapter->setValidators(array($size), $File['name']);
+				if (!$adapter->isValid() && !empty($params->imgUrl)){
+					$dataError = $adapter->getMessages();
+					$error = array();
+					foreach($dataError as $key=>$row)
+					{
+						$error[] = $row;
+					}
+					$form->setMessages(array('imgUrl'=>$error ));
+				} else {
+					$params = $form->getData();
+					
+					$navCategory->id = $params->id;
+					$navCategory->name = $params->name;
+					$navCategory->desc = $params->desc;
+					$navCategory->keyword = $params->keyword;
+					$navCategory->parentID = $params->parentID;
+					$navCategory->isShow = $params->isShow;
+					$navCategory->order = $params->order;
+					if ($params->id) {
+						$navCategory->addTime = Utilities::getDateTime();
+					}
+					$navCategory->updateTime = Utilities::getDateTime();
+					$container = $this->_getSession();
+					$navCategory->updateUser = $container->Name;
+					
+					$navCategory->catPath = $navCategoryTable->getPathByParent($navCategory->parentID);
+					$id = $navCategoryTable->save($navCategory);
+					
+					//插入图片
+					$navCategory->imgUrl = $this->_insertImg($navCategory->id ? $navCategory->id : $id);
+					//更新表
+					if($navCategory->imgUrl){
+						$this->_updateNavImage($navCategory->id ? $navCategory->id : $id , $navCategory->imgUrl );
+					}
+					$this->_message('保存成功！');
+					if ($navCategory->parentID) {
+						return $this->redirect()->toRoute('backend' , array('controller' => 'nav' , 'action' => 'subCategory'));
+					} else {
+						return $this->redirect()->toRoute('backend' , array('controller' => 'nav' , 'action' => 'category'));
+					}
+				}
+				
+			}
+				
+		} elseif ($id = $this->params()->fromQuery('id')) {
+			$navCategory = new NavCategory();
+			$navCategoryTable = $this->_getTable('NavCategoryTable');
+				
+			$nav = $navCategoryTable->getOneById($id);
+			$form->setData($nav->toArray());
+		} else {
+			$form->get('isShow')->setValue(1);
+			$form->get('order')->setValue(1);
+		}
+	
+	
 		return array('navCategory' => new NavCategory() , 'form' => $form);
 	}
 	public function itemsAction()
@@ -432,7 +518,7 @@ class NavController extends AbstractActionController
 		$page = isset($params['page']) ? $params['page'] : 1;
 		$order = array();
 		if ($params['orderField']) {
-			$order = array($params['orderField'] => $params['orderType']);
+			$order = array("`{$params['orderField']}`" => $params['orderType']);
 		}
 		$table = $this->_getTable('LinkTable');
 		$paginator = new Paginator($table->formatWhere($params)->getListToPaginator($order));

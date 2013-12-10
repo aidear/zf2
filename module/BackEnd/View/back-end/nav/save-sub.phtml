@@ -14,7 +14,7 @@ $msg = $this->flashMessages();
     	<div class="t_top">
         <p class='t_right'>
         <a class="btn btn-return" href="<?php echo $this->url('backend' 
-            , array('controller' => 'nav' , 'action' => 'category'))?>">
+            , array('controller' => 'nav' , 'action' => 'subCategory'))?>">
         <i class="icon-plus"></i>返回</a>
         <a class="btn btn-submit" href="javascript:;">
         <i class="icon-plus"></i>提交</a>
@@ -40,7 +40,7 @@ $msg = $this->flashMessages();
             <?php endforeach;?>
             </div>
             <?php endif;?>
-        <form class="box-form" action="<?php echo $this->url('backend' , array('controller' => 'nav' , 'action' => 'save'))?>"
+        <form class="box-form" action="<?php echo $this->url('backend' , array('controller' => 'nav' , 'action' => 'saveSub'))?>"
               method="post" enctype="multipart/form-data">
               <?php $img =  $form->get('imgUrl')->getValue();?>
               <?php if (!empty($img)):?>
@@ -53,7 +53,7 @@ $msg = $this->flashMessages();
                 <?php echo $this->formText($form->get('name'))?>
                 <?php echo $this->formText($form->get('desc'))?>
                 <?php echo $this->formText($form->get('keyword'))?>
-                <?php echo $this->formHidden($form->get('parentID'))?>
+                <?php echo $this->formSelect($form->get('parentID'))?>
                 <?php echo $this->formFile($form->get('imgUrl'))?>
                 <?php echo $this->formText($form->get('line'))?>
                 <?php echo $this->formSelect($form->get('isShow'))?>

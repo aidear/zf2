@@ -66,7 +66,30 @@ $msg = $this->flashMessages();
                     	分类名称
                     <?php endif;?>
                     </th>
-<!--                     <th>上级分类</th> -->
+					<th key="order" editable="true">
+                    <?php if (isset($this->order['order'])):?>
+                    <?php $name = $this->order['order'];?>
+                    <a href="<?php echo $name['href'];?>">排序<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	排序
+                    <?php endif;?>
+                    	</th>
+                    	<th key="isShow" editable="true">
+                    <?php if (isset($this->order['isShow'])):?>
+                    <?php $name = $this->order['isShow'];?>
+                    <a href="<?php echo $name['href'];?>">是否显示<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	是否显示
+                    <?php endif;?>
+                    </th>
+                    <th key="line" editable="true">
+                     <?php if (isset($this->order['line'])):?>
+                    <?php $name = $this->order['line'];?>
+                    <a href="<?php echo $name['href'];?>">显示行数<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	显示行数
+                    <?php endif;?>
+                    </th>
                     <th>
        				<?php if (isset($this->order['subCount'])):?>
                     <?php $name = $this->order['subCount'];?>
@@ -82,21 +105,7 @@ $msg = $this->flashMessages();
                     <?php else:?>
                     	网址个数
                     <?php endif;?></th>
-                    <th key="isShow" editable="true">
-                    <?php if (isset($this->order['isShow'])):?>
-                    <?php $name = $this->order['isShow'];?>
-                    <a href="<?php echo $name['href'];?>">是否显示<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
-                    <?php else:?>
-                    	是否显示
-                    <?php endif;?>
-                    <th key="order" editable="true">
-                    <?php if (isset($this->order['order'])):?>
-                    <?php $name = $this->order['order'];?>
-                    <a href="<?php echo $name['href'];?>">排序<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
-                    <?php else:?>
-                    	排序
-                    <?php endif;?>
-                    	</th>
+                    
                     <th>
                     <?php if (isset($this->order['updateTime'])):?>
                     <?php $name = $this->order['updateTime'];?>
@@ -121,11 +130,12 @@ $msg = $this->flashMessages();
                     	<td width="60"><input type="checkbox" name="select" value="<?php echo $nav['id']; ?>" data-key="分类名称" data-value="<?php echo $nav['name']; ?>" /></td>
                         <td><?php echo $startNumber++; ?></td>
                         <td key="name" editable="true"><?php echo $nav['name']; ?></td>
+                        <td key="order" editable="true"><?php echo $nav['order']; ?></td>
+                        <td key="isShow" editable="true"><?php echo $nav['isShow'] ? '显示' : '不显示'; ?></td>
+                        <td key="line" editable="true"><?php echo $nav['line'];?></td>
                         <!-- <td><?php echo $nav['parentName']; ?></td> -->
                         <td><?php echo $nav['subCount'];?></td>
                         <td><?php echo $nav['subLinkCount'] ? $nav['subLinkCount'] : 0;?></td>
-                        <td key="isShow" editable="true"><?php echo $nav['isShow'] ? '显示' : '不显示'; ?></td>
-                        <td key="order" editable="true"><?php echo $nav['order']; ?></td>
                         <td><?php echo $nav['updateTime']; ?></td>
                         <td><?php echo $nav['updateUser']; ?></td>
                     </tr>
@@ -156,6 +166,11 @@ var productEditableParam={
 		},
 		'name':{
 			type:'text'
+		},
+		'line':{
+			type:'text',
+			reg: /^\d+$/,
+			tip:'只能为数字!'
 		}
 	};
 var options={

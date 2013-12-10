@@ -268,7 +268,10 @@ return array(
     "index" => "首页",
     "member" => '会员管理',
     "menu_Index" => '管理中心',
-    'menu_member' => '会员列表',
+    'menu_member_index' => '会员列表',
+    'menu_member_contact' => '通讯录',
+    'menu_member_all' => '全息表',
+    'menu_member_identity' => '身份认证',
     
     'menu_role' => '角色管理',
     'menu_resource' => '资源管理',
