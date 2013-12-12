@@ -518,7 +518,7 @@ class NavController extends AbstractActionController
 		$page = isset($params['page']) ? $params['page'] : 1;
 		$order = array();
 		if ($params['orderField']) {
-			$order = array("`{$params['orderField']}`" => $params['orderType']);
+			$order = array("{$params['orderField']}" => $params['orderType']);
 		}
 		$table = $this->_getTable('LinkTable');
 		$paginator = new Paginator($table->formatWhere($params)->getListToPaginator($order));

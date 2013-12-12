@@ -113,7 +113,7 @@ class MemberController extends AbstractActionController
 		$paginaction = $this->_getNavPaginator($params);
 	
 		$startNumber = 1+($params['page']-1)*$paginaction->getItemCountPerPage();
-		$order = $this->_getOrder($prefixUrl, array('UserName', 'Points', 'Email', 'Mobile', 'Nick', 'LastLogin', 'LoginCount', 'LastUpdate'), $removePageParams);
+		$order = $this->_getOrder($prefixUrl, array('UserName', 'Points', 'Email', 'Tel', 'QQ', 'MSN', 'Mobile', 'Nick', 'LastLogin', 'LoginCount', 'LastUpdate'), $removePageParams);
 	
 		$assign = array(
 				'paginaction' => $paginaction,

@@ -4,15 +4,22 @@
 .tq .weather {margin-left:20px; padding-top:10px; position:relative;}
 .tq .weather .swith_area {
 	float:left;
-	background-color:#fff;
+	/*background-color:#fff;*/
 	border:0px solid #000;
 	height:55px;
 	width:auto;
 	font-family:Verdana, Geneva, sans-serif;
-	position:absolute;
 	padding-left:10px;
 	text-align:left;
+
 }
+.tq .weather .show_weather {
+	float:left;
+	/*margin-left:120px;*/
+}
+.weather .wt {float:left;}
+.weather .wt .wtpic {float:left;}
+.weather .wt .wt1 {float:left;padding-top:10px;}
 .swith_area .area_name {
 	font-size:14px;
 	font-weight:bold;

@@ -19,6 +19,7 @@ namespace FrontEnd\Controller;
 
 use Custom\Mvc\Controller\AbstractActionController;
 use Custom\Util\Utilities;
+use Custom\Util\CURL;
 use Zend\View\Model\JsonModel;
 use Zend\View\Model\ViewModel;
 use FrontEnd\Model\Users\MemberTable;
@@ -100,6 +101,36 @@ class AjaxController extends AbstractActionController
 				$regionTable = $this->_getTable('RegionTable');
 				$assign = $regionTable->getRegionByPid($pid);
 				$rs = $assign;
+				break;
+			case 'weather':
+				$rs = array();
+				$area = $this->params()->fromPost('area');
+				$area = Utilities::unescape($area);
+				$area = str_replace(array('区','县'), '', $area);
+				$py = Utilities::Pinyin($area, 1);
+				$url = 'http://a1.tianqi.com/index.php?c=other&a=json';
+				if ($py) {
+					$url .= '&py='.$py;
+				}
+				$curl = CURL::getInstance();
+				$data = $curl->get_contents($url);
+				$weather = json_decode($data, true);
+				$rs['day_1'] = array(
+						'temp' => $weather['temp1'],
+						'weather_desc' => $weather['weather1'],
+						'img' => $weather['img1'],
+					);
+				$rs['day_2'] = array(
+						'temp' => $weather['temp2'],
+						'weather_desc' => $weather['weather2'],
+						'img' => $weather['img2'],
+					);
+				$rs['day_3'] = array(
+						'temp' => $weather['temp3'],
+						'weather_desc' => $weather['weather3'],
+						'img' => $weather['img3'],
+				);
+				$rs['city'] = $weather['city_en'];
 				break;
 			default:
 				break;

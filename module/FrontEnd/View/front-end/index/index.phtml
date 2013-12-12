@@ -218,6 +218,7 @@ $(function() {
 			+"</div>");
 	$(".swith_area").delegate('.switch_b','click', function() {
 		oHtml = $(".swith_area").html();
+		$(".show_weather").hide();
 		if ($.browser.msie) {
 			$(".swith_area").html(sel.html());
 		} else {
@@ -263,6 +264,7 @@ $(function() {
 	$(".swith_area").delegate("input[name='return']",'click', function(){
 // 		$(".swith_area").html(swith).prepend(aName);
 		$(".swith_area").html(oHtml);
+		$(".show_weather").show();
 	});
 	$(".swith_area").delegate("input[name='submit']",'click', function(){
 		var t = $(".swith_area").find("select[name='sel_area'] option:selected").text();
@@ -278,6 +280,29 @@ $(function() {
 			location.reload();
 		} else {
 			$(".swith_area").html(oHtml);
+			$(".show_weather").show();
+		}
+	});
+	$.ajax({
+		type:'POST',
+		url:'/ajax?s=weather',
+		data:'area='+escape(z_loc),
+		dataType:'json',
+		cache:false,
+		async:false,
+		success:function(s) {
+			if (s.day_1) {
+				$("#day_1 .wtpic").html(s.day_1.img);
+				$("#day_1 .wt1 .wtline").eq(1).html(s.day_1.temp[0]+'～'+s.day_1.temp[1]);
+			}
+			if (s.day_2) {
+				$("#day_2 .wtpic").html(s.day_2.img);
+				$("#day_2 .wt1 .wtline").eq(1).html(s.day_2.temp[0]+'～'+s.day_2.temp[1]);
+			}
+			if (s.day_3) {
+				$("#day_3 .wtpic").html(s.day_3.img);
+				$("#day_3 .wt1 .wtline").eq(1).html(s.day_3.temp[0]+'～'+s.day_3.temp[1]);
+			}
 		}
 	});
 })

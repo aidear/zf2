@@ -87,6 +87,30 @@ $msg = $this->flashMessages();
                     	 手机
                     <?php endif;?>             
                    </th>
+                   <th key="Tel" editable="true">
+       <?php if (isset($this->order['Tel'])):?>
+                    <?php $name = $this->order['Tel'];?>
+                    <a href="<?php echo $name['href'];?>"> 电话<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	 电话
+                    <?php endif;?>             
+                   </th>
+                   <th key="QQ" editable="true">
+       <?php if (isset($this->order['QQ'])):?>
+                    <?php $name = $this->order['QQ'];?>
+                    <a href="<?php echo $name['href'];?>"> QQ<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	 QQ
+                    <?php endif;?>             
+                   </th>
+                   <th key="MSN" editable="true">
+       <?php if (isset($this->order['MSN'])):?>
+                    <?php $name = $this->order['MSN'];?>
+                    <a href="<?php echo $name['href'];?>"> MSN<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	 MSN
+                    <?php endif;?>             
+                   </th>
                 </tr>
             </thead>
             <tbody>
@@ -97,6 +121,9 @@ $msg = $this->flashMessages();
                         <td key="UserName" editable="true"><?php echo $user->UserName; ?></td>
                         <td key="Email" editable="true"><?php echo $user->Email; ?></td>
                         <td key="Mobile" editable="true"><?php echo $user->Mobile; ?></td>
+                        <td key="Tel" editable="true"><?php echo $user->Tel; ?></td>
+                        <td key="QQ" editable="true"><?php echo $user->QQ; ?></td>
+                        <td key="MSN" editable="true"><?php echo $user->MSN; ?></td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
