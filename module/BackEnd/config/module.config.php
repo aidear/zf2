@@ -60,17 +60,17 @@ return array(
             'ViewJsonStrategy',
         ),
     ),
-// 	'translator' => array(
-// 			'locale' => 'zh_CN',
-// 			'translation_file_patterns' => array(
-// 					array(
-// 							'type'     => 'phparray',
-// 							'base_dir' => __DIR__ . '/../language',
-// 							'pattern'  => '%s.php',
-// // 							'text_domain' => 'default',
-// 					),
-// 			),
-// 	),
+	'translator' => array(//配置serverManager中的translator.
+			'locale' => 'zh_CN',
+			'translation_file_patterns' => array(
+					array(
+							'type'     => 'phparray',
+							'base_dir' => __DIR__ . '/../language',
+							'pattern'  => '%s.php',
+// 							'text_domain' => 'default',
+					),
+			),
+	),
 	'session' => array(
 		'config' => array(
 				'class' => 'Zend\Session\Config\SessionConfig',
