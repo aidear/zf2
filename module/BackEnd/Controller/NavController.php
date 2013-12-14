@@ -371,8 +371,10 @@ class NavController extends AbstractActionController
 		$act = $this->params()->fromQuery('act');
 		if ($act == 'down') {
 			$paginaction = $this->_getLinkPaginator($params, true);
+		} else {
+			$paginaction = $this->_getLinkPaginator($params);
 		}
-		$paginaction = $this->_getLinkPaginator($params);
+		
 		$items = $paginaction->getCurrentItems()->toArray();
 		foreach ($items as $k=>$v) {
 			$items[$k]['categoryName'] = isset($this->category[$v['category']]) ? $this->category[$v['category']] : '';
@@ -637,7 +639,8 @@ class NavController extends AbstractActionController
 			throw new \Exception('incomplete item id');
 		}
 		$linkTable = $this->_getTable('LinkTable');
-		$rs = $linkTable->delete($id);
+		$idStr = 'id='.str_replace(',', ' OR id=', $id);
+		$rs = $linkTable->deleteMuti($idStr);
 		if ($rs) {
 			$this->_message('已删除', 'success');
 		} else {

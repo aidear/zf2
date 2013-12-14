@@ -371,13 +371,16 @@ class MemberController extends AbstractActionController
 		}
 		$req = $this->getRequest();
 		if ($req->isPost()) {
+			set_time_limit(0);
 			$subject = $req->getPost('subject');
 			$email = $req->getPost('email');
 			$content = $req->getPost('content');
 			$mail = new \BackEnd\Model\System\Mail();
 			$email = explode(',', $email);
 			$email = array_filter($email);
-			$mail->sendHtml($email, $subject, $content);
+			
+			$file = $this->params()->fromFiles('attach');
+			$mail->sendHtml($email, $subject, $content, $file);
 			$this->_message('信息已投递至'.implode(',', $email).'地址');
 			return $this->redirect()->toRoute('backend' , array('controller' => 'member' , 'action' => 'index')); 
 		}

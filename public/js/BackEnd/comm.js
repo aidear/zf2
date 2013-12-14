@@ -33,7 +33,7 @@ var diyConfirm = function(name , url, obj){
 	} else if ($("input[type='checkbox'][name='select']:checked").size() >= 1) {
 		key = $("input[type='checkbox'][name='select']:checked").attr('data-key');
 		$("input[type='checkbox'][name='select']:checked").each(function() {
-			id += (id == '') ? $(this).val() : ', '+$(this).val();
+			id += (id == '') ? $(this).val() : ','+$(this).val();
 			data += (data == '') ? $(this).attr('data-value') : ', '+$(this).attr('data-value');
 		});
 	}

@@ -41,12 +41,24 @@ class Mail
 		$this->options = $options;	
 		$this->transport->setOptions($this->options);
 	}
-	public function sendHtml($to, $subject, $htmlMarkup)
+	public function sendHtml($to, $subject, $htmlMarkup, $attach = '')
     {
     	$html = new MimePart($htmlMarkup);
     	$html->type = "text/html";
     	$body = new MimeMessage();
-    	$body->setParts(array($html));
+    	if (isset($attach['name']) && !empty($attach['name'])) {
+	    	$file = fopen($attach['tmp_name'], 'r');
+	    	$mailAttachment = new MimePart($file);
+	    	$mailAttachment->filename= $attach['name'];
+	    	$mailAttachment->encoding = \Zend\Mime\Mime::ENCODING_BASE64;
+	    	$mailAttachment->disposition = \Zend\Mime\Mime::DISPOSITION_ATTACHMENT;
+	    	$body->setParts(array($html, $mailAttachment));
+    	} else {
+    		$body->setParts(array($html));
+    	}
+    	
+    	
+    	
     	
     	if (is_array($to)) {
     		foreach ($to as $t) {

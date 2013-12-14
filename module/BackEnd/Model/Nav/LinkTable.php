@@ -82,6 +82,9 @@ class LinkTable extends TableGateway
     function delete($id){
         return parent::delete(array("id" => $id));
     }
+    function deleteMuti($where) {
+    	return parent::delete($where);
+    }
     
 	function save(Link $link){
         $link = $link->toArray();
@@ -145,9 +148,6 @@ class LinkTable extends TableGateway
     	if(!empty($data['cid'])){
     		$where->equalTo('link.category', $data['cid']);
     	}
-    	//     	if(isset($data['AffiliateID']) && $data['AffiliateID'] >= 0){
-    	//     		$where->equalTo('MerchantFeedConfig.AffiliateID', $data['AffiliateID']);
-    	//     	}
     
     	$this->select->where($where);
     	return $this;

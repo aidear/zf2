@@ -93,6 +93,10 @@ $email = array_filter($user['email']);
             	<label for="name" class="input-label-mail">标题</label>
             	<div class="input-item-mail"><input autocomplete="off" type="text" value="" name="subject" class="input-element"></div>
             </div>
+            <div class="input-group">
+            	<label for="name" class="input-label-mail">附件</label>
+            	<div class="input-item-mail"><input autocomplete="off" type="file" value="" name="attach" class="input-element"></div>
+            </div>
             <input style="color:#996633; width:300px;" type="hidden" readonly value="<?php echo implode(',', $user['email']);?>" name="email" class="input-element">
 <!--             <div class="input-group"> -->
 <!--             	<label for="name" class="input-label">收件人地址</label> -->
