@@ -1,3 +1,6 @@
+<?php 
+$params = $this->params;
+?>
 <div class="box">
     <div class="box-header">
 <!--         <h2><i class="icon-box"></i>身份认证</h2> -->
@@ -6,6 +9,19 @@
         	<form class="form-inline" action="<?php echo $this->url('backend', array('controller' 
             => 'member', 'action' => 'identity')); ?>" method="get">
                 <div class="input-group">
+<!--                     <label>认证类型</label> -->
+                    <select name="type">
+                        <option value="">认证类型筛选</option>
+                        <option value="1" <?php echo isset($params['type']) && $params['type']==1 ? 'selected=selected' : '';?>>个人</option>
+                        <option value="2" <?php echo isset($params['type']) && $params['type']==2 ? 'selected=selected' : '';?>>企业</option>
+                    </select>
+<!--                 	<label>审核</label> -->
+                    <select name="status">
+                        <option value="">审核状态筛选</option>
+                        <option value="0" <?php echo isset($params['status']) && $params['status']==0 ? 'selected=selected' : '';?>>审核中</option>
+                        <option value="1" <?php echo isset($params['status']) && $params['status']==1 ? 'selected=selected' : '';?>>已审核</option>
+                        <option value="2" <?php echo isset($params['status']) && $params['status']==2 ? 'selected=selected' : '';?>>未通过</option>
+                    </select>
                     <input autocomplete="off" class="input-element span3" value="<?php echo isset($this->k) ? $this->k : '';?>" name="k" type="text">
                     
                 <button class="button-element" type="submit">搜索</button>

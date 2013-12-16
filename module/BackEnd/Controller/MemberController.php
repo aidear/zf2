@@ -309,8 +309,13 @@ class MemberController extends AbstractActionController
 		$prefixUrl = $this->url()->fromRoute(null, $routeParams);
 		$params = array();
 		$k = $this->params()->fromQuery('k' , '');
-		
-		if($k){
+		if ($this->params()->fromQuery('status' , '')) {
+		  $params['status'] = $this->params()->fromQuery('status' , '');
+		}
+		if ($this->params()->fromQuery('type' , '')) {
+		    $params['type'] = $this->params()->fromQuery('type' , '');
+		}
+		if(!empty($k)){
 		    $params['k']  = $k;
 		}
 		
@@ -367,6 +372,7 @@ class MemberController extends AbstractActionController
 		    'filterQuery' => http_build_query($noFilterParams),
 		    'order' => $order,
 		    'k' => $k,
+		    'params' => $params
 		);
 		return $assign;
 	}

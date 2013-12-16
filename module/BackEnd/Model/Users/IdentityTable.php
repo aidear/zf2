@@ -102,8 +102,11 @@ class IdentityTable extends TableGateway
             	    break;
             }
         }
-        if (isset($data['Gender'])) {
-            $where->equalTo('Gender', $data['Gender']);
+        if (isset($data['status'])) {
+            $where->equalTo('identity_record.status', $data['status']);
+        }
+        if (isset($data['type'])) {
+            $where->equalTo('identity_record.type', $data['type']);
         }
         $this->select->where($where);
         return $this;
