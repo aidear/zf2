@@ -100,6 +100,65 @@ $params = $this->params;
                     <?php endif;?></th>
                 </tr>
             </thead>
+            <tfoot>
+                <tr class="row">
+                	<th>全选<input type="checkbox" name="select_all" value="all"/></th>
+                	<th>编号</th>
+                    <th>
+                    <?php if (isset($this->order['UserName'])):?>
+                    <?php $name = $this->order['UserName'];?>
+                    <a href="<?php echo $name['href'];?>">用户名<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	用户名
+                    <?php endif;?>
+                    </th>
+                    <th>
+                    <?php if (isset($this->order['type'])):?>
+                    <?php $name = $this->order['type'];?>
+                    <a href="<?php echo $name['href'];?>">认证类型<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	认证类型
+                    <?php endif;?></th>
+                    <th>
+                    <?php if (isset($this->order['name'])):?>
+                    <?php $name = $this->order['name'];?>
+                    <a href="<?php echo $name['href'];?>">真实姓名/公司名称<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	真实姓名/公司名称
+                    <?php endif;?></th>
+                    <th>
+                    <?php if (isset($this->order['code'])):?>
+                    <?php $name = $this->order['code'];?>
+                    <a href="<?php echo $name['href'];?>">身份证号码/组织代码机构<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	身份证号码/组织代码机构
+                    <?php endif;?>              
+                    </th>
+                    <th>
+                    <?php if (isset($this->order['addTime'])):?>
+                    <?php $name = $this->order['addTime'];?>
+                    <a href="<?php echo $name['href'];?>">申请时间<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	申请时间
+                    <?php endif;?>
+                    </th>
+                    <th key="status" editable="true">
+                    <?php if (isset($this->order['status'])):?>
+                    <?php $name = $this->order['status'];?>
+                    <a href="<?php echo $name['href'];?>">审核状态<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	审核状态
+                    <?php endif;?>              
+                    </th>
+                    <th>
+                    <?php if (isset($this->order['lastApproved'])):?>
+                    <?php $name = $this->order['lastApproved'];?>
+                    <a href="<?php echo $name['href'];?>">批准时间<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	批准时间
+                    <?php endif;?></th>
+                </tr>
+            </tfoot>
             <tbody>
                 <?php if(count($this->records) > 0):?>
                 <?php $startNumber = $this->startNumber;foreach($this->records as $r):?>

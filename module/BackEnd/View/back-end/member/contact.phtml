@@ -113,6 +113,60 @@ $msg = $this->flashMessages();
                    </th>
                 </tr>
             </thead>
+            <tfoot>
+                <tr class="row">
+	                <th>全选<input type="checkbox" name="select_all" value="all"/></th>
+	                <th>编号</th>
+                    <th key="UserName" editable="true">
+                    <?php if (isset($this->order['UserName'])):?>
+                    <?php $name = $this->order['UserName'];?>
+                    <a href="<?php echo $name['href'];?>">用户名<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	用户名
+                    <?php endif;?>
+                    </th>
+                    <th key="Email" editable="true">
+                     <?php if (isset($this->order['Email'])):?>
+                    <?php $name = $this->order['Email'];?>
+                    <a href="<?php echo $name['href'];?>">邮箱<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	邮箱
+                    <?php endif;?>
+ 					</th>
+                    <th key="Mobile" editable="true">
+       <?php if (isset($this->order['Mobile'])):?>
+                    <?php $name = $this->order['Mobile'];?>
+                    <a href="<?php echo $name['href'];?>"> 手机<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	 手机
+                    <?php endif;?>             
+                   </th>
+                   <th key="Tel" editable="true">
+       <?php if (isset($this->order['Tel'])):?>
+                    <?php $name = $this->order['Tel'];?>
+                    <a href="<?php echo $name['href'];?>"> 电话<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	 电话
+                    <?php endif;?>             
+                   </th>
+                   <th key="QQ" editable="true">
+       <?php if (isset($this->order['QQ'])):?>
+                    <?php $name = $this->order['QQ'];?>
+                    <a href="<?php echo $name['href'];?>"> QQ<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	 QQ
+                    <?php endif;?>             
+                   </th>
+                   <th key="MSN" editable="true">
+       <?php if (isset($this->order['MSN'])):?>
+                    <?php $name = $this->order['MSN'];?>
+                    <a href="<?php echo $name['href'];?>"> MSN<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	 MSN
+                    <?php endif;?>             
+                   </th>
+                </tr>
+            </tfoot>
             <tbody>
                 <?php $startNumber = $this->startNumber;foreach ($this->paginaction as $user): ?>
                     <tr class="row" primary_value="<?php echo $user->UserID; ?>">
@@ -127,6 +181,7 @@ $msg = $this->flashMessages();
                     </tr>
                 <?php endforeach; ?>
             </tbody>
+            
         </table>
         <?php echo $this->paginationControl($this->paginaction,'Sliding','layout/pagination' , array('link' 
             => $this->url('backend' , array('controller' => 'member' , 'action' => 'index')).'?'.$this->query));?>

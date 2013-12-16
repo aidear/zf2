@@ -25,7 +25,7 @@ return array (
 	        array(
         		'label' => '帐号权限',
         		'controller' => 'acl',
-	        	'order' => 1,
+	        	'order' => 15,
         		'pages' => array(
         				array (
         						'label' => '角色管理',
@@ -45,9 +45,22 @@ return array (
         		)
 			),
 			array(
+					'label' => '网站管理',
+					'controller' => 'site',
+					'order' => 10,
+					'pages' => array(
+							array(
+									'label' => '网站统计',
+									'controller' => 'site',
+									'action' => 'index',
+									'resource' => 'site_index',
+							)
+					)
+			),
+			array(
 					'label' => '会员管理',
 					'controller' => 'user',
-					'order' => 0,
+					'order' => 10,
 					'pages' => array(
 							array(
 									'label' => '会员列表',
@@ -91,7 +104,7 @@ return array (
 			array(
 					'label' => '系统设置',
 					'controller' => 'config',
-					'order' => 3,
+					'order' => 30,
 					'pages' => array(
 							array(
 									'label' => '基本设置',
@@ -123,7 +136,7 @@ return array (
 			array(
 					'label' => '导航管理',
 					'controller' => 'nav',
-					'order' => 3,
+					'order' => 24,
 					'pages' => array(
 							array(
 									'label' => '顶级分类',

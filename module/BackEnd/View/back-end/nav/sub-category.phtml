@@ -108,6 +108,60 @@ $msg = $this->flashMessages();
                     	</th>
                 </tr>
             </thead>
+            <tfoot>
+                <tr class="row">
+                	<th>全选<input type="checkbox" name="select_all" value="all"/></th>
+                    <th>编号</th>
+                    <th>上级分类</th>
+                    <th key="name" editable="true">
+                    <?php if (isset($this->order['name'])):?>
+                    <?php $name = $this->order['name'];?>
+                    <a href="<?php echo $name['href'];?>">分类名称<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	分类名称
+                    <?php endif;?>
+                    </th>
+                    <th>
+                    <?php if (isset($this->order['subLinkCount'])):?>
+                    <?php $name = $this->order['subLinkCount'];?>
+                    <a href="<?php echo $name['href'];?>">网址个数<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	网址个数
+                    <?php endif;?>
+                    </th>
+                    <th key="isShow" editable="true">
+                    <?php if (isset($this->order['isShow'])):?>
+                    <?php $name = $this->order['isShow'];?>
+                    <a href="<?php echo $name['href'];?>">是否显示<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	是否显示
+                    <?php endif;?>
+                    <th key="order" editable="true">
+                    <?php if (isset($this->order['order'])):?>
+                    <?php $name = $this->order['order'];?>
+                    <a href="<?php echo $name['href'];?>">排序<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	排序
+                    <?php endif;?>
+                    	</th>
+                    <th>
+                    <?php if (isset($this->order['updateTime'])):?>
+                    <?php $name = $this->order['updateTime'];?>
+                    <a href="<?php echo $name['href'];?>">更新时间<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	更新时间
+                    <?php endif;?>
+                    	</th>
+                    	 <th>
+                    <?php if (isset($this->order['updateUser'])):?>
+                    <?php $name = $this->order['updateUser'];?>
+                    <a href="<?php echo $name['href'];?>">更新人<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	更新人
+                    <?php endif;?>
+                    	</th>
+                </tr>
+            </tfoot>
             <tbody>
                 <?php $startNumber = $this->startNumber;foreach ($this->navList as $nav): ?>
                     <tr class="row" primary_value="<?php echo $nav['id']; ?>">

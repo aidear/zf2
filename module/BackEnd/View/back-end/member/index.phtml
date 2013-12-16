@@ -129,6 +129,76 @@ $msg = $this->flashMessages();
                     </th>
                 </tr>
             </thead>
+            <tfoot>
+            <tr class="row">
+	                <th>全选<input type="checkbox" name="select_all" value="all"/></th>
+	                <th>编号</th>
+                    <th key="UserName" editable="true">
+                    <?php if (isset($this->order['UserName'])):?>
+                    <?php $name = $this->order['UserName'];?>
+                    <a href="<?php echo $name['href'];?>">用户名<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	用户名
+                    <?php endif;?>
+                    </th>
+                    <th key="Email" editable="true">
+                     <?php if (isset($this->order['Email'])):?>
+                    <?php $name = $this->order['Email'];?>
+                    <a href="<?php echo $name['href'];?>">邮箱<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	邮箱
+                    <?php endif;?>
+ 					</th>
+                    <th key="Mobile" editable="true">
+       <?php if (isset($this->order['Mobile'])):?>
+                    <?php $name = $this->order['Mobile'];?>
+                    <a href="<?php echo $name['href'];?>"> 手机<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	 手机
+                    <?php endif;?>             
+                   </th>
+                    <th key="Nick" editable="true">
+       <?php if (isset($this->order['Nick'])):?>
+                    <?php $name = $this->order['Nick'];?>
+                    <a href="<?php echo $name['href'];?>">昵称<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	昵称
+                    <?php endif;?>             
+                    </th>
+                    <th key="Points" editable="true">
+                    <?php if (isset($this->order['Points'])):?>
+                    <?php $name = $this->order['Points'];?>
+                    <a href="<?php echo $name['href'];?>">积分<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	积分
+                    <?php endif;?>
+                    	</th>
+                    <th>
+      <?php if (isset($this->order['LastLogin'])):?>
+                    <?php $name = $this->order['LastLogin'];?>
+                    <a href="<?php echo $name['href'];?>"> 最后登录时间<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	 最后登录时间
+                    <?php endif;?>              
+                   </th>
+                    <th>
+      <?php if (isset($this->order['LoginCount'])):?>
+                    <?php $name = $this->order['LoginCount'];?>
+                    <a href="<?php echo $name['href'];?>"> 登录次数<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	登录次数
+                    <?php endif;?>              
+                    </th>
+                    <th>
+      <?php if (isset($this->order['LastUpdate'])):?>
+                    <?php $name = $this->order['LastUpdate'];?>
+                    <a href="<?php echo $name['href'];?>"> 最后修改时间<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	最后修改时间
+                    <?php endif;?>              
+                    </th>
+                </tr>
+            </tfoot>
             <tbody>
                 <?php $startNumber = $this->startNumber;foreach ($this->paginaction as $user): ?>
                     <tr class="row" primary_value="<?php echo $user->UserID; ?>">

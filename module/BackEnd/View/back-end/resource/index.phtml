@@ -26,6 +26,17 @@
                     <th>添加时间</th>
                 </tr>
             </thead>
+            <tfoot>
+                <tr class="row">
+                	<th>全选<input type="checkbox" name="select_all" value="all"/></th>
+                    <th>资源名</th>
+                    <th>控制器名</th>
+                    <th>控制器别名</th>
+                    <th>动作名</th>
+                    <th>动作别名</th>
+                    <th>添加时间</th>
+                </tr>
+            </tfoot>
             <tbody>
                 <?php if(count($this->paginaction) > 0):?>
                 <?php foreach($this->paginaction as $resource):?>

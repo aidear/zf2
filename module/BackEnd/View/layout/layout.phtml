@@ -49,7 +49,8 @@
                  </div>
             </div>
 </div>
-<script type="text/javascript"> 
+<script type="text/javascript">
+var tabCode = '<?php echo $this->tabCode;?>';
 //clientHeight-0; 空白值 iframe自适应高度
 function windowW(){
 	if($(window).width()<980){
@@ -158,6 +159,37 @@ $(window).load(function(){
 $(function(){
 	var pW = $('.box').width();
 	$('.box-header').width(pW+'px').addClass('button_stay');
+	if ($("#leftMain ul li.on").size() == 0) {
+		switch (tabCode) {
+		case 'member_save':
+		case 'member_pwd':
+		case 'member_sendMail':
+			$("#leftMain ul li[tabcode='member_index']").addClass('on fb blue');
+			break;
+		case 'acl_allow':
+			$("#leftMain ul li[tabcode='role_']").addClass('on fb blue');
+			break;
+		case 'resource_updateResource':
+			$("#leftMain ul li[tabcode='resource_']").addClass('on fb blue');
+			break;
+		case 'user_save':
+			$("#leftMain ul li[tabcode='user_']").addClass('on fb blue');
+			break;
+		case 'nav_save':
+			$("#leftMain ul li[tabcode='nav_category']").addClass('on fb blue');
+			break;
+		case 'nav_subCategory':
+		case 'nav_saveSub':
+			$("#leftMain ul li[tabcode='nav_subCategory']").addClass('on fb blue');
+			break;
+		case 'nav_saveSub':
+		case 'nav_addItem':
+			$("#leftMain ul li[tabcode='nav_items']").addClass('on fb blue');
+			break;
+		default:
+			break;
+		}
+	}
 })	
 </script>
 </body>

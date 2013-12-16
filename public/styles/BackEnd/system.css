@@ -127,6 +127,7 @@ body fieldset.blue legend{padding:3px 8px;font-weight:700;color:#347add; backgro
 /*index styles*/
 table.menu-collapse {width:100%;}
 table.menu-collapse td {padding:4px;}
+table tfoot th { border-top:1px solid #ddd;}
 .menu-collapse td > div { border:1px solid #000; border-radius:4px;-moz-border-radius:4px; background-color:#e6e6e6;background-image: -moz-linear-gradient(top, #ffffff, #ffffff 25%, #e6e6e6);filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#e6e6e6', GradientType=0);text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
 color: #333;
 line-height: 150%;

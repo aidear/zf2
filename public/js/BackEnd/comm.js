@@ -59,6 +59,8 @@ function setcookie(cookieName, cookieValue, seconds, path, domain, secure) {
 	+ (secure ? '; secure' : '');
 }
 $(function(){
+	$(".btn-return").attr("href", 'javascript:;');
+	$(".btn-return").click(function(){history.go(-1);});
 	$("html").click(function(e){
 		e = window.event || e;
 		if (!$(e.srcElement || e.target).is('#RobPub1Editor *,#table1 *')) {

@@ -7,7 +7,7 @@
     	 <h3 class="f14"><span class="switchs cu on" title="<?php echo $page->label;?>"></span><?php echo $page->label;?></h3>
             <ul>
         <?php elseif (1 < $depth):?>
-        	<li id="_MP<?php echo $k;?>" class="sub_menu<?php echo $page->isActive ? " on fb blue" : '';?>">
+        	<li id="_MP<?php echo $k;?>" tabCode="<?php echo $page->getController().'_'.$page->getAction();?>" class="sub_menu<?php echo $page->isActive ? " on fb blue" : '';?>">
                 	<a href="<?php echo $page->getHref();?>" hidefocus="true" style="outline:none;"><?php echo $page->label;?></a></li>
         
         <?php endif;?>
