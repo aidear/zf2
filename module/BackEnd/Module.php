@@ -123,7 +123,9 @@ class Module
 		if (!($viewModel->terminate())) {
 			$viewModel->setVariables($queryParams);
 			$translator = $e->getApplication()->getServiceManager()->get('translator');
-			$viewModel->setVariables(array('tabName' => $translator->translate('menu_'.$controller)));
+			$viewModel->setVariables(array('tabName' => $translator->translate($controller.'_'.$action),
+			    'tabCode' => $controller.'_'.$action
+			));
 		}
 	}
     public function getAutoloaderConfig()

@@ -268,15 +268,35 @@ return array(
     "index" => "首页",
     "member" => '会员管理',
     "menu_Index" => '管理中心',
-    'menu_member_index' => '会员列表',
-    'menu_member_contact' => '通讯录',
-    'menu_member_all' => '全息表',
-    'menu_member_identity' => '身份认证',
+    'member_index' => '会员列表',
+    'member_save' => '会员列表',
+    'member_pwd' => '会员列表',
+    'member_sendMail' => '会员列表',
+    'member_contact' => '通讯录',
+    'member_all' => '全息表',
+    'member_identity' => '身份认证',
     
-    'menu_role' => '角色管理',
-    'menu_resource' => '资源管理',
-    'menu_user' => '帐号管理',
+    'role_index' => '角色管理',
+    'role_save' => '角色管理',
+    'acl_allow' => '角色管理',
+    
+    'resource_index' => '资源管理',
+    'resource_save' => '资源管理',
+    'resource_updateResource' => '资源管理',
+    
+    'user_index' => '帐号管理',
+    'user_save' => '帐号管理',
     'menu_identity' => '身份认证',
-    'menu_nav' => '顶级分类',
-    'menu_config' => '系统设置',
+    
+    'nav_category' => '顶级分类',
+    'nav_save' => '顶级分类',
+    
+    'nav_subCategory' => '二级分类',
+    'nav_saveSub' => '二级分类',
+    
+    'nav_items' => '网址库',
+    'nav_addItem' => '网址库',
+    
+    'config_index' => '基本设置',
+    'config_mail' => '邮件服务器',
 );
