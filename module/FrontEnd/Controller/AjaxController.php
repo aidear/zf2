@@ -106,7 +106,7 @@ class AjaxController extends AbstractActionController
 				$rs = array();
 				$area = $this->params()->fromPost('area');
 				$area = Utilities::unescape($area);
-				$area = str_replace(array('区','县'), '', $area);
+				$area = str_replace(array('市', '区','县'), '', $area);
 				$py = Utilities::Pinyin($area, 1);
 				$url = 'http://a1.tianqi.com/index.php?c=other&a=json';
 				if ($py) {

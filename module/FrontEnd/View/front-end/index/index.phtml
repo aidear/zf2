@@ -293,15 +293,15 @@ $(function() {
 		success:function(s) {
 			if (s.day_1) {
 				$("#day_1 .wtpic").html(s.day_1.img);
-				$("#day_1 .wt1 .wtline").eq(1).html(s.day_1.temp[0]+'～'+s.day_1.temp[1]);
+				$("#day_1 .wt1 .wtline").eq(1).html(s.day_1.temp[1]+'～'+s.day_1.temp[0]);
 			}
 			if (s.day_2) {
 				$("#day_2 .wtpic").html(s.day_2.img);
-				$("#day_2 .wt1 .wtline").eq(1).html(s.day_2.temp[0]+'～'+s.day_2.temp[1]);
+				$("#day_2 .wt1 .wtline").eq(1).html(s.day_2.temp[1]+'～'+s.day_2.temp[0]);
 			}
 			if (s.day_3) {
 				$("#day_3 .wtpic").html(s.day_3.img);
-				$("#day_3 .wt1 .wtline").eq(1).html(s.day_3.temp[0]+'～'+s.day_3.temp[1]);
+				$("#day_3 .wt1 .wtline").eq(1).html(s.day_3.temp[1]+'～'+s.day_3.temp[0]);
 			}
 		}
 	});
