@@ -17,10 +17,10 @@ $params = $this->params;
                     </select>
 <!--                 	<label>审核</label> -->
                     <select name="status">
-                        <option value="">审核状态筛选</option>
-                        <option value="0" <?php echo isset($params['status']) && $params['status']==0 ? 'selected=selected' : '';?>>审核中</option>
-                        <option value="1" <?php echo isset($params['status']) && $params['status']==1 ? 'selected=selected' : '';?>>已审核</option>
-                        <option value="2" <?php echo isset($params['status']) && $params['status']==2 ? 'selected=selected' : '';?>>未通过</option>
+                        <option value="no" <?php echo ((isset($params['status']) && $params['status']=='no') || (!isset($params['status']))) ? 'selected=selected' : '';?>>审核状态筛选</option>
+                        <option value="0" <?php echo isset($params['status']) && $params['status']=='0' ? 'selected=selected' : '';?>>未审核</option>
+                        <option value="1" <?php echo isset($params['status']) && $params['status']=='1' ? 'selected=selected' : '';?>>已审核</option>
+                        <option value="2" <?php echo isset($params['status']) && $params['status']=='2' ? 'selected=selected' : '';?>>未通过</option>
                     </select>
                     <input autocomplete="off" class="input-element span3" value="<?php echo isset($this->k) ? $this->k : '';?>" name="k" type="text">
                     

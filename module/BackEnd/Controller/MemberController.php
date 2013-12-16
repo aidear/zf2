@@ -309,7 +309,7 @@ class MemberController extends AbstractActionController
 		$prefixUrl = $this->url()->fromRoute(null, $routeParams);
 		$params = array();
 		$k = $this->params()->fromQuery('k' , '');
-		if ($this->params()->fromQuery('status' , '')) {
+		if (($this->params()->fromQuery('status' , '') && $this->params()->fromQuery('status' , '') != 'no') || $this->params()->fromQuery('status' , '') == 0) {
 		  $params['status'] = $this->params()->fromQuery('status' , '');
 		}
 		if ($this->params()->fromQuery('type' , '')) {
@@ -340,9 +340,9 @@ class MemberController extends AbstractActionController
 		$paginaction->setItemCountPerPage($pageSize ? $pageSize : self::LIMIT);
 		$idRecords = $paginaction->getCurrentItems()->toArray();
 		$startNumber = 1+($page-1)*$paginaction->getItemCountPerPage();
-		foreach ($idRecords as $k=>$v) {
+		foreach ($idRecords as $key=>$v) {
 // 			$idRecords[$k]['UserName'] = $member->getUserNameByID($v['user_id']);
-			$idRecords[$k]['type_name'] = $v['type'] == 1 ? '个人' : '企业';
+			$idRecords[$key]['type_name'] = $v['type'] == 1 ? '个人' : '企业';
 			$check_desc = '<span class="red">未审核</span>';
 			switch($v['status']) {
 				case 1:
@@ -354,7 +354,7 @@ class MemberController extends AbstractActionController
 				default:
 					break;
 			}
-			$idRecords[$k]['check_desc'] = $check_desc;
+			$idRecords[$key]['check_desc'] = $check_desc;
 		}
 		$url = '/member/identity';
 		if ($pageSize) {
