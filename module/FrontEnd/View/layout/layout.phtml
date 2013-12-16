@@ -188,14 +188,13 @@ echo "周".$weekarray[date("w")]; ?></span></li>
 
 $(function(){
 // 	initial();
-	$(".lunar").hover(function(){
-		$(".Calendar").slideDown();
-// 		var t = $(this).offset();
-// 		$(".Calendar").css({position:'absolute',left:t.left+'px',top:t.top+'px'}).slideDown();
-	},
-	function() {
+// 	$(".lunar").hover(function(){
+// 		$(".Calendar").slideDown();
+// 	},
+// 	function() {
 // 		$(".Calendar").slideUp();
-	});
+// 	});
+	$(".lunar *").click(function(){$(".Calendar").slideDown();});
 	$(".Calendar").hover(function(e){
 		e = window.event || e;
 		if (!$(e.srcElement || e.target).is('.tq .lunar *,.Calendar *, #sy *')) {
