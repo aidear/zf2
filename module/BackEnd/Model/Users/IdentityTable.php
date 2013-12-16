@@ -4,10 +4,12 @@ namespace BackEnd\Model\Users;
 use Custom\Paginator\Adapter\DbSelect;
 use Zend\Db\Sql\Where;
 use Zend\Db\TableGateway\TableGateway;
+use Zend\Db\Sql\Predicate\Like;
 
 class IdentityTable extends TableGateway
 {
     protected $table = "identity_record";
+    protected $select;
     function getPage(){
     	$select = $this->getSql()->select();
     	$select->order("status ASC,addTime DESC");
@@ -67,5 +69,60 @@ class IdentityTable extends TableGateway
     	$rowset = $this->select(array('user_id' => $id));
     	$row = $rowset->current();
     	return $row;
+    }
+    function formatWhere(array $data){
+        $where = $this->_getSelect()->where;
+        if(!empty($data['k'])){
+            $where->like('member.UserName', '%' . $data['k'] . '%')->orPredicate(new Like('name', '%' . $data['k'] . '%'))
+            ->orPredicate(new Like('code', '%' . $data['k'] . '%'));
+        }
+        $this->select->join('member', 'identity_record.user_id=member.UserID', 'UserName');
+        if (isset($data['Points'])) {
+            $sep = explode('|', $data['Points']);
+            $field = $sep[0];
+            $than = $sep[1];
+            $v = $sep[2];
+            switch($than) {
+            	case 'than':
+            	    $where->greaterThan($field, $v);
+            	    break;
+            	case 'lthan':
+            	    $where->lessThan($field, $v);
+            	    break;
+            	case 'nequal':
+            	    $where->equalTo($field, $v);
+            	    break;
+            	case 'sthan':
+            	    $where->lessThanOrEqualTo($field, $v);
+            	    break;
+            	case 'bthan':
+            	    $where->bthan($field, $v);
+            	    break;
+            	default:
+            	    break;
+            }
+        }
+        if (isset($data['Gender'])) {
+            $where->equalTo('Gender', $data['Gender']);
+        }
+        $this->select->where($where);
+        return $this;
+    }
+    public function getListToPaginator($order = array())
+    {
+        $select = $this->_getSelect();
+        if (!empty($order)) {
+            $select->order($order);
+        } else {
+            $select->order(array('status' => 'DESC'));
+        }//echo str_replace('"', '', $select->getSqlString());die;
+    
+        return new DbSelect($select, $this->getAdapter());
+    }
+    protected function _getSelect(){
+        if(!isset($this->select)){
+            $this->select = $this->getSql()->select();
+        }
+        return $this->select;
     }
 }

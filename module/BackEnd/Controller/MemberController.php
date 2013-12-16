@@ -190,6 +190,18 @@ class MemberController extends AbstractActionController
 		$paginator->setCurrentPageNumber($page)->setItemCountPerPage(isset($params['pageSize']) ? $params['pageSize'] : self::LIMIT);
 		return $paginator;
 	}
+	private function _getIdentityPaginator($params)
+	{
+	    $page = isset($params['page']) ? $params['page'] : 1;
+	    $order = array();
+	    if ($params['orderField']) {
+	        $order = array($params['orderField'] => $params['orderType']);
+	    }
+	    $table = $this->_getTable('IdentityTable');
+	    $paginator = new Paginator($table->formatWhere($params)->getListToPaginator($order));
+	    $paginator->setCurrentPageNumber($page)->setItemCountPerPage(isset($params['pageSize']) ? $params['pageSize'] : self::LIMIT);
+	    return $paginator;
+	}
 	public function saveAction()
 	{
 		$requery = $this->getRequest();
@@ -293,15 +305,38 @@ class MemberController extends AbstractActionController
 	{
 		$page = $this->params()->fromQuery('page' ,1);
 		$pageSize = $this->params()->fromQuery('pageSize');
+		$routeParams = array('controller' => 'member' , 'action' => 'identity');
+		$prefixUrl = $this->url()->fromRoute(null, $routeParams);
+		$params = array();
+		$k = $this->params()->fromQuery('k' , '');
+		
+		if($k){
+		    $params['k']  = $k;
+		}
+		
+		$params['orderField'] = $this->params()->fromQuery('orderField', '');
+		$params['orderType'] = $this->params()->fromQuery('orderType', '');
+		if ($this->params()->fromQuery('pageSize')) {
+		    $params['pageSize'] = $this->params()->fromQuery('pageSize');
+		}
+		$noFilterParams = $params;
+		
+		$removePageParams = $params;
+		
+		$params['page'] = $this->params()->fromQuery('page' , 1);
+		
+		$orderPageParams = $params;
+		
 		$table = $this->_getTable('IdentityTable');
 		$member = $this->_getTable('MemberTable');
-		$paginaction = new Paginator($table->getPage());
+// 		$paginaction = new Paginator($table->getPage());
+		$paginaction = $this->_getIdentityPaginator($params);
 		$paginaction->setCurrentPageNumber($page);
 		$paginaction->setItemCountPerPage($pageSize ? $pageSize : self::LIMIT);
 		$idRecords = $paginaction->getCurrentItems()->toArray();
 		$startNumber = 1+($page-1)*$paginaction->getItemCountPerPage();
 		foreach ($idRecords as $k=>$v) {
-			$idRecords[$k]['UserName'] = $member->getUserNameByID($v['user_id']);
+// 			$idRecords[$k]['UserName'] = $member->getUserNameByID($v['user_id']);
 			$idRecords[$k]['type_name'] = $v['type'] == 1 ? '个人' : '企业';
 			$check_desc = '<span class="red">未审核</span>';
 			switch($v['status']) {
@@ -320,7 +355,20 @@ class MemberController extends AbstractActionController
 		if ($pageSize) {
 			$url .= "?pageSize=".$pageSize;
 		}
-		return array('paginaction' => $paginaction, 'records' => $idRecords, 'startNumber' => $startNumber);
+		
+		$order = $this->_getOrder($prefixUrl, array('UserName', 'type', 'name', 'code', 'status', 'addTime', 'lastApproved'), $removePageParams);
+		
+		$assign = array(
+		    'paginaction' => $paginaction,
+		    'records' => $idRecords,
+		    'startNumber' => $startNumber,
+		    'orderQuery' => http_build_query($orderPageParams),
+		    'query' => http_build_query($removePageParams),
+		    'filterQuery' => http_build_query($noFilterParams),
+		    'order' => $order,
+		    'k' => $k,
+		);
+		return $assign;
 	}
 	function pwdAction()
 	{

@@ -1,7 +1,19 @@
 <div class="box">
     <div class="box-header">
-        <h2><i class="icon-box"></i>身份认证</h2>
+<!--         <h2><i class="icon-box"></i>身份认证</h2> -->
         <div class="t_top">
+        <div class="t_inline">
+        	<form class="form-inline" action="<?php echo $this->url('backend', array('controller' 
+            => 'member', 'action' => 'identity')); ?>" method="get">
+                <div class="input-group">
+                    <input autocomplete="off" class="input-element span3" value="<?php echo isset($this->k) ? $this->k : '';?>" name="k" type="text">
+                    
+                <button class="button-element" type="submit">搜索</button>
+                
+<!--                 <button class="button-element" type='button' id="selector">筛选</button> -->
+                </div>
+        	</form>
+        	</div>
         <p class="t_right">
      <a class="btn btn-success" id="chk_Approved" key='1' href="javascript:;">
         <i class="icon-plus"></i>审核通过</a>
@@ -17,13 +29,59 @@
                 <tr class="row">
                 	<th>全选<input type="checkbox" name="select_all" value="all"/></th>
                 	<th>编号</th>
-                    <th>用户名</th>
-                    <th>认证类型</th>
-                    <th>真实姓名/公司名称</th>
-                    <th>身份证号码/组织代码机构</th>
-                    <th>申请时间</th>
-                    <th key="status" editable="true">审核状态</th>
-                    <th>批准时间</th>
+                    <th>
+                    <?php if (isset($this->order['UserName'])):?>
+                    <?php $name = $this->order['UserName'];?>
+                    <a href="<?php echo $name['href'];?>">用户名<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	用户名
+                    <?php endif;?>
+                    </th>
+                    <th>
+                    <?php if (isset($this->order['type'])):?>
+                    <?php $name = $this->order['type'];?>
+                    <a href="<?php echo $name['href'];?>">认证类型<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	认证类型
+                    <?php endif;?></th>
+                    <th>
+                    <?php if (isset($this->order['name'])):?>
+                    <?php $name = $this->order['name'];?>
+                    <a href="<?php echo $name['href'];?>">真实姓名/公司名称<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	真实姓名/公司名称
+                    <?php endif;?></th>
+                    <th>
+                    <?php if (isset($this->order['code'])):?>
+                    <?php $name = $this->order['code'];?>
+                    <a href="<?php echo $name['href'];?>">身份证号码/组织代码机构<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	身份证号码/组织代码机构
+                    <?php endif;?>              
+                    </th>
+                    <th>
+                    <?php if (isset($this->order['addTime'])):?>
+                    <?php $name = $this->order['addTime'];?>
+                    <a href="<?php echo $name['href'];?>">申请时间<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	申请时间
+                    <?php endif;?>
+                    </th>
+                    <th key="status" editable="true">
+                    <?php if (isset($this->order['status'])):?>
+                    <?php $name = $this->order['status'];?>
+                    <a href="<?php echo $name['href'];?>">审核状态<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	审核状态
+                    <?php endif;?>              
+                    </th>
+                    <th>
+                    <?php if (isset($this->order['lastApproved'])):?>
+                    <?php $name = $this->order['lastApproved'];?>
+                    <a href="<?php echo $name['href'];?>">批准时间<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	批准时间
+                    <?php endif;?></th>
                 </tr>
             </thead>
             <tbody>
