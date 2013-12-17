@@ -83,3 +83,27 @@ CREATE TABLE `admin_log` (
   KEY `usr` (`user_id`,`user_name`),
   KEY `opt_type` (`opt_type`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+/**
+ *12/17/2013
+ */
+CREATE TABLE `project`.`pro_rule_type` (
+  `id` TINYINT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '自增',
+  `type_name` VARCHAR (60) NOT NULL COMMENT '规则名称',
+  `enable` TINYINT (1) UNSIGNED NOT NULL DEFAULT 1 COMMENT '是否启用',
+  `add_time` DATETIME NOT NULL COMMENT '添加时间',
+  PRIMARY KEY (`id`)
+) ENGINE = MYISAM CHARSET = utf8 COLLATE = utf8_general_ci ;
+
+CREATE TABLE `pro_rule` (
+  `id` smallint(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增ID',
+  `rule_id` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '规则分类',
+  `points` varchar(10) NOT NULL DEFAULT '0' COMMENT '积分值',
+  `start_time` datetime DEFAULT NULL COMMENT '开始时间',
+  `end_time` datetime DEFAULT NULL COMMENT '结束时间',
+  `is_active` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '是否激活',
+  `add_time` datetime NOT NULL COMMENT '添加时间',
+  `last_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '最后修改时间',
+  PRIMARY KEY (`id`),
+  KEY `rule` (`rule_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
