@@ -85,11 +85,16 @@ class LinkTable extends TableGateway
     function deleteMuti($where) {
     	return parent::delete($where);
     }
-    
+    function updateDelCateLink($cid = array())
+    {
+    	$where = $this->getSql()->select()->where;
+    	$where->in('category', $cid);
+    	return parent::update(array('category' => 0), $where);
+    }
 	function save(Link $link){
         $link = $link->toArray();
         unset($link['inputFilter']);
-        unset($link['imgUrl']);
+        unset($link['icon']);
         if(empty($link['id'])){
             $rowset = $this->select(array('title' => $link['title']));
             if($rowset->count() < 1){
@@ -120,7 +125,7 @@ class LinkTable extends TableGateway
     	return $this->update($fields, array('UserID' => $id));
     }
     public function updateImage($id , $imageFile){
-    	return $this->update(array('imgUrl' => $imageFile) , array('id' => (int)$id));
+    	return $this->update(array('icon' => $imageFile) , array('id' => (int)$id));
     }
     
     public function checkExist($attr, $UserID = 0)

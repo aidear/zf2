@@ -16,11 +16,13 @@
                             )
                       )
                       ->prependStylesheet($this->basePath() . '/styles/BackEnd/reset.css')
-                      ->prependStylesheet($this->basePath() . '/styles/BackEnd/system.css');
+                      ->prependStylesheet($this->basePath() . '/styles/BackEnd/system.css')
+            		  ->appendStylesheet('http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css');
         ?>
         
         <?php
         echo $this->headScript()->prependFile($this->basePath('js/BackEnd/comm.js'))
+        ->prependFile($this->basePath('js/jquery-ui-1.10.2.custom.min.js'))
         ->prependFile($this->basePath('js/BackEnd/bootstrap.min.js'))
             ->prependFile($this->basePath('js/jquery.min.js'));
        ?>

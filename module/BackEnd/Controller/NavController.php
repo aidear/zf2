@@ -180,38 +180,53 @@ class NavController extends AbstractActionController
 			$params = $req->getPost();
 			$navCategory = new NavCategory();
 			$form->bind($navCategory);
+			$File = $this->params()->fromFiles('imgUrl');
+			$params->imgUrl = $File['name'];
 			$form->setData($params);
 			if ($form->isValid()) {
-				$params = $form->getData();
-				
-				$navCategory->id = $params->id;
-				$navCategory->name = $params->name;
-				$navCategory->desc = $params->desc;
-				$navCategory->keyword = $params->keyword;
-				$navCategory->parentID = $params->parentID;
-				$navCategory->isShow = $params->isShow;
-				$navCategory->order = $params->order;
-				if ($params->id) {
-					$navCategory->addTime = Utilities::getDateTime();
-				}
-				$navCategory->updateTime = Utilities::getDateTime();
-				$container = $this->_getSession();
-				$navCategory->updateUser = $container->Name;
-				
-				$navCategory->catPath = $navCategoryTable->getPathByParent($navCategory->parentID);
-				$id = $navCategoryTable->save($navCategory);
-				
-				//插入图片
-				$navCategory->imgUrl = $this->_insertImg($navCategory->id ? $navCategory->id : $id);
-				//更新表
-				if($navCategory->imgUrl){
-					$this->_updateNavImage($navCategory->id ? $navCategory->id : $id , $navCategory->imgUrl );
-				}
-				$this->_message('保存成功！');
-				if ($navCategory->parentID) {
-					return $this->redirect()->toRoute('backend' , array('controller' => 'nav' , 'action' => 'subCategory'));
+				$size = new \Zend\Validator\File\Size(array('min' => 0,'max' => '255kB'));
+				$adapter = new \Zend\File\Transfer\Adapter\Http();
+				$adapter->setValidators(array($size), $File['name']);
+				if (!$adapter->isValid() && !empty($params->imgUrl)){
+					$dataError = $adapter->getMessages();
+					$error = array();
+					foreach($dataError as $key=>$row)
+					{
+						$error[] = $row;
+					}
+					$form->setMessages(array('imgUrl'=>$error ));
 				} else {
-					return $this->redirect()->toRoute('backend' , array('controller' => 'nav' , 'action' => 'category'));
+					$params = $form->getData();
+					
+					$navCategory->id = $params->id;
+					$navCategory->name = $params->name;
+					$navCategory->desc = $params->desc;
+					$navCategory->keyword = $params->keyword;
+					$navCategory->parentID = $params->parentID;
+					$navCategory->isShow = $params->isShow;
+					$navCategory->order = $params->order;
+					if ($params->id) {
+						$navCategory->addTime = Utilities::getDateTime();
+					}
+					$navCategory->updateTime = Utilities::getDateTime();
+					$container = $this->_getSession();
+					$navCategory->updateUser = $container->Name;
+					
+					$navCategory->catPath = $navCategoryTable->getPathByParent($navCategory->parentID);
+					$id = $navCategoryTable->save($navCategory);
+					
+					//插入图片
+					$navCategory->imgUrl = $this->_insertImg($navCategory->id ? $navCategory->id : $id);
+					//更新表
+					if($navCategory->imgUrl){
+						$this->_updateNavImage($navCategory->id ? $navCategory->id : $id , $navCategory->imgUrl );
+					}
+					$this->_message('保存成功！');
+					if ($navCategory->parentID) {
+						return $this->redirect()->toRoute('backend' , array('controller' => 'nav' , 'action' => 'subCategory'));
+					} else {
+						return $this->redirect()->toRoute('backend' , array('controller' => 'nav' , 'action' => 'category'));
+					}
 				}
 			}
 			
@@ -568,39 +583,65 @@ class NavController extends AbstractActionController
 		$req = $this->getRequest();
 		if ($req->isPost()) {
 			$params = $req->getPost();
+			$file = $this->params()->fromFiles('icon');
 			$link = new Link();
 			$form->bind($link);
 			$form->setData($params);
 			if ($form->isValid()) {
-				$params = $form->getData();
-				$linkTable = $this->_getTable('LinkTable');
-			
-				$link->id = $params->id;
-				$link->title = $params->title;
-				$link->url = $params->url;
-				$link->target = $params->target;
-				$link->category = $params->category;
-				$link->isShow = $params->isShow;
-				$link->order = $params->order;
-				if ($params->id) {
-					$link->addTime = Utilities::getDateTime();
-				}
-				$link->updateTime = Utilities::getDateTime();
-				$container = $this->_getSession();
-				$link->updateUser = $container->Name;
-				if (false === strpos($link->url, 'http://')) {
-					$link->url = 'http://'.$link->url;
-				}
-				$id = $linkTable->save($link);
-				if (empty( $link->id)) {
-					$this->_message('添加成功！', 'success');
-				} elseif ($link->id) {
-					$this->_message('修改成功！', 'success');
+				
+				$size = new \Zend\Validator\File\Size(array('min' => 0,'max' => '16kB'));
+				$adapter = new \Zend\File\Transfer\Adapter\Http();
+				$translator = new \Zend\Mvc\I18n\Translator();
+				$translator->addTranslationFilePattern ( 'phparray' , __DIR__.'/language/','%s.php')->setFallbackLocale('zh_CN');
+				$adapter->setTranslator($translator);
+				$adapter->setValidators(array($size), $file['name']);
+				if (!$adapter->isValid() && !empty($file['name'])){
+					$dataError = $adapter->getMessages();
+					$error = array();
+					foreach($dataError as $key=>$row)
+					{
+						$error[] = $row;
+					}
+					$form->setMessages(array('icon'=>$error ));
 				} else {
-					$this->_message('编辑失败!', 'error');
+					$params = $form->getData();
+					$linkTable = $this->_getTable('LinkTable');
+						
+					$link->id = $params->id;
+					$link->title = $params->title;
+					$link->url = $params->url;
+					$link->target = $params->target;
+					$link->category = $params->category;
+					$link->show_icon = $params->show_icon;
+					$link->isShow = $params->isShow;
+					$link->order = $params->order;
+					if ($params->id) {
+						$link->addTime = Utilities::getDateTime();
+					}
+					$link->updateTime = Utilities::getDateTime();
+					$container = $this->_getSession();
+					$link->updateUser = $container->Name;
+					if (false === strpos($link->url, 'http://')) {
+						$link->url = 'http://'.$link->url;
+					}
+					$id = $linkTable->save($link);
+					
+					//插入图片
+					$link->icon = $this->_insertIcon($link->id ? $link->id : $id);
+					//更新表
+					if($link->icon){
+						$this->_updateLinkImage($link->id ? $link->id : $id, $link->icon );
+					}
+					if (empty( $link->id)) {
+						$this->_message('添加成功！', 'success');
+					} elseif ($link->id) {
+						$this->_message('修改成功！', 'success');
+					} else {
+						$this->_message('编辑失败!', 'error');
+					}
+						
+					return $this->redirect()->toUrl('/nav/items?cid='.$link->category);
 				}
-			
-				return $this->redirect()->toUrl('/nav/items?cid='.$link->category);
 			}
 		} elseif ($id = $this->params()->fromQuery('id')) {
             $form->setData($liankItem->toArray());
@@ -619,10 +660,11 @@ class NavController extends AbstractActionController
 			throw new \Exception('incomplete category id');
 		}
 		$navTable = $this->_getTable('NavCategoryTable');
-		if ($navTable->checkNavCanDel($id)) {
-			$this->_message('抱歉，此分类不能删除，因为当前分类或者子分类下有导航数据', 'error');
-			return $this->redirect()->toUrl('/nav/category');
-		}
+// 		if ($navTable->checkNavCanDel($id)) {
+// 			$this->_message('抱歉，此分类不能删除，因为当前分类或者子分类下有导航数据', 'error');
+// 			return $this->redirect()->toUrl('/nav/category');
+// 		}
+		$cateTreeIds = $navTable->getCateTreeIds($id);
 		$rs = $navTable->deleteCateTree($id);
 		if ($rs) {
 			$this->_message('已删除', 'success');
@@ -719,5 +761,22 @@ class NavController extends AbstractActionController
 			$str .= (isset($this->city[$city]) ? '-'.$this->city[$city] : '');
 		}
 		return $str;
+	}
+	private function _insertIcon($name)
+	{
+		$config = $this->_getConfig('upload');
+		$config = $config['link'];
+		$files = $this->params()->fromFiles('icon');
+		if(! empty($files['name'])){
+			return $config['showPath'] . Uploader::upload($files , $name , $config['uploadPath'] , $config);
+		}else{
+			return $this->params()->fromPost('icon');
+		}
+	
+		return null;
+	}
+	private function _updateLinkImage($id , $imageFile){
+		$table = $this->_getTable('linkTable');
+		return $table->updateImage($id , $imageFile);
 	}
 }

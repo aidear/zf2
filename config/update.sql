@@ -107,3 +107,4 @@ CREATE TABLE `pro_rule` (
   PRIMARY KEY (`id`),
   KEY `rule` (`rule_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+ALTER TABLE `project`.`link` ADD COLUMN `icon` VARCHAR(100) DEFAULT '' NOT NULL COMMENT 'icon' AFTER `category`, ADD COLUMN `show_icon` TINYINT(1) UNSIGNED DEFAULT 0 NOT NULL COMMENT ' «∑Òœ‘ æicon' AFTER `icon`; 

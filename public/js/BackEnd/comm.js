@@ -39,10 +39,15 @@ var diyConfirm = function(name , url, obj){
 	}
 	var url = $(obj).attr('_href')+id;
 	$(obj).attr('href', url);
-    $('<div class="modal fade"><div class="modal-dialog"><div class="modal-content"><div class="modal-body">是否' + 
-             name +' '+ key+' 为'+data+'的条目?</div><div class="modal-footer"><button type="button" class="btn btn-success" data-dismiss="modal">关闭</button><a href=' 
-             + url +' class="btn btn-delete">'
-             + name +'</a></div></div></div></div>').modal({keyboard: false});
+//    $('<div class="modal fade"><div class="modal-dialog"><div class="modal-content"><div class="modal-body">是否' + 
+//             name +' '+ key+' 为'+data+'的条目?</div><div class="modal-footer"><button type="button" class="btn btn-success" data-dismiss="modal">关闭</button><a href=' 
+//             + url +' class="btn btn-delete">'
+//             + name +'</a></div></div></div></div>').modal({keyboard: false});
+	$('<div>是否' + 
+            name +' '+ key+' 为<strong>'+data+'</strong>的条目?</div>').dialog({title:'提示',buttons: [ { text: "删除", click: function() {
+            location.href=url;
+   			 $( this ).dialog( "close" ); 
+			} } ]});
 };
 function getcookie(name) {
 	var cookie_start = document.cookie.indexOf(name);

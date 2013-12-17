@@ -97,6 +97,20 @@ class NavCategoryTable extends TableGateway
     	$where = "id={$id} OR INSTR(catPath, ',{$id},')";
     	return parent::delete($where);
     }
+    function getCateTreeIds($id) {
+    	$data = array();
+    	$where = "id={$id} OR INSTR(catPath, ',{$id},')";
+    	$select = $this->getSql()->select();
+    	$select->columns(array('id'));
+    	$select->where($where);
+    	$rs = $this->selectWith($select);//echo str_replace("\"", "", $select->getSqlString()); exit;
+    	if ($rs) {
+    		foreach ($rs as $item) {
+    			$data[] = $item->id;
+    		}
+    	}
+    	return $data;
+    }
 	function save(NavCategory $navCategory){
         $navCategory = $navCategory->toArray();
         unset($navCategory['inputFilter']);

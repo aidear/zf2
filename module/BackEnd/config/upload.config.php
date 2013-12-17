@@ -44,18 +44,18 @@ return array(
          'showPath' => '/images/nav/',
          'validators' => array(
              new Size(array(
-                 'max' => '256000'
+                 'max' => '16000'
              ))
          ),
      ),
     
-    //推荐图片
-    'recommend' => array(
-         'uploadPath' => APPLICATION_PATH . '/public/img/other/recommend/',
-         'showPath' => '/img/other/recommend/',
+    //link icon
+    'link' => array(
+         'uploadPath' => APPLICATION_PATH . '/public/images/link/',
+         'showPath' => '/images/link/',
          'validators' => array(
              new Size(array(
-                 'max' => '256000'
+                 'max' => '64000'
              ))
          ),
      ),

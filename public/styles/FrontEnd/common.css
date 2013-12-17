@@ -313,11 +313,12 @@ button.close {
 	width:805px;
 	padding-top:6px;
 }
+.menu_k .menu_k_left {height:350px;}
 .menu_k .l1,.menu_k .l1 h1,.menu_k .menu_k_left,
 .menu_k .l1 .l2 {width:385px;}
 .menu_k .menu_k_right {width:385px;}
-.menu_k .l1 {border-bottom:none;}
-.menu_k .l1 .l2 {border-bottom:1px solid #ccc;}
+.menu_k .l1 {/*border-bottom:none;*/}
+.menu_k .l1 .l2 {/*border-bottom:1px solid #ccc;*/}
 .menu_k .l1 .l2 a {min-width:30px;display:inline-table}
 .search_input #search_in {color:#000;}
 .header_bg .header .lgoin .dldt01,.header_bg .header .lgoin .dldt02 {background-image:none;}

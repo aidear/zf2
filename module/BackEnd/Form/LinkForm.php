@@ -69,6 +69,23 @@ class LinkForm extends Form
         				'label' => '分类'
         		)
         ) );
+        $this->add ( array (
+        		'name' => 'icon',
+        		'options' => array (
+        				'label' => '徽标'
+        		),
+        		'attributes' => array(
+        			'notemsg' => '为了前台展示美观，建议尺寸为18px*17px,不超过16kB',
+        		)
+        ) );
+        $this->add ( array (
+        		'name' => 'show_icon',
+        		'type' => '\Zend\Form\Element\Select',
+        		'options' => array (
+        				'label' => '显示徽标',
+        				'value_options' => array('1'=>'是', '0'=>'否'),
+        		)
+        ) );
         $this->add(array(
         	'name' => 'province',
         	'type' => '\Zend\Form\Element\Select',

@@ -1,7 +1,6 @@
 <?php
 $this->headScript()->appendFile($this->basePath('js/jquery-ui-1.10.2.custom.min.js'))
 					->appendFile($this->basePath('js/jquery.ajaxfileupload.js'));
-$this->headLink()->appendStylesheet($this->basePath('styles/jquery-ui-1.10.2.custom.min.css'));
 $msg = $this->flashMessages();?>
 <div class="box">
     <div class="box-header">
@@ -72,6 +71,7 @@ $msg = $this->flashMessages();?>
                 <tr class="row">
                 	<th>全选<input type="checkbox" name="select_all" value="all"/></th>
                     <th>编号</th>
+                    <th>徽标</th>
                     <th key="title" editable="true">
                     <?php if (isset($this->order['title'])):?>
                     <?php $name = $this->order['title'];?>
@@ -88,7 +88,16 @@ $msg = $this->flashMessages();?>
                     	地址
                     <?php endif;?>
                     </th>
-                    <th>分类</th>
+                    <th>区域</th>
+                    <th>
+                    <?php if (isset($this->order['user_name'])):?>
+                    <?php $name = $this->order['updateTime'];?>
+                    <a href="<?php echo $name['href'];?>">推荐人<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	推荐人
+                    <?php endif;?>
+                    </th>
+<!--                     <th>分类</th> 
                     <th key="isShow" editable="true">
                     <?php if (isset($this->order['isShow'])):?>
                     <?php $name = $this->order['isShow'];?>
@@ -104,16 +113,7 @@ $msg = $this->flashMessages();?>
                     <?php else:?>
                     	排序
                     <?php endif;?>
-                    </th>
-                    <th>区域</th>
-                    <th>
-                    <?php if (isset($this->order['user_name'])):?>
-                    <?php $name = $this->order['updateTime'];?>
-                    <a href="<?php echo $name['href'];?>">推荐人<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
-                    <?php else:?>
-                    	推荐人
-                    <?php endif;?>
-                    </th>
+                    </th>-->
                     <th>
                     <?php if (isset($this->order['email'])):?>
                     <?php $name = $this->order['email'];?>
@@ -152,6 +152,7 @@ $msg = $this->flashMessages();?>
                 <tr class="row">
                 	<th>全选<input type="checkbox" name="select_all" value="all"/></th>
                     <th>编号</th>
+                    <th>徽标</th>
                     <th key="title" editable="true">
                     <?php if (isset($this->order['title'])):?>
                     <?php $name = $this->order['title'];?>
@@ -168,7 +169,16 @@ $msg = $this->flashMessages();?>
                     	地址
                     <?php endif;?>
                     </th>
-                    <th>分类</th>
+                    <th>区域</th>
+                    <th>
+                    <?php if (isset($this->order['user_name'])):?>
+                    <?php $name = $this->order['updateTime'];?>
+                    <a href="<?php echo $name['href'];?>">推荐人<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	推荐人
+                    <?php endif;?>
+                    </th>
+<!--                     <th>分类</th>
                     <th key="isShow" editable="true">
                     <?php if (isset($this->order['isShow'])):?>
                     <?php $name = $this->order['isShow'];?>
@@ -184,16 +194,7 @@ $msg = $this->flashMessages();?>
                     <?php else:?>
                     	排序
                     <?php endif;?>
-                    </th>
-                    <th>区域</th>
-                    <th>
-                    <?php if (isset($this->order['user_name'])):?>
-                    <?php $name = $this->order['updateTime'];?>
-                    <a href="<?php echo $name['href'];?>">推荐人<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
-                    <?php else:?>
-                    	推荐人
-                    <?php endif;?>
-                    </th>
+                    </th> -->
                     <th>
                     <?php if (isset($this->order['email'])):?>
                     <?php $name = $this->order['email'];?>
@@ -233,13 +234,14 @@ $msg = $this->flashMessages();?>
                     <tr class="row" key="id" primary_value="<?php echo $nav['id']; ?>">
                     	<td width="60"><input type="checkbox" name="select" value="<?php echo $nav['id']; ?>" data-key="链接标题" data-value="<?php echo $nav['title']; ?>" /></td>
                         <td><?php echo $startNumber++;?></td>
+                        <td><?php echo $nav['icon'] ? "<img src='{$nav['icon']}' width='18' height='17'/>" : '';?></td>
                         <td key="title" editable="true"><?php echo $nav['title']; ?></td>
                         <td key="url" editable="true"><a href="<?php echo $nav['url']; ?>" target="_blank" title="<?php echo $nav['title'];?>"><?php echo $nav['url']; ?></a></td>
-                        <td><?php echo $nav['categoryName']; ?></td>
-                        <td key="isShow" editable="true"><?php echo $nav['isShow'] ? '显示' : '不显示'; ?></td>
-                        <td key="order" editable="true"><?php echo $nav['order']; ?></td>
                         <td><?php echo $nav['area'];?></td>
                         <td><?php echo $nav['user_name']; ?></td>
+                        <!-- <td><?php //echo $nav['categoryName']; ?></td>
+                        <td key="isShow" editable="true"><?php echo $nav['isShow'] ? '显示' : '不显示'; ?></td>
+                        <td key="order" editable="true"><?php echo $nav['order']; ?></td> -->
                         <td><?php echo $nav['email']; ?></td>
                         <td><?php echo $nav['mobile']; ?></td>
                         <td><?php echo $nav['updateTime']; ?></td>

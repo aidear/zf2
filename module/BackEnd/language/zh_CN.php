@@ -276,6 +276,8 @@ return array(
     'member_all' => '全息表',
     'member_identity' => '身份认证',
     
+    'site_index' => '网站统计',
+    
     'role_index' => '角色管理',
     'role_save' => '角色管理',
     'acl_allow' => '角色管理',

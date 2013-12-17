@@ -39,11 +39,19 @@ $msg = $this->flashMessages();
             <?php endif;?>
         <form class="box-form" action="<?php echo $this->url('backend' , array('controller' => 'nav' , 'action' => 'addItem'))?>"
               method="post" enctype="multipart/form-data">
-            <fieldset>
+              <?php $img =  $form->get('icon')->getValue();?>
+              <?php if (!empty($img)):?>
+              <span class="show_image">
+				<img height="150px" src="<?php echo $img;?>" />
+				</span>
+			<?php endif;?>
+            <fieldset style="border:0;">
             	<?php echo $this->formHidden($form->get('id'))?>
                 <?php echo $this->formText($form->get('title'))?>
                 <?php echo $this->formText($form->get('url'))?>
                 <?php echo $this->formSelect($form->get('target'))?>
+                <?php echo $this->formFile($form->get('icon'))?>
+                <?php echo $this->formSelect($form->get('show_icon'))?>
                 <?php echo $this->formSelect($form->get('category'))?>
                 <?php echo $this->formSelect($form->get('province'))?>
                 <?php echo $this->formSelect($form->get('city'))?>
