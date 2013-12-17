@@ -47,6 +47,8 @@ return array (
 			array(
 					'label' => '网站管理',
 					'controller' => 'site',
+					'action' => 'index',
+					'resource' => 'site_index',
 					'order' => 10,
 					'pages' => array(
 							array(
@@ -60,6 +62,7 @@ return array (
 			array(
 					'label' => '会员管理',
 					'controller' => 'user',
+					'resource' => 'member_index',
 					'order' => 10,
 					'pages' => array(
 							array(
