@@ -103,7 +103,7 @@ CREATE TABLE `pro_rule` (
   `end_time` datetime DEFAULT NULL COMMENT '结束时间',
   `is_active` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '是否激活',
   `add_time` datetime NOT NULL COMMENT '添加时间',
-  `last_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '最后修改时间',
+  `last_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最后修改时间',
   PRIMARY KEY (`id`),
   KEY `rule` (`rule_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
