@@ -43,6 +43,12 @@ class Module
                     header('Location:/login');
                     exit;
                 }
+                //admin log
+                $adminLogTable = $sm->get('AdminLogTable');
+                $params = $e->getRequest()->getQuery()->toArray();
+                $log_info = "Controller:[{$controller}];Action:[{$action}];Query:[".http_build_query($params).']';
+                $logInfo = array('user_id' => $session->UserID, 'user_name' => $session->Name, 'opt_type' => 3, 'info' => $log_info);
+                $adminLogTable->addLogInfo($logInfo);
                 //验证ACL
                 
                 $controller = strtolower($controller);
