@@ -13,6 +13,7 @@ use Zend\Db\Sql\Where;
 use Zend\Db\TableGateway\TableGateway;
 use BackEnd\Model\Users\Member;
 use Zend\Db\Sql\Predicate\Like;
+use Zend\Db\Sql\Predicate\Operator;
 
 class MemberTable extends TableGateway
 {
@@ -149,6 +150,95 @@ FROM member;";
     		$where->like('UserName', '%' . $data['k'] . '%')->orPredicate(new Like('Email', '%' . $data['k'] . '%'))
     		->orPredicate(new Like('Nick', '%' . $data['k'] . '%'))
     		->orPredicate(new Like('Mobile', '%' . $data['k'] . '%'));
+    	}
+    	$this->select->where($where);
+    	//filter
+    	if (isset($data['filter'])) {
+    		$filter = $data['filter'];
+    		foreach ($filter['fields'] as $k=>$r) {
+    			$opt = $filter['opts'][$k];
+    			$val = $filter['vals'][$k];
+    			$combine = 1;
+    			if ($k != 0) {
+    				$combine = $filter['rel'][$k-1];
+    			}
+    			switch ($opt) {
+    				case 'than'://大于
+    					switch($combine) {
+    						case 2:
+    							$where->orPredicate(new Operator($r, '>', $val));
+    							break;
+    						case 3:
+    							$where->orPredicate(new Operator($r, '<=', $val));
+    							break;
+    						default:
+    							$where->greaterThan($r, $val);
+    							break;
+    					}
+    					break;
+    				case 'lthan'://小于
+    					switch($combine) {
+    						case 2:
+    							$where->orPredicate(new Operator($r, '<', $val));
+    							break;
+    						case 3:
+    							$where->orPredicate(new Operator($r, '>=', $val));
+    							break;
+    						default:
+    							$where->greaterThan($r, $val);
+    							break;
+    					}
+    					break;
+    				case 'sthan'://小于等于
+    					switch($combine) {
+    						case 2:
+    							$where->orPredicate(new Operator($r, '<=', $val));
+    							break;
+    						case 3:
+    							$where->orPredicate(new Operator($r, '>', $val));
+    							break;
+    						default:
+    							$where->lessThanOrEqualTo($r, $val);
+    							break;
+    					}
+    					break;
+    				case 'bthan'://大于等于
+    					switch($combine) {
+    						case 2:
+    							$where->orPredicate(new Operator($r, '>=', $val));
+    							break;
+    						case 3:
+    							$where->orPredicate(new Operator($r, '<', $val));
+    							break;
+    						default:
+    							$where->greaterThanOrEqualTo($r, $val);
+    							break;
+    					}
+    					break;
+    				case 'in':
+    					if ($k != 0) {
+    						
+    					}
+    					$where->like($r, "%".$val."%");
+    					break;
+    				case 'eq':
+    				case 'nequal':
+    					switch ($combine) {
+    						case 2:
+    							$where->orPredicate(new Operator($r, '=', $val));
+    							break;
+    						case 3:
+    							$where->notEqualTo($r, $val);
+    							break;
+    						default:
+    							$where->equalTo($r, $val);
+    							break;
+    					}
+    					break;
+    				default:
+    					break;
+    			}
+    		}
     	}
     	if (isset($data['Points'])) {
     		$sep = explode('|', $data['Points']);
