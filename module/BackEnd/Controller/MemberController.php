@@ -46,14 +46,9 @@ class MemberController extends AbstractActionController
         	$params['pageSize'] = $this->params()->fromQuery('pageSize');
         }
         $noFilterParams = $params;
-        $points = $this->params()->fromQuery('Points', '');
-        if ($points) {
-        	$params['Points'] = $points;
-        }
-        $gender = $this->params()->fromQuery('Gender', '');
-        if ($gender) {
-        	$params['Gender'] = $gender;
-        }
+        
+        
+        $params = $this->_dealFilter($params);
         
         $removePageParams = $params;
         
@@ -95,14 +90,7 @@ class MemberController extends AbstractActionController
 			$params['pageSize'] = $this->params()->fromQuery('pageSize');
 		}
 		$noFilterParams = $params;
-		$points = $this->params()->fromQuery('Points', '');
-		if ($points) {
-			$params['Points'] = $points;
-		}
-		$gender = $this->params()->fromQuery('Gender', '');
-		if ($gender) {
-			$params['Gender'] = $gender;
-		}
+		$params = $this->_dealFilter($params);
 	
 		$removePageParams = $params;
 	
@@ -144,14 +132,7 @@ class MemberController extends AbstractActionController
 			$params['pageSize'] = $this->params()->fromQuery('pageSize');
 		}
 		$noFilterParams = $params;
-		$points = $this->params()->fromQuery('Points', '');
-		if ($points) {
-			$params['Points'] = $points;
-		}
-		$gender = $this->params()->fromQuery('Gender', '');
-		if ($gender) {
-			$params['Gender'] = $gender;
-		}
+		$params = $this->_dealFilter($params);
 	
 		$removePageParams = $params;
 	
@@ -494,8 +475,26 @@ class MemberController extends AbstractActionController
 	
 		return null;
 	}
-	private function _updateMemberImage($UserId , $imageFile){
+	private function _updateMemberImage($UserId , $imageFile)
+	{
 		$memberTable = $this->_getTable('memberTable');
 		return $memberTable->updateImage($UserId , $imageFile);
+	}
+	private function _dealFilter($params)
+	{
+		//filter
+		$s_fields = $this->params()->fromQuery('s_fields', '');
+		$s_opts = $this->params()->fromQuery('s_opts', '');
+		$s_vals = $this->params()->fromQuery('s_vals', '');
+		$s_rels = $this->params()->fromQuery('s_rels', '');
+		if ($s_fields) {
+			$params['filter'] = array(
+					'fields' => explode('|', $s_fields),
+					'opts' => explode('|', $s_opts),
+					'vals' => explode('|', $s_vals),
+					'rel' => explode('|', $s_rels)
+			);
+		}
+		return $params;
 	}
 }
