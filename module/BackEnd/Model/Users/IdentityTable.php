@@ -128,4 +128,10 @@ class IdentityTable extends TableGateway
         }
         return $this->select;
     }
+    function delete($id){
+    	return parent::delete(array("id" => $id));
+    }
+    function deleteMuti($where) {
+    	return parent::delete($where);
+    }
 }

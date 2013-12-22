@@ -88,6 +88,14 @@ $msg = $this->flashMessages();?>
                     	地址
                     <?php endif;?>
                     </th>
+                    <th  key="show_icon" editable="true">
+                    <?php if (isset($this->order['show_icon'])):?>
+                    <?php $name = $this->order['show_icon'];?>
+                    <a href="<?php echo $name['href'];?>">显示徽标<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	显示徽标
+                    <?php endif;?>
+                    </th>
                     <th>区域</th>
                     <th>
                     <?php if (isset($this->order['user_name'])):?>
@@ -169,6 +177,14 @@ $msg = $this->flashMessages();?>
                     	地址
                     <?php endif;?>
                     </th>
+                    <th  key="show_icon" editable="true">
+                    <?php if (isset($this->order['show_icon'])):?>
+                    <?php $name = $this->order['show_icon'];?>
+                    <a href="<?php echo $name['href'];?>">显示徽标<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	显示徽标
+                    <?php endif;?>
+                    </th>
                     <th>区域</th>
                     <th>
                     <?php if (isset($this->order['user_name'])):?>
@@ -237,6 +253,7 @@ $msg = $this->flashMessages();?>
                         <td><?php echo $nav['icon'] ? "<img src='{$nav['icon']}' width='18' height='17'/>" : '';?></td>
                         <td key="title" editable="true"><?php echo $nav['title']; ?></td>
                         <td key="url" editable="true"><a href="<?php echo $nav['url']; ?>" target="_blank" title="<?php echo $nav['title'];?>"><?php echo $nav['url']; ?></a></td>
+                        <td key="show_icon" editable="true"><?php echo $nav['show_icon'] ? '显示' : '不显示'; ?></td>
                         <td><?php echo $nav['area'];?></td>
                         <td><?php echo $nav['user_name']; ?></td>
                         <!-- <td><?php //echo $nav['categoryName']; ?></td>
@@ -277,6 +294,13 @@ var productEditableParam={
 		},
 		'url':{
 			type:'text'
+		},
+		'show_icon':{
+			type:'radio',
+	        group:{
+	            1:'显示',
+	            0:'不显示'
+	        }
 		}
 	};
 var options={

@@ -449,7 +449,7 @@ class NavController extends AbstractActionController
 		}
 		$startNumber = 1+($page-1)*$paginaction->getItemCountPerPage();
 		
-		$order = $this->_getOrder($prefixUrl, array('title', 'isShow', 'order', 'url','user_name', 'email', 'mobile', 'updateTime'), $removePageParams);
+		$order = $this->_getOrder($prefixUrl, array('title', 'show_icon', 'order', 'url','user_name', 'email', 'mobile', 'updateTime'), $removePageParams);
 		
 		$assign = array(
 				'category' => $this->op,

@@ -505,6 +505,22 @@ class MemberController extends AbstractActionController
 		}
 		throw new \Exception('没有ID参数');
 	}
+	function deleteIdentityAction()
+	{
+		$requery = $this->getRequest();
+		if($id = $requery->getQuery('id')){
+			$table = $this->_getTable('IdentityTable');
+			$idStr = 'id='.str_replace(',', ' OR id=', $id);
+			$table->deleteMuti($idStr);
+	
+			$this->trigger(ActionEvent::ACTION_DELETE);
+	
+			$this->_message('删除成功');
+			return $this->redirect()->toUrl('/member/identity');
+	
+		}
+		throw new \Exception('没有ID参数');
+	}
 	private function _getMemberByID($UserID)
 	{
 		$table = $this->_getTable('MemberTable');

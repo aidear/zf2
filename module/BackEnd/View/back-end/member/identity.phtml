@@ -1,5 +1,6 @@
 <?php 
 $params = $this->params;
+$msg = $this->flashMessages();
 ?>
 <div class="box">
     <div class="box-header">
@@ -35,11 +36,31 @@ $params = $this->params;
         <i class="icon-plus"></i>审核通过</a>
         <a class="btn btn-success" id="chk_unApproved" key='0' href="javascript:;">
         <i class="icon-plus"></i>审核不通过</a>
+        <a class="btn btn-delete" href="javascript:;" _href="<?php echo $this->url('backend', array('controller' 
+                                => 'member', 'action' => 'deleteIdentity')) ?>?id=" onClick="diyConfirm('删除' , $(this).attr('href'), this);return false;"><i class="icon-delete"></i>删除
+                            </a>
         </p>
         </div>
     </div>
     
     <div class="box-content">
+    <?php if(!empty($msg['error'])):?>
+            <div class="alert alert-error fade in">
+            <button class="close" data-dismiss="alert" type="button">×</button>
+            <?php foreach($msg['error'] as $v):?>
+            <p><?php echo $v;?></p>
+            <?php endforeach;?>
+            </div>
+            <?php endif;?>
+            
+            <?php if(!empty($msg['success'])):?>
+            <div class="alert alert-success fade in">
+            <button class="close" data-dismiss="alert" type="button">×</button>
+            <?php foreach($msg['success'] as $v):?>
+            <p><?php echo $v;?></p>
+            <?php endforeach;?>
+            </div>
+            <?php endif;?>
         <table class="table" id="table1">
             <thead>
                 <tr class="row">
