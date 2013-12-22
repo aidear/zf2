@@ -243,28 +243,14 @@ $region = $this->region;
     </div>
 </div>
 <div id="dialog" title="筛选" style="display: none;">
-<!-- 	添加筛选条件：<select name="selector_limit" id="select_all_options"> -->
-<!-- 		<option value="Point" vtype="int" ctype="select">积分</option> -->
-<!-- 		<option value="Gender" vtype="int" ctype="radio">性别</option> -->
-<!-- 	</select> -->
 	<form id="frmFilter">
-		<div id="Point">
-			<div class="filter_label">积分</div>
-			<div class="filter_opt">
-				<select name="select_Point"><option value="than">大于</option><option value="lthan">小于</option><option value="nequal">等于</option><option value="sthan">小于等于</option><option value="bthan">大于等于</option></select>
-			</div>
-			<div class='filter_val'><input id="filter_value" value="" type="text" name="Point" /></div>
-		</div>
-		<div style='clear: both;'>&nbsp;</div>
-		<div id="Gender">
-			<div class="filter_label">性别</div>
+		<div class="filter_item">
+			<div class="filter_label"></div>
 			<div class="filter_opt">
 			</div>
-			<div class='filter_val'>
-				<input type="radio" value="0" name="Gender">保密
-				<input type="radio" value="1" name="Gender">男
-				<input type="radio" value="2" name="Gender">女
-			</div>
+			<div class='filter_val'><input value="" type="text" name="filter_value" /></div>
+			<div class='condition_opt'><span class='add_c'>+</span></div>
+			<div style='clear: both;'>&nbsp;</div>
 		</div>
 	</form>
 </div>
@@ -319,17 +305,20 @@ var url = '<?php echo $this->url('backend' , array('controller' => 'member' , 'a
 var query = '<?php echo $this->filterQuery?>';
 $(function(){
 	$(".col-1").css({'width':'1600px'});
+	var select_field = [
+	        			{name: 'UserName', vtype:'string',ctype:'text',html:'用户名'},
+	        			{name: 'Email', vtype:'string',ctype:'text',html:'邮箱'},
+	        			{name: 'Mobile',vtype:'string',ctype:'text',html:'手机'},
+	        			{name: 'Tel',vtype:'string',ctype:'text',html:'电话'},
+	        			{name: 'TrueName',vtype:'string',ctype:'text',html:'真实姓名'},
+	        			{name: 'Address',vtype:'string',ctype:'text',html:'地址'},
+	        			{name: 'QQ',vtype:'string',ctype:'text',html:'QQ'},
+	        			{name: 'MSN',vtype:'string',ctype:'text',html:'MSN'}
+	        	    ];
+    filter.init(select_field);
 	$("#selector").click(function(){
-		$("#dialog").dialog({position:'center',width:300,buttons: [ { text: "确定", click: function() {
-			var point_val = $("input[type='text'][name='Point']").val();
-			if (point_val != '') {
-				var p_filter = $("select[name='select_Point']").val();
-				query += "&Points=Points|" + p_filter + "|" + point_val;
-			}
-			var gender_val = $("input[type='radio'][name='Gender']:checked").val();	
-			if (typeof gender_val != 'undefined') {
-				query += "&Gender="+gender_val;
-			}
+		$("#dialog").dialog({position:'center',width:500,buttons: [ { text: "确定", click: function() {
+			var query = filter.getQuery();
 			location.href=url+'?'+query;
 			 $( this ).dialog( "close" ); 
 			} } ]});
