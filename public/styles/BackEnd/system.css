@@ -1654,9 +1654,13 @@ div#RobPub1SysMsg{
 
 /*绛涢�*/
 
-#frmFilter .filter_label,#frmFilter .filter_opt,#frmFilter .filter_val {
+#frmFilter .filter_rel,#frmFilter .filter_label,#frmFilter .filter_opt,#frmFilter .filter_val,#frmFilter .condition_opt {
 	float:left;
 	padding-right:4px;
+}
+#frmFilter .condition_opt .add_c,#frmFilter .condition_opt .del_c {
+	margin-left:6px;
+	cursor:pointer;
 }
 #frmFilter .filter_val input[type='text'] {
 	width:80px;

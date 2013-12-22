@@ -47,10 +47,26 @@ class MemberController extends AbstractActionController
         }
         $noFilterParams = $params;
         
+        //filter
+        $s_fields = $this->params()->fromQuery('s_fields', '');
+        $s_opts = $this->params()->fromQuery('s_opts', '');
+        $s_vals = $this->params()->fromQuery('s_vals', '');
+        $s_rels = $this->params()->fromQuery('s_rels', '');
+        if ($s_fields) {
+        	$params['s_fields'] = $s_fields;
+        }
+        if ($s_opts) {
+        	$params['s_opts'] = $s_opts;
+        }
+        if ($s_vals) {
+        	$params['s_vals'] = $s_vals;
+        }
+        if ($s_rels) {
+        	$params['s_rels'] = $s_rels;
+        }
+        $removePageParams = $params;
         
         $params = $this->_dealFilter($params);
-        
-        $removePageParams = $params;
         
         $params['page'] = $this->params()->fromQuery('page' , 1);
         
@@ -90,9 +106,26 @@ class MemberController extends AbstractActionController
 			$params['pageSize'] = $this->params()->fromQuery('pageSize');
 		}
 		$noFilterParams = $params;
-		$params = $this->_dealFilter($params);
-	
-		$removePageParams = $params;
+		//filter
+        $s_fields = $this->params()->fromQuery('s_fields', '');
+        $s_opts = $this->params()->fromQuery('s_opts', '');
+        $s_vals = $this->params()->fromQuery('s_vals', '');
+        $s_rels = $this->params()->fromQuery('s_rels', '');
+        if ($s_fields) {
+        	$params['s_fields'] = $s_fields;
+        }
+        if ($s_opts) {
+        	$params['s_opts'] = $s_opts;
+        }
+        if ($s_vals) {
+        	$params['s_vals'] = $s_vals;
+        }
+        if ($s_rels) {
+        	$params['s_rels'] = $s_rels;
+        }
+        $removePageParams = $params;
+        
+        $params = $this->_dealFilter($params);
 	
 		$params['page'] = $this->params()->fromQuery('page' , 1);
 	
@@ -132,9 +165,26 @@ class MemberController extends AbstractActionController
 			$params['pageSize'] = $this->params()->fromQuery('pageSize');
 		}
 		$noFilterParams = $params;
-		$params = $this->_dealFilter($params);
-	
-		$removePageParams = $params;
+		//filter
+        $s_fields = $this->params()->fromQuery('s_fields', '');
+        $s_opts = $this->params()->fromQuery('s_opts', '');
+        $s_vals = $this->params()->fromQuery('s_vals', '');
+        $s_rels = $this->params()->fromQuery('s_rels', '');
+        if ($s_fields) {
+        	$params['s_fields'] = $s_fields;
+        }
+        if ($s_opts) {
+        	$params['s_opts'] = $s_opts;
+        }
+        if ($s_vals) {
+        	$params['s_vals'] = $s_vals;
+        }
+        if ($s_rels) {
+        	$params['s_rels'] = $s_rels;
+        }
+        $removePageParams = $params;
+        
+        $params = $this->_dealFilter($params);
 	
 		$params['page'] = $this->params()->fromQuery('page' , 1);
 	
