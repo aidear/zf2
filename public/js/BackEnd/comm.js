@@ -49,6 +49,117 @@ var diyConfirm = function(name , url, obj){
    			 $( this ).dialog( "close" ); 
 			} } ]});
 };
+var filter = {
+		filterForm:"frmFilter",
+		fields:'<select name="select_field">'
+			 +'<option value="UserName" vtype="string" ctype="text">用户名</option>'
+			 +'</select>',
+		rel:'<select name="relationship"><option value="1">与</option><option value="2">或</option><option value="3">非</option></select>',
+		opt:['<select name="select_opt"><option value="than">大于</option><option value="lthan">小于</option><option value="nequal">等于</option><option value="sthan">小于等于</option><option value="bthan">大于等于</option></select>',
+             '<select name="select_opt"><option value="in">包含</option><option value="eq">等于</option></select>',
+             '<input type="radio" value="0" name="filter_value">保密<input type="radio" value="1" name="filter_value">男<input type="radio" value="2" name="filter_value">女'],
+		init:function(fields) {
+			filter.setFields(fields);
+			filter.fieldBind();
+			filter.addCond();
+			filter.delCond();
+			$("#"+filter.filterForm+" .filter_opt").html(filter.opt[1]);
+		},
+		setFields: function(fields) {
+			var options = '<select name="select_field">';
+			for(var i in fields) {
+				options += '<option value="'+fields[i].name+'" vtype="'+fields[i].vtype+'"'
+				+' ctype="'+fields[i].ctype+'">'+fields[i].html+'</option>';
+			}
+			options += '</select>';
+			filter.fields = options;
+			$("#"+filter.filterForm+" .filter_label").html(options);
+		},
+		fieldBind:function() {
+			$("#frmFilter").delegate(".filter_label select[name='select_field']", 'change',function(){
+				var selv = $(this).val();
+				if (selv) {
+					var vtype = $(this).find("option:selected").attr('vtype');
+					var ctype = $(this).find("option:selected").attr('ctype');
+					switch (vtype) {
+					case 'string':
+						$(this).parents('.filter_label').next().html(filter.opt[1]);
+						$(this).parents('.filter_label').nextAll('.filter_val').html('<input type="text" name="filter_value" value="" />');
+						break;
+					case 'int':
+						if (ctype == 'radio') {
+							$(this).parents('.filter_label').nextAll('.filter_val').html(filter.opt[2]);
+							$(this).parents('.filter_label').next().html('');
+						} else {
+							$(this).parents('.filter_label').next().html(filter.opt[0]);
+							$(this).parents('.filter_label').nextAll('.filter_val').html('<input type="text" name="filter_value" value="" />');
+						}
+						break;
+						default:
+							break;
+					}
+				}
+		    });
+		},
+		addCond:function() {
+			$(".condition_opt .add_c").bind('click', function(){
+				$('<div class="filter_item">'
+						 +'<div class="filter_rel">'
+						 +filter.rel
+						 +'</div>'
+						 +'<div class="filter_label">'
+						 +filter.fields
+						 +'</div>'
+						 +'<div class="filter_opt">'
+						 +filter.opt[1]
+						 +'</div>'
+						 +'<div class="filter_val"><input value="" type="text" name="filter_value" /></div>'
+						 +'<div class="condition_opt"><span class="del_c"> — </span></div>'
+						 +'<div style="clear: both;">&nbsp;</div>'
+						 +'</div>').appendTo("#frmFilter");
+		    });
+		},
+		delCond:function() {
+			$("#frmFilter").delegate(".condition_opt .del_c", 'click', function(){
+				$(this).parents("div.filter_item").remove();
+		    });
+		},
+		getQuery: function() {
+			var select_fields = '';
+			$("select[name='select_field'] option:selected").each(function(){
+				select_fields += (select_fields == '' ? $(this).val() : '|'+$(this).val());
+			});
+			var select_opts = '';
+			$(".filter_opt").each(function(){
+				var opt_tmp = $(this).find("select[name='select_opt'] option:selected").val();
+				
+				opt_tmp = (typeof opt_tmp != 'undefined') ? opt_tmp : 'eq';
+				select_opts += (select_opts == '' ? opt_tmp : '|'+opt_tmp);
+			});
+			var filter_vals = '';
+			$(".filter_val").each(function(){
+				if ($(this).has("input[name='filter_value']")) {
+					var $input = $(this).find("input[name='filter_value']");
+					if ($input.attr('type') == 'radio') {
+						filter_vals += (filter_vals == '' ? $(this)
+						.find("input[name='filter_value']:checked").val() : 
+							'|'+$(this).find("input[name='filter_value']:checked").val());
+					} else {
+						filter_vals += (filter_vals == '' ? $input.val() : '|'+$input.val());
+					}
+				}
+			});
+			var relationship = '';
+			$("select[name='relationship']").each(function(){
+				relationship += (relationship == '' ? $(this).val() : '|'+$(this).val());
+			});
+			var query = "s_fields="+select_fields+"&s_opts="+select_opts+"&s_vals="+filter_vals+"&s_rels="+relationship;
+			if ($.trim($("input[name='k']").val()) != '') {
+				query += "&k="+$.trim($("input[name='k']").val());
+			}
+			return query;
+		}
+};
 function getcookie(name) {
 	var cookie_start = document.cookie.indexOf(name);
 	var cookie_end = document.cookie.indexOf(";", cookie_start);
@@ -177,11 +288,6 @@ $(function(){
 			$(this).next("button[type='submit']").trigger('click');
 		}
 	});
-//	$("#table1 .row > td").each(function(){
-//		$(this).bind('click', function() {
-//			$(this).find("input[type='checkbox']").trigger('click');
-//		});
-//	});
 });
 (function($){
     var getJSON  = this.getJSON = function( url, data, callback ){
