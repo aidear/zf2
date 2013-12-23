@@ -102,10 +102,14 @@ class NavController extends AbstractActionController
 		$params = array();
 		$table = $this->_getTable('NavCategoryTable');
 		$name = $this->params()->fromQuery('name' , '');
+		$pid = $this->params()->fromQuery('pid' , '');
 		$pageSize = $this->params()->fromQuery('pageSize');
 	
 		if($name){
 			$params['name'] = $name;
+		}
+		if ($pid) {
+			$params['parentID'] = $pid;
 		}
 		if ($pageSize) {
 			$params['pageSize'] = $pageSize;
@@ -118,7 +122,13 @@ class NavController extends AbstractActionController
 		$params['page'] = $this->params()->fromQuery('page' , 1);
 	
 		$orderPageParams = $params;
-	
+		
+		$navCate = $table->getlist(array('isShow' => 1));
+		$fCategory = $this->_formatCategory($navCate);
+		$navOption = array();
+		$this->op[0] = '所有分类';
+		$this->category[0] = '所有分类';
+		$this->_returnOptionValue($fCategory);
 	
 		//         $paginaction = new Paginator($re);
 		$paginaction = $this->_getNavPaginator($params, 0);
@@ -134,6 +144,8 @@ class NavController extends AbstractActionController
 		$order = $this->_getOrder($prefixUrl, array('name', 'isShow', 'order', 'subLinkCount', 'updateTime', 'updateUser'), $removePageParams);
 	
 		$assign = array(
+				'category' => $this->op,
+				'pid' => $pid,
 				'paginaction' => $paginaction,
 				'navList' => $navList,
 				'startNumber' => $startNumber,
@@ -482,6 +494,9 @@ class NavController extends AbstractActionController
 				$v = array();
 				for($currentColumn= 'A';$currentColumn<= $allColumn; $currentColumn++){
 					$val = $currentSheet->getCellByColumnAndRow(ord($currentColumn) - 65,$currentRow)->getValue();/**ord()将字符转为十进制数*/
+					if(is_object($val)) {
+						$val = $val->__toString();
+					}
 					$v[] = $val;
 // 					if($currentColumn == 'A')
 // 					{
@@ -509,6 +524,8 @@ class NavController extends AbstractActionController
 			$link = $this->_getTable('LinkTable');
 			$now = date('Y-m-d H:i:s');
 			foreach ($data as $k=>$v) {
+				if (empty(trim($v[0]))) continue;
+				$flg = 0;
 				$insert['title'] = $v[0];
 				$insert['url'] = $v[1];
 				if (in_array($v[2], $this->category)) {
@@ -520,8 +537,14 @@ class NavController extends AbstractActionController
 				$insert['isShow'] = $v[3] == '显示' ? 1 : 0;
 				$insert['order'] = $v[4];
 				$insert['title'] = $v[0];
+				$insert['updateUser'] = $this->_getSession('user')->Name;
+				$insert['updateTime'] = $now;
 				$insert['addTime'] = $now;
-				$flg = $link->insert($insert);
+				if ($lastID = $link->checkExistUrl($insert['url'])) {
+					$flg = $link->importUpdate($insert, $lastID);
+				} else {
+					$flg = $link->insert($insert);
+				}
 				if ($flg) {
 					$affect ++;
 				}

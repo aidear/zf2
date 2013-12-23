@@ -246,6 +246,8 @@ ON INSTR(ns.catPath, CONCAT(',',nt.id,','))";
     	}
     	if (isset($data['root']) && $data['root'] == 1) {
     		$where .= " AND nt.parentID=0";
+    	} elseif (isset($data['parentID'])) {
+    		$where .= " AND nt.parentID={$data['parentID']}";
     	} else {
     		$where .= " AND nt.parentID<>0";
     	}

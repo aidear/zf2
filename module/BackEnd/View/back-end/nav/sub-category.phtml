@@ -11,7 +11,12 @@ $msg = $this->flashMessages();
         	<form class="form-inline" action="<?php echo $this->url('backend', array('controller' 
             => 'nav', 'action' => 'subCategory')); ?>" method="get">
                 <div class="input-group">
-<!--                     <label>搜索分类</label> -->
+                	<label>分类</label>
+                    <select name="pid">
+                    <?php foreach ($this->category as $k=>$v):?>
+                    	<option value="<?php echo $k;?>" <?php echo $this->pid==$k ? 'selected=selected' : '';?>><?php echo $v;?></option>
+                    <?php endforeach;?>
+                    </select>
                     <input autocomplete="off" class="input-element span3" value="<?php echo isset($this->k) ? $this->k : '';?>" name="name" type="text">
                     
                 <button class="button-element" type="submit">搜索</button>
@@ -67,12 +72,12 @@ $msg = $this->flashMessages();
                     	分类名称
                     <?php endif;?>
                     </th>
-                    <th>
-                    <?php if (isset($this->order['subLinkCount'])):?>
-                    <?php $name = $this->order['subLinkCount'];?>
-                    <a href="<?php echo $name['href'];?>">网址个数<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <th key="order" editable="true">
+                    <?php if (isset($this->order['order'])):?>
+                    <?php $name = $this->order['order'];?>
+                    <a href="<?php echo $name['href'];?>">排序<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
                     <?php else:?>
-                    	网址个数
+                    	排序
                     <?php endif;?>
                     </th>
                     <th key="isShow" editable="true">
@@ -82,14 +87,15 @@ $msg = $this->flashMessages();
                     <?php else:?>
                     	是否显示
                     <?php endif;?>
-                    <th key="order" editable="true">
-                    <?php if (isset($this->order['order'])):?>
-                    <?php $name = $this->order['order'];?>
-                    <a href="<?php echo $name['href'];?>">排序<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    </th>
+                    <th>
+                    <?php if (isset($this->order['subLinkCount'])):?>
+                    <?php $name = $this->order['subLinkCount'];?>
+                    <a href="<?php echo $name['href'];?>">网址个数<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
                     <?php else:?>
-                    	排序
+                    	网址个数
                     <?php endif;?>
-                    	</th>
+                    </th>
                     <th>
                     <?php if (isset($this->order['updateTime'])):?>
                     <?php $name = $this->order['updateTime'];?>
@@ -121,21 +127,6 @@ $msg = $this->flashMessages();
                     	分类名称
                     <?php endif;?>
                     </th>
-                    <th>
-                    <?php if (isset($this->order['subLinkCount'])):?>
-                    <?php $name = $this->order['subLinkCount'];?>
-                    <a href="<?php echo $name['href'];?>">网址个数<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
-                    <?php else:?>
-                    	网址个数
-                    <?php endif;?>
-                    </th>
-                    <th key="isShow" editable="true">
-                    <?php if (isset($this->order['isShow'])):?>
-                    <?php $name = $this->order['isShow'];?>
-                    <a href="<?php echo $name['href'];?>">是否显示<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
-                    <?php else:?>
-                    	是否显示
-                    <?php endif;?>
                     <th key="order" editable="true">
                     <?php if (isset($this->order['order'])):?>
                     <?php $name = $this->order['order'];?>
@@ -144,6 +135,22 @@ $msg = $this->flashMessages();
                     	排序
                     <?php endif;?>
                     	</th>
+                    <th key="isShow" editable="true">
+                    <?php if (isset($this->order['isShow'])):?>
+                    <?php $name = $this->order['isShow'];?>
+                    <a href="<?php echo $name['href'];?>">是否显示<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	是否显示
+                    <?php endif;?>
+                    </th>
+                    <th>
+                    <?php if (isset($this->order['subLinkCount'])):?>
+                    <?php $name = $this->order['subLinkCount'];?>
+                    <a href="<?php echo $name['href'];?>">网址个数<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	网址个数
+                    <?php endif;?>
+                    </th>
                     <th>
                     <?php if (isset($this->order['updateTime'])):?>
                     <?php $name = $this->order['updateTime'];?>
@@ -169,9 +176,9 @@ $msg = $this->flashMessages();
                         <td><?php echo $startNumber++; ?></td>
                         <td><?php echo $nav['parentName']; ?></td>
                         <td key="name" editable="true"><?php echo $nav['name']; ?></td>
-                        <td><?php echo $nav['subLinkCount'] ? $nav['subLinkCount'] : 0;?></td>
-                        <td key="isShow" editable="true"><?php echo $nav['isShow'] ? '显示' : '不显示'; ?></td>
                         <td key="order" editable="true"><?php echo $nav['order']; ?></td>
+                        <td key="isShow" editable="true"><?php echo $nav['isShow'] ? '显示' : '不显示'; ?></td>
+                        <td><?php echo $nav['subLinkCount'] ? $nav['subLinkCount'] : 0;?></td>
                         <td><?php echo $nav['updateTime']; ?></td>
                         <td><?php echo $nav['updateUser']; ?></td>
                     </tr>

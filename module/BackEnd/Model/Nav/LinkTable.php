@@ -128,16 +128,37 @@ class LinkTable extends TableGateway
     	return $this->update(array('icon' => $imageFile) , array('id' => (int)$id));
     }
     
-    public function checkExist($attr, $UserID = 0)
+    public function checkExist($attr, $id = 0)
     {
     	$select = $this->getSql()->select();
     	$select->where($attr);
     
-    	if ($UserID) {
-    		$select->where("UserID <> {$UserID}");
+    	if ($id) {
+    		$select->where("id <> {$id}");
     	}//echo str_replace('"', '', $select->getSqlString());die;
     	$resultSet = $this->selectWith($select);
     	return $resultSet->count();
+    }
+    public function importUpdate($insert, $id)
+    {
+    	return parent::update($insert, array('id' => $id));
+    }
+    public function checkExistUrl($url)
+    {
+    	$select = $this->getSql()->select();
+    	if (stripos($url, 'http://') === false) {
+    		$url = 'http://'.$url;
+    	}
+    	$url = trim($url, '/');
+    	$select->where("url='{$url}' OR url='{$url}/'");
+    	$resultSet = $this->selectWith($select);
+    	$total = $resultSet->count();
+    	if ($total) {
+    		$data = $resultSet->current();
+    		return $data->id;
+    	} else {
+    		return null;
+    	}
     }
     
     function formatWhere(array $data){

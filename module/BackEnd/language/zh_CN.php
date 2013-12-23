@@ -275,6 +275,7 @@ return array(
     'member_contact' => '通讯录',
     'member_all' => '全息表',
     'member_identity' => '身份认证',
+    'Index_index' => '管理中心',
     
     'site_index' => '网站统计',
     
