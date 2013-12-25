@@ -524,7 +524,7 @@ class NavController extends AbstractActionController
 			$link = $this->_getTable('LinkTable');
 			$now = date('Y-m-d H:i:s');
 			foreach ($data as $k=>$v) {
-				if (empty(trim($v[0]))) continue;
+				if (empty($v[0])) continue;
 				$flg = 0;
 				$insert['title'] = $v[0];
 				$insert['url'] = $v[1];
