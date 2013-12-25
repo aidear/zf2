@@ -14,6 +14,7 @@ return array(
         	'config' => 'BackEnd\Controller\ConfigController',
         	'nav' => 'BackEnd\Controller\NavController',
         	'site' => 'BackEnd\Controller\SiteController',
+        	'promotion' => 'BackEnd\Controller\PromotionController',
         ),
     ),
 	// The following section is new and should be added to your file

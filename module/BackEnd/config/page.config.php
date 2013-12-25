@@ -116,6 +116,12 @@ return array (
 									'resource' => 'config_index',
 							),
 							array(
+									'label' => '促销活动',
+									'controller' => 'promotion',
+									'action' => 'index',
+									'resource' => 'promotion_index',
+							),
+							array(
 									'label' => '邮件服务器',
 									'controller' => 'config',
 									'action' => 'mail',

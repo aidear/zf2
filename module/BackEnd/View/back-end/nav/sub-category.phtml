@@ -63,7 +63,14 @@ $msg = $this->flashMessages();
                 <tr class="row">
                 	<th>全选<input type="checkbox" name="select_all" value="all"/></th>
                     <th>编号</th>
-                    <th>上级分类</th>
+                    <th>
+                    <?php if (isset($this->order['parentID'])):?>
+                    <?php $name = $this->order['parentID'];?>
+                    <a href="<?php echo $name['href'];?>">上级分类<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	上级分类
+                    <?php endif;?>
+                    </th>
                     <th key="name" editable="true">
                     <?php if (isset($this->order['name'])):?>
                     <?php $name = $this->order['name'];?>
@@ -118,7 +125,14 @@ $msg = $this->flashMessages();
                 <tr class="row">
                 	<th>全选<input type="checkbox" name="select_all" value="all"/></th>
                     <th>编号</th>
-                    <th>上级分类</th>
+                    <th>
+                    <?php if (isset($this->order['parentID'])):?>
+                    <?php $name = $this->order['parentID'];?>
+                    <a href="<?php echo $name['href'];?>">上级分类<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	上级分类
+                    <?php endif;?>
+                    </th>
                     <th key="name" editable="true">
                     <?php if (isset($this->order['name'])):?>
                     <?php $name = $this->order['name'];?>

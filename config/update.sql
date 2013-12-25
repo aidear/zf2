@@ -108,3 +108,17 @@ CREATE TABLE `pro_rule` (
   KEY `rule` (`rule_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 ALTER TABLE `project`.`link` ADD COLUMN `icon` VARCHAR(100) DEFAULT '' NOT NULL COMMENT 'icon' AFTER `category`, ADD COLUMN `show_icon` TINYINT(1) UNSIGNED DEFAULT 0 NOT NULL COMMENT '是否显示icon' AFTER `icon`; 
+
+/**
+*2013/12/25
+*/
+ALTER TABLE `project`.`pro_rule_type` CHANGE `id` `type_code` VARCHAR(10) NOT NULL COMMENT 'code';
+ALTER TABLE `project`.`pro_rule` CHANGE `rule_id` `rule_code` VARCHAR(20) DEFAULT '0' NOT NULL COMMENT '规则分类'; 
+ALTER TABLE `project`.`pro_rule_type` DROP PRIMARY KEY, ADD UNIQUE INDEX (`type_code`); 
+INSERT INTO pro_rule_type
+ VALUES ('reg', '注册成功', 1, NOW()),
+  ('login', '登录', 1, NOW()),
+   ('online', '在线时间', 1, NOW()),
+    ('view', '浏览页面', 1, NOW()),
+     ('shopping', '交易成功', 1, NOW());
+ALTER TABLE `project`.`pro_rule` ADD COLUMN `updateUser` VARCHAR(60) DEFAULT '' NOT NULL AFTER `last_update`; 
