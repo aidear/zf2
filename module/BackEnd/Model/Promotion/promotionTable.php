@@ -91,30 +91,26 @@ class PromotionTable extends TableGateway
     	$where->in('category', $cid);
     	return parent::update(array('category' => 0), $where);
     }
-	function save(Link $link){
-        $link = $link->toArray();
-        unset($link['inputFilter']);
-        unset($link['icon']);
-        if(empty($link['id'])){
-            $rowset = $this->select(array('title' => $link['title']));
-            if($rowset->count() < 1){
-                if ($this->insert($link)) {
+	function save(Promotion $promotion){
+        $promotion = $promotion->toArray();
+        unset($promotion['inputFilter']);
+        if(empty($promotion['id'])){
+                if ($this->insert($promotion)) {
                 	return $this->getLastInsertValue();
                 }
-            }
             return;
         }
-        if(empty($link['id'])){
-            unset($link['id']);
-            if ($this->insert($link)) {
+        if(empty($promotion['id'])){
+            unset($promotion['id']);
+            if ($this->insert($promotion)) {
             	return $this->getLastInsertValue();
             }
         }else{
-            $id = $link['id'];
+            $id = $promotion['id'];
             if($this->getOneById($id)){
-                unset($link['id']);
-                unset($link['addTime']);
-                $this->update($link , array('id' => $id));
+                unset($promotion['id']);
+                unset($promotion['add_time']);
+                $this->update($promotion , array('id' => $id));
             }else{
                 throw new \Exception('Not find this id:' . $id);
             }
@@ -164,6 +160,12 @@ class PromotionTable extends TableGateway
     function formatWhere(array $data){
     	$where = $this->_getSelect()->where;
     
+    	if (isset($data['cid'])) {
+    		$where->equalTo('rule_code', $data['cid']);
+    	}
+    	if (isset($data['title'])) {
+    		$where->like('pro_rule_type.type_name', '%'.$data['title'].'%');
+    	}
     	$this->select->where($where);
     	return $this;
     }

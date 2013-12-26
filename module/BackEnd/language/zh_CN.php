@@ -302,4 +302,6 @@ return array(
     
     'config_index' => '基本设置',
     'config_mail' => '邮件服务器',
+    'promotion_index' => '促销活动',
+    'promotion_save' => '促销活动',
 );

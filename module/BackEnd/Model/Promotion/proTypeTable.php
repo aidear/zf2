@@ -51,14 +51,13 @@ class ProTypeTable extends TableGateway
         return $this->select()->order('order Desc');
     }
     
-    function getlist($where = array(), $order = 'order Desc')
+    function getlist($where = array())
     {
     	$select = $this->getSql()->select();
     	
     	if ($where) {
     		$select->where($where);
     	}
-    	$select->order($order);
     	$resultSet = $this->selectWith($select);//echo str_replace("\"", "", $select->getSqlString()); exit;
     	return $resultSet->toArray();
     }

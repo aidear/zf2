@@ -2,48 +2,38 @@
 $this->headScript()->appendFile($this->basePath('js/jquery-ui-1.10.2.custom.min.js'))
 					->appendFile($this->basePath('js/jquery.ajaxfileupload.js'));
 $msg = $this->flashMessages();
-echo get_class($this->paginaction);die;
 ?>
 <div class="box">
     <div class="box-header">
         <div class="t_top">
         	<div class="t_inline">
         <form class="form-inline" action="<?php echo $this->url('backend', array('controller' 
-            => 'nav', 'action' => 'items')); ?>" method="get">
+            => 'promotion', 'action' => 'index')); ?>" method="get">
                 <div class="input-group">
                 	<label>分类</label>
                     <select name="cid">
-                    <?php foreach ($this->category as $k=>$v):?>
+                    <?php foreach ($this->rule_type as $k=>$v):?>
                     	<option value="<?php echo $k;?>" <?php echo $this->cid==$k ? 'selected=selected' : '';?>><?php echo $v;?></option>
                     <?php endforeach;?>
                     </select>
                     <input autocomplete="off" class="input-element span3" name="title" type="text">
-                    <!-- <input type="hidden" name="cid" value="<?php echo $this->cateInfo->id;?>" /> -->
                 <button class="button-element" type="submit">搜索</button>
                 </div>
         </form>
-        	</div>
-        	<div class="t_import input-group">
-        		<button class="button-element" type="button" name="export_button" value="导出" q="<?php echo $this->url('backend' , array('controller' => 'nav' , 'action' => 'items')).'?'.$this->query;?>" >导出</button>
-        	</div>
-        	<div class="t_import" style="padding-left:6px;">
-        	<a href="/templates/navigation_templates.xlsx" >模板</a>
-        		<input type="file" name="srcFile" value="" id="srcFile" style="width:140px;"/>
-        		<button class="button-element" type="button" name="import_button" value="导入">导入</button>
         	</div>
         	<p class='t_right'>
         	<!-- <a class="btn btn-return" href="<?php echo $this->url('backend' 
             , array('controller' => 'nav' , 'action' => 'category'))?>">
         <i class="icon-plus"></i>返回</a> -->
         	<a class="btn btn-success" href="<?php echo $this->url('backend' 
-            , array('controller' => 'nav' , 'action' => 'addItem'));?>">
+            , array('controller' => 'promotion' , 'action' => 'save'));?>">
         <i class="icon-plus"></i>新增</a>
         <a class="btn btn-edit" href="javascript:;" _href="<?php echo $this->url('backend', array('controller' 
-                                => 'nav', 'action' => 'addItem')) ?>?cid=<?php echo $this->cid;?>&id=">
+                                => 'promotion', 'action' => 'save')) ?>?id=">
                                 <i class="icon-edit"></i>编辑
                             </a>
                             <a class="btn btn-delete" href="javascript:;" _href="<?php echo $this->url('backend', array('controller' 
-                                => 'nav', 'action' => 'deleteItem')) ?>?cid=<?php echo $this->cid;?>&id=" onClick="diyConfirm('删除' , $(this).attr('href'), this);return false;"><i class="icon-delete"></i>删除
+                                => 'promotion', 'action' => 'delete')) ?>?id=" onClick="diyConfirm('删除' , $(this).attr('href'), this);return false;"><i class="icon-delete"></i>删除
                             </a>
         </p>
         </div>
@@ -136,9 +126,9 @@ echo get_class($this->paginaction);die;
                     <th>
                     <?php if (isset($this->order['type_name'])):?>
                     <?php $name = $this->order['type_name'];?>
-                    <a href="<?php echo $name['href'];?>">活动分类<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <a href="<?php echo $name['href'];?>">活动类型<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
                     <?php else:?>
-                    	活动分类
+                    	活动类型
                     <?php endif;?>
                     	</th>
                     <th  key="points" editable="true">
@@ -216,31 +206,18 @@ echo get_class($this->paginaction);die;
 var productEditableParam={
 		'postUrl':'/index/updateColumn',
 		'primary_key':'id',
-		'table':'LinkTable',
-		'isShow':{
+		'table':'PromotionTable',
+		'is_active':{
 			type:'radio',
 	        group:{
-	            1:'显示',
-	            0:'不显示'
+	            1:'启用',
+	            0:'未启用'
 	        }
 		},
-		'order':{
+		'points':{
 			type:'text',
 			reg: /^\d+$/,
 			tip:'只能为数字!'
-		},
-		'title':{
-			type:'text'
-		},
-		'url':{
-			type:'text'
-		},
-		'show_icon':{
-			type:'radio',
-	        group:{
-	            1:'显示',
-	            0:'不显示'
-	        }
 		}
 	};
 var options={
@@ -249,37 +226,6 @@ var options={
 }
 new Editable(options,$("#table1"));
 $(function() {
-	$("button[name='export_button']").click(function() {
-		var q = $(this).attr('q');
-		location.href=q+'&act=down';
-	});
-	$("button[name='import_button']").click(function() {
-		var img_value = $("#srcFile").val();
-		if (img_value == '') {
-			alert('请选择文件');
-		} else {
-			var url = "/nav/upload";
-			$.ajaxFileUpload
-			(
-				{
-					url:url,
-					secureuri:false,
-					fileElementId:'srcFile',
-					dataType: 'json',
-					success: function (data, status)
-					{
-						if (data.code == 0) {
-							alert('已成功上传'+data.msg+'条记录');
-						}
-					},
-					error: function (data, status, e)
-					{
-						alert('上传时发生错误');
-					}
-				}
-			)
-		}
-	});
 	$("select[name='cid']").change(function(){
 		$("button.button-element[type='submit']").click();
 	});

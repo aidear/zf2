@@ -44,7 +44,7 @@ class Promotion implements InputFilterAwareInterface
 		$this->start_time = isset($data['start_time']) ? $data['start_time'] : '';
 		$this->end_time = isset($data['end_time']) ? $data['end_time'] : '';
 		$this->is_active = isset($data['is_active']) ? $data['is_active'] : 1;
-		$this->add_time = isset($data['add_time']) ? $data['add_time'] : '';
+		$this->add_time = isset($data['add_time']) ? $data['add_time'] : NULL;
 		$this->last_update = isset($data['last_update']) ? $data['last_update'] : NULL;
 		$this->updateUser = isset($data['updateUser']) ? $data['updateUser'] : NULL;
 	}

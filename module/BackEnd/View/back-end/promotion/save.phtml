@@ -1,0 +1,67 @@
+<?php
+$this->headScript()->appendFile($this->basePath('js/jquery-ui-1.10.2.custom.min.js'))
+->appendFile($this->basePath('js/jquery.cleditor.min.js'))
+->appendFile($this->basePath('js/jquery.ui.datepicker-zh-CN.js'))
+->appendFile($this->basePath('js/jquery-ui-timepicker-addon.js'));
+$this->headLink()->appendStylesheet($this->basePath('styles/jquery-ui-1.10.2.custom.min.css'))
+->appendStylesheet($this->basePath('styles/jquery.cleditor.css'));
+$form = $this->form;
+$msg = $this->flashMessages();
+?>
+
+<div class="box">
+    <div class="box-header">
+        <h2><i class="icon-box"></i>
+        
+        <?php echo $form->get('id')->getValue() ? '修改活动' : '新增活动';?></h2>
+    	<div class="t_top">
+        <p class='t_right'>
+        <a class="btn btn-return" href="/nav/items?cid=<?php echo $this->cid?>">
+        <i class="icon-plus"></i>返回</a>
+        <a class="btn btn-submit" href="javascript:;">
+        <i class="icon-plus"></i>提交</a>
+        <a class="btn btn-reset" href="javascript:;">
+        <i class="icon-plus"></i>重填</a>
+        </div>
+    </div>
+    <div class="box-content">
+	   <?php if(!empty($msg['error'])):?>
+            <div class="alert alert-error fade in">
+            <button class="close" data-dismiss="alert" type="button">×</button>
+            <?php foreach($msg['error'] as $v):?>
+            <p><?php echo $v;?></p>
+            <?php endforeach;?>
+            </div>
+            <?php endif;?>
+            
+            <?php if(!empty($msg['success'])):?>
+            <div class="alert alert-success fade in">
+            <button class="close" data-dismiss="alert" type="button">×</button>
+            <?php foreach($msg['success'] as $v):?>
+            <p><?php echo $v;?></p>
+            <?php endforeach;?>
+            </div>
+            <?php endif;?>
+        <form class="box-form" action="<?php echo $this->url('backend' , array('controller' => 'promotion' , 'action' => 'save'))?>"
+              method="post" enctype="multipart/form-data">
+            <fieldset style="border:0;">
+            	<?php echo $this->formHidden($form->get('id'))?>
+                <?php echo $this->formSelect($form->get('rule_code'))?>
+                <?php echo $this->formText($form->get('points'))?>
+                <?php echo $this->formText($form->get('start_time'))?>
+                <?php echo $this->formText($form->get('end_time'))?>
+                <?php echo $this->formSelect($form->get('is_active'))?>
+                
+                <?php echo $this->formSubmit($form->get('submit') , '提交')?>
+            </fieldset>
+        </form>
+    </div>
+</div>
+<script>
+$(function() {
+	$("input[name='start_time'], input[name='end_time']").datetimepicker();
+	$("input[name='start_time'], input[name='end_time']").click(function(){
+		$("#ui-datepicker-div").css('z-index', 300);
+	});
+})
+</script>
