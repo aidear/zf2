@@ -1,19 +1,9 @@
 <?php
 namespace FrontEnd\Controller;
 
-use Zend\Session\Container;
-
-use Zend\Db\TableGateway\TableGateway;
-
-use Zend\Db\ResultSet\ResultSet;
-
 
 use Custom\Mvc\Controller\AbstractActionController;
-use Zend\View\Helper\ViewModel;
-use FrontEnd\Model\Users\Member;
-use FrontEnd\Model\Users\MemberTable;
 use Zend\View\Model\JsonModel;
-
 class LoginController extends AbstractActionController
 {
 	public function indexAction()
@@ -47,6 +37,24 @@ class LoginController extends AbstractActionController
     					$container->UserName = $user->UserName;
     					$container->LoginCount = $user->LoginCount+1;
     					$container->Points = $user->Points;
+    					
+    					//check promotion type login:
+    					$promotionTable = $this->_getTable('PromotionTable');
+    					$loginProList = $promotionTable->getProList('login');
+    					if ($loginProList) {
+    					   foreach ($loginProList as $k=>$v) {
+    					       $hisInsert = array(
+    					       	   'uid' => $user->UserID,
+    					           'rule_name' => $v['type_name'],
+    					           'point' => $v['point'],
+    					           'info' => NULL,
+    					           'description' => '登录赠送'.$v['point'].'积分',
+    					           'add_time' => $now,
+    					           'record_type' => 1//系统
+    					       );
+    					       $memberTable->updateUserPoint($user->UserID, $v['point'], $hisInsert);
+    					   }
+    					}
 						$rs = array('code' => 0, 'msg' => '登录成功');
 					} else {
 						$rs = array('code' => 1, 'msg' => '密码输入有误');

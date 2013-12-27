@@ -122,3 +122,19 @@ INSERT INTO pro_rule_type
     ('view', '浏览页面', 1, NOW()),
      ('shopping', '交易成功', 1, NOW());
 ALTER TABLE `project`.`pro_rule` ADD COLUMN `updateUser` VARCHAR(60) DEFAULT '' NOT NULL AFTER `last_update`; 
+
+/**
+*12/27/2013
+*/
+CREATE TABLE `point_history` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `uid` int(11) unsigned NOT NULL,
+  `rule_name` text NOT NULL,
+  `point` int(11) NOT NULL DEFAULT '0',
+  `info` text COMMENT '来源统计，扩展信息',
+  `description` text COMMENT '详细信息',
+  `add_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `record_type` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1-按照规则赋予积分,2-管理员后台赠送积分,',
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

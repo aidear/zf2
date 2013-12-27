@@ -92,6 +92,18 @@ return array(
 	        	$resultSetPrototype->setArrayObjectPrototype(new Model\Nav\Link());
 	        	return new Model\Nav\LinkTable('link', $dbAdapter, null, $resultSetPrototype);
 	        },
+	        'PromotionTable' =>  function($sm) {
+	            $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+	            $resultSetPrototype = new ResultSet();
+	            $resultSetPrototype->setArrayObjectPrototype(new Model\Promotion\Promotion());
+	            return new Model\Promotion\PromotionTable('pro_rule', $dbAdapter, null, $resultSetPrototype);
+	        },
+	        'ProTypeTable' =>  function($sm) {
+	            $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+	            $resultSetPrototype = new ResultSet();
+	            $resultSetPrototype->setArrayObjectPrototype(new Model\Promotion\ProType());
+	            return new Model\Promotion\ProTypeTable('pro_rule_type', $dbAdapter, null, $resultSetPrototype);
+	        },
 		),
 );
 ?>

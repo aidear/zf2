@@ -67,4 +67,34 @@ class MemberTable extends TableGateway
     	$row = $rowset->current();
     	return $row;
     }
+    public function updateUserPoint($uid, $point, $history)
+    {
+        $keys = array_keys($history);
+        $fields = "";
+        $values = "";
+        foreach($keys as $key) {
+            if($fields != "") {
+                $fields .= ",";
+                $values .= ",";
+            }
+            $fields .= '`'.$key.'`';
+            $values .= "'".$history[$key]."'";
+        }
+        $str = "($fields) VALUES ($values)";
+        $sql = "UPDATE member SET Points=Points+{$point} WHERE UserID={$uid};";
+        $sql .= "INSERT INTO point_history {$str}";
+        try {
+            $connect = $this->getAdapter()->getDriver()->getConnection();
+            $connect->beginTransaction();
+            $this->getAdapter()->query($sql);
+            $connect->commit();
+            return true;
+        } catch (\Exception $e) {
+            if ($connect instanceof \Zend\Db\Adapter\Driver\ConnectionInterface) {
+                $connect->rollback();
+            }
+            return false;
+        }
+//         return $this->getAdapter()->query($sql);
+    }
 }
