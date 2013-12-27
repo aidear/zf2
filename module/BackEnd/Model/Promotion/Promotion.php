@@ -28,9 +28,6 @@ class Promotion
 	public $add_time;
 	public $last_update;
 	public $updateUser;
-	
-	protected $inputFilter;
-
 
 	function exchangeArray(Array $data){
 		$this->id = isset($data['id']) ? $data['id'] : '';
