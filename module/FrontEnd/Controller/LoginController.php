@@ -46,13 +46,13 @@ class LoginController extends AbstractActionController
     					       $hisInsert = array(
     					       	   'uid' => $user->UserID,
     					           'rule_name' => $v['type_name'],
-    					           'point' => $v['point'],
+    					           'points' => $v['points'],
     					           'info' => NULL,
-    					           'description' => '登录赠送'.$v['point'].'积分',
+    					           'description' => '登录赠送'.$v['points'].'积分',
     					           'add_time' => $now,
     					           'record_type' => 1//系统
     					       );
-    					       $memberTable->updateUserPoint($user->UserID, $v['point'], $hisInsert);
+    					       $memberTable->updateUserPoint($user->UserID, $v['points'], $hisInsert);
     					   }
     					}
 						$rs = array('code' => 0, 'msg' => '登录成功');

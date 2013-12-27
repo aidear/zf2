@@ -22,6 +22,7 @@ use Custom\Paginator\Adapter\DbSelect;
 
 use Zend\Db\Sql\Where;
 use Zend\Db\TableGateway\TableGateway;
+use Custom\Db\Sql\Sql;
 
 class PromotionTable extends TableGateway
 {
@@ -61,17 +62,17 @@ class PromotionTable extends TableGateway
         $select = $this->getSql()->select();
         $where = $select->where;
         if ($code) {
-            $where->equalTo('rule_code', $code);
+            $where->equalTo('pro_rule.rule_code', $code);
         }
-        $where->equalTo('is_active', 1);
-        $where->lessThanOrEqualTo('start_time', $now);
-        $where->greaterThanOrEqualTo('end_time', $now);
-        $select->join('pro_rule_type', 'pro_rule_type.type_code=pro_rule.rule_code', array('type_name'));
+        $where->equalTo('pro_rule.is_active', 1);
+        $where->lessThanOrEqualTo('pro_rule.start_time', $now);
+        $where->greaterThanOrEqualTo('pro_rule.end_time', $now);
         $select->where($where);
-        $select->order("start_time ASC");
-        $rs = $this->selectWith($select);
+        $select->join('pro_rule_type', 'pro_rule_type.type_code=pro_rule.rule_code', array('type_name'));
+        $select->order("pro_rule.start_time ASC");//echo str_replace('"', '', $select->getSqlString());die;
+        $resultSet = $this->selectWith($select);
         
-        return $rs->toArray();
+        return $resultSet->toArray();
     }
     function getOneById($id){
         $rowset = $this->select(array('id' => $id));

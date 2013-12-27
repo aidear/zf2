@@ -94,9 +94,9 @@ return array(
 	        },
 	        'PromotionTable' =>  function($sm) {
 	            $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
-	            $resultSetPrototype = new ResultSet();
-	            $resultSetPrototype->setArrayObjectPrototype(new Model\Promotion\Promotion());
-	            return new Model\Promotion\PromotionTable('pro_rule', $dbAdapter, null, $resultSetPrototype);
+// 	            $resultSetPrototype = new ResultSet();
+// 	            $resultSetPrototype->setArrayObjectPrototype(new Model\Promotion\Promotion());
+	            return new Model\Promotion\PromotionTable('pro_rule', $dbAdapter);
 	        },
 	        'ProTypeTable' =>  function($sm) {
 	            $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');

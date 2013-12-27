@@ -86,7 +86,7 @@ class MemberTable extends TableGateway
         try {
             $connect = $this->getAdapter()->getDriver()->getConnection();
             $connect->beginTransaction();
-            $this->getAdapter()->query($sql);
+            $this->getAdapter()->query($sql, Adapter::QUERY_MODE_EXECUTE);
             $connect->commit();
             return true;
         } catch (\Exception $e) {

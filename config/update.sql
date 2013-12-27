@@ -138,3 +138,4 @@ CREATE TABLE `point_history` (
   PRIMARY KEY (`id`),
   KEY `uid` (`uid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+ALTER TABLE `project`.`point_history` CHANGE `point` `points` INT(11) DEFAULT 0 NOT NULL;
