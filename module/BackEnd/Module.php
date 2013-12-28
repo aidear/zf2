@@ -118,6 +118,8 @@ class Module
 		$headTitleHelper->setSeparator(' - ');
 	
 		// Setting the action, controller, module and site name as title segments
+		$action = '';
+		$controller = '';
 		if ($matches) {
 		    $action     = $matches->getParam('action');
 		    $controller = $matches->getParam('controller');
