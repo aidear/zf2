@@ -273,7 +273,12 @@ return array(
     'member_pwd' => '会员列表',
     'member_sendMail' => '会员列表',
     'member_contact' => '通讯录',
+    'member_contactSave' => '通讯录',
+    'member_contactSendMail' => '通讯录',
     'member_all' => '全息表',
+    'member_allSave' => '全息表',
+    'member_allPwd' => '全息表',
+    'member_allSendMail' => '全息表',
     'member_identity' => '身份认证',
     'Index_index' => '管理中心',
     

@@ -21,22 +21,22 @@ $region = $this->region;
         	</form>
         	</div>
         	<p class='t_right'><a class="btn btn-success" href="<?php echo $this->url('backend' 
-            , array('controller' => 'member' , 'action' => 'save'))?>">
+            , array('controller' => 'member' , 'action' => 'allSave'))?>">
         <i class="icon-plus"></i>新增</a>
         					<a class="btn btn-edit" href="javascript:;" _href="<?php echo $this->url('backend', array('controller' 
-                                => 'member', 'action' => 'save')) ?>?id=">
+                                => 'member', 'action' => 'allSave')) ?>?id=">
                                 <i class="icon-edit"></i>编辑
                             </a>
                             <a class="btn btn-edit" href="javascript:;" _href="<?php echo $this->url('backend', array('controller' 
-                                => 'member', 'action' => 'pwd')) ?>?id=">
+                                => 'member', 'action' => 'allPwd')) ?>?id=">
                                 <i class="icon-edit"></i>设密
                             </a>
                             <a class="btn btn-edit" editMult="true" href="javascript:;" _href="<?php echo $this->url('backend', array('controller' 
-                                => 'member', 'action' => 'sendMail')) ?>?id=">
+                                => 'member', 'action' => 'allSendMail')) ?>?id=">
                                 <i class="icon-edit"></i>邮件
                             </a>
                             <a class="btn btn-delete" href="javascript:;" _href="<?php echo $this->url('backend', array('controller' 
-                                => 'member', 'action' => 'delete')) ?>?id=" onClick="diyConfirm('删除' , $(this).attr('href'), this);return false;"><i class="icon-delete"></i>删除
+                                => 'member', 'action' => 'allDelete')) ?>?id=" onClick="diyConfirm('删除' , $(this).attr('href'), this);return false;"><i class="icon-delete"></i>删除
                             </a>
         </p>
      </div>
@@ -239,7 +239,7 @@ $region = $this->region;
             </tbody>
         </table>
         <?php echo $this->paginationControl($this->paginaction,'Sliding','layout/pagination' , array('link' 
-            => $this->url('backend' , array('controller' => 'member' , 'action' => 'index')).'?'.$this->query));?>
+            => $this->url('backend' , array('controller' => 'member' , 'action' => 'all')).'?'.$this->query));?>
     </div>
 </div>
 <div id="dialog" title="筛选" style="display: none;">
@@ -255,6 +255,7 @@ $region = $this->region;
 	</form>
 </div>
 <script type="text/javascript">
+all = 1;
 <!--
 var productEditableParam={
 		'postUrl':'/index/updateColumn',
@@ -305,6 +306,7 @@ var url = '<?php echo $this->url('backend' , array('controller' => 'member' , 'a
 var query = '<?php echo $this->filterQuery?>';
 $(function(){
 	$(".col-1").css({'width':'1600px'});
+// 	$(".box-header").css({'width' :parseInt($("#table1").width())-500+'px'});
 	var select_field = [
 	        			{name: 'UserName', vtype:'string',ctype:'text',html:'用户名'},
 	        			{name: 'Email', vtype:'string',ctype:'text',html:'邮箱'},

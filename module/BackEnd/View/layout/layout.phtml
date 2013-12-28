@@ -26,6 +26,9 @@
         ->prependFile($this->basePath('js/BackEnd/bootstrap.min.js'))
             ->prependFile($this->basePath('js/jquery.min.js'));
        ?>
+<script type="text/javascript">
+var all = 0;
+</script>
 </head>
 <body scroll="no">
 <?php echo $this->mynavigation('backendNav')->menu()->setPartial('layout/header.phtml');?>
@@ -87,7 +90,11 @@ window.onresize = function(){
 	//$('.col-1').css('height', document.documentElement.clientHeight+"px");
 	$("#openClose").height(openClose+30);
 	var pW = $('.box').width();
-	$('.box-header').width(pW+'px')
+	if (all != 1) { 
+		$('.box-header').width(pW+'px');
+	} else {
+		$('.box-header').width($(window).width()-165+'px');
+	}
 }
 window.onresize();
 
@@ -155,18 +162,27 @@ $(window).load(function(){
 // 				return false;
 // 			}
 // 		}
-		$('.box-header').width(pW+'px');
+// 		$('.box-header').width(pW+'px');
 	});
 })
 $(function(){
 	var pW = $('.box').width();
-	$('.box-header').width(pW+'px').addClass('button_stay');
+	$('.box-header').addClass('button_stay');
 	if ($("#leftMain ul li.on").size() == 0) {
 		switch (tabCode) {
 		case 'member_save':
 		case 'member_pwd':
 		case 'member_sendMail':
 			$("#leftMain ul li[tabcode='member_index']").addClass('on fb blue');
+			break;
+		case 'member_contactSave':
+		case 'member_contactSendMail':
+			$("#leftMain ul li[tabcode='member_contact']").addClass('on fb blue');
+			break;
+		case 'member_allSave':
+		case 'member_allPwd':
+		case 'member_allSendMail':
+			$("#leftMain ul li[tabcode='member_all']").addClass('on fb blue');
 			break;
 		case 'acl_allow':
 			$("#leftMain ul li[tabcode='role_']").addClass('on fb blue');

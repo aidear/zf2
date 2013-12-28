@@ -238,80 +238,34 @@ class MemberController extends AbstractActionController
 		$requery = $this->getRequest();
 		$form = new MemberForm($this->_getTable('Zend\Db\Adapter\Adapter'));
 		if($requery->isPost()){
-			$params = $requery->getPost();
-			$member = new Member($this->_getTable('Zend\Db\Adapter\Adapter'));
-			
-			$member->UserID = $params->UserID;
-			$member->UserName = $params->UserName;
-// 			$member->Password = md5($params->Password);
-			$member->Nick = $params->Nick;
-// 			$member->ImgUrl = $params->ImgUrl;
-			$member->Email = $params->Email;
-			$member->Mobile = $params->Mobile;
-			$member->Points = $params->Points;
-			$member->TrueName = $params->TrueName;
-			$member->Gender = $params->Gender;
-			$member->Province = $params->Province;
-			$member->City = $params->City;
-			$member->District = $params->District;
-			$member->Address = $params->Address;
-			$member->Tel = $params->Tel;
-			$member->Birthday = $params->Birthday;
-			$member->QQ = $params->QQ;
-			$member->MSN = $params->MSN;
-			$member->Status = $params->Status;
-			$member->Source = $params->Source;
-			$member->LastUpdate = $member->AddTime = Utilities::getDateTime();
-			$File = $this->params()->fromFiles('ImgUrl');
-			$params->ImgUrl = $File['name'];
-			$form->setData($params);
-			
-			$form->setInputFilter($member->getInputFilter());
-				
-			if ($form->isValid()) {
-				$size = new \Zend\Validator\File\Size(array('min' => 0,'max' => '255kB'));
-				$adapter = new \Zend\File\Transfer\Adapter\Http();
-				$adapter->setValidators(array($size), $File['name']);
-				if (!$adapter->isValid() && !empty($params->ImgUrl)){
-					$dataError = $adapter->getMessages();
-					$error = array();
-					foreach($dataError as $key=>$row)
-					{
-						$error[] = $row;
-					}
-					$form->setMessages(array('ImgUrl'=>$error ));
-				} else {
-					$table = $this->_getTable('MemberTable');
-				$chkExist = 1;
-				
-				$id = $table->save($member);
-			
-				//插入图片
-				$member->ImgUrl = $this->_insertImg($member->UserID ? $member->UserID : $id);
-				//更新表
-				if($member->ImgUrl){
-					$this->_updateMemberImage($member->UserID ? $member->UserID : $id, $member->ImgUrl );
-				}
-				
-				if($member->UserID){
-					$this->trigger(ActionEvent::ACTION_UPDATE);
-					$this->_message('用户名为'.$member->UserName.'的会员资料更新成功');
-				}else{
-					$this->_message('用户名为'.$member->UserName.'的会员添加成功');
-					$this->trigger(ActionEvent::ACTION_INSERT);
-				}
-				return $this->redirect()->toRoute('backend' , array('controller' => 'member' , 'action' => 'index'));
-				}
-			}
-			
-			
-		} elseif ($UserID = $this->params()->fromQuery('id')) {
-			$member = new Member();
-			
+			$this->_memberSave($form, $requery);
+		}
+		return $this->_memberEdit($form);
+	}
+	public function contactSaveAction()
+	{
+		$requery = $this->getRequest();
+		$form = new MemberForm($this->_getTable('Zend\Db\Adapter\Adapter'));
+		if($requery->isPost()){
+			$this->_memberSave($form, $requery, 'contact');
+		}
+		return $this->_memberEdit($form);
+	}
+	public function allSaveAction()
+	{
+		$requery = $this->getRequest();
+		$form = new MemberForm($this->_getTable('Zend\Db\Adapter\Adapter'));
+		if($requery->isPost()){
+			$this->_memberSave($form, $requery, 'all');
+		}
+		return $this->_memberEdit($form);
+	}
+	private function _memberEdit($form)
+	{
+		$UserID = $this->params()->fromQuery('id');
+		if ($UserID) {
 			$userInfo = $this->_getMemberByID($UserID);
-            $form->setData($userInfo);
-		} else {
-			
+			$form->setData($userInfo);
 		}
 		$region = $this->_getTable('RegionTable');
 		$prov = $region->getSelectRegion(2);
@@ -326,11 +280,75 @@ class MemberController extends AbstractActionController
 		$form->get('District')->setValueOptions($district);
 		$form->get('Source')->setValue(2);
 		
-// 		if($this->flashMessenger()->hasMessages()){
-// 			return array('form' => $form, 'msg' => $this->flashMessenger()->getMessages());
-// 		} else {
-			return array('member' => new Member() , 'form' => $form);
-// 		}
+		return array('member' => new Member() , 'form' => $form);
+	}
+	private function _memberSave($form, $requery, $action = 'index')
+	{
+		$params = $requery->getPost();
+		$member = new Member($this->_getTable('Zend\Db\Adapter\Adapter'));
+			
+		$member->UserID = $params->UserID;
+		$member->UserName = $params->UserName;
+		// 			$member->Password = md5($params->Password);
+		$member->Nick = $params->Nick;
+		// 			$member->ImgUrl = $params->ImgUrl;
+		$member->Email = $params->Email;
+		$member->Mobile = $params->Mobile;
+		$member->Points = $params->Points;
+		$member->TrueName = $params->TrueName;
+		$member->Gender = $params->Gender;
+		$member->Province = $params->Province;
+		$member->City = $params->City;
+		$member->District = $params->District;
+		$member->Address = $params->Address;
+		$member->Tel = $params->Tel;
+		$member->Birthday = $params->Birthday;
+		$member->QQ = $params->QQ;
+		$member->MSN = $params->MSN;
+		$member->Status = $params->Status;
+		$member->Source = $params->Source;
+		$member->LastUpdate = $member->AddTime = Utilities::getDateTime();
+		$File = $this->params()->fromFiles('ImgUrl');
+		$params->ImgUrl = $File['name'];
+		$form->setData($params);
+			
+		$form->setInputFilter($member->getInputFilter());
+		
+		if ($form->isValid()) {
+			$size = new \Zend\Validator\File\Size(array('min' => 0,'max' => '255kB'));
+			$adapter = new \Zend\File\Transfer\Adapter\Http();
+			$adapter->setValidators(array($size), $File['name']);
+			if (!$adapter->isValid() && !empty($params->ImgUrl)){
+				$dataError = $adapter->getMessages();
+				$error = array();
+				foreach($dataError as $key=>$row)
+				{
+					$error[] = $row;
+				}
+				$form->setMessages(array('ImgUrl'=>$error ));
+			} else {
+				$table = $this->_getTable('MemberTable');
+				$chkExist = 1;
+		
+				$id = $table->save($member);
+					
+				//插入图片
+				$member->ImgUrl = $this->_insertImg($member->UserID ? $member->UserID : $id);
+				//更新表
+				if($member->ImgUrl){
+					$this->_updateMemberImage($member->UserID ? $member->UserID : $id, $member->ImgUrl );
+				}
+		
+				if($member->UserID){
+					$this->trigger(ActionEvent::ACTION_UPDATE);
+					$this->_message('用户名为'.$member->UserName.'的会员资料更新成功');
+				}else{
+					$this->_message('用户名为'.$member->UserName.'的会员添加成功');
+					$this->trigger(ActionEvent::ACTION_INSERT);
+				}
+				return $this->redirect()->toRoute('backend' , array('controller' => 'member' , 'action' => $action));
+			}
+		}
 	}
 	function identityAction()
 	{
@@ -414,38 +432,54 @@ class MemberController extends AbstractActionController
 		$UserID = $this->params()->fromQuery('id');
 		$userInfo = $this->_getMemberByID($UserID);
 		if($post->isPost()){
-			$password = trim($post->getPost()->Password);
-			$rePassword = trim($post->getPost()->rePassword);
-			$UserID = $post->getPost()->UserID;
-			if (empty($password) || empty($rePassword)) {
-				$this->flashMessenger()->addErrorMessage('请输入密码后提交');
-				
-			} elseif ($password == $rePassword) {
-				$memberTable = $this->_getTable('MemberTable');
-				$memberTable->updateFieldsByID(array('Password' => md5($password)), $UserID);
-				$this->flashMessenger()->addSuccessMessage('会员'.$userInfo['UserName'].'密码已重置成功');
-				return $this->redirect()->toRoute('backend' , array('controller' => 'member' , 'action' => 'index'));
-			} else {
-				$this->flashMessenger()->addErrorMessage('抱歉，两次输入的密码不一致！请重新输入');
-			}
-			return $this->redirect()->toUrl("/member/pwd?id={$UserID}");
+			$this->_memberPwdSave($post);
 		}
+		return $this->_memberPwdEdit($form, $userInfo);
+	}
+	function allPwdAction()
+	{
+		$form = new MemberForm();
+		$post = $this->getRequest();
+		$UserID = $this->params()->fromQuery('id');
+		$userInfo = $this->_getMemberByID($UserID);
+		if($post->isPost()){
+			$this->_memberPwdSave($post, 'all');
+		}
+		return $this->_memberPwdEdit($form, $userInfo);
+	}
+	private function _memberPwdSave($post, $action = 'index')
+	{
+		$password = trim($post->getPost()->Password);
+		$rePassword = trim($post->getPost()->rePassword);
+		$UserID = $post->getPost()->UserID;
+		if (empty($password) || empty($rePassword)) {
+			$this->flashMessenger()->addErrorMessage('请输入密码后提交');
+		
+		} elseif ($password == $rePassword) {
+			$memberTable = $this->_getTable('MemberTable');
+			$memberTable->updateFieldsByID(array('Password' => md5($password)), $UserID);
+			$this->flashMessenger()->addSuccessMessage('会员'.$userInfo['UserName'].'密码已重置成功');
+			return $this->redirect()->toRoute('backend' , array('controller' => 'member' , 'action' => $action));
+		} else {
+			$this->flashMessenger()->addErrorMessage('抱歉，两次输入的密码不一致！请重新输入');
+		}
+		if ($action == 'all') {
+			return $this->redirect()->toUrl("/member/allPwd?id={$UserID}");
+		}
+		return $this->redirect()->toUrl("/member/pwd?id={$UserID}");
+	}
+	private function _memberPwdEdit($form, $userInfo)
+	{
 		unset($userInfo['Password']);
 		$form->setData($userInfo);
 		$form->add ( array (
-            'name' => 'rePassword',
-            'options' => array (
-                'label' => '确认密码' 
-            ) 
-        ) );
+				'name' => 'rePassword',
+				'options' => array (
+						'label' => '确认密码'
+				)
+		) );
 		
-// 		if($this->flashMessenger()->hasMessages()){
-// 			return array('form' => $form, 'msg' => $this->flashMessenger()->getMessages());
-// 		} else {
-			return array('form' => $form, 'user' => $userInfo);
-// 		}
-		
-// 		return array('form'=>'');
+		return array('form' => $form, 'user' => $userInfo);
 	}
 	function sendMailAction()
 	{
@@ -456,19 +490,55 @@ class MemberController extends AbstractActionController
 		}
 		$req = $this->getRequest();
 		if ($req->isPost()) {
-			set_time_limit(0);
-			$subject = $req->getPost('subject');
-			$email = $req->getPost('email');
-			$content = $req->getPost('content');
-			$mail = new \BackEnd\Model\System\Mail();
-			$email = explode(',', $email);
-			$email = array_filter($email);
-			
-			$file = $this->params()->fromFiles('attach');
-			$mail->sendHtml($email, $subject, $content, $file);
-			$this->_message('信息已投递至'.implode(',', $email).'地址');
-			return $this->redirect()->toRoute('backend' , array('controller' => 'member' , 'action' => 'index')); 
+			$this->_memberSendMailSave($req);
 		}
+		return $this->_memberSendMailEdit();
+	}
+	function contactSendMailAction()
+	{
+		$table = $this->_getTable('MemberTable');
+		$userid = $id = $this->params()->fromQuery('id');
+		if (!$userid) {
+			throw new \Exception('id is required!');
+		}
+		$req = $this->getRequest();
+		if ($req->isPost()) {
+			$this->_memberSendMailSave($req, 'contact');
+		}
+		return $this->_memberSendMailEdit();
+	}
+	function allSendMailAction()
+	{
+		$table = $this->_getTable('MemberTable');
+		$userid = $id = $this->params()->fromQuery('id');
+		if (!$userid) {
+			throw new \Exception('id is required!');
+		}
+		$req = $this->getRequest();
+		if ($req->isPost()) {
+			$this->_memberSendMailSave($req, 'all');
+		}
+		return $this->_memberSendMailEdit();
+	}
+	private function _memberSendMailSave($req, $action = 'index')
+	{
+		set_time_limit(0);
+		$subject = $req->getPost('subject');
+		$email = $req->getPost('email');
+		$content = $req->getPost('content');
+		$mail = new \BackEnd\Model\System\Mail();
+		$email = explode(',', $email);
+		$email = array_filter($email);
+			
+		$file = $this->params()->fromFiles('attach');
+		$mail->sendHtml($email, $subject, $content, $file);
+		$this->_message('信息已投递至'.implode(',', $email).'地址');
+		return $this->redirect()->toRoute('backend' , array('controller' => 'member' , 'action' => $action));
+	}
+	private function _memberSendMailEdit()
+	{
+		$table = $this->_getTable('MemberTable');
+		$userid = $id = $this->params()->fromQuery('id');
 		if (strpos($userid, ',') !== false) {
 			$userid = explode(',', $userid);
 		} else {
@@ -476,18 +546,10 @@ class MemberController extends AbstractActionController
 		}
 		$user = $table->getUserListByID($userid)->toArray();
 		$assign = array();
-// 		if (count($user) != count($user,  COUNT_RECURSIVE)) {
-// 			$assign['mult'] = 1;
-			foreach ($user as $u) {
-				$assign['email'][] = $u['Email'];
-				$assign['name'][] = $u['UserName'];
-			}
-// 		} else {
-// 			$assign['mult'] = 0;
-// 			$assign['Email'] = $user['Email'];
-// 			$assign['UserName'] = $user['UserName'];
-// 		}
-		
+		foreach ($user as $u) {
+			$assign['email'][] = $u['Email'];
+			$assign['name'][] = $u['UserName'];
+		}
 		return array('user' => $assign, 'id' => $id);
 	}
 	function deleteAction()
@@ -501,6 +563,21 @@ class MemberController extends AbstractActionController
 	
 			$this->_message('删除成功');
 			return $this->redirect()->toUrl('/member');
+	
+		}
+		throw new \Exception('没有ID参数');
+	}
+	function allDeleteAction()
+	{
+		$requery = $this->getRequest();
+		if($userId = $requery->getQuery('id')){
+			$table = $this->_getTable('MemberTable');
+			$table->delete($userId);
+	
+			$this->trigger(ActionEvent::ACTION_DELETE);
+	
+			$this->_message('删除成功');
+			return $this->redirect()->toUrl('/member/all');
 	
 		}
 		throw new \Exception('没有ID参数');
