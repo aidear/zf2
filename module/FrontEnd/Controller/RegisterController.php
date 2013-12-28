@@ -86,6 +86,30 @@ class RegisterController extends AbstractActionController
     				$container = $this->_getSession('member');
     				$container->UserID = $UserID;
     				$container->UserName = $memberInfo->UserName;
+    				$container->LoginCount = 1;
+    				$container->Points = $memberInfo->Points;
+    				$container->LoginTime = time();
+    				
+    				//check register send point promotion
+    				$promotionTable = $this->_getTable('PromotionTable');
+    				$regProList = $promotionTable->getProList('reg');
+    				if ($regProList) {
+    					foreach ($regProList as $k=>$v) {
+    						$points = $v['points'];
+    						$hisInsert = array(
+    								'uid' => $container->UserID,
+    								'rule_id' => $v['id'],
+    								'rule_name' => $v['type_name'],
+    								'points' => $points,
+    								'info' => NULL,
+    								'description' => '注册成功，赠送'.$points.'积分',
+    								'add_time' => $now,
+    								'record_type' => 1//系统
+    						);
+    						$memberTable->updateUserPoint($container->UserID, $points, $hisInsert);
+    					}
+    				}
+    				
     				$v = new ViewModel(array('UserID' => $UserID));
     				$v->setTemplate('front-end/register/step2');
     				return $v;

@@ -26,6 +26,7 @@ class PointHistory implements InputFilterAwareInterface
 {
 	public $id;
 	public $uid;
+	public $rule_id;
 	public $rule_name;
 	public $point;
 	public $info;
@@ -39,6 +40,7 @@ class PointHistory implements InputFilterAwareInterface
 	function exchangeArray(Array $data){
 		$this->id = isset($data['id']) ? $data['id'] : '';
 		$this->uid = isset($data['uid']) ? $data['uid'] : '';
+		$this->rule_id = isset($data['rule_id']) ? $data['rule_id'] : 0;
 		$this->rule_name = isset($data['rule_name']) ? $data['rule_name'] : '';
 		$this->point = isset($data['point']) ? $data['point'] : '';
 		$this->info = isset($data['info']) ? $data['info'] : 0;

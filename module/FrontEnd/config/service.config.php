@@ -104,6 +104,10 @@ return array(
 	            $resultSetPrototype->setArrayObjectPrototype(new Model\Promotion\ProType());
 	            return new Model\Promotion\ProTypeTable('pro_rule_type', $dbAdapter, null, $resultSetPrototype);
 	        },
+	        'PointHistoryTable' =>  function($sm) {
+	        	$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+	        	return new Model\Point\PointHistoryTable('point_history', $dbAdapter);
+	        },
 		),
 );
 ?>

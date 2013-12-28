@@ -6,6 +6,7 @@ use Custom\Paginator\Adapter\DbSelect;
 
 use Zend\Db\Sql\Where;
 use Zend\Db\TableGateway\TableGateway;
+use Zend\Db\Sql\Expression;
 
 class PointHistoryTable extends TableGateway
 {
@@ -19,9 +20,20 @@ class PointHistoryTable extends TableGateway
         $adapter = new DbSelect($select, $this->getAdapter());
         return $adapter;
     }
-    public function addPoint($data)
+    public function getTotalPointsCurDay($uid, $code = NULL)
     {
+        $select = $this->getSql()->select();
+        $select->columns(array('totalPoints' => new Expression("SUM(point_history.points)")));
+        if ($code) {
+        	$select->join('pro_rule', 'pro_rule.id=point_history.rule_id', array('rule_code'), 'left');
+        	$select->where(array('pro_rule.rule_code' => $code));
+        }
+        $select->where(array('uid' => $uid));
+        $select->where("DATE(point_history.add_time) = DATE(NOW())");
+        $rs = $this->selectWith($select);//echo str_replace("\"", "", $select->getSqlString()); exit;
+        $data = $rs->current();
         
+        return isset($data->totalPoints) ? $data->totalPoints : 0;
     }
     function getAll($where = array()){
     	if ($where) {

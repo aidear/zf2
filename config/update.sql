@@ -139,3 +139,8 @@ CREATE TABLE `point_history` (
   KEY `uid` (`uid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ALTER TABLE `project`.`point_history` CHANGE `point` `points` INT(11) DEFAULT 0 NOT NULL;
+
+/**
+*2013/12/28
+*/
+ALTER TABLE `project`.`point_history` ADD COLUMN `rule_id` INT(11) UNSIGNED DEFAULT 0 NOT NULL COMMENT '»î¶¯id' AFTER `uid`; 
