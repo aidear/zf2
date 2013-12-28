@@ -94,12 +94,6 @@ class PromotionTable extends TableGateway
 	function save(Promotion $promotion){
         $promotion = $promotion->toArray();
         if(empty($promotion['id'])){
-                if ($this->insert($promotion)) {
-                	return $this->getLastInsertValue();
-                }
-            return;
-        }
-        if(empty($promotion['id'])){
             unset($promotion['id']);
             if ($this->insert($promotion)) {
             	return $this->getLastInsertValue();
