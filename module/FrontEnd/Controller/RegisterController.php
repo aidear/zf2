@@ -106,6 +106,7 @@ class RegisterController extends AbstractActionController
     								'add_time' => $now,
     								'record_type' => 1//系统
     						);
+    						$container->Points += $points;
     						$memberTable->updateUserPoint($container->UserID, $points, $hisInsert);
     					}
     				}
