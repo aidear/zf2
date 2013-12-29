@@ -14,7 +14,7 @@ $regionList = $this->regionList;
             => 'member', 'action' => 'all')); ?>" method="get">
                 <div class="input-group" style="width:500px;">
                 <?php if (isset($regionList['Province'])):?>
-                	<label>区域</label>
+<!--                 	<label>区域</label> -->
                     <select name="Province" style="width:80px;">
                     	<option value="">省</option>
                     <?php foreach ($regionList['Province'] as $k=>$v):?>
@@ -334,6 +334,7 @@ $(function(){
 	        			{name: 'Email', vtype:'string',ctype:'text',html:'邮箱'},
 	        			{name: 'Mobile',vtype:'string',ctype:'text',html:'手机'},
 	        			{name: 'Tel',vtype:'string',ctype:'text',html:'电话'},
+	        			{name: 'Nick',vtype:'string',ctype:'text',html:'昵称'},
 	        			{name: 'TrueName',vtype:'string',ctype:'text',html:'真实姓名'},
 	        			{name: 'Address',vtype:'string',ctype:'text',html:'地址'},
 	        			{name: 'QQ',vtype:'string',ctype:'text',html:'QQ'},
