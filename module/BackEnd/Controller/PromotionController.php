@@ -51,7 +51,7 @@ class PromotionController extends AbstractActionController
 			$params['pageSize'] = $pageSize;
 		}
 		$params['orderField'] = $this->params()->fromQuery('orderField', 'last_update');
-		$params['orderType'] = $this->params()->fromQuery('orderType', __LIST_ORDER);
+		$params['orderType'] = $this->params()->fromQuery('orderType', 'DESC');
 		$removePageParams = $params;
 		
 		$params['page'] = $this->params()->fromQuery('page' , 1);
@@ -107,6 +107,12 @@ class PromotionController extends AbstractActionController
 			$form->setData($params);
 			if ($form->isValid()) {
 				$container = $this->_getSession();
+				$promotion->id = $params->id;
+				$promotion->rule_code = $params->rule_code;
+				$promotion->points = $params->points;
+				$promotion->start_time = $params->start_time;
+				$promotion->end_time = $params->end_time;
+				$promotion->is_active = $params->is_active;
 				$promotion->add_time = Utilities::getDateTime();
 				$promotion->last_update = Utilities::getDateTime();
 				$promotion->updateUser = $container->Name;

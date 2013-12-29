@@ -18,9 +18,11 @@
 namespace BackEnd\Form;
 
 use Zend\Form\Form;
-
+use Zend\InputFilter\Factory as InputFactory;
+use Zend\InputFilter\InputFilter;
 class PromotionForm extends Form
 {
+	protected $inputFilter;
 	function __construct() {
 		parent::__construct ( 'promotion-form' );
 		$this->setAttribute ( 'method', 'post' );
@@ -41,7 +43,6 @@ class PromotionForm extends Form
 				'type' => '\Zend\Form\Element\Select',
 				'options' => array (
 						'label' => '活动类型',
-// 						'value_options' => array('_blank'=>'新窗口打开', '_self'=>'当前窗口打开'),
 				)
 		) );
 
@@ -52,7 +53,7 @@ class PromotionForm extends Form
 				),
 				'attributes' => array(
 						'required' => 'required',
-// 						'notemsg' => '示例:http://www.baidu.com',
+						'pattern' => '^[0-9]+(\.[0-9]{1,2})?$',
 				)
 		) );
 
@@ -95,7 +96,39 @@ class PromotionForm extends Form
 						'type' => 'submit',
 				)
 		) );
+		
+		$this->setInputFilter($this->getInputFilter());
 	}
-
+	public function getInputFilter(){
+		if(!$this->inputFilter){
+			$inputFilter = new InputFilter();
+			$factory = new InputFactory();
+	
+			$inputFilter->add($factory->createInput(array(
+					'name' => 'points',
+					'required' => true,
+					'validators' => array(
+							array('name' => 'StringLength' , 'options' => array('min' => 1 , 'max' => 11)),
+							array('name' => 'Regex', 'options' => 
+									array('pattern' => '/^[0-9]+(\.[0-9]{1,2})?$/',
+											'messages' => array(
+													'regexNotMatch' => '积分格式不正确'
+											),
+									)),
+					),
+			)));
+			$inputFilter->add($factory->createInput(array(
+					'name' => 'start_time',
+					'required' => true
+			)));
+			$inputFilter->add($factory->createInput(array(
+					'name' => 'end_time',
+					'required' => true
+			)));
+			$this->inputFilter = $inputFilter;
+		}
+	
+		return $this->inputFilter;
+	}
 }
 ?>
