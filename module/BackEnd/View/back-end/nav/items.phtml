@@ -87,7 +87,7 @@ $msg = $this->flashMessages();?>
                     	地址
                     <?php endif;?>
                     </th>
-                    <th key="category" editable="true">
+                    <th>
                     <?php if (isset($this->order['category'])):?>
                     <?php $name = $this->order['category'];?>
                     <a href="<?php echo $name['href'];?>">关联分类<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
@@ -112,23 +112,6 @@ $msg = $this->flashMessages();?>
                     	推荐人
                     <?php endif;?>
                     </th>
-<!--                     <th>分类</th> 
-                    <th key="isShow" editable="true">
-                    <?php if (isset($this->order['isShow'])):?>
-                    <?php $name = $this->order['isShow'];?>
-                    <a href="<?php echo $name['href'];?>">是否显示<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
-                    <?php else:?>
-                    	是否显示
-                    <?php endif;?>
-                    </th>
-                    <th  key="order" editable="true">
-                    <?php if (isset($this->order['order'])):?>
-                    <?php $name = $this->order['order'];?>
-                    <a href="<?php echo $name['href'];?>">排序<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
-                    <?php else:?>
-                    	排序
-                    <?php endif;?>
-                    </th>-->
                     <th>
                     <?php if (isset($this->order['email'])):?>
                     <?php $name = $this->order['email'];?>
@@ -184,7 +167,7 @@ $msg = $this->flashMessages();?>
                     	地址
                     <?php endif;?>
                     </th>
-                    <th key="category" editable="true">
+                    <th>
                     <?php if (isset($this->order['category'])):?>
                     <?php $name = $this->order['category'];?>
                     <a href="<?php echo $name['href'];?>">关联分类<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
@@ -209,23 +192,6 @@ $msg = $this->flashMessages();?>
                     	推荐人
                     <?php endif;?>
                     </th>
-<!--                     <th>分类</th>
-                    <th key="isShow" editable="true">
-                    <?php if (isset($this->order['isShow'])):?>
-                    <?php $name = $this->order['isShow'];?>
-                    <a href="<?php echo $name['href'];?>">是否显示<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
-                    <?php else:?>
-                    	是否显示
-                    <?php endif;?>
-                    </th>
-                    <th  key="order" editable="true">
-                    <?php if (isset($this->order['order'])):?>
-                    <?php $name = $this->order['order'];?>
-                    <a href="<?php echo $name['href'];?>">排序<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
-                    <?php else:?>
-                    	排序
-                    <?php endif;?>
-                    </th> -->
                     <th>
                     <?php if (isset($this->order['email'])):?>
                     <?php $name = $this->order['email'];?>
@@ -293,13 +259,6 @@ var productEditableParam={
 		'postUrl':'/index/updateColumn',
 		'primary_key':'id',
 		'table':'LinkTable',
-		'isShow':{
-			type:'radio',
-	        group:{
-	            1:'显示',
-	            0:'不显示'
-	        }
-		},
 		'order':{
 			type:'text',
 			reg: /^\d+$/,
