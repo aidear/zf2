@@ -152,13 +152,43 @@ class MemberController extends AbstractActionController
 		$routeParams = array('controller' => 'member' , 'action' => 'all');
 		$prefixUrl = $this->url()->fromRoute(null, $routeParams);
 		$params = array();
+		$cityList = array();
+		$districtList = array();
 	
 		$table = $this->_getTable('MemberTable');
 		$k = $this->params()->fromQuery('k' , '');
+		
+		$province = $this->params()->fromQuery('Province' , '');
+		$city = $this->params()->fromQuery('City' , '');
+		$district = $this->params()->fromQuery('District' , '');
 	
 		if($k){
 			$params['k']  = $k;
 		}
+		
+		$region = $this->_getTable('RegionTable');
+		$prov = $region->getSelectRegion(2);
+		$provK = array_keys($prov);
+// 		$dC = isset($userInfo['Province']) ? $userInfo['Province'] : array_shift($provK);
+// 		$city = $region->getSelectRegion(3, $dC);
+// 		$cityK = array_keys($city);
+// 		$dDi = isset($userInfo['City']) ? $userInfo['City'] : array_shift($cityK);
+// 		$district = $region->getSelectRegion(4, $dDi);
+
+		$regionList['Province'] = $prov;
+		if ($province) {
+			$cityList = $region->getSelectRegion(3, $province);
+			$params['Province'] = $province;
+		}
+		if ($city) {
+			$districtList = $region->getSelectRegion(4, $city);
+			$params['City'] = $city;
+		}
+		if ($district) {
+			$params['District'] = $district;
+		}
+		$regionList['City'] = $cityList;
+		$regionList['District'] = $districtList;
 		$params['orderField'] = $this->params()->fromQuery('orderField', '');
 		$params['orderType'] = $this->params()->fromQuery('orderType', '');
 		if ($this->params()->fromQuery('pageSize')) {
@@ -206,6 +236,10 @@ class MemberController extends AbstractActionController
 				'order' => $order,
 				'region' => $region->getRegionList(),
 				'k' => $k,
+				'regionList' => $regionList,
+				'Province' => $province,
+				'City' => $city,
+				'District' => $district,
 		);
 		return new ViewModel($assign);
 	}

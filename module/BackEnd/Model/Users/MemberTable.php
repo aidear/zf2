@@ -149,7 +149,17 @@ FROM member;";
     	if(!empty($data['k'])){
     		$where->like('UserName', '%' . $data['k'] . '%')->orPredicate(new Like('Email', '%' . $data['k'] . '%'))
     		->orPredicate(new Like('Nick', '%' . $data['k'] . '%'))
-    		->orPredicate(new Like('Mobile', '%' . $data['k'] . '%'));
+    		->orPredicate(new Like('Mobile', '%' . $data['k'] . '%'))
+    		->orPredicate(new Like('Address', '%' . $data['k'] . '%'));
+    	}
+    	if (!empty($data['Province'])) {
+    		$where->equalTo('Province', $data['Province']);
+    	}
+    	if (!empty($data['City'])) {
+    		$where->equalTo('City', $data['City']);
+    	}
+    	if (!empty($data['District'])) {
+    		$where->equalTo('District', $data['District']);
     	}
     	$this->select->where($where);
     	//filter
