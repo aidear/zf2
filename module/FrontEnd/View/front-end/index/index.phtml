@@ -34,7 +34,11 @@
     <?php if (isset($v['links'])):?>
     <?php $line=$v['line'];foreach ($v['links'] as $n=>$link):?>
     <?php if (($n+1) > ($line*7)) break;?>
-    <li style="width:100px;"><a href="<?php echo $link['url'];?>"target="<?php echo $link['target'];?>" title="<?php echo $link['title'];?>"><?php echo$link['title'];?></a></li>
+    <li style="width:100px;">
+    <?php if ($link['show_icon'] && !empty($link['icon'])):?>
+    	<!-- <span><img src="<?php echo $link['icon'];?>" width="18" height="17"></span> -->
+    	<?php endif;?>
+    <a href="<?php echo $link['url'];?>"target="<?php echo $link['target'];?>" title="<?php echo $link['title'];?>"><?php echo$link['title'];?></a></li>
     <?php endforeach;?>
     <?php endif;?>
     <?php if (isset($v['subNav'])):?>
@@ -116,7 +120,11 @@
     <div class="list">
     <?php foreach ($v['links'] as $n=>$link):?>
     <?php if (($n+1) > ($line*7)) break;?>
-    <li style="width:90px;"><a href="<?php echo $link['url'];?>" target="<?php echo $link['target'];?>" title="<?php echo $link['title'];?>"><?php echo $link['title'];?></a></li>
+    <li style="width:95px;">
+    	<?php if ($link['show_icon'] && !empty($link['icon'])):?>
+    	<span><img src="<?php echo $link['icon'];?>" width="18" height="17"></span>
+    	<?php endif;?>
+    	<a href="<?php echo $link['url'];?>" target="<?php echo $link['target'];?>" title="<?php echo $link['title'];?>"><?php echo $link['title'];?></a></li>
     <?php endforeach;;?>
     </div>
 	<?php endforeach;?>

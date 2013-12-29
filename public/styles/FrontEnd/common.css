@@ -50,7 +50,7 @@
 .btn_dl a {color:#369AF1;}
 .lanse a:link,.hhz a:link {color:#0099FF}
 .lanse a:visited,.hhz a:visited {color:#0099FF}
-.list span {background-repeat:no-repeat;background-position:center;float:left;width:120px;display:inline;margin-left:10px;}
+.list span {background-repeat:no-repeat;background-position:center;float:left;display:inline;margin-left:10px;}
 /*.list ul {border-left:1px solid #8f8f8f; min-height:60px;}*/
 .list li { width:90px; line-height:30px; font-size:14px;}
 .foot{background-color:#e8e8e8;float:left;width:100%;line-height:60px;height:60px;font-family:"微软雅黑";font-size:12px;margin-top:15px;}
@@ -175,6 +175,7 @@ button.close {
 	padding:4px;
 	font-size:14px;
 }
+.menu_k li span {float:left;display: inline;}
 .security_tips {
 	position:relative;
 }

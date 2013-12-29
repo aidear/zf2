@@ -58,7 +58,7 @@ class IndexController extends AbstractActionController
 					$structNavLists['rootNav'][$ids]['subNav'][] = $v;
 				}
 			}
-		}//print_r($structNavLists);die;
+		}//print_r($navLists);die;
 		$rs = array('rs' => 'Welcome!', 'struct' => $structNavLists, 'nav' => $navLists, 'provList' => $prov, 'defCity' => $defCity);
 		return new ViewModel($rs);
 	}
