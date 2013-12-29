@@ -672,7 +672,7 @@ class MemberController extends AbstractActionController
 		$table = $this->_getTable('MemberTable');
 		$rs = $table->getOneForId($UserID);
 		
-		return $rs->toArray();
+		return $rs ? $rs->toArray() : NULL;
 	}
 	private function _currentMember()
 	{
