@@ -138,7 +138,7 @@ WHERE (INSTR(catPath, CONCAT(',' ,{$nid}, ',')) OR nav.id={$nid}) AND nav.`isSho
         if ($where) {
         	$sql .= " AND {$where}";
         }
-        $sql .= " ORDER BY `order` ASC";
+        $sql .= " ORDER BY link.`order` ASC";
         $rs = $this->getAdapter()->query($sql, Adapter::QUERY_MODE_EXECUTE);
         return $rs ? $rs->toArray() : array();
     }
