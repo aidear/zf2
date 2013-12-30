@@ -1,7 +1,7 @@
 @CHARSET "UTF-8";
 .none {display:none;}
 .tq > div {float:left; height:65px;}
-.tq .weather {margin-left:20px; padding-top:10px; position:relative;}
+.tq .weather {margin-left:20px; padding-top:10px; position:relative; width:400px;}
 .tq .weather .swith_area {
 	float:left;
 	/*background-color:#fff;*/
