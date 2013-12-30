@@ -146,3 +146,10 @@ ALTER TABLE `project`.`point_history` CHANGE `point` `points` INT(11) DEFAULT 0 
 ALTER TABLE `project`.`point_history` ADD COLUMN `rule_id` INT(11) UNSIGNED DEFAULT 0 NOT NULL COMMENT '活动id' AFTER `uid`; 
 UPDATE member SET Points=0;
 ALTER TABLE `project`.`member` CHANGE `Points` `Points` INT(11) UNSIGNED DEFAULT 0 NOT NULL COMMENT '可用积分值'; 
+
+/**
+*12/30/2013
+*/
+ALTER TABLE region ADD KEY `type_pid` (`region_type`,`parent_id`);
+ALTER TABLE nav_category ADD KEY `show_order` (`isShow`, `order`);
+ALTER TABLE region ADD KEY `region_name` (`region_name`);

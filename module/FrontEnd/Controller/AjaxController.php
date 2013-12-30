@@ -21,14 +21,11 @@ use Custom\Mvc\Controller\AbstractActionController;
 use Custom\Util\Utilities;
 use Custom\Util\CURL;
 use Zend\View\Model\JsonModel;
-use Zend\View\Model\ViewModel;
-use FrontEnd\Model\Users\MemberTable;
 use Zend\Mail\Message;
 use Zend\Mime\Message as MimeMessage;
 use Zend\Mime\Part as MimePart;
 use Zend\Mail\Transport\Smtp as SmtpTransport;
 use Zend\Mail\Transport\SmtpOptions;
-use Zend\Mvc\View\Console\ViewManager;
 use FrontEnd\Model\System\ConfigTable;
 
 class AjaxController extends AbstractActionController
@@ -132,6 +129,11 @@ class AjaxController extends AbstractActionController
 				);
 				$rs['city'] = $weather['city_en'];
 				break;
+			case 'view':
+			    $url = $this->params()->fromPost('url');
+			    $container = $this->_getSession('member');
+			    if (isset($container->UserID))
+			    break;
 			default:
 				break;
 		}
