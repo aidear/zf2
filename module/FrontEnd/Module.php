@@ -90,33 +90,6 @@ class Module
 					'siteConfg' => $this->siteConfg,
 					'container' => $container,
 			));
-			
-			//view page check promotion
-			if (!empty($container->UserID)) {
-				$promotionTable = $e->getApplication()->getServiceManager()->get('PromotionTable');
-				$memberTable = $e->getApplication()->getServiceManager()->get('MemberTable');
-				$phistoryTable = $e->getApplication()->getServiceManager()->get('PointHistoryTable');
-				$curTotalPoints = $phistoryTable->getTotalPointsCurDay($container->UserID, 'view');
-				$viewProList = $promotionTable->getProList('view');//print_r($curTotalPoints);die;
-				if ($viewProList && $curTotalPoints < 10) {
-					$now = date('Y-m-d H:i:s');
-					$url = Utilities::get_url();
-					foreach ($viewProList as $k=>$v) {
-						$points = $v['points'];
-						$hisInsert = array(
-								'uid' => $container->UserID,
-								'rule_id' => $v['id'],
-								'rule_name' => $v['type_name'],
-								'points' => $points,
-								'info' => NULL,
-								'description' => '浏览网页'.$url.'，赠送'.$points.'积分',
-								'add_time' => $now,
-								'record_type' => 1//系统
-						);
-						$memberTable->updateUserPoint($container->UserID, $points, $hisInsert);
-					}
-				}
-			}
 		}
 	}
     public function getAutoloaderConfig()

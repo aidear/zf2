@@ -147,10 +147,13 @@ FROM member;";
     function formatWhere(array $data){
     	$where = $this->_getSelect()->where;
     	if(!empty($data['k'])){
-    		$where->like('UserName', '%' . $data['k'] . '%')->orPredicate(new Like('Email', '%' . $data['k'] . '%'))
-    		->orPredicate(new Like('Nick', '%' . $data['k'] . '%'))
-    		->orPredicate(new Like('Mobile', '%' . $data['k'] . '%'))
-    		->orPredicate(new Like('Address', '%' . $data['k'] . '%'));
+//     		$where->like('UserName', '%' . $data['k'] . '%')->orPredicate(new Like('Email', '%' . $data['k'] . '%'))
+//     		->orPredicate(new Like('Nick', '%' . $data['k'] . '%'))
+//     		->orPredicate(new Like('Mobile', '%' . $data['k'] . '%'))
+//     		->orPredicate(new Like('Address', '%' . $data['k'] . '%'));
+			$wh = "(UserName Like '%{$data['k']}%' OR Email Like '%{$data['k']}%' OR Nick Like "
+				." '%{$data['k']}%' OR Mobile Like '%{$data['k']}%' OR Address Like '%{$data['k']}%')";
+    		$this->select->where($wh);
     	}
     	if (!empty($data['Province'])) {
     		$where->equalTo('Province', $data['Province']);

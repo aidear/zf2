@@ -1,4 +1,3 @@
-
 <div id="Tab2">
   <div class="Menubox2">
     <ul>
@@ -24,9 +23,6 @@
     <?php endif;?>
     </li>
     <?php endforeach;?>
-<!--      <li><img src="images/yi.jpg" width="108" height="41" /></li><li class="menu_a"><img src="images/shi.jpg" width="108" height="41" /></li><li><img src="images/zhu.jpg" width="108" height="41" /> -->
-<!--      </li><li><img src="images/xing.jpg" width="108" height="41" /></li><li><img src="images/jiao.jpg" width="108" height="41" /></li><li><img src="images/yu.jpg" width="108" height="41" /></li><li><img src="images/jian.jpg" width="108" height="41" /></li><li><img src="images/cai.jpg" width="108" height="41" /></li> -->
-   
     </ul>
     
     <?php foreach ($this->struct['rootNav'] as $k=>$v):?>
@@ -38,7 +34,7 @@
     <?php if ($link['show_icon'] && !empty($link['icon'])):?>
     	<!-- <span><img src="<?php echo $link['icon'];?>" width="18" height="17"></span> -->
     	<?php endif;?>
-    <a href="<?php echo $link['url'];?>"target="<?php echo $link['target'];?>" title="<?php echo $link['title'];?>"><?php echo$link['title'];?></a></li>
+    <a class="hao-link" href="<?php echo $link['url'];?>"target="<?php echo $link['target'];?>" title="<?php echo $link['title'];?>"><?php echo$link['title'];?></a></li>
     <?php endforeach;?>
     <?php endif;?>
     <?php if (isset($v['subNav'])):?>
@@ -66,7 +62,7 @@
            <?php if (isset($slv['links'])):?>
            <span class="l2">
            <?php $linkCount = count($slv['links']);foreach ($slv['links'] as $j=>$lk):?>
-           <a href="<?php echo $lk['url'];?>" target="<?php echo $lk['target'];?>" title="<?php echo $lk['title'];?>"><?php echo $lk['title'];?></a><?php //echo $linkCount > $j+1 ? '|' : '';?>
+           <a class="hao-link" href="<?php echo $lk['url'];?>" target="<?php echo $lk['target'];?>" title="<?php echo $lk['title'];?>"><?php echo $lk['title'];?></a><?php //echo $linkCount > $j+1 ? '|' : '';?>
            <?php endforeach;?>
            </span>
          	<?php endif;?>
@@ -84,7 +80,7 @@
 	           <?php if (isset($slv['links'])):?>
 	           <span class="l2">
 	           <?php $linkCount = count($slv['links']);foreach ($slv['links'] as $j=>$lk):?>
-	           <a href="<?php echo $lk['url'];?>" target="<?php echo $lk['target'];?>" title="<?php echo $lk['title'];?>"><?php echo $lk['title'];?></a><?php //echo $linkCount > $j+1 ? '|' : '';?>
+	           <a class="hao-link" href="<?php echo $lk['url'];?>" target="<?php echo $lk['target'];?>" title="<?php echo $lk['title'];?>"><?php echo $lk['title'];?></a><?php //echo $linkCount > $j+1 ? '|' : '';?>
 	           <?php endforeach;?>
 	           </span>
 	         	<?php endif;?>
@@ -99,7 +95,7 @@
            <?php if (!empty($v['links'])):?>
            <span class="l2">
            <?php $linkCount = count($v['links']);foreach ($v['links'] as $a=>$ks):?>
-           <a href="<?php echo $ks['url'];?>" target="<?php echo $ks['target'];?>" title="<?php echo $ks['title'];?>"><?php echo $ks['title'];?></a><?php //echo $linkCount > $a+1 ? '|' : '';?>
+           <a class="hao-link" href="<?php echo $ks['url'];?>" target="<?php echo $ks['target'];?>" title="<?php echo $ks['title'];?>"><?php echo $ks['title'];?></a><?php //echo $linkCount > $a+1 ? '|' : '';?>
            <?php endforeach;?>
            </span>
          	<?php endif;?>
@@ -124,7 +120,7 @@
     	<?php if ($link['show_icon'] && !empty($link['icon'])):?>
     	<span><img src="<?php echo $link['icon'];?>" width="18" height="17"></span>
     	<?php endif;?>
-    	<a href="<?php echo $link['url'];?>" target="<?php echo $link['target'];?>" title="<?php echo $link['title'];?>"><?php echo $link['title'];?></a></li>
+    	<a class="hao-link" href="<?php echo $link['url'];?>" target="<?php echo $link['target'];?>" title="<?php echo $link['title'];?>"><?php echo $link['title'];?></a></li>
     <?php endforeach;;?>
     </div>
 	<?php endforeach;?>
@@ -313,5 +309,11 @@ $(function() {
 			}
 		}
 	});
+	if (loginStatus == 1) {
+		$(".hao-link").click(function(){
+			var url = $(this).attr('href');
+			Ajax.call('/ajax?s=view', {url:url}, function(){}, 'POST', 'JSON', true, true);
+		});
+	}
 })
 </script>

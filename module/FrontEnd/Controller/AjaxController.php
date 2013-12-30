@@ -132,7 +132,31 @@ class AjaxController extends AbstractActionController
 			case 'view':
 			    $url = $this->params()->fromPost('url');
 			    $container = $this->_getSession('member');
-			    if (isset($container->UserID))
+			    if (isset($container->UserID) && !empty($container->UserID)) {
+    			    $promotionTable = $this->_getTable('PromotionTable');
+    				$memberTable = $this->_getTable('MemberTable');
+    				$phistoryTable = $this->_getTable('PointHistoryTable');
+    				$curTotalPoints = $phistoryTable->getTotalPointsCurDay($container->UserID, 'view');
+    				$viewProList = $promotionTable->getProList('view');//print_r($curTotalPoints);die;
+    				if ($viewProList && $curTotalPoints < 10) {
+    					$now = date('Y-m-d H:i:s');
+    					foreach ($viewProList as $k=>$v) {
+    						$points = $v['points'];
+    						$hisInsert = array(
+    								'uid' => $container->UserID,
+    								'rule_id' => $v['id'],
+    								'rule_name' => $v['type_name'],
+    								'points' => $points,
+    								'info' => NULL,
+    								'description' => '浏览网址'.$url.'，赠送'.$points.'积分',
+    								'add_time' => $now,
+    								'record_type' => 1//系统
+    						);
+    						$memberTable->updateUserPoint($container->UserID, $points, $hisInsert);
+    					}
+    				}
+			    }
+			    $rs = array('ok');
 			    break;
 			default:
 				break;
