@@ -29,7 +29,7 @@ class IndexController extends AbstractActionController
 		$navLists = array();
 		$structNavLists = array();
 		foreach ($nav as $k=>$v) {
-			$where = "isShow=1";
+			$where = "link.isShow=1";
 			if (isset($city) && $city) {
 				$where .= " AND (city IS NULL OR city='0' OR city='{$city}' OR province='0' OR province='{$city}')";
 			}
