@@ -128,11 +128,13 @@ class LinkTable extends TableGateway
     }
     public function getAllLinksByNid($nid, $where)
     {
-        $sql = "SELECT *
+        /*$sql = "SELECT *
 FROM link
 WHERE `category` IN 
 (SELECT nav.id FROM nav_category nav
-WHERE (INSTR(catPath, CONCAT(',' ,{$nid}, ',')) OR nav.id={$nid}) AND nav.`isShow`=1)";
+WHERE (INSTR(catPath, CONCAT(',' ,{$nid}, ',')) OR nav.id={$nid}) AND nav.`isShow`=1)";*/
+        $sql = "SELECT link.* FROM link JOIN nav_category nav ON nav.id=link.category"
+            . " WHERE nav.`isShow` = 1 AND (INSTR(catPath, CONCAT(',', {$nid}, ',')) OR nav.id = {$nid}) ";
         if ($where) {
         	$sql .= " AND {$where}";
         }
