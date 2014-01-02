@@ -126,13 +126,55 @@ $regionList = $this->regionList;
                     	积分
                     <?php endif;?>
                     	</th>
-                    	<th>电话</th>
-                    	<th>真实姓名</th>
-                    	<th>性别</th>
+                    	<th>
+                    	<?php if (isset($this->order['Tel'])):?>
+                    <?php $name = $this->order['Tel'];?>
+                    <a href="<?php echo $name['href'];?>">电话<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	电话
+                    <?php endif;?>
+                    	</th>
+                    	<th>
+                    	<?php if (isset($this->order['TrueName'])):?>
+                    <?php $name = $this->order['TrueName'];?>
+                    <a href="<?php echo $name['href'];?>">真实姓名<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	真实姓名
+                    <?php endif;?>
+                    	</th>
+                    	<th>
+                    	<?php if (isset($this->order['Gender'])):?>
+                    <?php $name = $this->order['Gender'];?>
+                    <a href="<?php echo $name['href'];?>">性别<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	性别
+                    <?php endif;?>
+                    	</th>
                     	<th>区域</th>
-                    	<th>地址</th>
-                    	<th>QQ</th>
-                    	<th>MSN</th>
+                    	<th>
+                    	<?php if (isset($this->order['Address'])):?>
+                    <?php $name = $this->order['Address'];?>
+                    <a href="<?php echo $name['href'];?>">地址<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	地址
+                    <?php endif;?>
+                    	</th>
+                    	<th>
+                    	<?php if (isset($this->order['QQ'])):?>
+                    <?php $name = $this->order['QQ'];?>
+                    <a href="<?php echo $name['href'];?>">QQ<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	QQ
+                    <?php endif;?>
+                    	</th>
+                    	<th>
+                    	<?php if (isset($this->order['MSN'])):?>
+                    <?php $name = $this->order['MSN'];?>
+                    <a href="<?php echo $name['href'];?>">MSN<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	MSN
+                    <?php endif;?>
+                    	</th>
                     <th>
       <?php if (isset($this->order['LastLogin'])):?>
                     <?php $name = $this->order['LastLogin'];?>
@@ -203,13 +245,55 @@ $regionList = $this->regionList;
                     	积分
                     <?php endif;?>
                     	</th>
-                    	<th>电话</th>
-                    	<th>真实姓名</th>
-                    	<th>性别</th>
+                    	<th>
+                    	<?php if (isset($this->order['Tel'])):?>
+                    <?php $name = $this->order['Tel'];?>
+                    <a href="<?php echo $name['href'];?>">电话<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	电话
+                    <?php endif;?>
+                    	</th>
+                    	<th>
+                    	<?php if (isset($this->order['TrueName'])):?>
+                    <?php $name = $this->order['TrueName'];?>
+                    <a href="<?php echo $name['href'];?>">真实姓名<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	真实姓名
+                    <?php endif;?>
+                    	</th>
+                    	<th>
+                    	<?php if (isset($this->order['Gender'])):?>
+                    <?php $name = $this->order['Gender'];?>
+                    <a href="<?php echo $name['href'];?>">性别<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	性别
+                    <?php endif;?>
+                    	</th>
                     	<th>区域</th>
-                    	<th>地址</th>
-                    	<th>QQ</th>
-                    	<th>MSN</th>
+                    	<th>
+                    	<?php if (isset($this->order['Address'])):?>
+                    <?php $name = $this->order['Address'];?>
+                    <a href="<?php echo $name['href'];?>">地址<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	地址
+                    <?php endif;?>
+                    	</th>
+                    	<th>
+                    	<?php if (isset($this->order['QQ'])):?>
+                    <?php $name = $this->order['QQ'];?>
+                    <a href="<?php echo $name['href'];?>">QQ<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	QQ
+                    <?php endif;?>
+                    	</th>
+                    	<th>
+                    	<?php if (isset($this->order['MSN'])):?>
+                    <?php $name = $this->order['MSN'];?>
+                    <a href="<?php echo $name['href'];?>">MSN<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	MSN
+                    <?php endif;?>
+                    	</th>
                     <th>
       <?php if (isset($this->order['LastLogin'])):?>
                     <?php $name = $this->order['LastLogin'];?>
