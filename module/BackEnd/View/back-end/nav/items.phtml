@@ -35,7 +35,7 @@ $msg = $this->flashMessages();?>
             , array('controller' => 'nav' , 'action' => 'category'))?>">
         <i class="icon-plus"></i>返回</a> -->
         	<a class="btn btn-success" href="<?php echo $this->url('backend' 
-            , array('controller' => 'nav' , 'action' => 'addItem'));?>">
+            , array('controller' => 'nav' , 'action' => 'addItem'))."?cid=".$this->cid;?>">
         <i class="icon-plus"></i>新增</a>
         <a class="btn btn-edit" href="javascript:;" _href="<?php echo $this->url('backend', array('controller' 
                                 => 'nav', 'action' => 'addItem')) ?>?cid=<?php echo $this->cid;?>&id=">
