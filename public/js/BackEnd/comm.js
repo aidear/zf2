@@ -603,7 +603,7 @@ $(function(){
 					url : "/ajax/region?p="+$v,
 					dataType :"json",
 					success: function(s){
-						var html = '<option >===请选择'+areaTitle+'===</option>';
+						var html = '<option value="" >===请选择'+areaTitle+'===</option>';
 						for(var o in s) {
 							html += "<option value='"+s[o].region_id+"'>"+s[o].region_name+"</option>";
 						}
