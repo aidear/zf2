@@ -12,6 +12,7 @@ class IndexController extends AbstractActionController
 	protected $adminTable;
 	public function indexAction()
 	{
+	    $customLinks = array();
 		$region = $this->_getTable('RegionTable');
 		$prov = $region->getRegionByType(2);
 		$navCategoryTable = $this->_getTable('NavCategoryTable');
@@ -25,6 +26,17 @@ class IndexController extends AbstractActionController
 		} else {
 			$name = Utilities::unescape($_COOKIE['z_loc_c']);
 			$city = $region->getRidByName($name);
+		}
+		if (isset($_COOKIE['custom_links']) && !empty($_COOKIE['custom_links'])) {
+		  $custom = explode('||', $_COOKIE['custom_links']);
+		  if (!empty($custom)) {
+		      foreach ($custom as $c) {
+		          $explodeStr = explode('*', $c);
+		          if (isset($explodeStr[0]) && !empty($explodeStr[0]) && isset($explodeStr[1]) && !empty($explodeStr[1])) {
+		              $customLinks[] = array('title' => Utilities::unescape($explodeStr[0]), 'url' => $explodeStr[1]);
+		          }
+		      }
+		  }
 		}
 		$navLists = array();
 		$structNavLists = array();
@@ -58,8 +70,8 @@ class IndexController extends AbstractActionController
 					$structNavLists['rootNav'][$ids]['subNav'][] = $v;
 				}
 			}
-		}//print_r($navLists);die;
-		$rs = array('rs' => 'Welcome!', 'struct' => $structNavLists, 'nav' => $navLists, 'provList' => $prov, 'defCity' => $defCity);
+		}//print_r($customLinks);die;
+		$rs = array('customLinks' => $customLinks, 'struct' => $structNavLists, 'nav' => $navLists, 'provList' => $prov, 'defCity' => $defCity);
 		return new ViewModel($rs);
 	}
 	

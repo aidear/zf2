@@ -43,6 +43,7 @@
 	border:1px solid #f5db86;
 }
 .tq .lunar {margin-left:18px; width:125px; position:relative;}
+.lunar ul li {line-height:24px;}
 .Calendar {positoin:absolute;z-index:99999999}
 .Calendar table {background-color:#fff;}
 .tq .lunar ul {margin:10px auto; text-align:center; color:#656364;}
@@ -50,6 +51,7 @@
 .btn_dl a {color:#369AF1;}
 .lanse a:link,.hhz a:link {color:#0099FF}
 .lanse a:visited,.hhz a:visited {color:#0099FF}
+.link_k .list {min-height:58px;}
 .list span {background-repeat:no-repeat;background-position:center;float:left;display:inline;margin-left:10px;}
 /*.list ul {border-left:1px solid #8f8f8f; min-height:60px;}*/
 .list li { width:90px; line-height:30px; font-size:14px;}
@@ -252,7 +254,7 @@ button.close {
 	width:auto;
 }
 .wrap {
-	margin-top:33px;
+	margin-top:34px;
 }
 .search_input #search_in {
 	margin-top:2px;
@@ -342,3 +344,6 @@ button.close {
 }
 .search_input #search_in {margin-left:2px;}
 .hf_n li {cursor:pointer;}
+.search_btn #baidu_search_btn,.search_btn #google_search_btn {
+    margin-left: 5px;
+}

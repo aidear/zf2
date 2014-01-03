@@ -24,110 +24,112 @@ use Custom\Util\Lunar;
 <div class="wrap">
 <div class="top">
 <div class="logo"><a href="/"><img src="/images/FrontEnd/logo.png" width="147" height="70" /></a></div> 
-<div class="tq">
-	<div class="weather">
-	<div class="swith_area"><div class="area_name"></div><div class="switch_b"><a href="javascript:;">[切换]</a></div></div>
-	<div class="show_weather">
-		<div class="wt" id="day_1"> 
-			<div class="wtpic"></div> 
-			<div class="wt1">
-				<div class="wtline"><strong>今天</strong></div>
-				<div class="wtline"></div>
-			</div>
-		</div>
-		<div class="wt" id="day_2">
-			<div class="wtpic"></div> 
-			<div class="wt1">
-				<div class="wtline"><strong>明天</strong></div>
-				<div class="wtline"></div>
-			</div>
-		</div>
-		<div class="wt" id="day_3">
-			<div class="wtpic"></div> 
-			<div class="wt1">
-				<div class="wtline"><strong>后天</strong></div>
-				<div class="wtline"></div>
-			</div>
-		</div>
-	</div>
-	</div>
-	<div class="lunar">
+    <div class="tq">
+    	<div class="weather">
+    	<div class="swith_area"><div class="area_name"></div><div class="switch_b"><a href="javascript:;">[切换]</a></div></div>
+    	<div class="show_weather">
+    		<div class="wt" id="day_1"> 
+    			<div class="wtpic"></div> 
+    			<div class="wt1">
+    				<div class="wtline"><strong>今天</strong></div>
+    				<div class="wtline"></div>
+    			</div>
+    		</div>
+    		<div class="wt" id="day_2">
+    			<div class="wtpic"></div> 
+    			<div class="wt1">
+    				<div class="wtline"><strong>明天</strong></div>
+    				<div class="wtline"></div>
+    			</div>
+    		</div>
+    		<div class="wt" id="day_3">
+    			<div class="wtpic"></div> 
+    			<div class="wt1">
+    				<div class="wtline"><strong>后天</strong></div>
+    				<div class="wtline"></div>
+    			</div>
+    		</div>
+    	</div>
+    	</div>
+    </div>
+	<div class="rl lunar">
 	<ul>
 		<li><span><?php echo date("n月d日");$weekarray=array("日","一","二","三","四","五","六");  
 echo "周".$weekarray[date("w")]; ?></span></li>
-		<li style="margin-top:8px;"><?php $today = date("Y-m-d");
+		<li style="margin-top:5px;"><?php $today = date("Y-m-d");
 		$lunar = new Lunar();
 		$nl = $lunar->S2L($today);
 		echo $nl;?></li>
 	</ul>
 	<?php echo $this->partial('front-end/default/Calendar.phtml');?>
 	</div>
-</div>
-<div class="btn">
-<div class="btn_dl">
-  <input name="search_in3" type="text" id="search_in3" value=" 网盘登录" />
-</div>
-<div id="disk_login" class="none">
-<div class="btn_zc1">
-  <input name="search_in3" type="text" id="dsearch_in3" value="网盘登录" />
-</div>
-<select name="disk_url" id="disk_url">
-	<option value="">请选择</option>
-	<option value="http://pan.baidu.com/disk/home">百度网盘</option>
-	<option value="http://yunpan.360.cn/">360云盘</option>
-	<option value="http://wp.163.com/">网易网盘</option>
-	<option value="http://www.kuaipan.cn/">金山快盘</option>
-</select>
-</div>
-<div class="btn_zc">
-  <input name="search_in2" type="text" id="search_in2" value=" 邮箱登录" />
-</div>
-<div class="tancmail none">
-<div class="btn_zc1">
-  <input name="search_in2" type="text" id="dsearch_in2" value="邮箱登录" />
-</div>
-<div class="btn_zc1">
-    <label for="mailxl"></label>
-  <select name="mailxl" id="mailxl">
-    <option act="http://reg.163.com/CheckUser.jsp" value="@163.com" selected="selected">@163.com</option>
-    <option act="https://reg.163.com/logins.jsp" value="@126.com">@126.com</option>
-<option act="http://mail.sina.com.cn/cgi-bin/login.cgi" value="@sina.com">@sina.com</option>
-<option act="http://passport.sohu.com/login.jsp" value="@sohu.com">@sohu.com</option>
-<option act="https://reg.163.com/logins.jsp" value="@yeah.net">@yeah.net</option>
-<option act="http://login.mail.tom.com/cgi/login" value="@tom.com">@tom.com</option>
-<option act="http://passport.21cn.com/maillogin.jsp" value="@21cn.com">@21cn.com</option>
-<option act="https://mail.10086.cn/Login/Login.ashx?clientid=5025" value="@139.com">@139.com</option>
-<option style="font-weight:600;" value="以下在弹出页登录">以下在弹出页登录</option>
-<option value="@qq.com">@qq.com</option>
-<option value="@gmail.com">@gmail.com</option>
-<option value="@hotmail.com">@hotmail.com</option>
-<option value="阿里云邮箱">阿里云邮箱</option>
-<option value="淘宝账号">淘宝账号</option>
-<option value="支付宝">支付宝</option>
-<option value="新浪微博">新浪微博</option>
-<option value="开心网">开心网</option>
-<option value="人人网">人人网</option>
-<option value="百度">百度</option>
-<option value="51.com">51.com</option>
-<option value="chinaren校友录">chinaren校友录</option>
-<option value="天涯社区">天涯社区</option>
-  </select>
-</div>
-<div class="btn_zc2">
-  <input name="search_in3" type="password" id="search_in4" value="邮箱密码" />
-</div>
-<form target="_blank" method="post" id="mail-form" name="mail-form">
-<span class="mail-hide none"></span>
-<div class="btn_zc3"><input name="mail_dl" type="button" id="mail_dl" value="登录" /></div>
-</form>
-</div>
-</div>
+    <div class="btn">
+        <div class="btn_dl">
+          <input name="search_in3" type="text" id="search_in3" value=" 网盘登录" />
+        </div>
+        <div id="disk_login" class="none">
+        <div class="btn_zc1">
+          <input name="search_in3" type="text" id="dsearch_in3" value="网盘登录" />
+        </div>
+        <select name="disk_url" id="disk_url">
+        	<option value="">请选择</option>
+        	<option value="http://pan.baidu.com/disk/home">百度网盘</option>
+        	<option value="http://yunpan.360.cn/">360云盘</option>
+        	<option value="http://wp.163.com/">网易网盘</option>
+        	<option value="http://www.kuaipan.cn/">金山快盘</option>
+        </select>
+        </div>
+        <div class="btn_zc">
+          <input name="search_in2" type="text" id="search_in2" value=" 邮箱登录" />
+        </div>
+        <div class="tancmail none">
+        <div class="btn_zc1">
+          <input name="search_in2" type="text" id="dsearch_in2" value="邮箱登录" />
+        </div>
+        <div class="btn_zc1">
+            <label for="mailxl"></label>
+          <select name="mailxl" id="mailxl">
+            <option act="http://reg.163.com/CheckUser.jsp" value="@163.com" selected="selected">@163.com</option>
+            <option act="https://reg.163.com/logins.jsp" value="@126.com">@126.com</option>
+        <option act="http://mail.sina.com.cn/cgi-bin/login.cgi" value="@sina.com">@sina.com</option>
+        <option act="http://passport.sohu.com/login.jsp" value="@sohu.com">@sohu.com</option>
+        <option act="https://reg.163.com/logins.jsp" value="@yeah.net">@yeah.net</option>
+        <option act="http://login.mail.tom.com/cgi/login" value="@tom.com">@tom.com</option>
+        <option act="http://passport.21cn.com/maillogin.jsp" value="@21cn.com">@21cn.com</option>
+        <option act="https://mail.10086.cn/Login/Login.ashx?clientid=5025" value="@139.com">@139.com</option>
+        <option style="font-weight:600;" value="以下在弹出页登录">以下在弹出页登录</option>
+        <option value="@qq.com">@qq.com</option>
+        <option value="@gmail.com">@gmail.com</option>
+        <option value="@hotmail.com">@hotmail.com</option>
+        <option value="阿里云邮箱">阿里云邮箱</option>
+        <option value="淘宝账号">淘宝账号</option>
+        <option value="支付宝">支付宝</option>
+        <option value="新浪微博">新浪微博</option>
+        <option value="开心网">开心网</option>
+        <option value="人人网">人人网</option>
+        <option value="百度">百度</option>
+        <option value="51.com">51.com</option>
+        <option value="chinaren校友录">chinaren校友录</option>
+        <option value="天涯社区">天涯社区</option>
+          </select>
+        </div>
+        <div class="btn_zc2">
+          <input name="search_in3" type="password" id="search_in4" value="邮箱密码" />
+        </div>
+        <form target="_blank" method="post" id="mail-form" name="mail-form">
+        <span class="mail-hide none"></span>
+        <div class="btn_zc3"><input name="mail_dl" type="button" id="mail_dl" value="登录" /></div>
+        </form>
+        </div>
+    </div>
 </div>
 
 
 <div class="search">
     <div class="drop_down">
-    <div class="drop_down_logo"><img src="/images/FrontEnd/zongh.jpg" width="88" height="26" /></div><div class="drop"><a href="#"><img src="/images/FrontEnd/btn_jj.jpg" width="20" height="19" /></a></div>
+    <div class="drop_down_logo">
+      <p >御搜索</p>
+    </div><div class="drop"><a href="javascript:;"><img src="/images/FrontEnd/xjt.png" width="11" height="7" /></a></div>
     </div>
 	<div id="Tab1">
          <div class="Menubox1">
@@ -159,10 +161,8 @@ echo "周".$weekarray[date("w")]; ?></span></li>
                    </div>
                    
                </div>
-<!--             <div class="search_btn"><a href="javascript:;" id="btn_baidu"><img src="/images/FrontEnd/btn_baidu.jpg" width="90" height="39" /></a><a href="javascript:;" id="btn_google"><img src="/images/FrontEnd/btn_google.jpg" width="90" height="39" /></a></div> -->
             <div class="search_btn">
-              <input name="badu_btn" type="button" id="badu_btn" value="百度" />
-              <input name="google_btn" type="button" id="google_btn" value="Google" />
+              <input name="button2" type="reset" class="btn02" onmouseover="this.className='btn04'" onmouseout="this.className='btn02'"  id="baidu_search_btn" value="百度" /><input name="button2" type="reset" class="btn02" onmouseover="this.className='btn04'" onmouseout="this.className='btn02'"  id="google_search_btn" value="google" />
              </div>
             <div class="search_btn"></div>
 
