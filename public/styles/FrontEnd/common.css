@@ -44,7 +44,7 @@
 }
 .tq .lunar {margin-left:18px; width:125px; position:relative;}
 .lunar ul li {line-height:24px;}
-.Calendar {positoin:absolute;z-index:99999999}
+.Calendar {position:absolute;z-index:99999999;}
 .Calendar table {background-color:#fff;}
 .tq .lunar ul {margin:10px auto; text-align:center; color:#656364;}
 .btn_zc a {color:#FFA625;}

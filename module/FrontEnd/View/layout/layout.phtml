@@ -61,7 +61,6 @@ echo "周".$weekarray[date("w")]; ?></span></li>
 		$nl = $lunar->S2L($today);
 		echo $nl;?></li>
 	</ul>
-	<?php echo $this->partial('front-end/default/Calendar.phtml');?>
 	</div>
     <div class="btn">
         <div class="btn_dl">
@@ -123,8 +122,6 @@ echo "周".$weekarray[date("w")]; ?></span></li>
         </div>
     </div>
 </div>
-
-
 <div class="search">
     <div class="drop_down">
     <div class="drop_down_logo">
@@ -179,19 +176,17 @@ echo "周".$weekarray[date("w")]; ?></span></li>
 </div>
 
 <?php echo $this->partial('layout/footer.phtml');?>
+<?php echo $this->partial('front-end/default/Calendar.phtml');?>
 </body>
 </html>
 <script type="text/javascript"> 
 var loginStatus = <?php echo isset($this->container->UserID) && !empty($this->container->UserID) ? 1 : 0;?>;
 $(function(){
-// 	initial();
-// 	$(".lunar").hover(function(){
-// 		$(".Calendar").slideDown();
-// 	},
-// 	function() {
-// 		$(".Calendar").slideUp();
-// 	});
-	$(".lunar *").click(function(){$(".Calendar").slideDown();});
+	$(".lunar *").click(function(){
+		var top = $(".lunar").offset().top + 50;
+		var left = $(".lunar").offset().left - 195;
+		$(".Calendar").css({top:top+'px',left:left+'px'});
+		$(".Calendar").slideDown();});
 	$(".Calendar").hover(function(e){
 		e = window.event || e;
 		if (!$(e.srcElement || e.target).is('.tq .lunar *,.Calendar *, #sy *')) {
@@ -203,7 +198,6 @@ $(function(){
 			$(".Calendar").slideUp();
 		}
 	});
-// 	var mailDomain = {@163.com:'http://reg.163.com/CheckUser.jsp',}
 	$("#dsearch_in2").focusin(function(){
 		if ($(this).val() == '邮箱登录') {
 			$(this).val('');
