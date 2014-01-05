@@ -486,11 +486,11 @@ class NavController extends AbstractActionController
 	   $cid = $cid ? $cid : 1;
 	   $defaultHtml = array();
 	   if ($cid && file_exists(APPLICATION_PATH.'/data/commonLinks/'.$cid.'.php')) {
-	       $defaultHtml = include '/data/commonLinks/'.$cid.'.php';
+	       $defaultHtml = include APPLICATION_PATH.'/data/commonLinks/'.$cid.'.php';
 	   } else {
 	       $defaultHtml = array('html' => '');
 	   }
-	   $category = include '/data/commonLinks/category.php';
+	   $category = include APPLICATION_PATH.'/data/commonLinks/category.php';
 	   $assign = array(
 // 	   	   'links' => $links,
             'cid' => $cid,
