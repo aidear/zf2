@@ -153,6 +153,7 @@ class AjaxController extends AbstractActionController
     								'record_type' => 1//系统
     						);
     						$memberTable->updateUserPoint($container->UserID, $points, $hisInsert);
+    						$container->Points += $points;
     					}
     				}
 			    }
