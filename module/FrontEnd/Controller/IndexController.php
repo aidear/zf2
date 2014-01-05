@@ -74,7 +74,7 @@ class IndexController extends AbstractActionController
 		$commonLinks = array();
 		$commonLinksCate = array();
 		if (file_exists(APPLICATION_PATH.'/data/commonLinks/category.php')) {
-		    $commonLinksCate = include '/data/commonLinks/category.php';
+		    $commonLinksCate = include APPLICATION_PATH.'/data/commonLinks/category.php';
 		    foreach ($commonLinksCate as $k=>$v) {
 		        if (file_exists(APPLICATION_PATH.'/data/commonLinks/'.$k.'.php')) {
 		            $commonLinks[$k] = include APPLICATION_PATH.'/data/commonLinks/'.$k.'.php';
