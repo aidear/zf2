@@ -182,3 +182,4 @@ CREATE TABLE `feedback` (
   `add_time` datetime DEFAULT NULL COMMENT '添加时间',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+ALTER TABLE `project`.`adv_apply` CHANGE `dailyView` `dailyView` VARCHAR(100) DEFAULT '0' NOT NULL COMMENT '日访问量'; 

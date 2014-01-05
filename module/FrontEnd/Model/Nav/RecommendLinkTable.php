@@ -69,6 +69,7 @@ class RecommendLinkTable extends TableGateway
 	function save(RecommendLink $reLink){
 	    $link = $reLink->toArray();
         unset($link['inputFilter']);
+        unset($link['category']);
         if(empty($link['id'])){
             unset($link['id']);
             if ($this->insert($link)) {
