@@ -41,6 +41,10 @@ $msg = $this->flashMessages();?>
                                 => 'nav', 'action' => 'addItem')) ?>?cid=<?php echo $this->cid;?>&id=">
                                 <i class="icon-edit"></i>编辑
                             </a>
+                            <a class="btn btn-edit" editMult="true" href="javascript:;" _href="<?php echo $this->url('backend', array('controller' 
+                                => 'nav', 'action' => 'addRecommend')) ?>?id=">
+                                <i class="icon-edit"></i>加入常用
+                            </a>
                             <a class="btn btn-delete" href="javascript:;" _href="<?php echo $this->url('backend', array('controller' 
                                 => 'nav', 'action' => 'deleteItem')) ?>?cid=<?php echo $this->cid;?>&id=" onClick="diyConfirm('删除' , $(this).attr('href'), this);return false;"><i class="icon-delete"></i>删除
                             </a>

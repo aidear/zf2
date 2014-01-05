@@ -22,6 +22,8 @@ use Custom\Util\Utilities;
 use Zend\View\Model\JsonModel;
 use Zend\View\Model\ViewModel;
 use BackEnd\Model\Users\RegionTable;
+use Zend\Config\Config;
+use Zend\Config\Writer\PhpArray;
 
 class AjaxController extends AbstractActionController
 {
@@ -64,5 +66,23 @@ class AjaxController extends AbstractActionController
 			$rs = array('code' => -1, 'msg' => '数据错误');
 		}
 		return new JsonModel($rs);
+	}
+	public function saveCommonLinksAction()
+	{
+	    $category = $this->params()->fromPost('cate');
+	    $html = $this->params()->fromPost('html');
+	    $cache = array(
+	    	'category' => $category,
+	        'html' => $html,
+	    );
+	    $config = new Config($cache);
+	    
+	    
+	    $writer = new PhpArray();
+	    
+	    //echo $writer->toString($conf);die;
+	    //@file_put_contents(APPLICATION_PATH.'/data/sys_config.php', $writer->toString($conf));
+	    $writer->toFile(APPLICATION_PATH.'/data/commonLinks/'.$category.'.php', $config);
+	    return new JsonModel(array('code' => 0, 'msg' => 'ok'));
 	}
 }

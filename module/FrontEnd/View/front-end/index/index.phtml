@@ -50,40 +50,27 @@
 <div class="tj_left">
 <div class="wtj">从推荐中添加</div>
 <ul class="tj_cy">
-        <li class="ot">大家常用</li>
-        <li>宅男福利</li>
-        <li>生活更方便</li>
-        <li>宅男福利</li>
-        <li>上班族定制</li>
-        <li>我爱我家</li>
-        <li>热门微博</li>
-        <li>宅男福利</li>
+<?php $f= 0;foreach ($this->commonLinksCate as $k=>$v):?>
+        <li cate-val="<?php echo $k;?>" <?php echo $f==0 ? 'class="ot"' : '';?>><?php echo $v;?></li>
+<?php $f = 1;endforeach;?>
+<!--         <li>宅男福利</li> -->
+<!--         <li>生活更方便</li> -->
+<!--         <li>宅男福利</li> -->
+<!--         <li>上班族定制</li> -->
+<!--         <li>我爱我家</li> -->
+<!--         <li>热门微博</li> -->
+<!--         <li>宅男福利</li> -->
         
         </ul>
 </div>
 
-<div class="tjrk">
-         <div class="tjk_tit">常用网址</div>
-         <ul class="tjwz1">
-          <li><a href="#" title="添加">中粮我买网</a></li><li><a href="#" title="添加">中粮</a></li><li><a href="#" title="添加">中粮我买网</a></li><li><a href="#" title="添加">我买网</a></li><li><a href="#" title="添加">中粮我买网</a></li>
-          <li><a href="#">我买网</a></li><li><a href="#" title="添加">中粮我买网</a></li><li><a href="#" title="添加">中粮</a></li><li><a href="#" title="添加">中粮</a></li><li><a href="#" title="添加">我买网</a></li><li><a href="#">我买网</a></li><li><a href="#">我买网</a></li><li><a href="#">中粮我买网</a></li><li><a href="#">中粮我买网</a></li><li><a href="#">中粮</a></li><li><a href="#">中粮</a></li></ul>
-        </div>
-<div class="tjrk">
-       <div class="tjk_tit">常用网址</div>
-         <ul class="tjwz1">
-          <li><a href="#" title="添加">中粮我买网</a></li><li><a href="#" title="添加">中粮</a></li><li><a href="#" title="添加">中粮我买网</a></li><li><a href="#" title="添加">我买网</a></li><li><a href="#" title="添加">中粮我买网</a></li>
-          <li><a href="#">我买网</a></li><li><a href="#" title="添加">中粮我买网</a></li><li><a href="#" title="添加">中粮</a></li><li><a href="#" title="添加">中粮</a></li><li><a href="#" title="添加">我买网</a></li><li><a href="#">我买网</a></li><li><a href="#">我买网</a></li><li><a href="#">中粮我买网</a></li><li><a href="#">中粮我买网</a></li><li><a href="#">中粮</a></li><li><a href="#">中粮</a></li></ul>
-        </div>
-        
-        <div class="tjrk">
-         <div class="tjk_tit">常用网址</div>
-         <ul class="tjwz1">
-          <li><a href="#" title="添加">中粮我买网</a></li><li><a href="#" title="添加">中粮</a></li><li><a href="#" title="添加">中粮我买网</a></li><li><a href="#" title="添加">我买网</a></li><li><a href="#" title="添加">中粮我买网</a></li>
-          <li><a href="#">我买网</a></li><li><a href="#" title="添加">中粮我买网</a></li><li><a href="#" title="添加">中粮</a></li><li><a href="#" title="添加">中粮</a></li><li><a href="#" title="添加">我买网</a></li><li><a href="#">我买网</a></li><li><a href="#">我买网</a></li><li><a href="#">中粮我买网</a></li><li><a href="#">中粮我买网</a></li><li><a href="#">中粮</a></li><li><a href="#">中粮</a></li></ul>
-        </div>
+<?php $lfirst = 0;foreach ($this->commonLinks as $k=>$v):?>
+<div data-cate="<?php echo $k;?>" class="<?php echo $lfirst!=0 ? 'none' : '';?>">
+<?php echo htmlspecialchars_decode($v['html']);?>
 </div>
+<?php $lfirst++;endforeach;?>
 
-
+</div>
   </div>
 <div id="Tab2">
 <div class="zwf"></div>
@@ -115,43 +102,40 @@
     </ul>
     <div class="menu_k none"></div>
     <?php foreach ($this->struct['rootNav'] as $k=>$v):?>
-    <div class="menu_k none">
+    <div class="menu_k">
     <?php if (isset($v['links'])):?>
+    <ul class="menu_k_u">
     <?php $line=$v['line'];foreach ($v['links'] as $n=>$link):?>
     <?php if (($n+1) > ($line*7)) break;?>
-    <li style="width:100px;">
-    <?php if ($link['show_icon'] && !empty($link['icon'])):?>
-    	<!-- <span><img src="<?php echo $link['icon'];?>" width="18" height="17"></span> -->
-    	<?php endif;?>
-    <a class="hao-link" href="<?php echo $link['url'];?>"target="<?php echo $link['target'];?>" title=""><?php echo$link['title'];?></a></li>
+    <li><span><?php if ($link['show_icon'] && !empty($link['icon'])):?>
+    <img src="<?php echo $link['icon'];?>" width="18" height="17" />
+    <?php endif;?>
+    </span><a class="hao-link" href="<?php echo $link['url'];?>"target="<?php echo $link['target'];?>" title=""><?php echo$link['title'];?></a>
+    </li>
     <?php endforeach;?>
+    </ul>
     <?php endif;?>
     <?php if (isset($v['subNav'])):?>
-    <div style="clear: both; border-bottom:1px solid #ccc;height:25px;"></div>
-    <!-- <ul class="menu_k_u"> -->
-    
-    <?php //foreach ($v['subNav'] as $s=>$n):?>
-    <?php //if ($s > 4):break;
-    		//endif;?>
-    <!-- <li><a href="javascript:;"><?php echo $n['name'];?></a></li> -->
-    <?php //endforeach;?>
-    
-    <!-- </ul> -->
     <?php $subCount = count($v['subNav']);
     	  $subLeft = ceil($subCount/2);
     	  $subRight = $subCount-$subLeft;
     ?>
-    
     <?php if ($subLeft>0):?>
       <div class="menu_k_left">
       <?php foreach ($v['subNav'] as $sl=>$slv):?>
       <?php if ($subLeft < $sl+1) break;?>
-         <div class="l1">
+         <div class="l1" <?php echo $subLeft == $sl ? 'id="wu"' : ''?>>
            <h1><?php echo $slv['name'];?></h1>
            <?php if (isset($slv['links'])):?>
            <span class="l2">
            <?php $linkCount = count($slv['links']);foreach ($slv['links'] as $j=>$lk):?>
-           <a class="hao-link" href="<?php echo $lk['url'];?>" target="<?php echo $lk['target'];?>" title=""><?php echo $lk['title'];?></a><?php //echo $linkCount > $j+1 ? '|' : '';?>
+           <a class="hao-link" href="<?php echo $lk['url'];?>" target="<?php echo $lk['target'];?>" title="">
+           <span>
+            <?php if ($lk['show_icon'] && !empty($lk['icon'])):?>
+                <img src="<?php echo $lk['icon'];?>" width="18" height="17" />
+            <?php endif;?>
+           </span>
+           <?php echo $lk['title'];?></a>
            <?php endforeach;?>
            </span>
          	<?php endif;?>
@@ -164,35 +148,30 @@
       <div class="menu_k_right">
 	      <?php foreach ($v['subNav'] as $sl=>$slv):?>
 	      <?php if ($subLeft >= $sl+1) continue;?>
-	         <div class="l1">
+	         <div class="l1" <?php echo $subLeft == $sl ? 'id="wu"' : ''?>>
 	           <h1><?php echo $slv['name'];?></h1>
 	           <?php if (isset($slv['links'])):?>
 	           <span class="l2">
 	           <?php $linkCount = count($slv['links']);foreach ($slv['links'] as $j=>$lk):?>
-	           <a class="hao-link" href="<?php echo $lk['url'];?>" target="<?php echo $lk['target'];?>" title=""><?php echo $lk['title'];?></a><?php //echo $linkCount > $j+1 ? '|' : '';?>
+	           <a class="hao-link" href="<?php echo $lk['url'];?>" target="<?php echo $lk['target'];?>" title="">
+	           <span>
+            <?php if ($lk['show_icon'] && !empty($lk['icon'])):?>
+                <img src="<?php echo $lk['icon'];?>" width="18" height="17" />
+            <?php endif;?>
+           </span>
+	           <?php echo $lk['title'];?></a>
 	           <?php endforeach;?>
 	           </span>
 	         	<?php endif;?>
 	         </div>
 	      <?php endforeach;?>
       </div>
-      <?php endif;?>
-      <?php elseif (isset($v['links']) && 1==2):?>
-      <div class="menu_k_all">
-         <div class="l1">
-           <h1><?php echo isset($v['info']['name']) ? $v['info']['name'] : '';?></h1>
-           <?php if (!empty($v['links'])):?>
-           <span class="l2">
-           <?php $linkCount = count($v['links']);foreach ($v['links'] as $a=>$ks):?>
-           <a class="hao-link" href="<?php echo $ks['url'];?>" target="<?php echo $ks['target'];?>" title=""><?php echo $ks['title'];?></a><?php //echo $linkCount > $a+1 ? '|' : '';?>
-           <?php endforeach;?>
-           </span>
-         	<?php endif;?>
-         </div>
-      </div>
-      <?php endif;?>
-    </div>
+      <?php endif;?>  
+    <?php endif;?>
+   
+   </div>
     <?php endforeach;?>
+    
     <div class="link_k">
         <div class="list">
         <?php if (isset($this->customLinks) && !empty($this->customLinks)):?>
@@ -404,6 +383,7 @@ $(function() {
 	$("#recommendLinks .tj_cy li").css('cursor', 'pointer');
 	$("#recommendLinks .tj_cy li").click(function(){
 	    $(this).addClass('ot').siblings('.ot').removeClass('ot');
+	    $("div[data-cate='"+$(this).attr('cate-val')+"']").removeClass('none').siblings("div[data-cate]").addClass('none');
 	});
 	function delCustomLinks(url) {
 		var cLinksCookies = getcookie('custom_links');

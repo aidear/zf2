@@ -49,33 +49,18 @@ body{background-color:#F6F6F6;;background-repeat:no-repeat;background-position:c
 .wrap .top .logo{float:left;height:70px;width:147px;}
 .wrap .top .tq{
 	float:left;
-	height:55px;
+	height:62px;
 	width:485px;
 	display:inline;
-	margin-top:8px;
+	margin-top:3px;
 	text-align:left;
 	border-right-width:1px;
 	border-right-style:solid;
-	border-right-color:#DDDDDD;
+	border-right-color:#D6D6D6;
 	padding-right:5px;
 	padding-left:5px;
 }
-.wrap .top .rl{
-	float:left;
-	height:51px;
-	width:132px;
-	display:inline;
-	margin-top:8px;
-	text-align:center;
-	line-height:62px;
-	border-right-width: 1px;
-	border-right-style: solid;
-	border-right-color: #DDDDDD;
-	padding-top: 2px;
-	padding-right: 2px;
-	padding-bottom: 2px;
-	padding-left: 2px;
-}
+.wrap .top .rl{float:left;height:62px;width:132px;display:inline;margin-top:3px;text-align:center;padding:2px;line-height:62px;}
 .wrap .top .btn{float:left;width:185px;margin-top:12px;position:relative;margin-left:20px;}
 .wrap .top .btn_zc{float:left;font-family:"宋体";color:#ffa625;font-size:14px;font-weight:bold;text-align:left;background-image:url(/images/FrontEnd/mailb.jpg);background-repeat:no-repeat;background-position:left center;padding-left:20px;margin-top:10px;width:165px;}
 .wrap .top .btn_dl{color:#369af1;font-family:"宋体";font-size:14px;font-weight:bold;text-align:left;background-image:url(/images/FrontEnd/wangpb.jpg);background-repeat:no-repeat;background-position:left center;padding-left:20px;width:165px;}
@@ -185,9 +170,35 @@ body{background-color:#F6F6F6;;background-repeat:no-repeat;background-position:c
 .menu{float:left;width:150px;z-index:999;}
 .menu li{background-image:url(/images/FrontEnd/menu_bg.jpg);background-position:bottom;background-repeat:no-repeat;float:left;height:40px;width:149px;padding-top:10px;padding-bottom:10px;border-right-width:1px;border-right-style:solid;border-right-color:#CCC;}
 .menu .menu_a{background-color:#FFF;border-top-width:1px;border-right-width:1px;border-bottom-width:1px;border-left-width:1px;border-top-style:solid;border-right-style:solid;border-bottom-style:solid;border-left-style:solid;border-top-color:#F00;border-right-color:#FFF;border-bottom-color:#F00;border-left-color:#F00;z-index:9999;position:relative;float:left;}
-.menu_k{border:1px solid #F00;position:absolute;height:450px;width:715px;background-color:#FFF;z-index:999;left:150px;top:-149px;padding-right:15px;padding-left:15px;}
-.menu_k .menu_k_u{line-height:50px;float:left;height:50px;width:715px;border-bottom-width:1px;border-bottom-style:solid;border-bottom-color:#EEEEEE;}
-.menu_k .menu_k_u li{float:left;width:120px;font-size:14px;background-image:url(/images/FrontEnd/jt2.gif);background-repeat:no-repeat;background-position:right center;}
+.menu_k{
+	border:1px solid #F00;
+	position:absolute;
+	height:auto;
+	width:715px;
+	background-color:#FFF;
+	z-index:999;
+	left:150px;
+	top:-149px;
+	padding-right:15px;
+	padding-left:15px;
+}
+.menu_k .menu_k_u{
+	line-height:35px;
+	float:left;
+	height:auto;
+	width:715px;
+	border-bottom-width:1px;
+	border-bottom-style:solid;
+	border-bottom-color:#EEEEEE;
+}
+.menu_k .menu_k_u li{
+	float:left;
+	width:auto;
+	font-size:14px;
+	padding-right: 20px;
+	padding-left: 20px;
+	margin-top: 5px;
+}
 .menu_k .menu_k_u li a{color:#333;}
 .menu_k .menu_k_u li a:hover{color:#FF8B61;}
 .menu_k .menu_k_left{float:left;height:auto;width:355px;border-right-width:1px;border-right-style:solid;border-right-color:#EEEEEE;}
@@ -195,7 +206,12 @@ body{background-color:#F6F6F6;;background-repeat:no-repeat;background-position:c
 .menu_k #wu{border-top-width:0px;border-right-width:0px;border-bottom-width:0px;border-left-width:0px;border-top-style:none;border-right-style:none;border-bottom-style:none;border-left-style:none;}
 .menu_k .l1 h1{font-size:12px;width:335px;text-align:left;float:left;line-height:35px;}
 .menu_k .l1 .l2{float:left;height:auto;width:335px;color:#CCC;text-align:left;}
-.menu_k .l1 .l2 a{text-align:left;padding-right:3px;padding-left:3px;line-height:30px;}
+.menu_k .l1 .l2 a{
+	text-align:left;
+	padding-right:5px;
+	padding-left:5px;
+	line-height:30px;
+}
 .menu_k .menu_k_right{float:left;height:auto;width:335px;margin-left:4px;padding-left:20px;}
 .chese{color:#F60;}
 .chese a{color:#F60;}

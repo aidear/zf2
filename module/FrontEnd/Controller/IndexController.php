@@ -70,8 +70,25 @@ class IndexController extends AbstractActionController
 					$structNavLists['rootNav'][$ids]['subNav'][] = $v;
 				}
 			}
-		}//print_r($customLinks);die;
-		$rs = array('customLinks' => $customLinks, 'struct' => $structNavLists, 'nav' => $navLists, 'provList' => $prov, 'defCity' => $defCity);
+		}
+		$commonLinks = array();
+		$commonLinksCate = array();
+		if (file_exists(APPLICATION_PATH.'/data/commonLinks/category.php')) {
+		    $commonLinksCate = include '/data/commonLinks/category.php';
+		    foreach ($commonLinksCate as $k=>$v) {
+		        if (file_exists(APPLICATION_PATH.'/data/commonLinks/'.$k.'.php')) {
+		            $commonLinks[$k] = include APPLICATION_PATH.'/data/commonLinks/'.$k.'.php';
+		        } else {
+		            $commonLinks[$k] = array();
+		        }
+		    }
+		}
+// 		if (file_exists('./data/commonLinks/1.php')) {
+// 		    $commonLinks = include'./data/commonLinks/1.php';
+// 		    $config = new \Zend\Config\Config($commonLinks);
+// 		}
+// 		print_r($commonLinks);die;
+		$rs = array('commonLinksCate' => $commonLinksCate, 'commonLinks' => $commonLinks, 'customLinks' => $customLinks, 'struct' => $structNavLists, 'nav' => $navLists, 'provList' => $prov, 'defCity' => $defCity);
 		return new ViewModel($rs);
 	}
 	

@@ -304,6 +304,7 @@ return array(
     
     'nav_items' => '网址库',
     'nav_addItem' => '网址库',
+    'nav_addRecommend' => '网址库',
     
     'config_index' => '基本设置',
     'config_mail' => '邮件服务器',

@@ -68,7 +68,12 @@ class LinkTable extends TableGateway
         $row = $rowset->current();
         return $row;
     }
-    
+    function getLinksByIds($ids)
+    {
+        $idStr = 'id='.str_replace(',', ' OR id=', $ids);
+        $rowset = $this->select($idStr);
+        return $rowset ? $rowset->toArray() : null;
+    }
     function getByName($name){
         $select = $this->getSql()->select();
         $where = function (Where $where) use($name){

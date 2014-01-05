@@ -164,6 +164,12 @@ return array (
 									'controller' => 'nav',
 									'action' => 'items',
 									'resource' => 'nav_items',
+							),
+							array(
+									'label' => '常用网址',
+									'controller' => 'nav',
+									'action' => 'addRecommend',
+									'resource' => 'nav_addRecommend',
 							)
 					)
 			)

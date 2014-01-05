@@ -476,6 +476,29 @@ class NavController extends AbstractActionController
 		);
 		return $assign;
 	}
+	public function addRecommendAction()
+	{
+// 	   $ids = $this->params()->fromQuery('id');
+// 	   $linkTable = $this->_getTable('LinkTable');
+// 	   $links = $linkTable->getLinksByIds($ids);
+	   
+	   $cid = $this->params()->fromQuery('cid');
+	   $cid = $cid ? $cid : 1;
+	   $defaultHtml = array();
+	   if ($cid && file_exists(APPLICATION_PATH.'/data/commonLinks/'.$cid.'.php')) {
+	       $defaultHtml = include '/data/commonLinks/'.$cid.'.php';
+	   } else {
+	       $defaultHtml = array('html' => '');
+	   }
+	   $category = include '/data/commonLinks/category.php';
+	   $assign = array(
+// 	   	   'links' => $links,
+            'cid' => $cid,
+	       'category' => $category,
+	       'defaultHtml' => $defaultHtml
+	   );
+	   return new ViewModel($assign);
+	}
 	public function uploadAction()
 	{	
 		$file = $this->params()->fromFiles('srcFile');
