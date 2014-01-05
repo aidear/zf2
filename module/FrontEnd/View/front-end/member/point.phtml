@@ -51,6 +51,7 @@ $member = $this->member;
  <script>
  function toPage(url) {
 //	 	var url = '/member/pointExchange';
+    $("#pointsList").html('<center>数据载入中……</center>');
 		Ajax.call(url, '', function(s){
 		    $("#pointsList").html(s);
 		});
