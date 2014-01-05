@@ -1,0 +1,27 @@
+<?php if ($this->pageCount > 1): ?>
+<?php 
+    if(strrpos($this->link , '?') === false){
+        $prefix = '?page=';
+    }else{
+        $prefix = '&page=';
+    }
+?>
+<div class="manu">
+<?php if (isset($this->previous)): ?>
+<a href="javascript:toPage('<?php echo $this->link . $prefix . 1;?>');">首页</a>
+<a href="javascript:toPage('<?php echo $this->link . $prefix . $this->previous;?>');">上一页</a>
+<?php endif;?>
+<?php foreach ($this->pagesInRange as $page): ?>
+        <?php if ($page != $this->current): ?>
+            <a href="javascript:toPage('<?php echo $this->link . $prefix . $page;?>');"><?php echo $page; ?></a>
+            
+        <?php else:?>
+        <span class="current"><?php echo $page; ?></span>
+        <?php endif;?>
+        <?php endforeach;?>
+        <?php if (isset($this->next)): ?>
+        <a href="javascript:toPage('<?php echo $this->link . $prefix . $this->next;?>');">下一页</a>
+        <a href="javascript:toPage('<?php echo $this->link . $prefix . $this->pageCount;?>');">末页</a>
+        <?php endif;?>
+</div>
+<?php endif;?>

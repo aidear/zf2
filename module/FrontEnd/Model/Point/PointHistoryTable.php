@@ -11,6 +11,7 @@ use Zend\Db\Sql\Expression;
 class PointHistoryTable extends TableGateway
 {
     protected $table = "point_history";
+    protected $select;
     
     function getAllToPage($where = array()){
         $select = $this->getSql()->select();
@@ -57,7 +58,47 @@ class PointHistoryTable extends TableGateway
     {
     	$lists = $this->getlist();
     }
+    function formatWhere(array $data){
+        $where = $this->_getSelect()->where;
     
+        if (isset($data['sort'])) {
+            switch($data['sort']) {
+            	case '1':
+            	    $where->greaterThan('points', 0);
+            	    break;
+            	case '2':
+            	    $where->lessThan('points', 0);
+            	    break;
+            	default:
+            	    break;
+            }
+        }
+//         if (isset($data['title'])) {
+//             $where->like('pro_rule_type.type_name', '%'.$data['title'].'%');
+//         }
+        $this->select->where($where);
+        return $this;
+    }
+    public function getListToPaginator($order = array())
+    {
+        $select = $this->_getSelect();
+//         $select->join('pro_rule_type', "pro_rule_type.type_code=pro_rule.rule_code", array('type_name'));
+        if (!empty($order)) {
+            $select->order($order);
+        } else {
+        	$select->order(array('add_time' => 'DESC'));
+        }
+        
+        //echo str_replace('"', '', $select->getSqlString());die;
+    
+        return new DbSelect($select, $this->getAdapter());
+    }
+    protected function _getSelect(){
+        if(!isset($this->select)){
+            $this->select = $this->getSql()->select();
+        }
+        return $this->select;
+    }
     function getOneById($id){
         $rowset = $this->select(array('id' => $id));
         $row = $rowset->current();
@@ -81,9 +122,6 @@ class PointHistoryTable extends TableGateway
     function updateFieldsByID($fields, $id)
     {
     	return $this->update($fields, array('uid' => $id));
-    }
-    public function updateImage($id , $imageFile){
-    	return $this->update(array('imgUrl' => $imageFile) , array('id' => (int)$id));
     }
     
     public function checkExist($attr, $UserID = 0)

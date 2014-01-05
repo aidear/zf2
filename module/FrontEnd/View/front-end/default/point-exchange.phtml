@@ -1,0 +1,34 @@
+<?php 
+
+?>
+<?php if ($this->items):?>
+<div class="jftb">
+            <table width="728" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td height="30" width="100" align="center" bgcolor="#FBFBF3">日期</td>
+                <td height="30" align="center" bgcolor="#FBFBF3">来源/用途</td>
+                <td height="30" align="center" bgcolor="#FBFBF3">收入</td>
+                <td height="30" align="center" bgcolor="#FBFBF3">支出</td>
+<!--                 <td height="30" align="center" bgcolor="#FBFBF3">节省</td> -->
+                <td  width="200" align="center" bgcolor="#FBFBF3">备注</td>
+              </tr>
+              <?php foreach($this->items as $k=>$v):?>
+              <tr>
+                <td height="50" align="center"><p><?php echo $v['date'];?></p>
+                <p><?php echo $v['time'];?></p></td>
+                <td height="50" align="center"><?php echo $v['rule_name'];?></td>
+                <td height="50" align="center"><?php echo $v['points']>0 ? $v['points'] : '-';?></td>
+                <td height="50" align="center"><?php echo $v['points']<0 ? $v['points'] : '-';?></td>
+<!--                 <td height="50" align="center">&nbsp;</td> -->
+                <td height="50" align="center"><?php echo $v['description'];?></td>
+              </tr>
+              <?php endforeach;?>
+            </table>
+          </div>
+          <?php echo $this->paginationControl($this->paginaction,'Sliding','layout/pagination-point' , array('link' 
+            => '/member/pointExchange?'.$this->query));?>
+<!--           <div class="manu"><span class="current">1</span><a href="#?page=2">2</a><a href="#?page=3">3</a><a href="#?page=4">4</a><a href="#?page=5">5</a><a href="#?page=6">6</a><a href="#?page=7">7</a>...<a href="#?page=199">199</a><a href="#?page=200">200</a><a href="#?page=2"><span class="current">下一页</span>  </a></div> -->
+<?php else:?>
+<br />
+<center style="color:red;">暂无数据！</center>
+<?php endif;?>

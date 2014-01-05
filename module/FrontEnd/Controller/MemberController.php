@@ -537,10 +537,60 @@ class MemberController extends AbstractActionController
 	public function pointAction()
 	{
 		$this->_isCenter();
+		$memberInfo = $this->_currentMember();
+		$assign = array(
+			'member' => $memberInfo,
+		);
+		return new ViewModel($assign);
 	}
 	public function pointExchangeAction()
 	{
 		$this->_isCenter();
+		$page = $this->params()->fromQuery('page' , 1);
+		$sort = $this->params()->fromQuery('sort' , 'all');
+		$pageSize = $this->params()->fromQuery('pageSize');
+		$params = array();
+		$order = array();
+		
+		if ($sort) {
+			$params['sort'] = $sort;
+		}
+		if ($pageSize) {
+		    $params['pageSize'] = $pageSize;
+		}
+		$params['orderField'] = $this->params()->fromQuery('orderField', 'add_time');
+		$params['orderType'] = $this->params()->fromQuery('orderType', 'DESC');
+		
+		$removePageParams = $params;
+		$params['page'] = $this->params()->fromQuery('page' , 1);
+		
+		$paginaction = $this->_getPointPaginator($params);
+		$items = $paginaction->getCurrentItems()->toArray();
+		foreach($items as $k=>$v) {
+			$items[$k]['date'] = date('Y-m-d', strtotime($v['add_time']));
+			$items[$k]['time'] = date('H:i:s', strtotime($v['add_time']));
+		}
+		$assign = array(
+			'items' => $items,
+		    'paginaction' => $paginaction,
+		    'query' => http_build_query($removePageParams),
+		);
+		$v = new ViewModel($assign);
+		$v->setTemplate('front-end/default/point-exchange.phtml');
+		$v->setTerminal(true);
+		return $v;
+	}
+	private function _getPointPaginator($params, $all = false)
+	{
+	    $page = isset($params['page']) ? $params['page'] : 1;
+	    $order = array();
+	    if (isset($params['orderField'])) {
+	        $order = array("{$params['orderField']}" => $params['orderType']);
+	    }
+	    $table = $this->_getTable('PointHistoryTable');
+	    $paginator = new Paginator($table->formatWhere($params)->getListToPaginator($order));
+	    $paginator->setCurrentPageNumber($page)->setItemCountPerPage($all ? 10000 : (isset($params['pageSize']) ? $params['pageSize'] : 6));
+	    return $paginator;
 	}
 	public function orderSearchAction()
 	{
