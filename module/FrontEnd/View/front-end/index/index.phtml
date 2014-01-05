@@ -229,7 +229,6 @@ $(function() {
 				$(this).siblings('li').removeClass('menu_a');
 				$("#con_men_1 .menu_k").siblings('.menu_k').not($("#con_men_1 .menu_k").eq(i)).hide();
 			}).bind('mouseout', function(){
-// 				$(".menu > li").eq(0).addClass('line');
 			});
 	});
 	$("#con_men_1 .menu_k").hover(function() {
@@ -319,7 +318,7 @@ $(function() {
 		data:'area='+escape(z_loc),
 		dataType:'json',
 		cache:false,
-		async:false,
+		async:true,
 		success:function(s) {
 			if (s.day_1) {
 				$("#day_1 .wtpic").html(s.day_1.img);
