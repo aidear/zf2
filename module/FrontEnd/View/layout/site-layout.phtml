@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<?php echo $this->headTitle(); ?>
+<?php 
+            echo $this->headLink()->prependStylesheet($this->basePath() . '/styles/FrontEnd/common.css')
+            ->prependStylesheet($this->basePath() . '/styles/FrontEnd/about.css');
+        ?>
+        <?php
+        echo $this->headScript()->prependFile($this->basePath('js/FrontEnd/comm.js'))
+            ->prependFile($this->basePath('js/jquery.min.js'));
+       ?>
+</head>
+
+<body>
+<!--头部-->
+<div class="header_bg">
+  <div class="header">
+  <div class="top_nav"><a href="/">返回首页</a>|<a href="javascript:;" onclick="addBookmark('<?php echo $this->siteConfg['shop_title'];?>', '<?php echo __SHOP_URL;?>');">收藏</a>|<a href="/site/feedback.html">建议</a></div></div>
+</div>
+<div class="warp">
+<div class="top">
+    <div class="logo"><a href="/" title="<?php echo $this->siteConfg['shop_title'];?>"><img src="/images/FrontEnd/reg_logo.png" width="117" height="76" /></a></div>
+    <div class="so"><span class="so_1">
+      <label for="sso"></label>
+      <input type="text" name="sso" id="sso" />
+    </span><span><input name="sso_btn" type="submit" id="sso_btn" value="站内搜索" /></span></div>
+    
+    <div class="so_nav"><a href="#">锦衣</a>|<a href="#">美食</a>|<a href="#">享住</a>|<a href="#">成行</a>|<a href="#">教育</a>|<a href="#">娱乐</a>|<a href="#">健康</a>|<a href="#">财富</a></div>
+</div>
+</div>
+<!--头部结束-->
+
+<!--中间-->
+<div class="main">
+<!--左侧-->
+ <div class="left">
+   <ul class="left_nav">
+   <li <?php echo $this->action == 'aboutUs' ? 'id="dq"' : '';?>><a href="/site/aboutUs.html">关于我们</a></li>
+   <li <?php echo $this->action == 'apply' ? 'id="dq"' : '';?>><a href="/site/apply.html">收入申请</a></li>
+   <li <?php echo $this->action == 'advApply' ? 'id="dq"' : '';?>><a href="/site/advApply.html">广告申请</a></li>
+   <li <?php echo $this->action == 'feedback' ? 'id="dq"' : '';?>><a href="/site/feedback.html">建议反馈</a></li>
+ </ul>
+ </div>
+ 
+ <!--右侧-->
+ <div class="right">
+ <?php echo $this->content;?>   
+   
+ </div>
+</div>
+<?php echo $this->partial('layout/footer.phtml');?>
+</body>
+</html>

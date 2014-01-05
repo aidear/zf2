@@ -1,0 +1,166 @@
+<?php 
+echo $this->headScript()->appendFile($this->basePath('js/jquery-validate.min.js'));
+$form = $this->form;
+$form->prepare();
+$save = $this->save;
+?>
+<?php if ($save == 1):?>
+<script>
+alert('您的建议提交成功！感谢支持！');
+</script>
+<?php endif;?>
+<div class="right_txt"> 建议反馈   </div>
+    <div class="right_con1">
+     <?php echo $this->form()->openTag($form);?>
+          <table width="95%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+              <td width="10%">&nbsp;</td>
+              <td width="90%" height="30"> 您好，欢迎您给我们提出使用中遇到的问题或建议！留下联系方式，将有机会获得精美礼品！ </td>
+            </tr>
+            <?php 
+       $content = $form->get('content');
+       ?>
+            <tr>
+              <td height="30" align="right"><p ><?php echo $content->getOption('label');?>
+              ：</p></td>
+              <td height="30"><label for="textarea2"></label>
+              <?php echo $this->formTextarea($content);
+         echo $this->formElementErrors($content);?><span id="for_content">
+              <span class="hongse">*</span>必填</span></td>
+            </tr>
+            <?php 
+       $contact = $form->get('contact');
+       ?>
+            <tr>
+              <td align="right"><?php echo $contact->getOption('label');?>：</td>
+              <td height="40">
+              <?php echo $this->formInput($contact);
+    echo $this->formElementErrors($contact); ?><span id="for_contact">
+              <span class="hongse">*</span>必填</span></td>
+            </tr>
+            <tr>
+              <td align="right">&nbsp;</td>
+              <td>&nbsp;</td>
+            </tr><?php $submit = $form->get('submit');?>
+            <tr>
+              <td align="right">&nbsp;</td>
+              <td><?php echo $this->formSubmit($submit);?>
+                &nbsp;</td>
+            </tr>
+          </table>
+   <?php echo $this->form()->closeTag(); ?>
+    </div>
+    <div class="right_txt"> 积分常见问题    </div>
+   <div class="right_con1">
+     <p>1、会员积分如何计算？</p>
+     <p>答：为鼓励会员推广应用，御订网制定了明确的积分规则，详见下表。例如，在活动到期时间前，会员注册成功可以积100分，登录一次可以积1分，登录每小时可以积0.5分，以此类推。</p>
+     <p>&nbsp;</p>
+     <table border="0" cellpadding="0" cellspacing="1" bgcolor="#CCCCCC">
+       <tr>
+         <td width="700" height="25" align="center" valign="middle" bgcolor="#FFFFFF" ><p ><strong>事项 </strong></p></td>
+         <td width="700" height="25" align="center" valign="middle" bgcolor="#FFFFFF" ><p ><strong>积分 </strong></p></td>
+         <td width="700" height="25" align="center" valign="middle" bgcolor="#FFFFFF" ><p ><strong>开始时间 </strong></p></td>
+         <td width="700" height="25" align="center" valign="middle" bgcolor="#FFFFFF" ><p ><strong>到期时间 </strong></p></td>
+         <td width="700" height="25" align="center" valign="middle" bgcolor="#FFFFFF" ><p ><strong>备注 </strong></p></td>
+       </tr>
+       <tr>
+         <td width="94" height="25" align="center" valign="middle" bgcolor="#FFFFFF" ><p >注册成功 </p></td>
+         <td width="111" height="25" align="center" valign="middle" bgcolor="#FFFFFF" ><p >100 </p></td>
+         <td width="94" height="25" align="center" valign="middle" bgcolor="#FFFFFF" ><p >2013-12-01 </p></td>
+         <td width="103" height="25" align="center" valign="middle" bgcolor="#FFFFFF" ><p >2014-12-31 </p></td>
+         <td width="179" height="25" align="center" valign="middle" bgcolor="#FFFFFF" ><p >&nbsp;</p></td>
+       </tr>
+       <tr>
+         <td width="94" height="25" align="center" valign="middle" bgcolor="#FFFFFF" ><p >登录一次 </p></td>
+         <td width="111" height="25" align="center" valign="middle" bgcolor="#FFFFFF" ><p >1 </p></td>
+         <td width="94" height="25" align="center" valign="middle" bgcolor="#FFFFFF" ><p >2013-12-01 </p></td>
+         <td width="103" height="25" align="center" valign="middle" bgcolor="#FFFFFF" ><p >2014-12-31 </p></td>
+         <td width="179" height="25" align="center" valign="middle" bgcolor="#FFFFFF" ><p >每IP，每天最多积分5分 </p></td>
+       </tr>
+       <tr>
+         <td width="94" height="25" align="center" valign="middle" bgcolor="#FFFFFF" ><p >登录时间 </p></td>
+         <td width="111" height="25" align="center" valign="middle" bgcolor="#FFFFFF" ><p >小时*0.5 </p></td>
+         <td width="94" height="25" align="center" valign="middle" bgcolor="#FFFFFF" ><p >2013-12-01 </p></td>
+         <td width="103" height="25" align="center" valign="middle" bgcolor="#FFFFFF" ><p >2014-12-31 </p></td>
+         <td width="179" height="25" align="center" valign="middle" bgcolor="#FFFFFF" ><p >以系统检测到的时长为准 </p></td>
+       </tr>
+       <tr>
+         <td width="94" height="25" align="center" valign="middle" bgcolor="#FFFFFF" ><p >点击网址 </p></td>
+         <td width="111" height="25" align="center" valign="middle" bgcolor="#FFFFFF" ><p >页面*0.&nbsp;1 </p></td>
+         <td width="94" height="25" align="center" valign="middle" bgcolor="#FFFFFF" ><p >2013-12-01 </p></td>
+         <td width="103" height="25" align="center" valign="middle" bgcolor="#FFFFFF" ><p >2014-12-31 </p></td>
+         <td width="179" height="25" align="center" valign="middle" bgcolor="#FFFFFF" ><p >每IP，每天最多积分10分 </p></td>
+       </tr>
+       <tr>
+         <td width="94" height="25" align="center" valign="middle" bgcolor="#FFFFFF" ><p >交易成功 </p></td>
+         <td width="111" height="25" align="center" valign="middle" bgcolor="#FFFFFF" ><p >交易额*1 </p></td>
+         <td width="94" height="25" align="center" valign="middle" bgcolor="#FFFFFF" ><p >2013-12-01 </p></td>
+         <td width="103" height="25" align="center" valign="middle" bgcolor="#FFFFFF" ><p >&nbsp;</p></td>
+         <td width="179" height="25" align="center" valign="middle" bgcolor="#FFFFFF" ><p >&nbsp;</p></td>
+       </tr>
+       <tr>
+         <td width="94" height="25" align="center" valign="middle" bgcolor="#FFFFFF" ><p >促销活动 </p></td>
+         <td width="111" height="25" align="center" valign="middle" bgcolor="#FFFFFF" ><p >交易额*0.2 </p></td>
+         <td width="94" height="25" align="center" valign="middle" bgcolor="#FFFFFF" ><p >2013-12-01 </p></td>
+         <td width="103" height="25" align="center" valign="middle" bgcolor="#FFFFFF" ><p >2014-12-31 </p></td>
+         <td width="179" height="25" align="center" valign="middle" bgcolor="#FFFFFF" ><p >促销期间，积分叠加有效 </p></td>
+       </tr>
+       <tr>
+         <td width="94" height="25" align="center" valign="middle" bgcolor="#FFFFFF" ><p >积分利息 </p></td>
+         <td width="111" height="25" align="center" valign="middle" bgcolor="#FFFFFF" ><p >上年积分额*0.2 </p></td>
+         <td width="94" height="25" align="center" valign="middle" bgcolor="#FFFFFF" ><p >2015-01-01 </p></td>
+         <td width="103" height="25" align="center" valign="middle" bgcolor="#FFFFFF" ><p >2018-12-31 </p></td>
+         <td width="179" height="25" align="center" valign="middle" bgcolor="#FFFFFF" ><p > </p></td>
+       </tr>
+     </table>
+     <p>&nbsp;</p>
+     <p>2、会员积分是否会过期失效？<br />
+      答：会员积分长期有效，请会员放心使用。</p>
+     <p>&nbsp;</p>
+     <p>3、会员积分如何使用？<br />
+      答：会员积分主要有如下三种用途：一是兑换奖品，兑换服务；二是交易抵现，拍卖兑现；三是兑换御订网原始股份。具体使用规则，正在制定中。</p>
+</div>
+   
+     <div class="right_txt">其他常见问题</div>
+   <div class="right_con1">
+     <p>1、皮肤保存不了怎么办？<br />
+      答：您设置过的皮肤，是保存到浏览器缓存文件的，所以建议您不要清理浏览器缓存和设置关闭浏览器自动清理缓存。</p>
+     <p> <br />
+       2、皮肤侵权了怎么办？<br />
+       答：网站皮肤中所有模板资源均由网上收集和网友提供而来，如果版权拥有者发现自己作品被侵权，请及时向我们提出权利通知，并将身份证明、权属证明、具体链接（URL）及详细侵权情况证明通过上方的反馈发送给我们。在收到上述法律文件后，我们会及时移除相关涉嫌侵权的内容。</p>
+     <p><br />
+       3、如何将本网站设为上网主页？<br />
+       答：不同的上网浏览器，有不同的设置方式。若是IE浏览器：在菜单栏中选择工具 → Internet选项，弹出属性对话框。在主页内容中输入http://yudingvip.com/，然后点击 确定 即可将本网站设为主页。</p>
+     <p><br />
+       4、修改了搜索引擎、天气预报的城市、或换了皮肤以后，下次打开又恢复成以前的，怎么办？<br />
+       答：请检查浏览器的设置是否为退出后自动清除cookies。 </p>
+     <p><br />
+       5、主页字体过大、过小，怎么办？<br />
+       答：您可以尝试以下几种方法。</p>
+     <p><br />
+       1） CTRL+鼠标滚轮，调节到100% ；</p>
+     <p><br />
+       2） CTRL+0，直接调整到100%；</p>
+     <p><br />
+       3）菜单栏中选择查看 → 网页缩放，选择100%</p>
+   </div>
+<script>
+$(function(){
+	$('#feedback-form').validate({
+		onBlur : true,
+		sendForm : true,
+		eachValidField : function() {
+		},
+		description : {
+			content : {
+				required : '请输入反馈内容',
+			},
+			contact : {
+				required : '请输入联系方式',
+			}
+		},
+		valid:function() {
+		}
+	});
+})
+</script>

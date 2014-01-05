@@ -37,6 +37,7 @@ class Module
 		}
 		$this->siteConfg = $sys_config;
 		define("__SHOP_URL", isset($sys_config['shop_url']) ? $sys_config['shop_url'] : '');
+		define("__SHOP_TITLE", isset($sys_config['shop_title']) ? $sys_config['shop_title'] : '');
 		define('__LIST_ORDER', 'ASC');
 	}
 	
@@ -73,6 +74,8 @@ class Module
 	
 		// Setting the action, controller, module and site name as title segments
 		$matches    = $e->getRouteMatch();
+		$action = '';
+		$controller = '';
 		if ($matches) {
 			$action     = $matches->getParam('action');
 			$controller = $matches->getParam('controller');
@@ -89,6 +92,8 @@ class Module
 			$viewModel->setVariables(array(
 					'siteConfg' => $this->siteConfg,
 					'container' => $container,
+			        'controller' => $controller,
+			        'action' => $action,
 			));
 		}
 	}

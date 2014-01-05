@@ -108,6 +108,24 @@ return array(
 	        	$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
 	        	return new Model\Point\PointHistoryTable('point_history', $dbAdapter);
 	        },
+	        'RecommendLinkTable' =>  function($sm) {
+	            $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+	            $resultSetPrototype = new ResultSet();
+	            $resultSetPrototype->setArrayObjectPrototype(new Model\Nav\RecommendLink());
+	            return new Model\Nav\RecommendLinkTable('recommend_link', $dbAdapter, null, $resultSetPrototype);
+	        },
+	        'AdvApplyTable' =>  function($sm) {
+	            $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+	            $resultSetPrototype = new ResultSet();
+	            $resultSetPrototype->setArrayObjectPrototype(new Model\Site\AdvApply());
+	            return new Model\Site\AdvApplyTable('adv_apply', $dbAdapter, null, $resultSetPrototype);
+	        },
+	        'FeedbackTable' =>  function($sm) {
+	            $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+	            $resultSetPrototype = new ResultSet();
+	            $resultSetPrototype->setArrayObjectPrototype(new Model\Site\Feedback());
+	            return new Model\Site\FeedbackTable('feedback', $dbAdapter, null, $resultSetPrototype);
+	        },
 		),
 );
 ?>

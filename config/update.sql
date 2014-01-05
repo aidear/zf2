@@ -153,3 +153,32 @@ ALTER TABLE `project`.`member` CHANGE `Points` `Points` INT(11) UNSIGNED DEFAULT
 ALTER TABLE region ADD KEY `type_pid` (`region_type`,`parent_id`);
 ALTER TABLE nav_category ADD KEY `show_order` (`isShow`, `order`);
 ALTER TABLE region ADD KEY `region_name` (`region_name`);
+
+/**
+*2014/1/5
+*/
+ALTER TABLE `project`.`recommend_link` ADD COLUMN `description` TEXT NULL COMMENT '描述' AFTER `mobile`, ADD COLUMN `note` TEXT NULL COMMENT '意见建议' AFTER `description`; 
+CREATE TABLE `adv_apply` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `title` varchar(100) NOT NULL DEFAULT '' COMMENT '网站名称',
+  `url` varchar(200) NOT NULL DEFAULT '' COMMENT '网址',
+  `QQ` varchar(20) NOT NULL DEFAULT '' COMMENT 'QQ',
+  `email` varchar(200) NOT NULL DEFAULT '' COMMENT 'email',
+  `tel` varchar(200) NOT NULL DEFAULT '' COMMENT '电话',
+  `position` varchar(400) NOT NULL DEFAULT '' COMMENT '投放位置',
+  `build_time` varchar(200) NOT NULL DEFAULT '' COMMENT '建站时间',
+  `dailyView` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '日访问量',
+  `summary` text COMMENT '网站介绍',
+  `ip` char(15) NOT NULL DEFAULT '' COMMENT 'ip',
+  `add_time` datetime DEFAULT NULL COMMENT '添加时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE `feedback` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `content` text COMMENT '内容',
+  `contact` varchar(200) NOT NULL DEFAULT '' COMMENT '联系方式',
+  `ip` char(15) DEFAULT '' COMMENT 'ip',
+  `add_time` datetime DEFAULT NULL COMMENT '添加时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;

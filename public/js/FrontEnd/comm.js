@@ -7,6 +7,24 @@ function setHome(url){
         }
  
 }
+function addBookmark(title,url) {
+	try
+    {
+        window.external.addFavorite(url, title);
+    }
+    catch (e)
+    {
+        try
+        {
+            window.sidebar.addPanel(title, url, "");
+        }
+        catch (e)
+        {
+        	alert("抱歉,您所使用的浏览器无法完成此操作\n\n请使用Ctrl+D进行添加");
+        }
+    }
+}
+
 function getcookie(name) {
 	var cookie_start = document.cookie.indexOf(name);
 	var cookie_end = document.cookie.indexOf(";", cookie_start);

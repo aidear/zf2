@@ -6,19 +6,19 @@ use Zend\View\HelperPluginManager;
 
 return array(
     'invokables' => array(
-        'formText' => '\Custom\Form\View\Helper\FormText',
-        'formPassword' => '\Custom\Form\View\Helper\FormPassword',
-        'formSubmit' => '\Custom\Form\View\Helper\FormSubmit',
-        'formButton' => '\Custom\Form\View\Helper\FormButton',
-        'formSelect' => '\Custom\Form\View\Helper\FormSelect',
-        'formTextarea' => '\Custom\Form\View\Helper\FormTextarea',
-        'formFile'=> '\Custom\Form\View\Helper\FormFile',
-        'formEmail' => '\Custom\Form\View\Helper\FormEmail',
-        'formCheckbox' => '\Custom\Form\View\Helper\FormCheckbox',
-        'formNumber' => '\Custom\Form\View\Helper\FormNumber',
-        'formDate' => '\Custom\Form\View\Helper\FormDate',
-        'formMultiSelect' => '\Custom\Form\View\Helper\FormMultiSelect',
-    	'formMultiCheckbox' => '\Custom\Form\View\Helper\FormMultiCheckbox',
+//         'formText' => '\Custom\Form\View\Helper\FormText',
+//         'formPassword' => '\Custom\Form\View\Helper\FormPassword',
+//         'formSubmit' => '\Custom\Form\View\Helper\FormSubmit',
+//         'formButton' => '\Custom\Form\View\Helper\FormButton',
+//         'formSelect' => '\Custom\Form\View\Helper\FormSelect',
+// //         'formTextarea' => '\Custom\Form\View\Helper\FormTextarea',
+//         'formFile'=> '\Custom\Form\View\Helper\FormFile',
+//         'formEmail' => '\Custom\Form\View\Helper\FormEmail',
+//         'formCheckbox' => '\Custom\Form\View\Helper\FormCheckbox',
+//         'formNumber' => '\Custom\Form\View\Helper\FormNumber',
+//         'formDate' => '\Custom\Form\View\Helper\FormDate',
+//         'formMultiSelect' => '\Custom\Form\View\Helper\FormMultiSelect',
+//     	'formMultiCheckbox' => '\Custom\Form\View\Helper\FormMultiCheckbox',
     ),
     
     'factories' => array(

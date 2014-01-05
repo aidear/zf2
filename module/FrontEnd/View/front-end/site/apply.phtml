@@ -1,0 +1,144 @@
+<?php 
+echo $this->headScript()->appendFile($this->basePath('js/jquery-validate.min.js'));
+$save = $this->save;
+?>
+<?php if ($save == 1):?>
+<script>
+alert('保存成功！');
+</script>
+<?php endif;?>
+<div class="right_txt">合作原则</div>
+    <div class="right_con">
+      <p>1.&nbsp;网站内容合法健康，无色情、赌博、虚假、反动等不良信息 </p>
+      <p>&nbsp;2.&nbsp;网站能正常、顺畅地访问，不含病毒、木马，无恶意弹出窗口和不良链接 </p>
+<p >3.&nbsp;申请后两周内若未被收录，说明尚未符合收录条件，我们不再一一通知。您可自行处理已添加的友情链接。 </p>
+    </div>
+   <div class="right_txt"> 请将御订网设置为友情链接   </div>
+   <div class="right_con1">
+     <table width="98%" border="0" cellspacing="0" cellpadding="0">
+       <tr>
+         <td height="30" colspan="2">如果设御订网
+          的文字或图片友情链接，我们将会优先考虑收录。 </td>
+       </tr>
+       <tr>
+         <td height="30" colspan="2"><h4>如果是文字链接</h4>
+          <div></div></td>
+       </tr>
+       <tr>
+         <td valign="top"><label for="textarea">a)、御订网上网导航：</label></td>
+         <td><textarea name="textarea" id="textarea" cols="45" rows="3"><a href="<?php echo __SHOP_URL;?>"><?php echo __SHOP_TITLE;?></a></textarea></td>
+       </tr>
+       <tr>
+         <td colspan="2">&nbsp;</td>
+       </tr>
+       <tr>
+         <td height="30" colspan="2"><h4>如果是图片链接</h4></td>
+       </tr>
+       <tr>
+         <td height="22" colspan="2"><div>b)、御订网
+          上网导航： </div></td>
+       </tr>
+       <tr>
+         <td width="25%"><img src="/images/FrontEnd/reg_logo.png" width="117" height="76" /></td>
+         <td width="75%"><textarea name="textarea2" id="textarea222" cols="45" rows="4"><a href="<?php echo __SHOP_URL;?>"><img src="<?php echo __SHOP_URL;?>/images/FrontEnd/reg_logo.png" alt="<?php echo __SHOP_TITLE;?>" /></a></textarea></td>
+       </tr>
+       <tr>
+         <td>&nbsp;</td>
+         <td>&nbsp;</td>
+       </tr>
+     </table>
+   </div>
+    
+  <div class="right_txt">收录申请</div>
+   <div class="right_con1">
+   <form id="applyForm" method="post" action="">
+     <table width="98%" border="0" cellspacing="0" cellpadding="0">
+       <tr>
+         <td width="15%">&nbsp;</td>
+         <td width="85%">&nbsp;</td>
+       </tr>
+       <tr>
+         <td height="30" align="right">推荐网址：</td>
+         <td height="30"><label for="textfield"></label>
+          <input name="url" type="text" id="textfield" size="50" data-trim="true" data-required="true" data-pattern="^[a-zA-z]+://[^\s]*$" data-describedby="for_url" data-description="url" />
+          <span id="for_url">例如：http://www.baidu.com</span>
+          </td>
+       </tr>
+       <tr>
+         <td height="30" align="right">网站名称：</td>
+         <td height="30"><input name="title" type="text" id="textfield2" size="50" data-trim="true" data-required="true" data-describedby="for_title" data-description="title" />
+         <span id="for_title"></span>
+         </td>
+       </tr>
+       <tr>
+         <td height="30" align="right">QQ：</td>
+         <td height="30"><input name="QQ" type="text" id="textfield3" size="50" data-pattern="^[1-9][0-9]{4,}$" data-describedby="for_QQ" data-description="QQ"/>
+         <span id="for_QQ"></span>
+         </td>
+       </tr>
+       <tr>
+         <td height="30" align="right">Email：</td>
+         <td height="30"><input name="email" type="text" id="textfield4" size="50"  data-pattern="^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$" data-describedby="for_email" data-description="email"/>
+         <span id="for_email"></span>
+         </td>
+       </tr>
+       <tr>
+         <td height="30" align="right">电话：</td>
+         <td height="30"><input name="mobile" type="text" id="textfield5" size="50" /></td>
+       </tr>
+       <tr>
+         <td height="30" align="right">推荐分类：</td>
+         <td height="30"><input name="category" type="text" id="textfield6" size="50" /></td>
+       </tr>
+       <tr>
+         <td height="30" align="right">网站描述：</td>
+         <td height="72"><textarea name="description" cols="60" id="textfield7"></textarea></td>
+       </tr>
+       <tr>
+         <td height="30" align="right"  class="magins" >意见建议：</td>
+         <td height="65"><label for="textarea3"></label>
+          <textarea name="note" id="textarea3" cols="60"></textarea></td>
+       </tr>
+       <tr>
+         <td height="30" align="right">&nbsp;</td>
+         <td height="40"> 如果您提交申请两周之后没有被收录，可能是因为您的网站还未达到我们的收录标准，<br />
+          您可以等待一个月后再次提交，请不要重复提交。 </td>
+       </tr>
+       <tr>
+         <td align="right">&nbsp;</td>
+         <td>&nbsp;</td>
+       </tr>
+       <tr>
+         <td align="right">&nbsp;</td>
+         <td><input name="btn6" type="submit" id="btn6" value="提交" />&nbsp;</td>
+       </tr>
+     </table>
+     </form>
+   </div>
+<script>
+$(function(){
+	$('#applyForm').validate({
+		onBlur : true,
+		sendForm : true,
+		eachValidField : function() {
+		},
+		description : {
+			url : {
+				required : '请输入网址',
+				pattern : '格式不正确'
+			},
+			title : {
+				required : '请输入网站名称',
+			},
+			QQ : {
+				pattern : '格式不正确',
+			},
+			email : {
+				pattern : '格式不正确',
+			}
+		},
+		valid:function() {
+		}
+	});
+})
+</script>

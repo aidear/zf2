@@ -11,7 +11,7 @@ return array(
 //         	'user' => 'BackEnd\Controller\UserController',
         	'member' => 'FrontEnd\Controller\MemberController',
         	'ajax' => 'FrontEnd\Controller\AjaxController',
-//         	'config' => 'BackEnd\Controller\ConfigController',
+        	'site' => 'FrontEnd\Controller\SiteController',
         ),
     ),
 	// The following section is new and should be added to your file
@@ -174,6 +174,21 @@ return array(
         						)
         				)
         		),
+                'site' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                                'route' => '/site/[:action].html',
+                                'constraints' => array(
+                                        'controller' => 'site',
+                                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                ),
+                                'defaults' => array(
+                                        '__NAMESPACE__' => 'FrontEnd\Controller',
+                                        'controller' => 'site',
+                                        'action' => 'index',
+                                ),
+                        ),
+                ),
         		/*
             'FrontEnd' => array(
                 'type' => 'Segment',
