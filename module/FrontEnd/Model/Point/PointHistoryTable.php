@@ -60,7 +60,6 @@ class PointHistoryTable extends TableGateway
     }
     function formatWhere(array $data){
         $where = $this->_getSelect()->where;
-    
         if (isset($data['sort'])) {
             switch($data['sort']) {
             	case '1':
@@ -73,9 +72,9 @@ class PointHistoryTable extends TableGateway
             	    break;
             }
         }
-//         if (isset($data['title'])) {
-//             $where->like('pro_rule_type.type_name', '%'.$data['title'].'%');
-//         }
+        if (isset($data['uid'])) {
+            $where->equalTo('uid', $data['uid']);
+        }
         $this->select->where($where);
         return $this;
     }

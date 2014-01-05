@@ -588,6 +588,7 @@ class MemberController extends AbstractActionController
 	        $order = array("{$params['orderField']}" => $params['orderType']);
 	    }
 	    $table = $this->_getTable('PointHistoryTable');
+	    $params['uid'] = $this->_getCurrentUserID();
 	    $paginator = new Paginator($table->formatWhere($params)->getListToPaginator($order));
 	    $paginator->setCurrentPageNumber($page)->setItemCountPerPage($all ? 10000 : (isset($params['pageSize']) ? $params['pageSize'] : 6));
 	    return $paginator;
