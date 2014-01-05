@@ -543,7 +543,7 @@ class MemberController extends AbstractActionController
 		);
 		return new ViewModel($assign);
 	}
-	public function pointExchangeAction()
+	public function pointDetailAction()
 	{
 		$this->_isCenter();
 		$page = $this->params()->fromQuery('page' , 1);
@@ -576,9 +576,13 @@ class MemberController extends AbstractActionController
 		    'query' => http_build_query($removePageParams),
 		);
 		$v = new ViewModel($assign);
-		$v->setTemplate('front-end/default/point-exchange.phtml');
+		$v->setTemplate('front-end/default/point-detail.phtml');
 		$v->setTerminal(true);
 		return $v;
+	}
+	public function pointExchangeAction()
+	{
+	    $this->_isCenter();
 	}
 	private function _getPointPaginator($params, $all = false)
 	{

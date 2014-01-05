@@ -50,8 +50,8 @@ $member = $this->member;
  </div>
  <script>
  function toPage(url) {
-//	 	var url = '/member/pointExchange';
-    $("#pointsList").html('<center>数据载入中……</center>');
+//	 	var url = '/member/pointDetail';
+//     $("#pointsList").html('<center>数据载入中……</center>');
 		Ajax.call(url, '', function(s){
 		    $("#pointsList").html(s);
 		});
@@ -60,16 +60,16 @@ $(function(){
 	$("li[data-sort]").css('cursor', 'pointer');
 	$("li[data-sort]").click(function(){
 	    var sort = $(this).attr('data-sort');
-	    var url = '/member/pointExchange';
+	    var url = '/member/pointDetail';
 	    switch(sort) {
 	        case 'income':
-		        url = '/member/pointExchange?sort=1';
+		        url = '/member/pointDetail?sort=1';
 		        break;
 	        case 'spending':
-		        url = '/member/pointExchange?sort=2';
+		        url = '/member/pointDetail?sort=2';
 		        break;
 		    default:
-			    url = '/member/pointExchange';
+			    url = '/member/pointDetail';
 		        break;
 	    }
 	    $(this).addClass('out').siblings('li[data-sort]').removeClass('out');
@@ -79,7 +79,7 @@ $(function(){
 		var href = $(this).attr('_href');
 		location.href=href;
 	});
-	var url = '/member/pointExchange';
+	var url = '/member/pointDetail';
 	Ajax.call(url, '', function(s){
 	    $("#pointsList").html(s);
 	});
