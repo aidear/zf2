@@ -102,7 +102,7 @@
     </ul>
     <div class="menu_k none"></div>
     <?php foreach ($this->struct['rootNav'] as $k=>$v):?>
-    <div class="menu_k">
+    <div class="menu_k none">
     <?php if (isset($v['links'])):?>
     <ul class="menu_k_u">
     <?php $line=$v['line'];foreach ($v['links'] as $n=>$link):?>
@@ -318,7 +318,7 @@ $(function() {
 		data:'area='+escape(z_loc),
 		dataType:'json',
 		cache:false,
-		async:true,
+		async:false,
 		success:function(s) {
 			if (s.day_1) {
 				$("#day_1 .wtpic").html(s.day_1.img);
