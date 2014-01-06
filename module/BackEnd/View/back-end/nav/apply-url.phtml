@@ -268,10 +268,10 @@ $(function(){
 			                success: function(s){
 				                if (s.code == 0) {
 				                    alert('已收录网址库中');
-				                    location.reload;
 					            } else {
 					                alert(s.msg);
 						        }
+				                location.reload;
 			                },
 				         dataType: 'JSON'
 						});
