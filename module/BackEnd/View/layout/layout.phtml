@@ -36,21 +36,9 @@ var all = 0;
 <div id="content">
 <?php echo $this->mynavigation('backendNav')->menu()->setPartial('layout/leftSideBar.phtml');
        //echo $this->partial('layout/leftSideBar.phtml'); ?>
-<!--        	 <div class="crumbs"></div> -->
-        <!-- <div class="crumbs">
-            <div class="shortcut cu-span">
-            	<a href="#" target="right"><span>生成首页</span></a>
-                <a href="?m=admin&c=cache_all&a=init" target="right"><span>更新缓存</span></a>
-                <a href="#"><span>后台地图</span></a></div>
-        	当前位置：<span id="current_pos"></span></div> -->
             <div class="col-1">
             	<div id="rightMain">
                 	<?php echo $this->content;?>
-                    <!-- <iframe name="right" id="rightMain" src="index.html" frameborder="false" scrolling="auto" style="overflow-x:hidden;border:none; margin-bottom:30px" width="100%" height="auto" allowtransparency="true"></iframe> -->
- <!--                   <div class="fav-nav">
-                        <div id="panellist"></div>
-                         <div id="paneladd"><a class="panel-add" href="javascript:add_panel();"><em>添加</em></a></div> 
-                    </div>-->
                  </div>
             </div>
 </div>
@@ -210,6 +198,9 @@ $(function(){
 		default:
 			break;
 		}
+	}
+	if ($("#leftMain").height() > document.documentElement.clientHeight - 80) {
+		$("#leftMain ul li.on").parents('ul').show().siblings("ul").hide();
 	}
 })	
 </script>

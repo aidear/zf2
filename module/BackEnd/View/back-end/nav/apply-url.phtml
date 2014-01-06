@@ -1,0 +1,286 @@
+<?php
+$this->headScript()->appendFile($this->basePath('js/jquery-ui-1.10.2.custom.min.js'))
+					->appendFile($this->basePath('js/jquery.ajaxfileupload.js'));
+$msg = $this->flashMessages();?>
+<div class="box">
+    <div class="box-header">
+        <!-- <h2><i class="icon-box"></i><?php echo isset($this->cateInfo->name) ? $this->cateInfo->name : '所有';?>分类导航列表</span> -->
+        </h2>
+        <div class="t_top">
+        	<p class='t_right'>
+        	<a class="btn btn-success" id="chk_Approved" key='1' href="javascript:;">
+        <i class="icon-plus"></i>审核通过</a>
+        <!-- <a class="btn btn-success" id="chk_unApproved" key='0' href="javascript:;">
+        <i class="icon-plus"></i>审核不通过</a> -->
+        <a class="btn btn-delete" href="javascript:;" _href="<?php echo $this->url('backend', array('controller' 
+                                => 'nav', 'action' => 'deleteApplyUrl')) ?>?id=" onClick="diyConfirm('删除' , $(this).attr('href'), this);return false;"><i class="icon-delete"></i>删除
+                            </a>
+        </p>
+        </div>
+    </div>
+    <div class="box-content">
+    <?php if(!empty($msg['error'])):?>
+            <div class="alert alert-error fade in">
+            <button class="close" data-dismiss="alert" type="button">×</button>
+            <?php foreach($msg['error'] as $v):?>
+            <p><?php echo $v;?></p>
+            <?php endforeach;?>
+            </div>
+            <?php endif;?>
+            
+            <?php if(!empty($msg['success'])):?>
+            <div class="alert alert-success fade in">
+            <button class="close" data-dismiss="alert" type="button">×</button>
+            <?php foreach($msg['success'] as $v):?>
+            <p><?php echo $v;?></p>
+            <?php endforeach;?>
+            </div>
+            <?php endif;?>
+        <table class="table" id="table1">
+            <thead>
+                <tr class="row">
+                	<th>全选<input type="checkbox" name="select_all" value="all"/></th>
+                    <th>编号</th>
+                    <th key="title" editable="true">
+                    <?php if (isset($this->order['title'])):?>
+                    <?php $name = $this->order['title'];?>
+                    <a href="<?php echo $name['href'];?>">网站名称<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	网站名称
+                    <?php endif;?>
+                    	</th>
+                    <th key="url" editable="true">
+                    <?php if (isset($this->order['url'])):?>
+                    <?php $name = $this->order['url'];?>
+                    <a href="<?php echo $name['href'];?>">推荐网址<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	推荐网址
+                    <?php endif;?>
+                    </th>
+                    <th>
+                    <?php if (isset($this->order['category'])):?>
+                    <?php $name = $this->order['category'];?>
+                    <a href="<?php echo $name['href'];?>">推荐分类<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	推荐分类
+                    <?php endif;?>
+                    </th>
+                    <th>
+                    <?php if (isset($this->order['QQ'])):?>
+                    <?php $name = $this->order['QQ'];?>
+                    <a href="<?php echo $name['href'];?>">QQ<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	QQ
+                    <?php endif;?>
+                    </th>
+                    <th>
+                    <?php if (isset($this->order['email'])):?>
+                    <?php $name = $this->order['email'];?>
+                    <a href="<?php echo $name['href'];?>">Email<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	Email
+                    <?php endif;?>
+                    </th>
+                    <th>
+                    <?php if (isset($this->order['mobile'])):?>
+                    <?php $name = $this->order['mobile'];?>
+                    <a href="<?php echo $name['href'];?>">电话<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	电话
+                    <?php endif;?>
+                    </th>
+                    <th>
+                    <?php if (isset($this->order['description'])):?>
+                    <?php $name = $this->order['description'];?>
+                    <a href="<?php echo $name['href'];?>">网站描述<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	网站描述
+                    <?php endif;?>
+                    </th>
+                    <th>
+                    <?php if (isset($this->order['note'])):?>
+                    <?php $name = $this->order['note'];?>
+                    <a href="<?php echo $name['href'];?>">意见建议<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	意见建议
+                    <?php endif;?>
+                    </th>
+                    <th>
+                    <?php if (isset($this->order['addTime'])):?>
+                    <?php $name = $this->order['addTime'];?>
+                    <a href="<?php echo $name['href'];?>">提交时间<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	提交时间
+                    <?php endif;?>
+                    </th>
+                    <th>
+                    <?php if (isset($this->order['status'])):?>
+                    <?php $name = $this->order['status'];?>
+                    <a href="<?php echo $name['href'];?>">收录状态<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	收录状态
+                    <?php endif;?>
+                    </th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr class="row">
+                	<th>全选<input type="checkbox" name="select_all" value="all"/></th>
+                    <th>编号</th>
+                    <th key="title" editable="true">
+                    <?php if (isset($this->order['title'])):?>
+                    <?php $name = $this->order['title'];?>
+                    <a href="<?php echo $name['href'];?>">网站名称<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	网站名称
+                    <?php endif;?>
+                    	</th>
+                    <th key="url" editable="true">
+                    <?php if (isset($this->order['url'])):?>
+                    <?php $name = $this->order['url'];?>
+                    <a href="<?php echo $name['href'];?>">推荐网址<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	推荐网址
+                    <?php endif;?>
+                    </th>
+                    <th>
+                    <?php if (isset($this->order['category'])):?>
+                    <?php $name = $this->order['category'];?>
+                    <a href="<?php echo $name['href'];?>">推荐分类<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	推荐分类
+                    <?php endif;?>
+                    </th>
+                    <th>
+                    <?php if (isset($this->order['QQ'])):?>
+                    <?php $name = $this->order['QQ'];?>
+                    <a href="<?php echo $name['href'];?>">QQ<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	QQ
+                    <?php endif;?>
+                    </th>
+                    <th>
+                    <?php if (isset($this->order['email'])):?>
+                    <?php $name = $this->order['email'];?>
+                    <a href="<?php echo $name['href'];?>">Email<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	Email
+                    <?php endif;?>
+                    </th>
+                    <th>
+                    <?php if (isset($this->order['mobile'])):?>
+                    <?php $name = $this->order['mobile'];?>
+                    <a href="<?php echo $name['href'];?>">电话<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	电话
+                    <?php endif;?>
+                    </th>
+                    <th>
+                    <?php if (isset($this->order['description'])):?>
+                    <?php $name = $this->order['description'];?>
+                    <a href="<?php echo $name['href'];?>">网站描述<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	网站描述
+                    <?php endif;?>
+                    </th>
+                    <th>
+                    <?php if (isset($this->order['note'])):?>
+                    <?php $name = $this->order['note'];?>
+                    <a href="<?php echo $name['href'];?>">意见建议<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	意见建议
+                    <?php endif;?>
+                    </th>
+                    <th>
+                    <?php if (isset($this->order['addTime'])):?>
+                    <?php $name = $this->order['addTime'];?>
+                    <a href="<?php echo $name['href'];?>">提交时间<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	提交时间
+                    <?php endif;?>
+                    </th>
+                    <th>
+                    <?php if (isset($this->order['status'])):?>
+                    <?php $name = $this->order['status'];?>
+                    <a href="<?php echo $name['href'];?>">收录状态<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	收录状态
+                    <?php endif;?>
+                    </th>
+                </tr>
+            </tfoot>
+            <tbody>
+                <?php $startNumber = $this->startNumber;foreach ($this->lists as $nav): ?>
+                    <tr class="row" key="id" primary_value="<?php echo $nav['id']; ?>">
+                    	<td width="60"><input type="checkbox" name="select" value="<?php echo $nav['id']; ?>" data-key="网站名称" data-value="<?php echo $nav['title']; ?>" /></td>
+                        <td><?php echo $startNumber++;?></td>
+                        <td><?php echo $nav['title']; ?></td>
+                        <td><a href="<?php echo $nav['url']; ?>" target="_blank" title="<?php echo $nav['title'];?>"><?php echo $nav['url']; ?></a></td>
+                        <td><?php //echo $nav['categoryName']; ?></td>
+                        <td><?php echo $nav['QQ']; ?></td>
+                        <td><?php echo $nav['email']; ?></td>
+                        <td><?php echo $nav['mobile']; ?></td>
+                        <td><?php echo $nav['description']; ?></td>
+                        <td><?php echo $nav['note']; ?></td>
+                        <td><?php echo $nav['addTime']; ?></td>
+                        <td><?php echo $nav['statusDesc']; ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+        <?php echo $this->paginationControl($this->paginaction,'Sliding','layout/pagination' , array('link' 
+            => $this->url('backend' , array('controller' => 'nav' , 'action' => 'items')).'?'.$this->query));?>
+    </div>
+</div>
+<div id="dialog" title="审核确认" style="display: none;">懂得
+</div>
+<script type="text/javascript">
+$(function(){
+	$("#chk_Approved, #chk_unApproved").click(function(){
+		if ($("input[type='checkbox'][name='select']:checked").size() == 0) {
+			alert('请先选择一个条目');
+			return false;
+		} else if ($("input[type='checkbox'][name='select']:checked").size() > 1) {
+			alert('一次只能选择一个条目进行编辑');
+			return false;
+		}
+		var id = $("input[type='checkbox'][name='select']:checked").val();
+		if (id != '') {
+			var url = "/nav/urlConfrimLayer";
+			var key = $(this).attr('key');
+			$.ajax({
+                type: 'GET',
+                url: url,
+                data: "id="+id+"&key="+key,
+                success: function(data){
+                	$("#dialog").html(data);
+                }
+			});
+			$("#dialog").dialog({position:'center',width:500,buttons: [ { text: "确定", click: function() {
+			     var id = $("#dialog input[name='apply_recommend_id']").val();
+			     var cid = $("#dialog select[name='apply_recommend_cid']").val();
+			     if (id) {
+			    	 $.ajax({
+			                type: 'POST',
+			                url: '/ajax/approvedUrl',
+			                data: "id="+id+"&cid="+cid,
+			                success: function(s){
+				                if (s.code == 0) {
+				                    alert('已收录网址库中');
+				                    location.reload;
+					            } else {
+					                alert(s.msg);
+						        }
+			                },
+				         dataType: 'JSON'
+						});
+				 }
+				 $( this ).dialog( "close" ); 
+				} } ]});
+		} else {
+			alert('请选择一个条目');
+		}
+	});
+})
+//-->
+</script>

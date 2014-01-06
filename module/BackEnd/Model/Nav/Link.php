@@ -46,7 +46,7 @@ class Link implements InputFilterAwareInterface
 		$this->id = isset($data['id']) ? $data['id'] : '';
 		$this->title = isset($data['title']) ? $data['title'] : '';
 		$this->url = isset($data['url']) ? $data['url'] : '';
-		$this->target = isset($data['target']) ? $data['target'] : '';
+		$this->target = isset($data['target']) ? $data['target'] : '_blank';
 		$this->category = isset($data['category']) ? $data['category'] : 0;
 		$this->icon = isset($data['icon']) ? $data['icon'] : '';
 		$this->show_icon = isset($data['show_icon']) ? $data['show_icon'] : 0;

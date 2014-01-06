@@ -30,16 +30,19 @@ return array (
         				array (
         						'label' => '角色管理',
         						'controller' => 'role',
+        				        'action' => 'index',
         						'resource' => 'role_index'
         				),
         				array (
         						'label' => '资源管理',
         						'controller' => 'resource',
+        				        'action' => 'index',
         						'resource' => 'resource_index'
         				),
         				array (
         						'label' => '帐号管理',
         						'controller' => 'user',
+        						'action' => 'index',
         						'resource' => 'user_index'
         				),
         		)
@@ -170,6 +173,12 @@ return array (
 									'controller' => 'nav',
 									'action' => 'addRecommend',
 									'resource' => 'nav_addRecommend',
+							),
+							array(
+									'label' => '收录申请',
+									'controller' => 'nav',
+									'action' => 'applyUrl',
+									'resource' => 'nav_applyUrl',
 							)
 					)
 			)

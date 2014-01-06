@@ -121,7 +121,7 @@ class Module
 		$action = '';
 		$controller = '';
 		if ($matches) {
-		    $action     = $matches->getParam('action');
+		    $action     = $matches->getParam('action') ? $matches->getParam('action') : 'index';
 		    $controller = $matches->getParam('controller');
 		    
 		    $headTitleHelper->append($action);

@@ -183,3 +183,8 @@ CREATE TABLE `feedback` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 ALTER TABLE `project`.`adv_apply` CHANGE `dailyView` `dailyView` VARCHAR(100) DEFAULT '0' NOT NULL COMMENT '»’∑√Œ ¡ø'; 
+
+/**
+*2014/1/6
+*/
+ALTER TABLE `project`.`recommend_link` ADD COLUMN `QQ` VARCHAR(100) DEFAULT '' NOT NULL COMMENT 'QQ' AFTER `user_name`; 

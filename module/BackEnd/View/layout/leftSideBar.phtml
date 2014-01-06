@@ -35,6 +35,16 @@
                     }
                 })
             });
+            $("#leftMain>h3").css('cursor', 'pointer').click(function(){
+                var ul = $(this).next();
+                if(ul.is(':visible')){
+                    ul.hide();
+                    $(this).find('.switchs').removeClass('on');
+                        }else{
+                    ul.show();
+                    $(this).find('.switchs').addClass('on');
+                }
+            });
             </script>
     	
         </div>

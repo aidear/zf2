@@ -24,6 +24,7 @@ use Zend\View\Model\ViewModel;
 use BackEnd\Model\Users\RegionTable;
 use Zend\Config\Config;
 use Zend\Config\Writer\PhpArray;
+use BackEnd\Model\Nav\Link;
 
 class AjaxController extends AbstractActionController
 {
@@ -66,6 +67,32 @@ class AjaxController extends AbstractActionController
 			$rs = array('code' => -1, 'msg' => '数据错误');
 		}
 		return new JsonModel($rs);
+	}
+	public function approvedUrlAction()
+	{
+	    $linkTable = $this->_getTable('LinkTable');
+	    $recommendLinkTable = $this->_getTable('RecommendLinkTable');
+	    $rs = array();
+	    $id = $this->params()->fromPost('id');
+	    $cid = $this->params()->fromPost('cid');
+	    
+	    $item = $recommendLinkTable->getOneById($id);
+	    $exist = $linkTable->checkExistUrl($item->url);
+	    if ($exist) {
+	        $recommendLinkTable->updateFieldsByID(array('status' => 2), $id);
+	        $rs = array('code' => -1, 'msg' => '网址已存在网址库中！');
+	    } else {
+	        $link = new Link();
+	        $item->id = NULL;
+	        $item->category = $cid;
+	        $link->exchangeArray($item->toArray());
+	        $link->recommend_id = $id;
+	    	$linkTable->save($link);
+	    	$recommendLinkTable->updateFieldsByID(array('status' => 1), $id);
+	    	$rs = array('code' => 0, 'msg' => '已录入网址库，审核通过！', 'data' => $id);
+	    }
+	
+	    return new JsonModel($rs);
 	}
 	public function saveCommonLinksAction()
 	{

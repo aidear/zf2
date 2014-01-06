@@ -13,6 +13,7 @@ class RecommendLink implements InputFilterAwareInterface
 	public $url;
 	public $category;
 	public $user_name;
+	public $QQ;
 	public $email;
 	public $mobile;
 	public $status;
@@ -29,6 +30,7 @@ class RecommendLink implements InputFilterAwareInterface
 		$this->url = isset($data['url']) ? $data['url'] : '';
 		$this->category = isset($data['category']) ? $data['category'] : 0;
 		$this->user_name = isset($data['user_name']) ? $data['user_name'] : NULL;
+		$this->QQ = isset($data['QQ']) ? $data['QQ'] : NULL;
 		$this->email = isset($data['email']) ? $data['email'] : NULL;
 		$this->mobile = isset($data['mobile']) ? $data['mobile'] : '';
 		$this->status = isset($data['status']) ? $data['status'] : 0;

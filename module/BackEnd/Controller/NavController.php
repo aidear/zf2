@@ -476,6 +476,136 @@ class NavController extends AbstractActionController
 		);
 		return $assign;
 	}
+	public function applyUrlAction()
+	{
+	    $routeParams = array('controller' => 'nav' , 'action' => 'applyUrl');
+	    $prefixUrl = $this->url()->fromRoute(null, $routeParams);
+	    $params = array();
+	    $cid = $this->params()->fromQuery('cid' , '');
+	    $page = $this->params()->fromQuery('page' , 1);
+	    $pageSize = $this->params()->fromQuery('pageSize');
+	    $table = $this->_getTable('RecommendLinkTable');
+	    $navTable = $this->_getTable('NavCategoryTable');
+	    $title = $this->params()->fromQuery('title' , '');
+	
+	    /*category info*/
+	    $cateInfo = $navTable->getOneById($cid);
+	
+	    $where = '1=1';
+	    if ($cid) {
+	        // 			$where['category'] = $cid;
+	        $where .= " AND category={$cid}";
+	    }
+	    if($title){
+	        $params['title'] = $title;
+	        $where .= " AND (title LIKE '%{$title}%' OR url LIKE '%{$title}%')";
+	    }
+	
+	    //params
+	    if ($cid) {
+	        $params['cid'] = $cid;
+	    }
+	    if ($title) {
+	        $params['title'] = $title;
+	    }
+	    if ($pageSize) {
+	        $params['pageSize'] = $pageSize;
+	    }
+	    $navCategoryTable = $this->_getTable('NavCategoryTable');
+	    $navCate = $navCategoryTable->getlist(array('isShow' => 1));
+	
+	    $params['orderField'] = $this->params()->fromQuery('orderField', '');
+	    $params['orderType'] = $this->params()->fromQuery('orderType', '');
+	
+	    $removePageParams = $params;
+	
+	    $params['page'] = $this->params()->fromQuery('page' , 1);
+	
+	    $orderPageParams = $params;
+	
+	    $fCategory = $this->_formatCategory($navCate);
+	    $navOption = array();
+	    $this->op[0] = '所有分类';
+	    $this->category[0] = '所有分类';
+	    $this->_returnOptionValue($fCategory);
+	
+	    $act = $this->params()->fromQuery('act');
+        $paginaction = $this->_getRecommendLinkPaginator($params);
+	
+	    $items = $paginaction->getCurrentItems()->toArray();
+	    foreach ($items as $k=>$v) {
+// 	        $items[$k]['categoryName'] = isset($this->category[$v['category']]) ? $this->category[$v['category']] : '';
+// 	        $items[$k]['area'] = $this->_getAreaLink($v['province'], $v['city']);
+            $statusDesc = '审核中';
+            switch($v['status']) {
+            	case 1:
+            	    $statusDesc = '已收录';
+            	    break;
+        	    case 2:
+        	        $statusDesc = '未通过';
+        	        break;
+        	    default:
+        	        break;
+            }
+            $items[$k]['statusDesc'] = $statusDesc;
+	    }
+	    $startNumber = 1+($page-1)*$paginaction->getItemCountPerPage();
+	
+	    $order = $this->_getOrder($prefixUrl, array('title', 'url', 'QQ', 'url','user_name',
+	             'email', 'mobile', 'description', 'note', 'addTime', 'status'), $removePageParams);
+	
+	    $assign = array(
+	            'category' => $this->op,
+	            'paginaction' => $paginaction,
+	            'lists' => $items,
+	            'cateInfo' => $cateInfo,
+	            'startNumber' => $startNumber,
+	            'cid' => $cid,
+	            'orderQuery' => http_build_query($orderPageParams),
+	            'query' => http_build_query($removePageParams),
+	            'order' => $order,
+	    );
+	    return $assign;
+	}
+	public function urlConfrimLayerAction()
+	{
+	    $id = $this->params()->fromQuery('id');
+	    $key = $this->params()->fromQuery('key');
+	    $table = $this->_getTable('RecommendLinkTable');
+	    $item = $table->getOneById($id);
+	    $navCategoryTable = $this->_getTable('NavCategoryTable');
+	    $navCate = $navCategoryTable->getlist(array('isShow' => 1));
+	    $fCategory = $this->_formatCategory($navCate);
+	    $navOption = array();
+	    $this->op[0] = '所有分类';
+	    $this->category[0] = '所有分类';
+	    $this->_returnOptionValue($fCategory);
+	    
+	    $assign = array(
+	    	'item' => $item,
+	        'category' => $this->op,
+	    );
+	    $v = new ViewModel($assign);
+	    $v->setTemplate('back-end/default/url-confrim-layer');
+	    $v->setTerminal(true);
+	    return $v;
+	}
+	public function deleteApplyUrlAction()
+	{
+	    $id = $this->params()->fromQuery('id', '');
+	    if (!$id) {
+	        throw new \Exception('incomplete item id');
+	    }
+	    $recommendLinkTable = $this->_getTable('RecommendLinkTable');
+	    $idStr = 'id='.str_replace(',', ' OR id=', $id);
+	    $rs = $recommendLinkTable->deleteMuti($idStr);
+	    if ($rs) {
+	        $this->_message('已删除', 'success');
+	    } else {
+	        $this->_message('删除失败!', 'error');
+	    }
+	    return $this->redirect()->toUrl('/nav/applyUrl');
+	}
 	public function addRecommendAction()
 	{
 // 	   $ids = $this->params()->fromQuery('id');
@@ -587,6 +717,18 @@ class NavController extends AbstractActionController
 		$paginator = new Paginator($table->formatWhere($params)->getListToPaginator($order));
 		$paginator->setCurrentPageNumber($page)->setItemCountPerPage($all ? 10000 : (isset($params['pageSize']) ? $params['pageSize'] : self::LIMIT));
 		return $paginator;
+	}
+	private function _getRecommendLinkPaginator($params, $all = false)
+	{
+	    $page = isset($params['page']) ? $params['page'] : 1;
+	    $order = array();
+	    if ($params['orderField']) {
+	        $order = array("{$params['orderField']}" => $params['orderType']);
+	    }
+	    $table = $this->_getTable('RecommendLinkTable');
+	    $paginator = new Paginator($table->formatWhere($params)->getListToPaginator($order));
+	    $paginator->setCurrentPageNumber($page)->setItemCountPerPage($all ? 10000 : (isset($params['pageSize']) ? $params['pageSize'] : self::LIMIT));
+	    return $paginator;
 	}
 	public function addItemAction()
 	{

@@ -98,7 +98,10 @@ class RecommendLinkTable extends TableGateway
     }
     function updateFieldsByID($fields, $id)
     {
-    	return $this->update($fields, array('UserID' => $id));
+    	return $this->update($fields, array('id' => $id));
+    }
+    function deleteMuti($where) {
+        return parent::delete($where);
     }
     public function updateImage($id , $imageFile){
     	return $this->update(array('imgUrl' => $imageFile) , array('id' => (int)$id));

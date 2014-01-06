@@ -1,0 +1,25 @@
+<?php 
+$item = $this->item;
+if ($item->status == 1):
+?>
+<div class="input-group">
+<center>已收录的网址不能重复审核！</center>
+</div>
+<?php else:?>
+<div class="input-group">
+网址名称：<?php echo $item->title;?>
+</div>
+<div class="input-group">
+地址：<?php echo $item->url;?>
+<input type="hidden" name="apply_recommend_id" value="<?php echo $item->id;?>" />
+</div>
+<div class="input-group">
+	<label>分类确认</label>
+    <select name="apply_recommend_cid">
+    <?php foreach ($this->category as $k=>$v):?>
+    	<option value="<?php echo $k;?>" <?php echo $this->cid==$k ? 'selected=selected' : '';?>><?php echo $v;?></option>
+    <?php endforeach;?>
+    </select>
+<!-- <button class="button-element" type="submit">确定</button> -->
+</div>
+<?php endif;?>
