@@ -320,15 +320,15 @@ $(function() {
 		cache:false,
 		async:false,
 		success:function(s) {
-			if (s.day_1) {
+			if (s.day_1.temp) {
 				$("#day_1 .wtpic").html(s.day_1.img);
 				$("#day_1 .wt1 .wtline").eq(1).html(s.day_1.temp[1]+'～'+s.day_1.temp[0]);
 			}
-			if (s.day_2) {
+			if (s.day_2.temp) {
 				$("#day_2 .wtpic").html(s.day_2.img);
 				$("#day_2 .wt1 .wtline").eq(1).html(s.day_2.temp[1]+'～'+s.day_2.temp[0]);
 			}
-			if (s.day_3) {
+			if (s.day_3.temp) {
 				$("#day_3 .wtpic").html(s.day_3.img);
 				$("#day_3 .wt1 .wtline").eq(1).html(s.day_3.temp[1]+'～'+s.day_3.temp[0]);
 			}
