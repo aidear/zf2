@@ -113,7 +113,7 @@ class AjaxController extends AbstractActionController
 // 				$data = $curl->get_contents($url);
                 $config = array(
         	        'adapter'   => 'Zend\Http\Client\Adapter\Curl',
-        	        'curloptions' => array(CURLOPT_FOLLOWLOCATION => true),
+        	        'curloptions' => array(CURLOPT_FOLLOWLOCATION => true, CURLOPT_HEADER => true),
         	    );
                 $client = new \Zend\Http\Client($url, $config);
                 $response = $client->send();
