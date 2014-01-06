@@ -109,9 +109,15 @@ class AjaxController extends AbstractActionController
 				if ($py) {
 					$url .= '&py='.$py;
 				}
-				$curl = CURL::getInstance();
-				$data = $curl->get_contents($url);
-				$weather = json_decode($data, true);
+// 				$curl = CURL::getInstance();
+// 				$data = $curl->get_contents($url);
+                $config = array(
+        	        'adapter'   => 'Zend\Http\Client\Adapter\Curl',
+        	        'curloptions' => array(CURLOPT_FOLLOWLOCATION => true),
+        	    );
+                $client = new \Zend\Http\Client($url, $config);
+                $response = $client->send();
+				$weather = json_decode($response->getContent(), true);
 				$rs['day_1'] = array(
 						'temp' => $weather['temp1'],
 						'weather_desc' => $weather['weather1'],
