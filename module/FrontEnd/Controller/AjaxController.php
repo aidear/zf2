@@ -111,13 +111,14 @@ class AjaxController extends AbstractActionController
 				}
 // 				$curl = CURL::getInstance();
 // 				$data = $curl->get_contents($url);
-                $config = array(
-        	        'adapter'   => 'Zend\Http\Client\Adapter\Curl',
-        	        'curloptions' => array(CURLOPT_FOLLOWLOCATION => true, CURLOPT_HEADER => true),
-        	    );
-                $client = new \Zend\Http\Client($url, $config);
-                $response = $client->send();
-				$weather = json_decode($response->getContent(), true);
+//                 $config = array(
+//         	        'adapter'   => 'Zend\Http\Client\Adapter\Curl',
+//         	        'curloptions' => array(CURLOPT_FOLLOWLOCATION => true, CURLOPT_HEADER => true),
+//         	    );
+//                 $client = new \Zend\Http\Client($url, $config);
+//                 $response = $client->send();
+                $data = Utilities::curl_content($url);
+				$weather = json_decode($data, true);
 				$rs['day_1'] = array(
 						'temp' => $weather['temp1'],
 						'weather_desc' => $weather['weather1'],
