@@ -232,7 +232,7 @@ $msg = $this->flashMessages();?>
             => $this->url('backend' , array('controller' => 'nav' , 'action' => 'items')).'?'.$this->query));?>
     </div>
 </div>
-<div id="dialog" title="审核确认" style="display: none;">懂得
+<div id="dialog" title="审核确认" style="display: none;">
 </div>
 <script type="text/javascript">
 $(function(){
@@ -248,6 +248,7 @@ $(function(){
 		if (id != '') {
 			var url = "/nav/urlConfrimLayer";
 			var key = $(this).attr('key');
+			$("#dialog").html('');
 			$.ajax({
                 type: 'GET',
                 url: url,
