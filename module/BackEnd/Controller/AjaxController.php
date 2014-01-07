@@ -18,10 +18,7 @@
 namespace BackEnd\Controller;
 
 use Custom\Mvc\Controller\AbstractActionController;
-use Custom\Util\Utilities;
 use Zend\View\Model\JsonModel;
-use Zend\View\Model\ViewModel;
-use BackEnd\Model\Users\RegionTable;
 use Zend\Config\Config;
 use Zend\Config\Writer\PhpArray;
 use BackEnd\Model\Nav\Link;
@@ -88,7 +85,12 @@ class AjaxController extends AbstractActionController
 	        $link->exchangeArray($item->toArray());
 	        $link->recommend_id = $id;
 	    	$linkTable->save($link);
-	    	$recommendLinkTable->updateFieldsByID(array('status' => 1), $id);
+	    	$container = $this->_getSession();
+	    	$recommendLinkTable->updateFieldsByID(array(
+	    	     'status' => 1,
+	    	     'approvedTime' => date('Y-m-d H:i:s'),
+	    	     'approvedUser' => $container->Name,
+	    	), $id);
 	    	$rs = array('code' => 0, 'msg' => '已录入网址库，审核通过！', 'data' => $id);
 	    }
 	

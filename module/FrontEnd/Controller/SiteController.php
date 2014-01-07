@@ -2,8 +2,6 @@
 namespace FrontEnd\Controller;
 
 use Custom\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\ViewModel;
-use Custom\Util\Utilities;
 use FrontEnd\Model\Nav\RecommendLink;
 use FrontEnd\Form\AdvApplyForm;
 use FrontEnd\Model\Site\AdvApply;
@@ -29,6 +27,8 @@ class SiteController extends AbstractActionController
         	$recommendTable = $this->_getTable('RecommendLinkTable');
         	$recommendLink = new RecommendLink();
         	$recommendLink->exchangeArray($params->toArray());
+        	$container = $this->_getSession('member');
+        	$recommendLink->user_name = isset($container->UserName) ? $container->UserName : NULL;
         	$rs = $recommendTable->save($recommendLink);
         	if ($rs) {
         	   $assign['save'] = 1;

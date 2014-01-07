@@ -26,7 +26,6 @@ use BackEnd\Form\NavCategoryForm;
 use BackEnd\Model\Nav\NavCategory;
 use BackEnd\Form\LinkForm;
 use BackEnd\Model\Nav\Link;
-
 class NavController extends AbstractActionController
 {
 	protected  $op = array();
@@ -484,16 +483,6 @@ class NavController extends AbstractActionController
 	    /*category info*/
 	    $cateInfo = $navTable->getOneById($cid);
 	
-	    $where = '1=1';
-	    if ($cid) {
-	        // 			$where['category'] = $cid;
-	        $where .= " AND category={$cid}";
-	    }
-	    if($title){
-	        $params['title'] = $title;
-	        $where .= " AND (title LIKE '%{$title}%' OR url LIKE '%{$title}%')";
-	    }
-	
 	    //params
 	    if ($cid) {
 	        $params['cid'] = $cid;
@@ -527,8 +516,6 @@ class NavController extends AbstractActionController
 	
 	    $items = $paginaction->getCurrentItems()->toArray();
 	    foreach ($items as $k=>$v) {
-// 	        $items[$k]['categoryName'] = isset($this->category[$v['category']]) ? $this->category[$v['category']] : '';
-// 	        $items[$k]['area'] = $this->_getAreaLink($v['province'], $v['city']);
             $statusDesc = '审核中';
             switch($v['status']) {
             	case 1:
