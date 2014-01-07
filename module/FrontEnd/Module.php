@@ -1,15 +1,8 @@
 <?php
 namespace FrontEnd;
-use Zend\Db\ResultSet\ResultSet;
-use Zend\Db\TableGateway\TableGateway;
 
-use Zend\Session\SessionManager;
 use Zend\Session\Container;
-// use Zend\Mvc\ModuleRouteListener;
-use Zend\Mvc\MvcEvent;
 use Zend\EventManager\EventInterface as Event;
-use Custom\Util\Utilities;
-
 class Module
 {
 	public function onBootstrap(Event $e)
