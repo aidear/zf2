@@ -53,4 +53,10 @@ class FeedbackTable extends TableGateway
     
         return new DbSelect($select, $this->getAdapter());
     }
+    protected function _getSelect(){
+        if(!isset($this->select)){
+            $this->select = $this->getSql()->select();
+        }
+        return $this->select;
+    }
 }
