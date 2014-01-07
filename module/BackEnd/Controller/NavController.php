@@ -478,7 +478,7 @@ class NavController extends AbstractActionController
 	    $pageSize = $this->params()->fromQuery('pageSize');
 	    $table = $this->_getTable('RecommendLinkTable');
 	    $navTable = $this->_getTable('NavCategoryTable');
-	    $title = $this->params()->fromQuery('title' , '');
+	    $k = $this->params()->fromQuery('k' , '');
 	
 	    /*category info*/
 	    $cateInfo = $navTable->getOneById($cid);
@@ -487,8 +487,8 @@ class NavController extends AbstractActionController
 	    if ($cid) {
 	        $params['cid'] = $cid;
 	    }
-	    if ($title) {
-	        $params['title'] = $title;
+	    if ($k) {
+	        $params['k'] = $k;
 	    }
 	    if ($pageSize) {
 	        $params['pageSize'] = $pageSize;
@@ -541,6 +541,7 @@ class NavController extends AbstractActionController
 	            'cateInfo' => $cateInfo,
 	            'startNumber' => $startNumber,
 	            'cid' => $cid,
+	            'k' => $k,
 	            'orderQuery' => http_build_query($orderPageParams),
 	            'query' => http_build_query($removePageParams),
 	            'order' => $order,

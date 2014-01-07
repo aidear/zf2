@@ -77,6 +77,7 @@ class SiteController extends AbstractActionController
 	        'orderQuery' => http_build_query($orderPageParams),
 	        'query' => http_build_query($removePageParams),
 	        'order' => $order,
+            'k' => $k,
 	    );
 	    return $assign;
 	}
@@ -94,7 +95,7 @@ class SiteController extends AbstractActionController
 	    } else {
 	        $this->_message('删除失败!', 'error');
 	    }
-	    return $this->redirect()->toUrl('/nav/advApply');
+	    return $this->redirect()->toUrl('/site/advApply');
 	}
 	public function feedbackAction()
 	{
@@ -142,6 +143,7 @@ class SiteController extends AbstractActionController
 	        'orderQuery' => http_build_query($orderPageParams),
 	        'query' => http_build_query($removePageParams),
 	        'order' => $order,
+	        'k' => $k,
 	    );
 	    return $assign;
 	}
@@ -159,7 +161,7 @@ class SiteController extends AbstractActionController
 	    } else {
 	        $this->_message('删除失败!', 'error');
 	    }
-	    return $this->redirect()->toUrl('/nav/feedback');
+	    return $this->redirect()->toUrl('/site/feedback');
 	}
 	private function _getAdvApplyPaginator($params, $all = false)
 	{

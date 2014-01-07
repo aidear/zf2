@@ -115,12 +115,22 @@ class RecommendLinkTable extends TableGateway
     
     function formatWhere(array $data){
     	$where = $this->_getSelect()->where;
-    	if(!empty($data['title'])){
-    		//     		if('id' == $data['searchType']){
-    		//     			$where->equalTo('MerchantFeedConfig.MerchantID', (int)$data['search']);
-    		//     		}elseif('name' == $data['searchType']){
-    		$where->like('title', '%' . $data['title'] . '%')->orPredicate(new Like('Url', '%' . $data['title'] . '%'));
-    		//     		}
+    	if(!empty($data['k'])){
+    		$where->like('title', '%' . $data['k'] . '%');
+    		$where->or;
+    		$where->like('url', '%' . $data['k'] . '%');
+    		$where->or;
+    		$where->like('QQ', '%' . $data['k'] . '%');
+    		$where->or;
+    		$where->like('user_name', '%' . $data['k'] . '%');
+    		$where->or;
+    		$where->like('email', '%' . $data['k'] . '%');
+    		$where->or;
+    		$where->like('mobile', '%' . $data['k'] . '%');
+    		$where->or;
+    		$where->like('description', '%' . $data['k'] . '%');
+    		$where->or;
+    		$where->like('note', '%' . $data['k'] . '%');
     	}
     	if(!empty($data['cid'])){
     		$where->equalTo('link.category', $data['cid']);
