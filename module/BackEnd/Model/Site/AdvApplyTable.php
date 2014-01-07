@@ -12,6 +12,9 @@ class AdvApplyTable extends TableGateway
         $row = $rowset->current();
         return $row;
     }
+    function deleteMuti($where) {
+        return parent::delete($where);
+    }
     function save(AdvApply $apply){
         $adv = $apply->toArray();
         unset($adv['inputFilter']);
@@ -33,12 +36,27 @@ class AdvApplyTable extends TableGateway
     }
     function formatWhere(array $data){
         $where = $this->_getSelect()->where;
-        if(!empty($data['title'])){
-//             $where->like('title', '%' . $data['title'] . '%')->orPredicate(new Like('Url', '%' . $data['title'] . '%'));
+        if(!empty($data['k'])){
+            $where->like('title',  '%' . $data['k'] . '%');
+            $where->or;
+            $where->like('url',  '%' . $data['k'] . '%');
+            $where->or;
+            $where->like('QQ',  '%' . $data['k'] . '%');
+            $where->or;
+            $where->like('email',  '%' . $data['k'] . '%');
+            $where->or;
+            $where->like('tel',  '%' . $data['k'] . '%');
+            $where->or;
+            $where->like('position',  '%' . $data['k'] . '%');
+            $where->or;
+            $where->like('build_time',  '%' . $data['k'] . '%');
+            $where->or;
+            $where->like('dailyView',  '%' . $data['k'] . '%');
+            $where->or;
+            $where->like('summary',  '%' . $data['k'] . '%');
+            $where->or;
+            $where->like('ip',  '%' . $data['k'] . '%');
         }
-//         if(!empty($data['cid'])){
-//             $where->equalTo('link.category', $data['cid']);
-//         }
     
         $this->select->where($where);
         return $this;

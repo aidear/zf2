@@ -5,6 +5,16 @@ $msg = $this->flashMessages();?>
     <div class="box-header">
         <h2><i class="icon-box"></i>广告申请</h2>
         <div class="t_top">
+            <div class="t_inline">
+        	<form class="form-inline" action="<?php echo $this->url('backend', array('controller' 
+            => 'site', 'action' => 'advApply')); ?>" method="get">
+                <div class="input-group">
+                    <input autocomplete="off" class="input-element span3" value="<?php echo isset($this->k) ? $this->k : '';?>" name="k" type="text">
+                    
+                <button class="button-element" type="submit">搜索</button>
+                </div>
+        	</form>
+        	</div>
         	<p class='t_right'>
         <a class="btn btn-delete" href="javascript:;" _href="<?php echo $this->url('backend', array('controller' 
                                 => 'site', 'action' => 'deleteAdvApply')) ?>?id=" onClick="diyConfirm('删除' , $(this).attr('href'), this);return false;"><i class="icon-delete"></i>删除

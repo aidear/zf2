@@ -37,12 +37,12 @@ class SiteController extends AbstractActionController
 	    $params = array();
 	    $page = $this->params()->fromQuery('page' , 1);
 	    $pageSize = $this->params()->fromQuery('pageSize');
-	    $title = $this->params()->fromQuery('title' , '');
+	    $k = $this->params()->fromQuery('k' , '');
 	    
 	    
 	    //params
-	    if ($title) {
-	        $params['title'] = $title;
+	    if ($k) {
+	        $params['k'] = $k;
 	    }
 	    if ($pageSize) {
 	        $params['pageSize'] = $pageSize;
@@ -81,7 +81,21 @@ class SiteController extends AbstractActionController
 	    return $assign;
 	}
 	public function deleteAdvApplyAction()
-	{}
+	{
+	    $id = $this->params()->fromQuery('id', '');
+	    if (!$id) {
+	        throw new \Exception('incomplete item id');
+	    }
+	    $table = $this->_getTable('AdvApplyTable');
+	    $idStr = 'id='.str_replace(',', ' OR id=', $id);
+	    $rs = $table->deleteMuti($idStr);
+	    if ($rs) {
+	        $this->_message('已删除', 'success');
+	    } else {
+	        $this->_message('删除失败!', 'error');
+	    }
+	    return $this->redirect()->toUrl('/nav/advApply');
+	}
 	public function feedbackAction()
 	{
 	    $routeParams = array('controller' => 'site' , 'action' => 'feedback');
@@ -89,12 +103,12 @@ class SiteController extends AbstractActionController
 	    $params = array();
 	    $page = $this->params()->fromQuery('page' , 1);
 	    $pageSize = $this->params()->fromQuery('pageSize');
-	    $title = $this->params()->fromQuery('title' , '');
+	    $k = $this->params()->fromQuery('k' , '');
 	     
 	     
 	    //params
-	    if ($title) {
-	        $params['title'] = $title;
+	    if ($k) {
+	        $params['k'] = $k;
 	    }
 	    if ($pageSize) {
 	        $params['pageSize'] = $pageSize;
@@ -132,7 +146,21 @@ class SiteController extends AbstractActionController
 	    return $assign;
 	}
 	public function deleteFeedbackAction()
-	{}
+	{
+	    $id = $this->params()->fromQuery('id', '');
+	    if (!$id) {
+	        throw new \Exception('incomplete item id');
+	    }
+	    $table = $this->_getTable('FeedbackTable');
+	    $idStr = 'id='.str_replace(',', ' OR id=', $id);
+	    $rs = $table->deleteMuti($idStr);
+	    if ($rs) {
+	        $this->_message('已删除', 'success');
+	    } else {
+	        $this->_message('删除失败!', 'error');
+	    }
+	    return $this->redirect()->toUrl('/nav/feedback');
+	}
 	private function _getAdvApplyPaginator($params, $all = false)
 	{
 	    $page = isset($params['page']) ? $params['page'] : 1;

@@ -13,6 +13,9 @@ class FeedbackTable extends TableGateway
         $row = $rowset->current();
         return $row;
     }
+    function deleteMuti($where) {
+        return parent::delete($where);
+    }
     function save(Feedback $fed){
         $adv = $fed->toArray();
         unset($adv['inputFilter']);
@@ -34,13 +37,11 @@ class FeedbackTable extends TableGateway
     }
     function formatWhere(array $data){
         $where = $this->_getSelect()->where;
-        if(!empty($data['title'])){
-            //             $where->like('title', '%' . $data['title'] . '%')->orPredicate(new Like('Url', '%' . $data['title'] . '%'));
+        if(!empty($data['k'])){
+            $where->like('content',  '%' . $data['k'] . '%');
+            $where->or;
+            $where->like('contact',  '%' . $data['k'] . '%');
         }
-        //         if(!empty($data['cid'])){
-        //             $where->equalTo('link.category', $data['cid']);
-        //         }
-    
         $this->select->where($where);
         return $this;
     }
