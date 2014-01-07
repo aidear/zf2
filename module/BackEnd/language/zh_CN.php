@@ -283,6 +283,8 @@ return array(
     'Index_index' => '管理中心',
     
     'site_index' => '网站统计',
+    'site_advApply' => '广告申请',
+    'site_feedback' => '意见建议',
     
     'role_index' => '角色管理',
     'role_save' => '角色管理',

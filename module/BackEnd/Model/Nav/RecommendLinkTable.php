@@ -4,14 +4,8 @@ namespace BackEnd\Model\Nav;
 
 use Custom\Paginator\Adapter\DbSelect;
 
-use Zend\Db\Adapter\Adapter;
-use Zend\Db\ResultSet\ResultSetInterface;
-use Zend\Db\Sql\Select;
-
-use Zend\Db\Sql\Update;
 use Zend\Db\Sql\Where;
 use Zend\Db\TableGateway\TableGateway;
-use BackEnd\Model\Nav\NavCategory;
 use Zend\Db\Sql\Predicate\Like;
 
 class RecommendLinkTable extends TableGateway

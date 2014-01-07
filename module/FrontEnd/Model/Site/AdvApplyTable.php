@@ -26,7 +26,7 @@ class AdvApplyTable extends TableGateway
                 return $this->getLastInsertValue();
             }
         }else{
-            $id = $link['id'];
+            $id = $adv['id'];
             if($this->getOneById($id)){
                 unset($adv['id']);
                 unset($adv['add_time']);

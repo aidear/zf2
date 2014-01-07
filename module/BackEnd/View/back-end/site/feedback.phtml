@@ -1,0 +1,126 @@
+<?php
+$this->headScript()->appendFile($this->basePath('js/jquery-ui-1.10.2.custom.min.js'));
+$msg = $this->flashMessages();?>
+<div class="box">
+    <div class="box-header">
+        <h2><i class="icon-box"></i>意见建议</h2>
+        <div class="t_top">
+        	<p class='t_right'>
+        <a class="btn btn-delete" href="javascript:;" _href="<?php echo $this->url('backend', array('controller' 
+                                => 'site', 'action' => 'deleteFeedback')) ?>?id=" onClick="diyConfirm('删除' , $(this).attr('href'), this);return false;"><i class="icon-delete"></i>删除
+                            </a>
+        </p>
+        </div>
+    </div>
+    <div class="box-content">
+    <?php if(!empty($msg['error'])):?>
+            <div class="alert alert-error fade in">
+            <button class="close" data-dismiss="alert" type="button">×</button>
+            <?php foreach($msg['error'] as $v):?>
+            <p><?php echo $v;?></p>
+            <?php endforeach;?>
+            </div>
+            <?php endif;?>
+            
+            <?php if(!empty($msg['success'])):?>
+            <div class="alert alert-success fade in">
+            <button class="close" data-dismiss="alert" type="button">×</button>
+            <?php foreach($msg['success'] as $v):?>
+            <p><?php echo $v;?></p>
+            <?php endforeach;?>
+            </div>
+            <?php endif;?>
+        <table class="table" id="table1">
+            <thead>
+                <tr class="row">
+                	<th>全选<input type="checkbox" name="select_all" value="all"/></th>
+                    <th>编号</th>
+                    <th>
+                    <?php if (isset($this->order['content'])):?>
+                    <?php $name = $this->order['content'];?>
+                    <a href="<?php echo $name['href'];?>">内容<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	内容
+                    <?php endif;?>
+                    </th>
+                    <th>
+                    <?php if (isset($this->order['contact'])):?>
+                    <?php $name = $this->order['contact'];?>
+                    <a href="<?php echo $name['href'];?>">联系方式<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	联系方式
+                    <?php endif;?>
+                    </th>
+                    <th>
+                    <?php if (isset($this->order['ip'])):?>
+                    <?php $name = $this->order['ip'];?>
+                    <a href="<?php echo $name['href'];?>">ip<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	ip
+                    <?php endif;?>
+                    </th>
+                    <th>
+                    <?php if (isset($this->order['add_time'])):?>
+                    <?php $name = $this->order['add_time'];?>
+                    <a href="<?php echo $name['href'];?>">提交时间<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	提交时间
+                    <?php endif;?>
+                    </th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr class="row">
+                	<th>全选<input type="checkbox" name="select_all" value="all"/></th>
+                    <th>编号</th>
+                    <th>
+                    <?php if (isset($this->order['content'])):?>
+                    <?php $name = $this->order['content'];?>
+                    <a href="<?php echo $name['href'];?>">内容<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	内容
+                    <?php endif;?>
+                    </th>
+                    <th>
+                    <?php if (isset($this->order['contact'])):?>
+                    <?php $name = $this->order['contact'];?>
+                    <a href="<?php echo $name['href'];?>">联系方式<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	联系方式
+                    <?php endif;?>
+                    </th>
+                    <th>
+                    <?php if (isset($this->order['ip'])):?>
+                    <?php $name = $this->order['ip'];?>
+                    <a href="<?php echo $name['href'];?>">ip<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	ip
+                    <?php endif;?>
+                    </th>
+                    <th>
+                    <?php if (isset($this->order['add_time'])):?>
+                    <?php $name = $this->order['add_time'];?>
+                    <a href="<?php echo $name['href'];?>">提交时间<i class="<?php echo $name['class'];?>">&nbsp;</i></a>
+                    <?php else:?>
+                    	提交时间
+                    <?php endif;?>
+                    </th>
+                </tr>
+            </tfoot>
+            <tbody>
+                <?php $startNumber = $this->startNumber;foreach ($this->lists as $nav): ?>
+                    <tr class="row" key="id" primary_value="<?php echo $nav['id']; ?>">
+                    	<td width="60"><input type="checkbox" name="select" value="<?php echo $nav['id']; ?>" data-key="条目" data-value="<?php echo $nav['content']; ?>" /></td>
+                        <td><?php echo $startNumber++;?></td>
+                        <td><?php echo $nav['content']; ?></td>
+                        <td><?php echo $nav['contact']; ?></td>
+                        <td><?php echo $nav['ip']; ?></td>
+                        <td><?php echo $nav['add_time']; ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+        <?php echo $this->paginationControl($this->paginaction,'Sliding','layout/pagination' , array('link' 
+            => $this->url('backend' , array('controller' => 'site' , 'action' => 'feedback')).'?'.$this->query));?>
+    </div>
+</div>

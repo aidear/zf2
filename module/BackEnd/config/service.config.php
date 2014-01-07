@@ -110,6 +110,18 @@ return array(
 					$resultSetPrototype->setArrayObjectPrototype(new Model\Promotion\ProType());
 					return new Model\Promotion\ProTypeTable('pro_rule_type', $dbAdapter, null, $resultSetPrototype);
 				},
+				'AdvApplyTable' =>  function($sm) {
+				    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+				    $resultSetPrototype = new ResultSet();
+				    $resultSetPrototype->setArrayObjectPrototype(new Model\Site\AdvApply());
+				    return new Model\Site\AdvApplyTable('adv_apply', $dbAdapter, null, $resultSetPrototype);
+				},
+				'FeedbackTable' =>  function($sm) {
+				    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+				    $resultSetPrototype = new ResultSet();
+				    $resultSetPrototype->setArrayObjectPrototype(new Model\Site\Feedback());
+				    return new Model\Site\FeedbackTable('feedback', $dbAdapter, null, $resultSetPrototype);
+				},
 				//Nav
 				'backendNav' => '\Custom\Navigation\Service\BackendNavigation',
 				

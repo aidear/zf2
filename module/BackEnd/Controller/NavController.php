@@ -18,16 +18,9 @@
 namespace BackEnd\Controller;
 
 use Zend\Paginator\Paginator;
-use Zend\Form\Form;
-use Zend\Form\Element;
 use Custom\Mvc\Controller\AbstractActionController;
 use Custom\Util\Utilities;
-use Custom\Mvc\ActionEvent;
 use Custom\File\Uploader;
-
-use Zend\Validator\File\Size;
-
-use Zend\File\Transfer\Adapter\Http;
 use Zend\View\Model\ViewModel;
 use BackEnd\Form\NavCategoryForm;
 use BackEnd\Model\Nav\NavCategory;

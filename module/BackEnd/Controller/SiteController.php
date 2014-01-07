@@ -19,6 +19,7 @@ namespace BackEnd\Controller;
 
 use Custom\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+use Zend\Paginator\Paginator;
 class SiteController extends AbstractActionController
 {
 	public function indexAction()
@@ -28,5 +29,132 @@ class SiteController extends AbstractActionController
 		
 		$rs = array('memberStatist' => $memberS);
 		return new ViewModel($rs);
+	}
+	public function advApplyAction()
+	{
+	    $routeParams = array('controller' => 'site' , 'action' => 'advApply');
+	    $prefixUrl = $this->url()->fromRoute(null, $routeParams);
+	    $params = array();
+	    $page = $this->params()->fromQuery('page' , 1);
+	    $pageSize = $this->params()->fromQuery('pageSize');
+	    $title = $this->params()->fromQuery('title' , '');
+	    
+	    
+	    //params
+	    if ($title) {
+	        $params['title'] = $title;
+	    }
+	    if ($pageSize) {
+	        $params['pageSize'] = $pageSize;
+	    }
+	    
+	    $params['orderField'] = $this->params()->fromQuery('orderField', '');
+	    $params['orderType'] = $this->params()->fromQuery('orderType', '');
+	    
+	    $removePageParams = $params;
+	    
+	    $params['page'] = $this->params()->fromQuery('page' , 1);
+	    
+	    $orderPageParams = $params;
+	    
+	    $act = $this->params()->fromQuery('act');
+	    $paginaction = $this->_getAdvApplyPaginator($params);
+	    
+	    $items = $paginaction->getCurrentItems()->toArray();
+// 	    foreach ($items as $k=>$v) {
+	        // 	        $items[$k]['categoryName'] = isset($this->category[$v['category']]) ? $this->category[$v['category']] : '';
+	        // 	        $items[$k]['area'] = $this->_getAreaLink($v['province'], $v['city']);
+// 	    }
+	    $startNumber = 1+($page-1)*$paginaction->getItemCountPerPage();
+	    
+	    $order = $this->_getOrder($prefixUrl, array('title', 'url', 'QQ', 'position','dailyView',
+	        'email', 'tel', 'summary', 'build_time', 'add_time', 'ip'), $removePageParams);
+	    
+	    $assign = array(
+	        'paginaction' => $paginaction,
+	        'lists' => $items,
+	        'startNumber' => $startNumber,
+	        'orderQuery' => http_build_query($orderPageParams),
+	        'query' => http_build_query($removePageParams),
+	        'order' => $order,
+	    );
+	    return $assign;
+	}
+	public function deleteAdvApplyAction()
+	{}
+	public function feedbackAction()
+	{
+	    $routeParams = array('controller' => 'site' , 'action' => 'feedback');
+	    $prefixUrl = $this->url()->fromRoute(null, $routeParams);
+	    $params = array();
+	    $page = $this->params()->fromQuery('page' , 1);
+	    $pageSize = $this->params()->fromQuery('pageSize');
+	    $title = $this->params()->fromQuery('title' , '');
+	     
+	     
+	    //params
+	    if ($title) {
+	        $params['title'] = $title;
+	    }
+	    if ($pageSize) {
+	        $params['pageSize'] = $pageSize;
+	    }
+	     
+	    $params['orderField'] = $this->params()->fromQuery('orderField', '');
+	    $params['orderType'] = $this->params()->fromQuery('orderType', '');
+	     
+	    $removePageParams = $params;
+	     
+	    $params['page'] = $this->params()->fromQuery('page' , 1);
+	     
+	    $orderPageParams = $params;
+	     
+	    $act = $this->params()->fromQuery('act');
+	    $paginaction = $this->_getFeedbackPaginator($params);
+	     
+	    $items = $paginaction->getCurrentItems()->toArray();
+	    // 	    foreach ($items as $k=>$v) {
+	    // 	        $items[$k]['categoryName'] = isset($this->category[$v['category']]) ? $this->category[$v['category']] : '';
+	    // 	        $items[$k]['area'] = $this->_getAreaLink($v['province'], $v['city']);
+	    // 	    }
+	    $startNumber = 1+($page-1)*$paginaction->getItemCountPerPage();
+	     
+	    $order = $this->_getOrder($prefixUrl, array('content', 'contact','add_time', 'ip'), $removePageParams);
+	     
+	    $assign = array(
+	        'paginaction' => $paginaction,
+	        'lists' => $items,
+	        'startNumber' => $startNumber,
+	        'orderQuery' => http_build_query($orderPageParams),
+	        'query' => http_build_query($removePageParams),
+	        'order' => $order,
+	    );
+	    return $assign;
+	}
+	public function deleteFeedbackAction()
+	{}
+	private function _getAdvApplyPaginator($params, $all = false)
+	{
+	    $page = isset($params['page']) ? $params['page'] : 1;
+	    $order = array();
+	    if ($params['orderField']) {
+	        $order = array("{$params['orderField']}" => $params['orderType']);
+	    }
+	    $table = $this->_getTable('AdvApplyTable');
+	    $paginator = new Paginator($table->formatWhere($params)->getListToPaginator($order));
+	    $paginator->setCurrentPageNumber($page)->setItemCountPerPage($all ? 10000 : (isset($params['pageSize']) ? $params['pageSize'] : self::LIMIT));
+	    return $paginator;
+	}
+	private function _getFeedbackPaginator($params, $all = false)
+	{
+	    $page = isset($params['page']) ? $params['page'] : 1;
+	    $order = array();
+	    if ($params['orderField']) {
+	        $order = array("{$params['orderField']}" => $params['orderType']);
+	    }
+	    $table = $this->_getTable('FeedbackTable');
+	    $paginator = new Paginator($table->formatWhere($params)->getListToPaginator($order));
+	    $paginator->setCurrentPageNumber($page)->setItemCountPerPage($all ? 10000 : (isset($params['pageSize']) ? $params['pageSize'] : self::LIMIT));
+	    return $paginator;
 	}
 }
